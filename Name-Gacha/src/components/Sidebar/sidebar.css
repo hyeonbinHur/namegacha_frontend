@@ -3,30 +3,34 @@
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-image: linear-gradient(to right bottom, #51caf4, #c5f9ff);
+    background-image: linear-gradient(
+        to right bottom,
+        #a6d8f1,
+        #befbff,
+        #c5f9ff
+    );
 }
 
 .logo {
     height: 2rem;
     position: absolute;
-    top: 2%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0%);
+    transform: translate(-50%, -50%);
 }
-.component-container {
+.logo-container {
     width: 100%;
-    height: 100%;
+    height: 10%;
     display: flex;
     position: relative;
 }
-
 .logo:hover {
-    transform: translate(-50%, 0%) translateY(-2px);
+    transform: translate(-50%, -50%) translateY(-2px);
 }
 
 .logo {
     transition: all 0.2s;
 }
 .logo:active {
-    transform: translate(-50%, 0%) translateY(1px);
+    transform: translate(-50%, -50%) translateY(1px);
 }
