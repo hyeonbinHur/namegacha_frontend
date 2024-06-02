@@ -2,14 +2,16 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import DetailPage from './pages/DetailPage';
 import MainPage from './pages/MainPage';
 import AuthPage from './pages/AuthPage';
+import './index.css';
 
 function App() {
     return (
         <BrowserRouter>
+            <nav>{/* Header main nav will come here */}</nav>
             <Routes>
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/detail" element={<DetailPage />} />
-                <Route path="/main" element={<MainPage />} />
+                <Route path="/" element={<MainPage />} />
             </Routes>
         </BrowserRouter>
     );

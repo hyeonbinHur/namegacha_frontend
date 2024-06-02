@@ -1,0 +1,32 @@
+.main {
+    width: 15%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-image: linear-gradient(to right bottom, #51caf4, #c5f9ff);
+}
+
+.logo {
+    height: 2rem;
+    position: absolute;
+    top: 2%;
+    left: 50%;
+    transform: translate(-50%, 0%);
+}
+.component-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: relative;
+}
+
+.logo:hover {
+    transform: translate(-50%, 0%) translateY(-2px);
+}
+
+.logo {
+    transition: all 0.2s;
+}
+.logo:active {
+    transform: translate(-50%, 0%) translateY(1px);
+}
