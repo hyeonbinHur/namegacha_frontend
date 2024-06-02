@@ -1,3 +1,4 @@
+import { SlOptions } from 'react-icons/sl';
 import { AiFillFolder } from 'react-icons/ai';
 import { AiFillFolderOpen } from 'react-icons/ai';
 import { BsCaretUp } from 'react-icons/bs';
@@ -10,16 +11,28 @@ export default function ProjectCard() {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="project-container">
-            <span
-                className="name projet-name"
-                onClick={() => setIsOpen((prev) => !prev)}
-            >
-                <AiFillFolderOpen className="folder" />
-                <AiFillFolder className="folder" />
-                <BsCaretDown className="arrow" />
-                <BsCaretUp className="arrow" />
-                Project Name
-            </span>
+            <div className="name name-main project-name ">
+                <div
+                    className="name-sub"
+                    onClick={() => setIsOpen((prev) => !prev)}
+                >
+                    {isOpen ? (
+                        <div>
+                            <BsCaretUp className="arrow" />
+                            <AiFillFolderOpen className="folder" />
+                        </div>
+                    ) : (
+                        <div>
+                            <BsCaretDown className="arrow" />
+                            <AiFillFolder className="folder" />
+                        </div>
+                    )}
+                    Project Name
+                </div>
+                <div className="option">
+                    <SlOptions />
+                </div>
+            </div>
             {isOpen == true && (
                 <div>
                     <PageCard />

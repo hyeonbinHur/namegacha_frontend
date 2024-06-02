@@ -1,28 +1,53 @@
 import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import { AiFillFolder } from 'react-icons/ai';
+// import { SlOptions } from 'react-icons/sl';
+
 import { AiFillFolderOpen } from 'react-icons/ai';
 import FunctionCard from '../functions/FunctionCard';
 import VarCard from '../variabels/VarCard';
 import './pageCard.css';
+import { useState } from 'react';
 
 export default function PageCard() {
+    const [isOpen, setIsOpen] = useState(false);
     return (
         <div>
-            <div className="name page-name">
-                <AiFillFolderOpen className="folder" />
-                <AiFillFolder className="folder" />
-                <BsCaretDown className="arrow" />
-                <BsCaretUp className="arrow" />
-                Page Name
-            </div>
+            <div
+                className="name name-main page-name"
+                onClick={() => setIsOpen((prev) => !prev)}
+            >
+                <div className="name name-sub ">
+                    {isOpen ? (
+                        <div>
+                            <BsCaretUp className="arrow" />
 
-            <div>
-                <VarCard />
+                            <AiFillFolderOpen className="folder" />
+                        </div>
+                    ) : (
+                        <div>
+                            <BsCaretDown className="arrow" />
+
+                            <AiFillFolder className="folder" />
+                        </div>
+                    )}
+                    Page Name
+                </div>
+
+                {/* <div className="option">
+                    <SlOptions />
+                </div> */}
             </div>
-            <div>
-                <FunctionCard />
-            </div>
+            {isOpen && (
+                <div className="components-container">
+                    <div>
+                        <VarCard />
+                    </div>
+                    <div>
+                        <FunctionCard />
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
