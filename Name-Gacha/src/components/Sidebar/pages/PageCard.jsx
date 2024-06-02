@@ -2,7 +2,6 @@ import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import { AiFillFolder } from 'react-icons/ai';
 // import { SlOptions } from 'react-icons/sl';
-
 import { AiFillFolderOpen } from 'react-icons/ai';
 import FunctionCard from '../functions/FunctionCard';
 import VarCard from '../variabels/VarCard';

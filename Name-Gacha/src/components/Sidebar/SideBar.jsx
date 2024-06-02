@@ -1,5 +1,5 @@
 import logo from '../../assets/logo/black-logo-full.png';
-import ProjectCard from '../projects/ProjectCard.jsx';
+import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
 
 export default function Header() {

@@ -1,0 +1,9 @@
+.Main-container {
+    display: flex;
+}
+.sidebar {
+    width: 15%;
+}
+.mainChat {
+    width: 85%;
+}
