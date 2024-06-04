@@ -1,46 +1,34 @@
 import axios from 'axios';
-async function deleteProject(projectId, projectName) {
+async function deleteProject(projectId) {
     try {
         const endPoint = `http://localhost:8000/namegacha/api/projects/${projectId}`;
-        const body = {
-            projectName: projectName,
-        };
-        return await axios.put(endPoint, body);
+        return await axios.delete(endPoint);
     } catch (error) {
         console.error('error occured from update project API : ', error);
     }
 }
-async function deletePage(pageId, pageName) {
+async function deletePage(pageId) {
     try {
         const endPoint = `http://localhost:8000/namegacha/api/pages/${pageId}`;
-        const body = {
-            pageName: pageName,
-        };
-        return await axios.put(endPoint, body);
+
+        return await axios.delete(endPoint);
     } catch (error) {
         console.error('error occured from update project API : ', error);
     }
 }
-async function deleteVariable(varId, varName, varExp) {
+async function deleteVariable(varId) {
     try {
         const endPoint = `http://localhost:8080/namegacha/api/variables/${varId}`;
-        const body = {
-            variableName: varName,
-            variableExp: varExp,
-        };
-        return await axios.put(endPoint, body);
+        return await axios.delete(endPoint);
     } catch (error) {
         console.error('error occured from update project API : ', error);
     }
 }
-async function deleteFunction(functionId, functionName, functionExp) {
+async function deleteFunction(functionId) {
     try {
         const endPoint = `http://localhost:8080/namegacha/api/functions/${functionId}`;
-        const body = {
-            functionName: functionName,
-            functionExp: functionExp,
-        };
-        return await axios.put(endPoint, body);
+
+        return await axios.delete(endPoint);
     } catch (error) {
         console.error('error occured from update project API : ', error);
     }
