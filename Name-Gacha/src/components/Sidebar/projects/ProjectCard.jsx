@@ -7,7 +7,6 @@ import { BsCaretDown } from 'react-icons/bs';
 import PageCard from '../pages/PageCard.jsx';
 import './projectCard.css';
 import { useEffect, useState } from 'react';
-
 export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
     const [pages, setPages] = useState([]);
