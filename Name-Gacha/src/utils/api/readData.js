@@ -98,3 +98,14 @@ export async function getProjectInfomation(projectId) {
         console.error('Error from getAllProjects: ', error);
     }
 }
+
+export async function getALLInfomation() {
+    try {
+        const resposne = await axios.get(
+            'http://localhost:8080/namegacha/api/all/projects'
+        );
+        return resposne.data;
+    } catch (error) {
+        console.error('Error from getAllProjects: ', error);
+    }
+}

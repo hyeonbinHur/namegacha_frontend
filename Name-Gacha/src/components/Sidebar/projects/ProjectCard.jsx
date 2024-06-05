@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { SlOptions } from 'react-icons/sl';
 import { AiFillFolder } from 'react-icons/ai';
 import { AiFillFolderOpen } from 'react-icons/ai';
@@ -5,10 +6,16 @@ import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import PageCard from '../pages/PageCard.jsx';
 import './projectCard.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function ProjectCard() {
+export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
+    const [pages, setPages] = useState([]);
+    useEffect(() => {
+        if (project.pages) {
+            setPages(project.pages);
+        }
+    }, [project]);
     return (
         <div className="project-container">
             <div className="name name-main project-name ">
@@ -27,16 +34,20 @@ export default function ProjectCard() {
                             <AiFillFolder className="folder" />
                         </div>
                     )}
-                    Project Name
+                    {project.projectName}
                 </div>
                 <div className="option">
                     <SlOptions />
                 </div>
             </div>
             {isOpen == true && (
-                <div>
-                    <PageCard />
-                </div>
+                <ul>
+                    {pages.map((page) => (
+                        <li key={page.pageId}>
+                            <PageCard page={page} />
+                        </li>
+                    ))}
+                </ul>
             )}
         </div>
     );

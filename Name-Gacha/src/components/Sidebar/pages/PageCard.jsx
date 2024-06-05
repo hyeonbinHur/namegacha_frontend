@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import { AiFillFolder } from 'react-icons/ai';
@@ -8,8 +9,9 @@ import VarCard from '../variabels/VarCard';
 import './pageCard.css';
 import { useState } from 'react';
 
-export default function PageCard() {
+export default function PageCard({ page }) {
     const [isOpen, setIsOpen] = useState(false);
+
     return (
         <div>
             <div
@@ -40,10 +42,10 @@ export default function PageCard() {
             {isOpen && (
                 <div className="components-container">
                     <div>
-                        <VarCard />
+                        <VarCard variables={page.variables} />
                     </div>
                     <div>
-                        <FunctionCard />
+                        <FunctionCard functions={page.functions} />
                     </div>
                 </div>
             )}
