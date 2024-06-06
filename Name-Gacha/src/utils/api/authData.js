@@ -12,6 +12,7 @@ async function createUser(userId, userPassword) {
         console.error(err);
     }
 }
+
 async function signInUser(userId, userPassword) {
     try {
         const endPoint = 'http://localhost:8080/namegacha/api/sign-in';
@@ -25,7 +26,16 @@ async function signInUser(userId, userPassword) {
     }
 }
 
-export { createUser, signInUser };
+async function checkAccessToken() {
+    try {
+        const endPoint = 'http://localhost:8080/namegacha/api/accesstoken';
+        return await axios.post(endPoint, {}, { withCredentials: true });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export { createUser, signInUser, checkAccessToken };
 
 //http://localhost:8080/namegacha/api/sign-up
 //http://localhost:8080/namegacha/api/sign-in

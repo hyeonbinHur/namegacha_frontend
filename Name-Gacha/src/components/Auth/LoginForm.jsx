@@ -63,8 +63,15 @@ export default function LoginForm() {
         // 여기에 추가적인 처리 로직을 넣으세요.
     };
 
+    const accCheck = async () => {
+        console.log('Clicked');
+        const response = await auth.checkAccessToken();
+        console.log(response);
+    };
+
     return (
         <div>
+            <button onClick={() => accCheck()}>Accss token check</button>
             <div style={formStyle}>
                 <h2>SIGN UP FORM</h2>
                 <form onSubmit={signUpTest} style={{ width: '100%' }}>
