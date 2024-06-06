@@ -64,14 +64,21 @@ export default function LoginForm() {
     };
 
     const accCheck = async () => {
-        console.log('Clicked');
         const response = await auth.checkAccessToken();
+        console.log(response);
+    };
+
+    const refCheck = async () => {
+        const response = await auth.checkRefreshToken();
         console.log(response);
     };
 
     return (
         <div>
             <button onClick={() => accCheck()}>Accss token check</button>
+            <div>
+                <button onClick={() => refCheck()}>Refresh Token</button>
+            </div>
             <div style={formStyle}>
                 <h2>SIGN UP FORM</h2>
                 <form onSubmit={signUpTest} style={{ width: '100%' }}>

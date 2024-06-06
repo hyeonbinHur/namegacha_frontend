@@ -35,7 +35,16 @@ async function checkAccessToken() {
     }
 }
 
-export { createUser, signInUser, checkAccessToken };
+async function checkRefreshToken() {
+    try {
+        const endPoint = 'http://localhost:8080/namegacha/api/refreshtoken';
+        return await axios.post(endPoint, {}, { withCredentials: true });
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+export { createUser, signInUser, checkAccessToken, checkRefreshToken };
 
 //http://localhost:8080/namegacha/api/sign-up
 //http://localhost:8080/namegacha/api/sign-in
