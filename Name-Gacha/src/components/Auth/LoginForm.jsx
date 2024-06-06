@@ -73,11 +73,19 @@ export default function LoginForm() {
         console.log(response);
     };
 
+    const loginCheck = async () => {
+        const response = await auth.checkLoginStatus();
+        console.log(response);
+    };
+
     return (
         <div>
             <button onClick={() => accCheck()}>Accss token check</button>
             <div>
                 <button onClick={() => refCheck()}>Refresh Token</button>
+            </div>
+            <div>
+                <button onClick={() => loginCheck()}>Login status check</button>
             </div>
             <div style={formStyle}>
                 <h2>SIGN UP FORM</h2>

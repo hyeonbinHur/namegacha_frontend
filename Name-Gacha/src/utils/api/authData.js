@@ -25,26 +25,36 @@ async function signInUser(userId, userPassword) {
         console.error(err);
     }
 }
-
 async function checkAccessToken() {
     try {
         const endPoint = 'http://localhost:8080/namegacha/api/accesstoken';
         return await axios.post(endPoint, {}, { withCredentials: true });
     } catch (err) {
-        console.error(err);
+        return err.response.status;
     }
 }
-
 async function checkRefreshToken() {
     try {
         const endPoint = 'http://localhost:8080/namegacha/api/refreshtoken';
         return await axios.post(endPoint, {}, { withCredentials: true });
     } catch (err) {
-        console.error(err);
+        return err.response.status;
     }
 }
-
-export { createUser, signInUser, checkAccessToken, checkRefreshToken };
+async function checkLoginStatus() {
+    try {
+        return checkAccessToken();
+    } catch (err1) {
+        return checkRefreshToken();
+    }
+}
+export {
+    createUser,
+    signInUser,
+    checkAccessToken,
+    checkRefreshToken,
+    checkLoginStatus,
+};
 
 //http://localhost:8080/namegacha/api/sign-up
 //http://localhost:8080/namegacha/api/sign-in
