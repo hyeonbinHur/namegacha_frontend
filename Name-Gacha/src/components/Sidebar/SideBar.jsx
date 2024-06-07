@@ -4,8 +4,10 @@ import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
 import { useQuery } from 'react-query';
 import { getALLInfomation } from '../../utils/api/readData.js';
+import { useAuthContext } from '../../hooks/useAuthContext.js';
 
 export default function Header() {
+    const { user } = useAuthContext();
     const [projects, setProjects] = useState([]);
     const { data } = useQuery('postAllProjects', getALLInfomation);
     useEffect(() => {
@@ -20,6 +22,7 @@ export default function Header() {
                 <div className="logo">
                     <img src={logo} className="logo" />
                 </div>
+                <div onClick={() => console.log(user)}>show user</div>
             </div>
             <div>
                 <div className="project">

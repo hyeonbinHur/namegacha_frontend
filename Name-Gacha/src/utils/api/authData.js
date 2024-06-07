@@ -28,7 +28,12 @@ async function signInUser(userId, userPassword) {
 async function checkAccessToken() {
     try {
         const endPoint = 'http://localhost:8080/namegacha/api/accesstoken';
-        return await axios.post(endPoint, {}, { withCredentials: true });
+        const response = await axios.post(
+            endPoint,
+            {},
+            { withCredentials: true }
+        );
+        return response.data;
     } catch (err) {
         return err.response.status;
     }
@@ -36,7 +41,12 @@ async function checkAccessToken() {
 async function checkRefreshToken() {
     try {
         const endPoint = 'http://localhost:8080/namegacha/api/refreshtoken';
-        return await axios.post(endPoint, {}, { withCredentials: true });
+        const response = await axios.post(
+            endPoint,
+            {},
+            { withCredentials: true }
+        );
+        return response.data;
     } catch (err) {
         return err.response.status;
     }
