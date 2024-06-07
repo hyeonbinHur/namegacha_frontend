@@ -23,7 +23,15 @@ export const AuthContextProvider = ({ children }) => {
         const checkAuthStatus = async () => {
             const authCheck = await auth.checkLoginStatus();
             if (typeof authCheck !== 'number') {
-                dispatch({ type: 'SIGN-IN', payload: authCheck });
+                const userResponse = await auth.getUserData(
+                    authCheck.data.uuid
+                );
+                const userObject = {
+                    userId: userResponse.userId,
+                    projects: userResponse.projects,
+                    createdAt: userResponse.createdAt,
+                };
+                dispatch({ type: 'SIGN-IN', payload: userObject });
             }
         };
         checkAuthStatus();
