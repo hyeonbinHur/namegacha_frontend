@@ -28,3 +28,7 @@
 "react-router-dom": "^6.23.1"`
 
 > npm install
+
+# aws name
+
+uncle.hyeonb

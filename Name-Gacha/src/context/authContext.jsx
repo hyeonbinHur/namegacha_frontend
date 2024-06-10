@@ -3,6 +3,7 @@ import { createContext, useEffect, useReducer } from 'react';
 import * as auth from '../utils/api/authData.js';
 export const UserContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const authReducer = (state, action) => {
     switch (action.type) {
         case 'SIGN-IN':
