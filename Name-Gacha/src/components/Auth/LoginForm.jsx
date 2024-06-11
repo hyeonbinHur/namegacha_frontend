@@ -1,4 +1,4 @@
-import * as auth from '../../utils/api/authData';
+import * as auth from '../../utils/api/aws/authRoutes';
 
 export default function LoginForm() {
     const formStyle = {
@@ -38,7 +38,7 @@ export default function LoginForm() {
         console.log('Username:', id);
         console.log('Password:', pw);
         try {
-            const response = await auth.createUser(id, pw);
+            const response = await auth.signUpUser(id, pw);
             console.log('User created:', response.data);
         } catch (error) {
             console.error('Error creating user:', error);
@@ -56,7 +56,7 @@ export default function LoginForm() {
         console.log('Password:', pw);
         try {
             const response = await auth.signInUser(id, pw);
-            console.log('User created:', response.data);
+            console.log(response);
         } catch (error) {
             console.error('Error creating user:', error);
         }
@@ -64,17 +64,22 @@ export default function LoginForm() {
     };
 
     const accCheck = async () => {
-        const response = await auth.checkAccessToken();
+        const response = await auth.accessToken();
         console.log(response);
     };
 
     const refCheck = async () => {
-        const response = await auth.checkRefreshToken();
+        const response = await auth.refreshToken();
         console.log(response);
     };
 
     const loginCheck = async () => {
         const response = await auth.checkLoginStatus();
+        console.log(response);
+    };
+
+    const clearTokens = async () => {
+        const response = await auth.signOutUser();
         console.log(response);
     };
 
@@ -86,6 +91,11 @@ export default function LoginForm() {
             </div>
             <div>
                 <button onClick={() => loginCheck()}>Login status check</button>
+            </div>
+            <div>
+                <button onClick={() => clearTokens()}>
+                    Clear access token & refresh token
+                </button>
             </div>
             <div style={formStyle}>
                 <h2>SIGN UP FORM</h2>

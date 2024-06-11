@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useEffect, useReducer } from 'react';
-import * as auth from '../utils/api/authData.js';
+import * as auth from '../utils/api/local/authData.js';
 export const UserContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components

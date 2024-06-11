@@ -3,7 +3,7 @@ import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
 import { useQuery } from 'react-query';
-import { getALLInfomation } from '../../utils/api/readData.js';
+import { getALLInfomation } from '../../utils/api/local/readData.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 
 export default function Header() {
