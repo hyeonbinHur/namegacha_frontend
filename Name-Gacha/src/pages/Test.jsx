@@ -3,10 +3,20 @@ import * as projectAPI from '../utils/api/aws/projectRoutes';
 import * as pageAPI from '../utils/api/aws/pageRoutes';
 import * as variableAPI from '../utils/api/aws/variableRoutes';
 import * as functionAPI from '../utils/api/aws/functionRoutes';
-
+import axios from 'axios';
 import { useQuery } from 'react-query';
 
 export default function Test() {
+    const createThread = async () => {
+        try {
+            const response = await axios.get(
+                'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/ai?content=thread'
+            );
+            console.log(response);
+        } catch (err) {
+            console.error(err);
+        }
+    };
     return (
         <div style={{ display: 'flex' }}>
             <div>
@@ -22,6 +32,8 @@ export default function Test() {
             <div>
                 <FunctionTestCard />
             </div>
+
+            <button onClick={() => createThread()}>button</button>
         </div>
     );
 }
