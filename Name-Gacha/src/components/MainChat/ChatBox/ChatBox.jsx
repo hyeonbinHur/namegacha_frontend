@@ -2,6 +2,7 @@ import './ChatBox.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
 import { setThread, setMessages } from '../../../store/threadSlice';
+
 export default function ChatBox() {
     const currentThread = useSelector(
         (state) => state.currentThread.currentThread
