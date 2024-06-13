@@ -1,14 +1,15 @@
 import './ChatBox.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
-import { setThread } from '../../../store/threadSlice';
-import { useState } from 'react';
+import { setThread, setMessages } from '../../../store/threadSlice';
 export default function ChatBox() {
-    const [reply, setReply] = useState(null);
-
     const currentThread = useSelector(
         (state) => state.currentThread.currentThread
     );
+
+    // const currentMessages = useSelector(
+    //     (state) => state.currentThread.messages
+    // );
 
     const dispatch = useDispatch();
 
@@ -68,8 +69,10 @@ export default function ChatBox() {
             const status = await checkStatus(runId);
             console.log('current status : ' + status);
             if (status === 'completed') {
-                const reply = await aiAPI.readReply(currentThread);
-                setReply(reply);
+                const messages = await aiAPI.readMessages(currentThread);
+                dispatch(setMessages({ messages: messages }));
+            } else if (status === undefined) {
+                return;
             } else {
                 setTimeout(() => readReply(runId), 5000); // Wait for 5 seconds before retrying
             }
@@ -82,6 +85,7 @@ export default function ChatBox() {
         console.log('chat AI start');
         const sendMessageFlag = await sendMessage();
         if (sendMessageFlag !== false) {
+            console.log(currentThread);
             await readReply(sendMessageFlag);
         }
     };
@@ -94,7 +98,8 @@ export default function ChatBox() {
 
             <button onClick={() => createSetThread()}> create Thread</button>
 
-            <button onClick={() => console.log(reply)}>show reply</button>
+            {/* <button onClick={() => console.log(reply)}>show reply</button> */}
+
             <div className="chat-content-container">
                 <input className="user-input-content" type="text" />
 

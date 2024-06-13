@@ -20,23 +20,23 @@ export const AuthContextProvider = ({ children }) => {
         user: null,
     });
 
-    useEffect(() => {
-        const checkAuthStatus = async () => {
-            const authCheck = await auth.checkLoginStatus();
-            if (typeof authCheck !== 'number') {
-                const userResponse = await auth.getUserData(
-                    authCheck.data.uuid
-                );
-                const userObject = {
-                    userId: userResponse.userId,
-                    projects: userResponse.projects,
-                    createdAt: userResponse.createdAt,
-                };
-                dispatch({ type: 'SIGN-IN', payload: userObject });
-            }
-        };
-        checkAuthStatus();
-    }, []);
+    // useEffect(() => {
+    //     const checkAuthStatus = async () => {
+    //         const authCheck = await auth.checkLoginStatus();
+    //         if (typeof authCheck !== 'number') {
+    //             const userResponse = await auth.getUserData(
+    //                 authCheck.data.uuid
+    //             );
+    //             const userObject = {
+    //                 userId: userResponse.userId,
+    //                 projects: userResponse.projects,
+    //                 createdAt: userResponse.createdAt,
+    //             };
+    //             dispatch({ type: 'SIGN-IN', payload: userObject });
+    //         }
+    //     };
+    //     checkAuthStatus();
+    // }, []);
 
     return (
         <UserContext.Provider value={{ ...state, dispatch }}>

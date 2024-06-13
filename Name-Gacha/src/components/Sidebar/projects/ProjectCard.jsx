@@ -10,11 +10,11 @@ import { useEffect, useState } from 'react';
 export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
     const [pages, setPages] = useState([]);
-    useEffect(() => {
-        if (project.pages) {
-            setPages(project.pages);
-        }
-    }, [project]);
+    // useEffect(() => {
+    //     if (project.pages) {
+    //         setPages(project.pages);
+    //     }
+    // }, [project]);
     return (
         <div className="project-container">
             <div className="name name-main project-name ">

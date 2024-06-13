@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
@@ -8,13 +7,12 @@ import { useAuthContext } from '../../hooks/useAuthContext.js';
 
 export default function Header() {
     const { user } = useAuthContext();
-    const [projects, setProjects] = useState([]);
-    const { data } = useQuery('postAllProjects', getALLInfomation);
-    useEffect(() => {
-        if (data) {
-            setProjects(data);
-        }
-    }, [data]);
+    // const { data } = useQuery('postAllProjects', getALLInfomation);
+    // useEffect(() => {
+    //     if (data) {
+    //         setProjects(data);
+    //     }
+    // }, [data]);
 
     return (
         <div className="main">
@@ -26,13 +24,13 @@ export default function Header() {
             </div>
             <div>
                 <div className="project">
-                    <ul>
+                    {/* <ul>
                         {projects.map((project) => (
                             <li key={project.projectId}>
                                 <ProjectCard project={project} />
                             </li>
                         ))}
-                    </ul>
+                    </ul> */}
                 </div>
             </div>
         </div>
