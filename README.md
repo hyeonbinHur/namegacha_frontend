@@ -32,3 +32,7 @@
 # aws name
 
 uncle.hyeonb
+
+# redux
+
+npm install @reduxjs/toolkit react-redux
