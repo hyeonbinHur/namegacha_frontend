@@ -10,6 +10,17 @@ async function getProject(projectId) {
         console.error(err.message);
     }
 }
+
+async function getCertainProjects(uuid) {
+    try {
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project/projects?content=certain&uuid=${uuid}`;
+        const response = await axios.get(endPoint);
+        return response;
+    } catch (err) {
+        return err;
+    }
+}
+
 async function getProjects() {
     //get
     try {
@@ -61,4 +72,11 @@ async function deleteProject(projectId) {
     }
 }
 
-export { getProject, getProjects, createProject, updateProject, deleteProject };
+export {
+    getProject,
+    getCertainProjects,
+    getProjects,
+    createProject,
+    updateProject,
+    deleteProject,
+};
