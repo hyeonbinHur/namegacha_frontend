@@ -1,13 +1,16 @@
+import { BiPlus } from 'react-icons/bi';
 import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
 import { useQuery } from 'react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
+import { useNavigate } from 'react-router-dom';
 // import { useEffect, useState } from 'react';
 
 export default function Header() {
     const { user } = useAuthContext();
+    const navigator = useNavigate();
     const {
         data: projects,
         // error,
@@ -15,6 +18,10 @@ export default function Header() {
     } = useQuery('getCertainProjects', () => getCertainProjects(user.uuid), {
         enabled: !!user,
     });
+
+    const moveToSignInPage = () => {
+        navigator('/auth');
+    };
 
     return (
         <div className="main">
@@ -24,6 +31,18 @@ export default function Header() {
                 </div>
                 <div onClick={() => console.log(user)}>show user</div>
             </div>
+
+            <div>
+                {user && (
+                    <div>
+                        {user.userId}
+                        <div>
+                            <BiPlus />
+                        </div>
+                    </div>
+                )}
+            </div>
+
             <div>
                 {user ? (
                     projects && projects.data.length > 0 ? (
@@ -40,7 +59,9 @@ export default function Header() {
                         <div> No Projects </div>
                     )
                 ) : (
-                    'sign in first'
+                    <button onClick={() => moveToSignInPage()}>
+                        go to sign in
+                    </button>
                 )}
             </div>
         </div>
