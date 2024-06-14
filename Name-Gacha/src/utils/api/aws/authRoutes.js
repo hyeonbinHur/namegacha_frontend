@@ -58,9 +58,10 @@ async function accessToken() {
         });
         return response;
     } catch (err) {
-        console.error(err.message);
+        return err;
     }
 }
+
 async function refreshToken() {
     //post
     //post
@@ -74,11 +75,51 @@ async function refreshToken() {
         console.log(response);
         return response;
     } catch (err) {
-        console.error(err.message);
+        return err;
     }
 }
+
 async function updateUser() {
     //put
+}
+
+// get user data -> 필요없고
+
+// check user login status
+
+/*
+ *  access token check;
+ *  refresh token check;
+ *  확인 되면 get user data;
+ */
+
+async function checkTokens() {
+    try {
+        const accStatus = await accessToken();
+        if (accStatus.status === 200) {
+            return accStatus;
+        } else {
+            const refStatus = await refreshToken();
+
+            if (refStatus.status === 200) {
+                return refStatus;
+            } else {
+                return false;
+            }
+        }
+    } catch (err) {
+        return false;
+    }
+}
+
+async function getUserData(uuid) {
+    try {
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/auth?uuid=${uuid}`;
+        const response = await axios.get(endPoint);
+        return response;
+    } catch (err) {
+        return err;
+    }
 }
 
 export {
@@ -88,4 +129,6 @@ export {
     accessToken,
     refreshToken,
     updateUser,
+    checkTokens,
+    getUserData,
 };
