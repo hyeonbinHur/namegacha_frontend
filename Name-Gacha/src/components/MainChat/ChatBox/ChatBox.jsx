@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import './ChatBox.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
 import { setThread, setMessages } from '../../../store/threadSlice';
+import { useEffect } from 'react';
 
 export default function ChatBox() {
+    // const sessionStorage =
+
     const currentThread = useSelector(
         (state) => state.currentThread.currentThread
     );
@@ -11,6 +15,14 @@ export default function ChatBox() {
     // const currentMessages = useSelector(
     //     (state) => state.currentThread.messages
     // );
+
+    useEffect(() => {
+        // sessionStorage.setItem('threadId', currentThread);
+
+        if (currentThread !== null) {
+            chatAI();
+        }
+    }, [currentThread]);
 
     const dispatch = useDispatch();
 
@@ -83,11 +95,15 @@ export default function ChatBox() {
     };
 
     const chatAI = async () => {
-        console.log('chat AI start');
-        const sendMessageFlag = await sendMessage();
-        if (sendMessageFlag !== false) {
-            console.log(currentThread);
-            await readReply(sendMessageFlag);
+        if (currentThread == null) {
+            createSetThread();
+        } else {
+            console.log('chat AI start');
+            const sendMessageFlag = await sendMessage();
+            if (sendMessageFlag !== false) {
+                console.log(currentThread);
+                await readReply(sendMessageFlag);
+            }
         }
     };
 
@@ -96,8 +112,6 @@ export default function ChatBox() {
             <button onClick={() => console.log(currentThread)}>
                 show current thread
             </button>
-
-            <button onClick={() => createSetThread()}> create Thread</button>
 
             {/* <button onClick={() => console.log(reply)}>show reply</button> */}
 

@@ -25,18 +25,22 @@ export default function Header() {
                 <div onClick={() => console.log(user)}>show user</div>
             </div>
             <div>
-                {projects && projects.data.length > 0 ? (
-                    <div className="project">
-                        <ul>
-                            {projects.map((project) => (
-                                <li key={project.projectId}>
-                                    <ProjectCard project={project} />
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                {user ? (
+                    projects && projects.data.length > 0 ? (
+                        <div className="project">
+                            <ul>
+                                {projects.map((project) => (
+                                    <li key={project.projectId}>
+                                        <ProjectCard project={project} />
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ) : (
+                        <div> No Projects </div>
+                    )
                 ) : (
-                    <div> </div>
+                    'sign in first'
                 )}
             </div>
         </div>
