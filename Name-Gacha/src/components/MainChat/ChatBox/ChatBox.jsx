@@ -17,12 +17,19 @@ export default function ChatBox() {
     // );
 
     useEffect(() => {
-        // sessionStorage.setItem('threadId', currentThread);
+        //
 
         if (currentThread !== null) {
             chatAI();
         }
     }, [currentThread]);
+
+    // useEffect(() => {
+    //     const sessionThreadId = sessionStorage.setItem('threadId', currentThread);
+    //     if(sessionThreadId !== null){
+    //         메세지 가져와서 보여주기?
+    //     }
+    // }, [])
 
     const dispatch = useDispatch();
 
