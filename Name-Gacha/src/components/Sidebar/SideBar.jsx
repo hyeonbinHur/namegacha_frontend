@@ -1,4 +1,3 @@
-import { BiPlus } from 'react-icons/bi';
 import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
@@ -18,7 +17,6 @@ export default function Header() {
     } = useQuery('getCertainProjects', () => getCertainProjects(user.uuid), {
         enabled: !!user,
     });
-
     const moveToSignInPage = () => {
         navigator('/auth');
     };
@@ -37,7 +35,10 @@ export default function Header() {
                     <div>
                         {user.userId}
                         <div>
-                            <BiPlus />
+                            <i
+                                className="icon-basic-elaboration-folder-plus"
+                                style={{ 'font-size': '2rem' }}
+                            ></i>
                         </div>
                     </div>
                 )}
