@@ -40,3 +40,7 @@ npm install @reduxjs/toolkit react-redux
 # blog link
 
 design : https://uncle-hyeonb.tistory.com/27
+
+# sass
+
+npm install node-sass
