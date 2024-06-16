@@ -44,3 +44,9 @@ design : https://uncle-hyeonb.tistory.com/27
 # sass
 
 npm install node-sass
+
+### 06 / 15
+
+-   [] 프로젝트 생성
+-   [] 페이지 생성
+-   [] 함수 및 변수 생성

@@ -32,13 +32,16 @@ async function getProjects() {
         console.error(err.message);
     }
 }
-async function createProject(projectName) {
+async function createProject(projectName, uuid) {
     //post
     try {
+        console.log('project name :' + projectName);
+        console.log('uuid :' + uuid);
         const endPoint =
             'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project';
         const body = {
             projectName: projectName,
+            uuid: uuid,
         };
         const response = await axios.post(endPoint, body);
         return response;
