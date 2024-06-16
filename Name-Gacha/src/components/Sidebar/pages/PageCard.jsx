@@ -42,10 +42,16 @@ export default function PageCard({ page }) {
             {isOpen && (
                 <div className="components-container">
                     <div>
-                        <VarCard variables={page.variables} />
+                        <VarCard
+                            variables={page.variables}
+                            pageId={page.pageId}
+                        />
                     </div>
                     <div>
-                        <FunctionCard functions={page.functions} />
+                        <FunctionCard
+                            functions={page.functions}
+                            pageId={page.pageId}
+                        />
                     </div>
                 </div>
             )}

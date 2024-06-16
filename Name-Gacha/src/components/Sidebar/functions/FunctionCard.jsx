@@ -8,6 +8,7 @@ export default function FunctionCard({ functions }) {
             <div className="fn-name">
                 <TbFunction className="icon" size="1.2rem" />
                 function container
+                <i className="icon-basic-elaboration-message-plus"></i>
             </div>
             <div style={{ paddingLeft: '30%' }}>
                 <ul>
