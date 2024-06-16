@@ -6,7 +6,7 @@ export default function VarCard({ variables }) {
     return (
         <div className="vars-container">
             <div className="var-name">
-                <HiOutlineVariable class="icon" size="1.2rem" />
+                <HiOutlineVariable className="icon" size="1.2rem" />
                 var container
             </div>
             <div style={{ paddingLeft: '30%' }}>

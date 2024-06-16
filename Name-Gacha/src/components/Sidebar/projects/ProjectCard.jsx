@@ -30,6 +30,7 @@ export default function ProjectCard({ project }) {
     });
     return (
         <div className="project-container">
+            <button onClick={() => console.log(project)}>show pages</button>
             <div className="name name-main project-name ">
                 <div
                     className="name-sub"
@@ -50,7 +51,7 @@ export default function ProjectCard({ project }) {
                 </div>
 
                 <i
-                    className="icon-basic-elaboration-document-plus pageAddCard"
+                    className="icon-basic-elaboration-document-plus"
                     onClick={() =>
                         addPage({
                             projectId: project.projectId,
@@ -64,7 +65,7 @@ export default function ProjectCard({ project }) {
             </div>
             {isOpen == true && (
                 <ul>
-                    {pages.map((page) => (
+                    {project.pages.map((page) => (
                         <li key={page.pageId}>
                             <PageCard page={page} />
                         </li>
