@@ -36,6 +36,13 @@ export default function Header() {
                     <img src={logo} className="logo" />
                 </div>
                 <div onClick={() => console.log(user.uuid)}>show user</div>
+
+                <button
+                    className="show-projects-btn"
+                    onClick={() => console.log(projects)}
+                >
+                    console button
+                </button>
             </div>
 
             <div>
@@ -63,7 +70,7 @@ export default function Header() {
                     projects && projects.data.length > 0 ? (
                         <div className="project">
                             <ul>
-                                {projects.map((project) => (
+                                {projects.data.map((project) => (
                                     <li key={project.projectId}>
                                         <ProjectCard project={project} />
                                     </li>
