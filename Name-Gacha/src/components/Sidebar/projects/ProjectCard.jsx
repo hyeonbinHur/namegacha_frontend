@@ -6,15 +6,28 @@ import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import PageCard from '../pages/PageCard.jsx';
 import './projectCard.css';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useMutation } from 'react-query';
+// import { useQuery } from 'react-query';
+import * as PageAPI from '../../../utils/api/aws/pageRoutes.js';
+
 export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
     const [pages, setPages] = useState([]);
+
+    // const {data:pages} = useQuery('get pages' , () =>)
+
     // useEffect(() => {
     //     if (project.pages) {
     //         setPages(project.pages);
     //     }
     // }, [project]);
+
+    const { mutate: addPage } = useMutation({
+        mutationFn: ({ pageName, projectId }) => {
+            return PageAPI.createPage(pageName, projectId);
+        },
+    });
     return (
         <div className="project-container">
             <div className="name name-main project-name ">
@@ -35,6 +48,16 @@ export default function ProjectCard({ project }) {
                     )}
                     {project.projectName}
                 </div>
+
+                <i
+                    className="icon-basic-elaboration-document-plus pageAddCard"
+                    onClick={() =>
+                        addPage({
+                            projectId: project.projectId,
+                            pageName: 'add page test',
+                        })
+                    }
+                ></i>
                 <div className="option">
                     <SlOptions />
                 </div>

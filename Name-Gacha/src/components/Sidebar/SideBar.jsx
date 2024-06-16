@@ -29,6 +29,7 @@ export default function Header() {
             return projectAPI.createProject(projectName, userId);
         },
     });
+
     return (
         <div className="main">
             <div className="logo-container">
