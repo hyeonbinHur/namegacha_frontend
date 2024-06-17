@@ -11,7 +11,6 @@ import { useState } from 'react';
 
 export default function PageCard({ page }) {
     const [isOpen, setIsOpen] = useState(false);
-
     return (
         <div>
             <div
@@ -22,23 +21,18 @@ export default function PageCard({ page }) {
                     {isOpen ? (
                         <div>
                             <BsCaretUp className="arrow" />
-
                             <AiFillFolderOpen className="folder" />
                         </div>
                     ) : (
                         <div>
                             <BsCaretDown className="arrow" />
-
                             <AiFillFolder className="folder" />
                         </div>
                     )}
                     Page Name
                 </div>
-
-                {/* <div className="option">
-                    <SlOptions />
-                </div> */}
             </div>
+
             {isOpen && (
                 <div className="components-container">
                     <div>

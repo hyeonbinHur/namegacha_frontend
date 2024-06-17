@@ -3,14 +3,19 @@
 import { TbFunction } from 'react-icons/tb';
 import './FnCard.css';
 import * as fnAPI from '../../../utils/api/aws/functionRoutes';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 export default function FunctionCard({ functions, pageId }) {
     const { mutate: addFunction } = useMutation({
         mutationFn: ({ functionName, pageId }) => {
             return fnAPI.createFunction(functionName, pageId);
         },
+        onSuccess: () => {
+            // 데이터 추가 후 'getCertainProjects' 쿼리를 다시 불러옴 (refetch)
+            queryClient.invalidateQueries('getCertainProjects');
+        },
     });
+    const queryClient = useQueryClient();
 
     return (
         <div className="fns-container">

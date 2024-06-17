@@ -3,14 +3,18 @@
 import { HiOutlineVariable } from 'react-icons/hi';
 import './VarCard.css';
 import * as varAPI from '../../../utils/api/aws/variableRoutes';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 export default function VarCard({ variables, pageId }) {
     const { mutate: addVariable } = useMutation({
         mutationFn: ({ variableName, pageId }) => {
             return varAPI.createVariable(variableName, pageId);
         },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
     });
+    const queryClient = useQueryClient();
 
     return (
         <div className="vars-container">

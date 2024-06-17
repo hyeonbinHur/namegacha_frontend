@@ -33,6 +33,7 @@ async function createPage(pageName, projectId) {
             projectId: projectId,
         };
         const response = await axios.post(endPoint, body);
+        console.log(response.data);
         return response.data;
     } catch (err) {
         console.error(err.message);

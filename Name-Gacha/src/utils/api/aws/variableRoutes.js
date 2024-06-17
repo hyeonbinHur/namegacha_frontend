@@ -31,6 +31,7 @@ async function createVariable(variableName, pageId) {
             pageId: pageId,
         };
         const response = await axios.post(endPoint, body);
+        console.log('create variable done');
         return response.data;
     } catch (err) {
         console.error(err.message);

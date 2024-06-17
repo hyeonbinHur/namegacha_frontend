@@ -13,6 +13,7 @@ async function getProject(projectId) {
 
 async function getCertainProjects(uuid) {
     try {
+        console.log('프로젝트 가져오기 시작');
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project/projects?content=certain&uuid=${uuid}`;
         const response = await axios.get(endPoint);
         return response;
@@ -44,6 +45,7 @@ async function createProject(projectName, uuid) {
             uuid: uuid,
         };
         const response = await axios.post(endPoint, body);
+        console.log('Create project done');
         return response;
     } catch (err) {
         console.error(err.message);
