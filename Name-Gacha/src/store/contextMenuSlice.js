@@ -24,7 +24,7 @@ const contextMenuSlice = createSlice({
             state.isOpen = false;
             console.log('context menu close');
         },
-        // addChild(){
+        // addChild(state){
 
         // },
         // editItSelf(){
