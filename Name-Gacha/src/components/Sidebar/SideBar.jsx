@@ -7,8 +7,11 @@ import { useAuthContext } from '../../hooks/useAuthContext.js';
 import { useNavigate } from 'react-router-dom';
 // import { useEffect, useState } from 'react';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
+import { useState } from 'react';
 
 export default function Header() {
+    const [isAdd, setIsAdd] = useState(false);
+    const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
     const navigator = useNavigate();
     const {
@@ -31,6 +34,16 @@ export default function Header() {
         },
     });
 
+    const startAddProject = (e) => {
+        e.preventDefault();
+        if (newProjectName.length == 0) return;
+        addProject({
+            projectName: newProjectName,
+            userId: user.uuid,
+        });
+        setIsAdd(false);
+    };
+
     return (
         <div className="main">
             <div className="logo-container">
@@ -38,7 +51,6 @@ export default function Header() {
                     <img src={logo} className="logo" />
                 </div>
                 <div onClick={() => console.log(user.uuid)}>show user</div>
-
                 <button
                     className="show-projects-btn"
                     onClick={() => console.log(projects)}
@@ -47,7 +59,6 @@ export default function Header() {
                 </button>
             </div>
             <div>{isLoading && <div> is loading</div>}</div>
-
             <div>
                 {user && (
                     <div>
@@ -56,12 +67,7 @@ export default function Header() {
                             <i
                                 className="icon-basic-elaboration-folder-plus"
                                 style={{ fontSize: '2rem' }}
-                                onClick={() =>
-                                    addProject({
-                                        projectName: 'front end project test',
-                                        userId: user.uuid,
-                                    })
-                                }
+                                onClick={() => setIsAdd((prev) => !prev)}
                             ></i>
                         </div>
                     </div>
@@ -72,6 +78,19 @@ export default function Header() {
                 {user ? (
                     projects && projects.data.length > 0 ? (
                         <div className="project">
+                            {isAdd && (
+                                <div>
+                                    <input
+                                        value={newProjectName}
+                                        onChange={(e) =>
+                                            setNewProjectName(e.target.value)
+                                        }
+                                    />
+                                    <button onClick={(e) => startAddProject(e)}>
+                                        add project
+                                    </button>
+                                </div>
+                            )}
                             <ul>
                                 {projects.data.map((project) => (
                                     <li key={project.projectId}>
