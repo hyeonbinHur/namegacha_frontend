@@ -7,7 +7,7 @@ const initialState = {
     },
     isOpen: false,
     isAdd: false,
-    isAddType: null,
+    addType: null,
     isEdit: false,
 };
 
@@ -26,7 +26,7 @@ const contextMenuSlice = createSlice({
             state.target.id = null;
             state.isOpen = false;
             state.isAdd = false;
-            state.isAddType = null;
+            state.addType = null;
             state.isEdit = false;
         },
 
@@ -35,7 +35,7 @@ const contextMenuSlice = createSlice({
             state.target.id = null;
             state.isOpen = false;
             state.isAdd = false;
-            state.isAddType = null;
+            state.addType = null;
             state.isEdit = false;
         },
 
@@ -43,7 +43,7 @@ const contextMenuSlice = createSlice({
             state.target.name = action.payload.name;
             state.target.id = action.payload.id;
             state.isAdd = true;
-            state.isAddType = action.payload.addType;
+            state.addType = action.payload.addType;
             state.isOpen = false;
         },
         editItSelf(state, action) {

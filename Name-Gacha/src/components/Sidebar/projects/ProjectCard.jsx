@@ -26,10 +26,9 @@ export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
     const [projectName, setProjectName] = useState(project.projectName || '');
     const [newPageName, setNewPageName] = useState('');
-    /**Redux dispatch */
-    const dispatch = useDispatch();
 
-    /**Redux Selector*/
+    /**Redux*/
+    const dispatch = useDispatch();
     const contextTarget = useSelector(
         (state) => state.currentContextMenu.target
     );
@@ -53,27 +52,25 @@ export default function ProjectCard({ project }) {
     /** Variables & flags */
     /**isRename is for redux */
     const isRename = useSelector((state) => state.currentContextMenu.isEdit);
-
     const isContext = contextUtil.isContextVerity(
         contextTarget,
         project.projectName,
         project.projectId
     );
-
     const isContextOpen_C = contextUtil.isContextOpen(
         isContext,
         isContextOpen_S
     );
-
     const isAddRedux = useSelector((state) => state.currentContextMenu.isAdd);
 
-    /**isEdit is for component */
+    /**component flags */
     const isEdit = contextUtil.checkIsRename(isContext, isRename);
-
     const isAddComponent = contextUtil.checkIsAdd(isContext, isAddRedux);
 
     /** Functions */
+
     const openMenu = (e) => {
+        // open context menu
         e.preventDefault();
         e.stopPropagation();
         dispatch(
@@ -83,12 +80,10 @@ export default function ProjectCard({ project }) {
             })
         );
     };
-
     const closeMenu = (e) => {
         e.preventDefault();
         dispatch(closeContextMenu());
     };
-
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             dispatch(clearContextMenu());
@@ -103,7 +98,6 @@ export default function ProjectCard({ project }) {
             setProjectName(project.projectName);
         }
     };
-
     const handleKeyDownAddPage = (e) => {
         if (e.key === 'Enter') {
             addPage({ pageName: newPageName, projectId: project.projectId });
@@ -112,7 +106,6 @@ export default function ProjectCard({ project }) {
             setNewPageName('');
         }
     };
-
     const openFolder = () => {
         if (isEdit) {
             return;

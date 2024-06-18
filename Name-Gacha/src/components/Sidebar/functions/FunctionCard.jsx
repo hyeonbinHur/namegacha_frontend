@@ -11,10 +11,10 @@ export default function FunctionCard({ functions, pageId }) {
             return fnAPI.createFunction(functionName, pageId);
         },
         onSuccess: () => {
-            // 데이터 추가 후 'getCertainProjects' 쿼리를 다시 불러옴 (refetch)
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
+
     const queryClient = useQueryClient();
 
     return (

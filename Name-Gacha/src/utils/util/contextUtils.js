@@ -22,4 +22,22 @@ const checkIsAdd = (isContext, isAddRedux) => {
     } else return false;
 };
 
-export { isContextVerity, checkIsRename, isContextOpen, checkIsAdd };
+const checkIsFunctionAdd = (addType, isThis, sliceIsAdd) => {
+    if (addType === 'function' && isThis && sliceIsAdd) {
+        return true;
+    } else return false;
+};
+const checkIsVariableAdd = (addType, isThis, sliceIsAdd) => {
+    if (addType === 'variable' && isThis && sliceIsAdd) {
+        return true;
+    } else return false;
+};
+
+export {
+    isContextVerity,
+    checkIsRename,
+    isContextOpen,
+    checkIsAdd,
+    checkIsFunctionAdd,
+    checkIsVariableAdd,
+};
