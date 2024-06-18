@@ -5,17 +5,21 @@ import { addChild, editItSelf } from '../../store/contextMenuSlice';
 export default function ProjectContextMenu({ target }) {
     const dispatch = useDispatch();
 
-    const startRename = () => {
+    const startRename = (e) => {
         dispatch(editItSelf({ name: target.name, id: target.id }));
+        e.stopPropagation();
     };
-    const startAddChild = () => {
-        dispatch(addChild({ addType: 'page' }));
+    const startAddChild = (e) => {
+        dispatch(
+            addChild({ addType: 'page', name: target.name, id: target.id })
+        );
+        e.stopPropagation();
     };
 
     return (
         <div>
-            <button onClick={() => startRename()}>Rename</button>
-            <div onClick={() => startAddChild()}>New Page</div>
+            <button onClick={(e) => startRename(e)}>Rename</button>
+            <div onClick={(e) => startAddChild(e)}>New Page</div>
             <div>Delete Project</div>
             <div>Share</div>
         </div>

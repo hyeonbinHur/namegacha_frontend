@@ -25,7 +25,7 @@ export default function ProjectCard({ project }) {
     /** States */
     const [isOpen, setIsOpen] = useState(false);
     const [projectName, setProjectName] = useState(project.projectName || '');
-
+    const [newPageName, setNewPageName] = useState('');
     /**Redux dispatch */
     const dispatch = useDispatch();
 
@@ -64,8 +64,13 @@ export default function ProjectCard({ project }) {
         isContext,
         isContextOpen_S
     );
+
+    const isAddRedux = useSelector((state) => state.currentContextMenu.isAdd);
+
     /**isEdit is for component */
     const isEdit = contextUtil.checkIsRename(isContext, isRename);
+
+    const isAddComponent = contextUtil.checkIsAdd(isContext, isAddRedux);
 
     /** Functions */
     const openMenu = (e) => {
@@ -96,6 +101,15 @@ export default function ProjectCard({ project }) {
         } else if (e.key === 'Escape') {
             dispatch(clearContextMenu());
             setProjectName(project.projectName);
+        }
+    };
+
+    const handleKeyDownAddPage = (e) => {
+        if (e.key === 'Enter') {
+            addPage({ pageName: newPageName, projectId: project.projectId });
+        } else if (e.key === 'Escape') {
+            dispatch(clearContextMenu());
+            setNewPageName('');
         }
     };
 
@@ -133,6 +147,7 @@ export default function ProjectCard({ project }) {
                     {isEdit ? (
                         <input
                             value={projectName}
+                            onClick={(e) => e.stopPropagation()}
                             onChange={(e) => setProjectName(e.target.value)}
                             onKeyDown={(e) => handleKeyDown(e)}
                         />
@@ -155,6 +170,16 @@ export default function ProjectCard({ project }) {
             </div>
             {isOpen == true && (
                 <ul>
+                    {isAddComponent && (
+                        <div>
+                            <input
+                                value={newPageName}
+                                onClick={(e) => e.stopPropagation()}
+                                onChange={(e) => setNewPageName(e.target.value)}
+                                onKeyDown={(e) => handleKeyDownAddPage(e)}
+                            />
+                        </div>
+                    )}
                     {project.pages.map((page) => (
                         <li key={page.pageId}>
                             <PageCard page={page} />

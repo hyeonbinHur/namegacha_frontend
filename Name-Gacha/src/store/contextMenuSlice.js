@@ -22,14 +22,14 @@ const contextMenuSlice = createSlice({
             console.log('context menu open');
         },
         closeContextMenu(state) {
-            if (!state.isEdit) {
-                state.target.name = null;
-                state.target.id = null;
-            }
+            state.target.name = null;
+            state.target.id = null;
             state.isOpen = false;
             state.isAdd = false;
             state.isAddType = null;
+            state.isEdit = false;
         },
+
         clearContextMenu(state) {
             state.target.name = null;
             state.target.id = null;
@@ -40,14 +40,18 @@ const contextMenuSlice = createSlice({
         },
 
         addChild(state, action) {
+            state.target.name = action.payload.name;
+            state.target.id = action.payload.id;
             state.isAdd = true;
             state.isAddType = action.payload.addType;
+            state.isOpen = false;
         },
         editItSelf(state, action) {
             console.log('edit start');
             state.target.name = action.payload.name;
             state.target.id = action.payload.id;
             state.isEdit = true;
+            state.isOpen = false;
         },
         // deleteItSelf(){
 

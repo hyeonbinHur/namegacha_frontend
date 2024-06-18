@@ -16,4 +16,10 @@ const isContextOpen = (isContext, isContextOpen) => {
     } else return false;
 };
 
-export { isContextVerity, checkIsRename, isContextOpen };
+const checkIsAdd = (isContext, isAddRedux) => {
+    if (isContext && isAddRedux) {
+        return true;
+    } else return false;
+};
+
+export { isContextVerity, checkIsRename, isContextOpen, checkIsAdd };

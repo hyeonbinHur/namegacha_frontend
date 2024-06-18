@@ -29,7 +29,7 @@ export default function PageCard({ page }) {
                             <AiFillFolder className="folder" />
                         </div>
                     )}
-                    Page Name
+                    {page.pageName}
                 </div>
             </div>
 
