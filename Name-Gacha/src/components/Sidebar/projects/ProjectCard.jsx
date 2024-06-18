@@ -10,6 +10,8 @@ import { useState } from 'react';
 import { useMutation } from 'react-query';
 // import { useQuery } from 'react-query';
 import * as PageAPI from '../../../utils/api/aws/pageRoutes.js';
+import * as projectAPI from '../../../utils/api/aws/projectRoutes.js';
+
 import { useSelector, useDispatch } from 'react-redux';
 import {
     openContextMenu,
@@ -42,6 +44,12 @@ export default function ProjectCard({ project }) {
         },
     });
 
+    const { mutate: updateProject } = useMutation({
+        mutationFn: ({ newProjectName, projectId }) => {
+            return projectAPI.updateProject(projectId, newProjectName);
+        },
+    });
+
     /** Variables & flags */
     /**isRename is for redux */
     const isRename = useSelector((state) => state.currentContextMenu.isEdit);
@@ -51,6 +59,7 @@ export default function ProjectCard({ project }) {
         project.projectName,
         project.projectId
     );
+
     const isContextOpen_C = contextUtil.isContextOpen(
         isContext,
         isContextOpen_S
@@ -77,6 +86,12 @@ export default function ProjectCard({ project }) {
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
+            dispatch(clearContextMenu());
+
+            updateProject({
+                newProjectName: projectName,
+                projectId: project.projectId,
+            });
             console.log(projectName);
         } else if (e.key === 'Escape') {
             dispatch(clearContextMenu());

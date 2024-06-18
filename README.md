@@ -47,6 +47,16 @@ npm install node-sass
 
 ### 06 / 15
 
--   [] 프로젝트 생성
--   [] 페이지 생성
--   [] 함수 및 변수 생성
+-   [x] 프로젝트 생성
+-   [x] 페이지 생성
+-   [x] 함수 및 변수 생성
+
+### 06 /18
+
+context menu logic
+
+component c, store s
+
+1. check c state and s target => contextTarget in c
+2. open context menu => check is ContextOpen => check 1 is true and context open flag in s is true
+3. open edit menu => check is context target true and is edit flag in s is true
