@@ -32,20 +32,29 @@ export default function PageContextMenu({ item }) {
     });
 
     const startRename = (e) => {
-        dispatch(editItSelf({ name: item.name, id: item.id }));
+        e.preventDefault();
         e.stopPropagation();
+        dispatch(editItSelf({ name: item.pageName, id: item.pageId }));
     };
 
     const startAddFunction = (e) => {
         dispatch(
-            addChild({ addType: 'function', name: item.name, id: item.id })
+            addChild({
+                addType: 'function',
+                name: item.pageName,
+                id: item.pageId,
+            })
         );
         e.stopPropagation();
     };
 
     const startAddVariable = (e) => {
         dispatch(
-            addChild({ addType: 'variable', name: item.name, id: item.id })
+            addChild({
+                addType: 'variable',
+                name: item.pageName,
+                id: item.pageId,
+            })
         );
         e.stopPropagation();
     };

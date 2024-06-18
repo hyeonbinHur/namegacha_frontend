@@ -8,11 +8,17 @@ export default function ProjectContextMenu({ item }) {
     const dispatch = useDispatch();
 
     const startRename = (e) => {
-        dispatch(editItSelf({ name: item.name, id: item.id }));
+        dispatch(editItSelf({ name: item.projectName, id: item.projectId }));
         e.stopPropagation();
     };
     const startAddChild = (e) => {
-        dispatch(addChild({ addType: 'page', name: item.name, id: item.id }));
+        dispatch(
+            addChild({
+                addType: 'page',
+                name: item.projectName,
+                id: item.projectId,
+            })
+        );
         e.stopPropagation();
     };
     const queryClient = useQueryClient();
@@ -30,7 +36,7 @@ export default function ProjectContextMenu({ item }) {
         <div>
             <button onClick={(e) => startRename(e)}>Rename</button>
             <div onClick={(e) => startAddChild(e)}>New Page</div>
-            <div onClick={() => deleteProject({ projectId: item.id })}>
+            <div onClick={() => deleteProject({ projectId: item.projectId })}>
                 Delete Project
             </div>
             <div>Share</div>

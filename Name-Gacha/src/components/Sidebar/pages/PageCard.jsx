@@ -9,9 +9,16 @@ import VarCard from '../variabels/VarCard';
 import './pageCard.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { openContextMenu } from '../../../store/contextMenuSlice';
+import {
+    openContextMenu,
+    closeContextMenu,
+} from '../../../store/contextMenuSlice';
 import * as contextUtil from '../../../utils/util/contextUtils.js';
 import ContextMenu from '../../ContextMenu/ContextMenu.jsx';
+import * as pageAPI from '../../../utils/api/aws/pageRoutes.js';
+import * as functionAPI from '../../../utils/api/aws/functionRoutes.js';
+import * as variableAPI from '../../../utils/api/aws/variableRoutes.js';
+import { useMutation, useQueryClient } from 'react-query';
 
 export default function PageCard({ page }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,7 +27,6 @@ export default function PageCard({ page }) {
     const [newFunctionName, setNewFunctionName] = useState('');
 
     /**redux flags */
-
     const sliceIsContextOpen = useSelector(
         (state) => state.currentContextMenu.isOpen
     );
@@ -33,9 +39,7 @@ export default function PageCard({ page }) {
     const sliceAddType = useSelector(
         (state) => state.currentContextMenu.addType
     );
-
     /**component flags */
-
     const componentIsThis = contextUtil.isContextVerity(
         sliceContextTarget,
         page.pageName,
@@ -78,33 +82,81 @@ export default function PageCard({ page }) {
 
     const handleEditNameKeyDown = (e) => {
         if (e.key === 'Enter') {
-            console.log('Enter pressed ');
-            console.log('new page name : ' + newPageName);
+            if (newPageName.length == 0) return;
+            else {
+                mutateUpdatePage({
+                    pageId: page.pageId,
+                    pageName: newPageName,
+                });
+            }
+            dispatch(closeContextMenu());
         } else if (e.key === 'Escape') {
-            console.log('Escape pressed ');
-            console.log('new page name : ' + newPageName);
+            setNewPageName(page.pageName);
+            dispatch(closeContextMenu());
         }
     };
 
     const handleAddVariableKeyDown = (e) => {
         if (e.key === 'Enter') {
-            console.log('Enter pressed ');
-            console.log(newVariableName);
+            if (newVariableName.length == 0) {
+                return;
+            } else {
+                mutateAddVariable({
+                    pageId: page.pageId,
+                    variableName: newVariableName,
+                });
+            }
+            dispatch(closeContextMenu());
         } else if (e.key === 'Escape') {
-            console.log('Escape pressed ');
-            console.log(newVariableName);
+            setNewVariableName('');
+            dispatch(closeContextMenu());
         }
     };
 
     const handleAddFunctionKeyDown = (e) => {
         if (e.key === 'Enter') {
-            console.log('Enter pressed ');
-            console.log(newFunctionName);
+            if (newFunctionName.length === 0) return;
+            else {
+                mutateAddFunction({
+                    pageId: page.pageId,
+                    functionName: newFunctionName,
+                });
+            }
+            dispatch(closeContextMenu());
         } else if (e.key === 'Escape') {
-            console.log('Escape pressed ');
-            console.log(newFunctionName);
+            setNewFunctionName('');
+            dispatch(closeContextMenu());
         }
     };
+    /**HTTP Request */
+    const queryClient = useQueryClient();
+    // edit page name
+    const { mutate: mutateUpdatePage } = useMutation({
+        mutationFn: ({ pageId, pageName }) => {
+            return pageAPI.updatePage(pageId, pageName);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
+    // add function
+    const { mutate: mutateAddFunction } = useMutation({
+        mutationFn: ({ pageId, functionName }) => {
+            return functionAPI.createFunction(functionName, pageId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
+    // add variable
+    const { mutate: mutateAddVariable } = useMutation({
+        mutationFn: ({ pageId, variableName }) => {
+            return variableAPI.createVariable(variableName, pageId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
 
     return (
         <div>
@@ -163,6 +215,7 @@ export default function PageCard({ page }) {
                         {componentIsFunctionAdd && (
                             <input
                                 value={newFunctionName}
+                                onClick={(e) => e.stopPropagation()}
                                 onChange={(e) =>
                                     setNewFunctionName(e.target.value)
                                 }

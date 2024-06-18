@@ -183,11 +183,7 @@ export default function ProjectCard({ project }) {
 
             <section>
                 {isContextOpen_C && (
-                    <ContextMenu
-                        type={'project'}
-                        name={project.projectName}
-                        id={project.projectId}
-                    />
+                    <ContextMenu type={'project'} item={project} />
                 )}
             </section>
         </div>

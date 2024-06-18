@@ -23,6 +23,9 @@ const checkIsAdd = (isContext, isAddRedux) => {
 };
 
 const checkIsFunctionAdd = (addType, isThis, sliceIsAdd) => {
+    console.log('type : ' + addType);
+    console.log('isThis : ' + isThis);
+    console.log('sliceIsAdd : ' + sliceIsAdd);
     if (addType === 'function' && isThis && sliceIsAdd) {
         return true;
     } else return false;
