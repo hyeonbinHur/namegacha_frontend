@@ -14,36 +14,48 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
     openContextMenu,
     closeContextMenu,
+    clearContextMenu,
 } from '../../../store/contextMenuSlice.js';
+import * as contextUtil from '../../../utils/util/contextUtils.js';
+import ContextMenu from '../../../components/ContextMenu/ContextMenu.jsx';
 
 export default function ProjectCard({ project }) {
+    /** States */
     const [isOpen, setIsOpen] = useState(false);
+    const [projectName, setProjectName] = useState(project.projectName || '');
 
-    // const {data:pages} = useQuery('get pages' , () =>)
+    /**Redux dispatch */
+    const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     if (project.pages) {
-    //         setPages(project.pages);
-    //     }
-    // }, [project]);
+    /**Redux Selector*/
+    const contextTarget = useSelector(
+        (state) => state.currentContextMenu.target
+    );
 
+    /** HTTP request */
     const { mutate: addPage } = useMutation({
         mutationFn: ({ pageName, projectId }) => {
             return PageAPI.createPage(pageName, projectId);
         },
     });
 
-    const dispatch = useDispatch();
-    const isContextMenu = useSelector(
-        (state) => state.currentContextMenu.isOpen
-    );
-    const contextTarget = useSelector(
-        (state) => state.currentContextMenu.target
+    /** Variables & flags */
+    /**isRename is for redux */
+    const isRename = useSelector((state) => state.currentContextMenu.isEdit);
+    /**isEdit is for component */
+
+    const showContext = contextUtil.isContextVerity(
+        contextTarget,
+        project.projectName,
+        project.projectId
     );
 
+    const isEdit = contextUtil.checkIsRename(showContext, isRename);
+
+    /** Functions */
     const openMenu = (e) => {
         e.preventDefault();
-        e.stopPropagation(); // 이벤트 전파 중단
+        e.stopPropagation();
         dispatch(
             openContextMenu({
                 name: project.projectName,
@@ -51,9 +63,19 @@ export default function ProjectCard({ project }) {
             })
         );
     };
+
     const closeMenu = (e) => {
         e.preventDefault();
         dispatch(closeContextMenu());
+    };
+
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            console.log(projectName);
+        } else if (e.key === 'Escape') {
+            dispatch(clearContextMenu());
+            setProjectName(project.projectName);
+        }
     };
 
     return (
@@ -62,13 +84,6 @@ export default function ProjectCard({ project }) {
             onClick={(e) => closeMenu(e)}
             onContextMenu={(e) => closeMenu(e)}
         >
-            <button onClick={() => console.log(isContextMenu)}>
-                is context menu ?
-            </button>
-            <button onClick={() => console.log(contextTarget)}>
-                context target
-            </button>
-            <button onClick={() => console.log(project)}>show pages</button>
             <div className="name name-main project-name ">
                 <div
                     className="name-sub"
@@ -86,7 +101,15 @@ export default function ProjectCard({ project }) {
                             <AiFillFolder className="folder" />
                         </div>
                     )}
-                    {project.projectName}
+                    {isEdit ? (
+                        <input
+                            value={projectName}
+                            onChange={(e) => setProjectName(e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(e)}
+                        />
+                    ) : (
+                        <div> {project.projectName} </div>
+                    )}
                 </div>
                 <i
                     className="icon-basic-elaboration-document-plus"
@@ -99,11 +122,6 @@ export default function ProjectCard({ project }) {
                 ></i>
                 <div className="option">
                     <SlOptions />
-                    {isContextMenu &&
-                        contextTarget.name == project.projectName &&
-                        contextTarget.id == project.projectId && (
-                            <div> right click open </div>
-                        )}
                 </div>
             </div>
             {isOpen == true && (
@@ -115,6 +133,16 @@ export default function ProjectCard({ project }) {
                     ))}
                 </ul>
             )}
+
+            <section>
+                {showContext && (
+                    <ContextMenu
+                        type={'project'}
+                        name={project.projectName}
+                        id={project.projectId}
+                    />
+                )}
+            </section>
         </div>
     );
 }

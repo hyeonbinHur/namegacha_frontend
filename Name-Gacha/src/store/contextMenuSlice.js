@@ -6,6 +6,9 @@ const initialState = {
         name: null,
     },
     isOpen: false,
+    isAdd: false,
+    isAddType: null,
+    isEdit: false,
 };
 
 const contextMenuSlice = createSlice({
@@ -19,22 +22,43 @@ const contextMenuSlice = createSlice({
             console.log('context menu open');
         },
         closeContextMenu(state) {
-            state.target = null;
-            state.id = null;
+            if (!state.isEdit) {
+                state.target.name = null;
+                state.target.id = null;
+            }
             state.isOpen = false;
-            console.log('context menu close');
+            state.isAdd = false;
+            state.isAddType = null;
         },
-        // addChild(state){
+        clearContextMenu(state) {
+            state.target.name = null;
+            state.target.id = null;
+            state.isOpen = false;
+            state.isAdd = false;
+            state.isAddType = null;
+        },
 
-        // },
-        // editItSelf(){
-
-        // },
+        addChild(state, action) {
+            state.isAdd = true;
+            state.isAddType = action.payload.addType;
+        },
+        editItSelf(state, action) {
+            console.log('edit start');
+            state.target.name = action.payload.name;
+            state.target.id = action.payload.id;
+            state.isEdit = true;
+        },
         // deleteItSelf(){
 
         // }
     },
 });
 
-export const { openContextMenu, closeContextMenu } = contextMenuSlice.actions;
+export const {
+    openContextMenu,
+    closeContextMenu,
+    addChild,
+    editItSelf,
+    clearContextMenu,
+} = contextMenuSlice.actions;
 export default contextMenuSlice.reducer;
