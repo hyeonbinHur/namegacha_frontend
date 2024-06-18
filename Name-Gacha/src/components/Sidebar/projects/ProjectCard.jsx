@@ -31,6 +31,9 @@ export default function ProjectCard({ project }) {
     const contextTarget = useSelector(
         (state) => state.currentContextMenu.target
     );
+    const isContextOpen_S = useSelector(
+        (state) => state.currentContextMenu.isOpen
+    );
 
     /** HTTP request */
     const { mutate: addPage } = useMutation({
@@ -42,15 +45,18 @@ export default function ProjectCard({ project }) {
     /** Variables & flags */
     /**isRename is for redux */
     const isRename = useSelector((state) => state.currentContextMenu.isEdit);
-    /**isEdit is for component */
 
-    const showContext = contextUtil.isContextVerity(
+    const isContext = contextUtil.isContextVerity(
         contextTarget,
         project.projectName,
         project.projectId
     );
-
-    const isEdit = contextUtil.checkIsRename(showContext, isRename);
+    const isContextOpen_C = contextUtil.isContextOpen(
+        isContext,
+        isContextOpen_S
+    );
+    /**isEdit is for component */
+    const isEdit = contextUtil.checkIsRename(isContext, isRename);
 
     /** Functions */
     const openMenu = (e) => {
@@ -78,6 +84,14 @@ export default function ProjectCard({ project }) {
         }
     };
 
+    const openFolder = () => {
+        if (isEdit) {
+            return;
+        } else {
+            setIsOpen((prev) => !prev);
+        }
+    };
+
     return (
         <div
             className="project-container"
@@ -87,7 +101,7 @@ export default function ProjectCard({ project }) {
             <div className="name name-main project-name ">
                 <div
                     className="name-sub"
-                    onClick={() => setIsOpen((prev) => !prev)}
+                    onClick={() => openFolder()}
                     onContextMenu={(e) => openMenu(e)}
                 >
                     {isOpen ? (
@@ -135,7 +149,7 @@ export default function ProjectCard({ project }) {
             )}
 
             <section>
-                {showContext && (
+                {isContextOpen_C && (
                     <ContextMenu
                         type={'project'}
                         name={project.projectName}

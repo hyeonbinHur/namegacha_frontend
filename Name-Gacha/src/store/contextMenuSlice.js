@@ -36,6 +36,7 @@ const contextMenuSlice = createSlice({
             state.isOpen = false;
             state.isAdd = false;
             state.isAddType = null;
+            state.isEdit = false;
         },
 
         addChild(state, action) {
