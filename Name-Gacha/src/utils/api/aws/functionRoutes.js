@@ -62,10 +62,21 @@ async function deleteFunction(functionId) {
     }
 }
 
+async function deleteFunctionsInPage(pageId) {
+    try {
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function?content=inpage&pageId=${pageId}`;
+        const response = await axios.delete(endPoint);
+        return response;
+    } catch (err) {
+        console.error(err.message);
+    }
+}
+
 export {
     getFunction,
     getFunctions,
     createFunction,
     updateFunction,
     deleteFunction,
+    deleteFunctionsInPage,
 };

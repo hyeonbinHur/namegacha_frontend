@@ -4,17 +4,15 @@ import { addChild, editItSelf } from '../../store/contextMenuSlice';
 import * as projectAPI from '../../utils/api/aws/projectRoutes';
 import { useMutation, useQueryClient } from 'react-query';
 
-export default function ProjectContextMenu({ target }) {
+export default function ProjectContextMenu({ item }) {
     const dispatch = useDispatch();
 
     const startRename = (e) => {
-        dispatch(editItSelf({ name: target.name, id: target.id }));
+        dispatch(editItSelf({ name: item.name, id: item.id }));
         e.stopPropagation();
     };
     const startAddChild = (e) => {
-        dispatch(
-            addChild({ addType: 'page', name: target.name, id: target.id })
-        );
+        dispatch(addChild({ addType: 'page', name: item.name, id: item.id }));
         e.stopPropagation();
     };
     const queryClient = useQueryClient();
@@ -32,7 +30,7 @@ export default function ProjectContextMenu({ target }) {
         <div>
             <button onClick={(e) => startRename(e)}>Rename</button>
             <div onClick={(e) => startAddChild(e)}>New Page</div>
-            <div onClick={() => deleteProject({ projectId: target.id })}>
+            <div onClick={() => deleteProject({ projectId: item.id })}>
                 Delete Project
             </div>
             <div>Share</div>

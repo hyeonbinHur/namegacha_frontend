@@ -56,9 +56,18 @@ async function deleteVariable(variableId) {
     //delete
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable?variableId=${variableId}`;
-
         const response = await axios.delete(endPoint);
         return response.data;
+    } catch (err) {
+        console.error(err.message);
+    }
+}
+
+async function deleteVariablesInPage(pageId) {
+    try {
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable?content=inpage&pageId=${pageId}`;
+        const response = await axios.delete(endPoint);
+        return response;
     } catch (err) {
         console.error(err.message);
     }
@@ -70,4 +79,5 @@ export {
     createVariable,
     updateVariable,
     deleteVariable,
+    deleteVariablesInPage,
 };

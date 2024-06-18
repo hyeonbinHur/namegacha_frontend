@@ -4,7 +4,7 @@ import PageContextMenu from './PageContextMenu';
 import FunctionContextMenu from './FunctionContextMenu';
 import VariableContextMenu from './VariableContextMenu';
 
-export default function ContextMenu({ type, name, id }) {
+export default function ContextMenu({ type, name, id, item }) {
     const target = {
         name: name,
         id: id,
@@ -12,9 +12,9 @@ export default function ContextMenu({ type, name, id }) {
     const renderContextMenu = () => {
         switch (type) {
             case 'project':
-                return <ProjectContextMenu target={target} />;
+                return <ProjectContextMenu item={item} />;
             case 'page':
-                return <PageContextMenu target={target} />;
+                return <PageContextMenu item={item} />;
             case 'variable':
                 return <VariableContextMenu target={target} />;
             case 'function':

@@ -2,28 +2,11 @@
 import { useDispatch } from 'react-redux';
 import { addChild, editItSelf } from '../../store/contextMenuSlice';
 import * as pageAPI from '../../utils/api/aws/pageRoutes';
+import * as functionAPI from '../../utils/api/aws/functionRoutes';
+import * as variableAPI from '../../utils/api/aws/variableRoutes';
 import { useMutation, useQueryClient } from 'react-query';
-export default function PageContextMenu({ target }) {
+export default function PageContextMenu({ item }) {
     const dispatch = useDispatch();
-
-    const startRename = (e) => {
-        dispatch(editItSelf({ name: target.name, id: target.id }));
-        e.stopPropagation();
-    };
-
-    const startAddFunction = (e) => {
-        dispatch(
-            addChild({ addType: 'function', name: target.name, id: target.id })
-        );
-        e.stopPropagation();
-    };
-
-    const startAddVariable = (e) => {
-        dispatch(
-            addChild({ addType: 'variable', name: target.name, id: target.id })
-        );
-        e.stopPropagation();
-    };
 
     const queryClient = useQueryClient();
 
@@ -36,12 +19,57 @@ export default function PageContextMenu({ target }) {
         },
     });
 
+    const { mutateAsync: deleteVariables } = useMutation({
+        mutationFn: ({ pageId }) => {
+            return variableAPI.deleteVariablesInPage(pageId);
+        },
+    });
+
+    const { mutateAsync: deleteFunctions } = useMutation({
+        mutationFn: ({ pageId }) => {
+            return functionAPI.deleteFunctionsInPage(pageId);
+        },
+    });
+
+    const startRename = (e) => {
+        dispatch(editItSelf({ name: item.name, id: item.id }));
+        e.stopPropagation();
+    };
+
+    const startAddFunction = (e) => {
+        dispatch(
+            addChild({ addType: 'function', name: item.name, id: item.id })
+        );
+        e.stopPropagation();
+    };
+
+    const startAddVariable = (e) => {
+        dispatch(
+            addChild({ addType: 'variable', name: item.name, id: item.id })
+        );
+        e.stopPropagation();
+    };
+
+    const startDelete = async () => {
+        try {
+            if (item.variables.length > 0) {
+                await deleteVariables({ pageId: item.pageId });
+            }
+            if (item.functions.length > 0) {
+                await deleteFunctions({ pageId: item.pageId });
+            }
+            deletePage({ pageId: item.pageId });
+        } catch (error) {
+            console.error('Error during deletion:', error);
+        }
+    };
+
     return (
         <div>
             <div onClick={(e) => startRename(e)}>Rename</div>
             <div onClick={(e) => startAddVariable(e)}>New Variable</div>
             <div onClick={(e) => startAddFunction(e)}>New Function</div>
-            <div onClick={() => deletePage({ pageId: target.id })}>Delete</div>
+            <div onClick={() => startDelete()}>Delete</div>
         </div>
     );
 }

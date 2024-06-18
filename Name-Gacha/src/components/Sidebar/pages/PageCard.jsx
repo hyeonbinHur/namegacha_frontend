@@ -18,7 +18,6 @@ export default function PageCard({ page }) {
     const [newPageName, setNewPageName] = useState(page.pageName);
     const [newVariableName, setNewVariableName] = useState('');
     const [newFunctionName, setNewFunctionName] = useState('');
-    const dispatch = useDispatch();
 
     /**redux flags */
 
@@ -64,6 +63,8 @@ export default function PageCard({ page }) {
     );
 
     /** Functions */
+    const dispatch = useDispatch();
+
     const handleContextMenu = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -182,6 +183,7 @@ export default function PageCard({ page }) {
                     type={'page'}
                     id={page.pageId}
                     name={page.pageName}
+                    item={page}
                 />
             )}
         </div>
