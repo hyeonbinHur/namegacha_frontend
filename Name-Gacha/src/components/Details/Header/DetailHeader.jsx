@@ -109,19 +109,21 @@ export default function DeatilHeader({ page }) {
                     <span>{page.pageExp}</span>
                 )}
             </div>
-            {isEdit && (
+            {isEdit ? (
                 <div>
                     <button onClick={() => handleSaveEdit()}>save</button>
                     <button onClick={() => handleCancelEdit()}>cancel</button>
                 </div>
+            ) : (
+                <div>
+                    <button onClick={() => setIsEdit((prev) => !prev)}>
+                        edit page
+                    </button>
+                    <button onClick={() => handleDeletePage()}>
+                        delete page
+                    </button>
+                </div>
             )}
-
-            <div>
-                <button onClick={() => setIsEdit((prev) => !prev)}>
-                    edit page
-                </button>
-                <button onClick={() => handleDeletePage()}>delete page</button>
-            </div>
         </div>
     );
 }
