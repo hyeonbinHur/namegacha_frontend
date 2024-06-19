@@ -28,13 +28,32 @@ export default function ProjectCard({ project }) {
     const [newPageName, setNewPageName] = useState('');
 
     /**Redux*/
-    const dispatch = useDispatch();
-    const contextTarget = useSelector(
+    const sliceContextTarget = useSelector(
         (state) => state.currentContextMenu.target
     );
-    const isContextOpen_S = useSelector(
+    const sliceIsContextOpen = useSelector(
         (state) => state.currentContextMenu.isOpen
     );
+    const sliceIsAdd = useSelector((state) => state.currentContextMenu.isAdd);
+    const sliceIsEdit = useSelector((state) => state.currentContextMenu.isEdit);
+
+    /** Variables & flags */
+    const componentIsThis = contextUtil.isContextVerity(
+        sliceContextTarget,
+        project.projectName,
+        project.projectId
+    );
+    const componentIsContextOpen = contextUtil.isContextOpen(
+        componentIsThis,
+        sliceIsContextOpen
+    );
+    const componentIsEdit = contextUtil.checkIsRename(
+        componentIsThis,
+        sliceIsEdit
+    );
+    const componentIsAdd = contextUtil.checkIsAdd(componentIsThis, sliceIsAdd);
+
+    /** Functions */
 
     /** HTTP request */
     const { mutate: addPage } = useMutation({
@@ -49,28 +68,13 @@ export default function ProjectCard({ project }) {
         },
     });
 
-    /** Variables & flags */
-    /**isRename is for redux */
-    const isRename = useSelector((state) => state.currentContextMenu.isEdit);
-    const isContext = contextUtil.isContextVerity(
-        contextTarget,
-        project.projectName,
-        project.projectId
-    );
-    const isContextOpen_C = contextUtil.isContextOpen(
-        isContext,
-        isContextOpen_S
-    );
-    const isAddRedux = useSelector((state) => state.currentContextMenu.isAdd);
+    const dispatch = useDispatch();
 
-    /**component flags */
-    const isEdit = contextUtil.checkIsRename(isContext, isRename);
-    const isAddComponent = contextUtil.checkIsAdd(isContext, isAddRedux);
-
-    /** Functions */
-
-    const openMenu = (e) => {
-        // open context menu
+    const handleContextMenuClose = (e) => {
+        e.preventDefault();
+        dispatch(closeContextMenu());
+    };
+    const handleContextMenu = (e) => {
         e.preventDefault();
         e.stopPropagation();
         dispatch(
@@ -80,10 +84,7 @@ export default function ProjectCard({ project }) {
             })
         );
     };
-    const closeMenu = (e) => {
-        e.preventDefault();
-        dispatch(closeContextMenu());
-    };
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             dispatch(clearContextMenu());
@@ -106,25 +107,18 @@ export default function ProjectCard({ project }) {
             setNewPageName('');
         }
     };
-    const openFolder = () => {
-        if (isEdit) {
-            return;
-        } else {
-            setIsOpen((prev) => !prev);
-        }
-    };
 
     return (
         <div
             className="project-container"
-            onClick={(e) => closeMenu(e)}
-            onContextMenu={(e) => closeMenu(e)}
+            onClick={(e) => handleContextMenuClose(e)}
+            onContextMenu={(e) => handleContextMenuClose(e)}
         >
             <div className="name name-main project-name ">
                 <div
                     className="name-sub"
-                    onClick={() => openFolder()}
-                    onContextMenu={(e) => openMenu(e)}
+                    onClick={() => setIsOpen((prev) => !prev)}
+                    onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
                         <div>
@@ -137,7 +131,7 @@ export default function ProjectCard({ project }) {
                             <AiFillFolder className="folder" />
                         </div>
                     )}
-                    {isEdit ? (
+                    {componentIsEdit ? (
                         <input
                             value={projectName}
                             onClick={(e) => e.stopPropagation()}
@@ -163,7 +157,7 @@ export default function ProjectCard({ project }) {
             </div>
             {isOpen == true && (
                 <ul>
-                    {isAddComponent && (
+                    {componentIsAdd && (
                         <div>
                             <input
                                 value={newPageName}
@@ -182,7 +176,7 @@ export default function ProjectCard({ project }) {
             )}
 
             <section>
-                {isContextOpen_C && (
+                {componentIsContextOpen && (
                     <ContextMenu type={'project'} item={project} />
                 )}
             </section>
