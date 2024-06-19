@@ -19,12 +19,10 @@ export default function VarCard({ variable, page }) {
         ...variable,
         ...page,
     };
-
     /* redux variables */
     const sliceTarget = useSelector((state) => state.currentContextMenu.target);
     const sliceIsOpen = useSelector((state) => state.currentContextMenu.isOpen);
     const sliceIsEdit = useSelector((state) => state.currentContextMenu.isEdit);
-
     /*component variables */
     const componentIsThis = contextUtil.isContextVerity(
         sliceTarget,
@@ -35,16 +33,12 @@ export default function VarCard({ variable, page }) {
         componentIsThis,
         sliceIsOpen
     );
-
     const componentIsEdit = contextUtil.checkIsRename(
         componentIsThis,
         sliceIsEdit
     );
-
     /* Functions */
-
     const dispatch = useDispatch();
-
     const handleContextMenuOpen = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -56,7 +50,6 @@ export default function VarCard({ variable, page }) {
         );
     };
     const queryClient = useQueryClient();
-
     const { mutate: mutateUpdateVariable } = useMutation({
         mutationFn: ({ variableName, variableId }) => {
             return varAPI.updateVariable(variableId, variableName);
@@ -65,7 +58,6 @@ export default function VarCard({ variable, page }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     const handleKeyDownEditVariable = (e) => {
         if (e.key === 'Enter') {
             mutateUpdateVariable({
@@ -78,7 +70,6 @@ export default function VarCard({ variable, page }) {
             setNewVariableName(variable.variableName);
         }
     };
-
     return (
         <div>
             <div onContextMenu={(e) => handleContextMenuOpen(e)}>

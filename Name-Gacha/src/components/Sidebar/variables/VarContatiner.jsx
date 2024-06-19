@@ -4,15 +4,9 @@ import './VarCard.css';
 import VarCard from './VarCard.jsx';
 import { useMutation, useQueryClient } from 'react-query';
 import * as varAPI from '../../../utils/api/aws/variableRoutes.js';
-import { useSelector } from 'react-redux';
-import ContextMenu from '../../ContextMenu/ContextMenu.jsx';
 
 export default function VarContainer({ variables, page }) {
-    const item = {
-        id: page.pageId,
-        name: page.pageName,
-    };
-    const sliceIsAdd = useSelector((state) => state.currentContextMenu.isAdd);
+    /* 컨텍스트 메뉴 일단 보류, add variable 말고 추가 할게 없음 */
     const queryClient = useQueryClient();
     const { mutate: addVariable } = useMutation({
         mutationFn: ({ variableName, pageId }) => {
@@ -22,13 +16,6 @@ export default function VarContainer({ variables, page }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
-    // const commpoenentIsAdd = contextUtil.checkIsVariableAdd(
-    //     'variable',
-    //     componentIsThis,
-    //     sliceIsAdd
-    // );
-
     return (
         <div className="vars-container">
             <div className="var-name">
@@ -53,9 +40,6 @@ export default function VarContainer({ variables, page }) {
                     ))}
                 </ul>
             </div>
-            <section>
-                {/* <ContextMenu type={'varContainer'} item={item} /> */}
-            </section>
         </div>
     );
 }
