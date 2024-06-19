@@ -4,6 +4,7 @@ import * as pageAPI from '../utils/api/aws/pageRoutes';
 
 export default function DetailPage() {
     const params = useParams();
+
     const { data } = useQuery(
         'getPageInfo',
         () => pageAPI.getPage(params.pageId),
@@ -18,9 +19,15 @@ export default function DetailPage() {
     );
 }
 
-/** 페이지 정보를 받아서,
- * 페이지에대한 정보 가져오기를 로드하고,
- * 페이지이름,
- *  설명,
- * variables,
- * function 설명포함해서 보여주기 */
+/**
+ * 페이지 이름 보여주기
+ * 페이지 설명 보여주기
+ *
+ * 페이지 삭제, 이름 변경
+ *
+ * variables 보여주기, 설명이랑 같이
+ * functions 보여주기, 설명이랑 같이
+ *
+ * variable 추가 삭제 이름, 설명 변경
+ * function 추가 삭제 이름, 설명 변경
+ */
