@@ -14,8 +14,8 @@ export default function FunctionCard({ functions, pageId }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     const queryClient = useQueryClient();
+    // open context menu, close context menu, edit variable, delet variable, add variable
 
     return (
         <div className="fns-container">

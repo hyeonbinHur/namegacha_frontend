@@ -5,7 +5,7 @@ import { AiFillFolder } from 'react-icons/ai';
 // import { SlOptions } from 'react-icons/sl';
 import { AiFillFolderOpen } from 'react-icons/ai';
 import FunctionCard from '../functions/FunctionCard';
-import VarCard from '../variabels/VarCard';
+import VarContainer from '../variables/VarContatiner.jsx';
 import './pageCard.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -206,7 +206,7 @@ export default function PageCard({ page }) {
                             />
                         )}
 
-                        <VarCard
+                        <VarContainer
                             variables={page.variables}
                             pageId={page.pageId}
                         />

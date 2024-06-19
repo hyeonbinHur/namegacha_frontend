@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
-
 import { HiOutlineVariable } from 'react-icons/hi';
 import './VarCard.css';
-import * as varAPI from '../../../utils/api/aws/variableRoutes';
+import VarCard from './VarCard.jsx';
 import { useMutation, useQueryClient } from 'react-query';
+import * as varAPI from '../../../utils/api/aws/variableRoutes.js';
 
-export default function VarCard({ variables, pageId }) {
+export default function VarContainer({ variables, pageId }) {
+    const queryClient = useQueryClient();
+
     const { mutate: addVariable } = useMutation({
         mutationFn: ({ variableName, pageId }) => {
             return varAPI.createVariable(variableName, pageId);
@@ -14,8 +16,6 @@ export default function VarCard({ variables, pageId }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    const queryClient = useQueryClient();
-
     return (
         <div className="vars-container">
             <div className="var-name">
@@ -33,8 +33,10 @@ export default function VarCard({ variables, pageId }) {
             </div>
             <div style={{ paddingLeft: '30%' }}>
                 <ul>
-                    {variables.map((variable, index) => (
-                        <li key={index}>{variable.variableName}</li>
+                    {variables.map((variable) => (
+                        <li key={variable.variableId}>
+                            <VarCard variable={variable} pageId={pageId} />
+                        </li>
                     ))}
                 </ul>
             </div>
