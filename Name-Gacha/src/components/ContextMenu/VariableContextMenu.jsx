@@ -5,7 +5,6 @@ import * as variableAPI from '../../utils/api/aws/variableRoutes';
 import { useMutation, useQueryClient } from 'react-query';
 
 export default function VariableContextMenu({ item }) {
-    const dispatch = useDispatch();
     const queryClient = useQueryClient();
 
     const { mutate: mutateDeleteVariable } = useMutation({
@@ -16,6 +15,8 @@ export default function VariableContextMenu({ item }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
+
+    const dispatch = useDispatch();
 
     const startRename = (e) => {
         e.preventDefault();

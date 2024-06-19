@@ -1,44 +1,96 @@
 /* eslint-disable react/prop-types */
 
-import { TbFunction } from 'react-icons/tb';
-import './FnCard.css';
-import * as fnAPI from '../../../utils/api/aws/functionRoutes';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+    openContextMenu,
+    closeContextMenu,
+} from '../../../store/contextMenuSlice';
+import * as contextUtils from '../../../utils/util/contextUtils';
 import { useMutation, useQueryClient } from 'react-query';
+import * as functionAPI from '../../../utils/api/aws/functionRoutes';
+import ContextMenu from '../../ContextMenu/ContextMenu';
+export default function FunctionCard({ fnction, page }) {
+    const [newFunctionName, setNewFunctionName] = useState(
+        fnction.functionName
+    );
+    const item = {
+        ...fnction,
+        ...page,
+    };
+    /* redux variable*/
+    const sliceTarget = useSelector((state) => state.currentContextMenu.target);
+    const sliceIsOpen = useSelector((state) => state.currentContextMenu.isOpen);
+    const sliceIsEdit = useSelector((state) => state.currentContextMenu.isEdit);
+    /* component variable */
+    const componentIsThis = contextUtils.isContextVerity(
+        sliceTarget,
+        fnction.functionName,
+        fnction.functionId
+    );
+    const componentIsContextOpen = contextUtils.isContextOpen(
+        componentIsThis,
+        sliceIsOpen
+    );
+    const componentIsEdit = contextUtils.checkIsRename(
+        componentIsThis,
+        sliceIsEdit
+    );
+    /* Functions*/
+    const dispatch = useDispatch();
+    const handleOpenContextMenu = (e) => {
+        dispatch(
+            openContextMenu({
+                name: fnction.functionName,
+                id: fnction.functionId,
+            })
+        );
+        e.stopPropagation();
+        e.preventDefault();
+    };
+    const handleKeyDownEditName = (e) => {
+        if (e.key === 'Enter') {
+            mutateUpdateFunction({
+                functionId: fnction.functionId,
+                functionName: newFunctionName,
+            });
+            dispatch(closeContextMenu());
+        } else if (e.key === 'Escape') {
+            dispatch(closeContextMenu());
+            setNewFunctionName(fnction.functionName);
+        }
+    };
 
-export default function FunctionCard({ functions, pageId }) {
-    const { mutate: addFunction } = useMutation({
-        mutationFn: ({ functionName, pageId }) => {
-            return fnAPI.createFunction(functionName, pageId);
+    /** HTTP request */
+    const queryClient = useQueryClient();
+    const { mutate: mutateUpdateFunction } = useMutation({
+        mutationFn: ({ functionName, functionId }) => {
+            return functionAPI.updateFunction(functionId, functionName);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    const queryClient = useQueryClient();
-    // open context menu, close context menu, edit variable, delet variable, add variable
 
     return (
-        <div className="fns-container">
-            <div className="fn-name">
-                <TbFunction className="icon" size="1.2rem" />
-                function container
-                <i
-                    className="icon-basic-elaboration-message-plus"
-                    onClick={() =>
-                        addFunction({
-                            functionName: 'add function test',
-                            pageId: pageId,
-                        })
-                    }
-                ></i>
+        <div>
+            <div onContextMenu={(e) => handleOpenContextMenu(e)}>
+                {componentIsEdit ? (
+                    <input
+                        onClick={(e) => e.stopPropagation()}
+                        value={newFunctionName}
+                        onKeyDown={(e) => handleKeyDownEditName(e)}
+                        onChange={(e) => setNewFunctionName(e.target.value)}
+                    />
+                ) : (
+                    <div>{fnction.functionName}</div>
+                )}
             </div>
-            <div style={{ paddingLeft: '30%' }}>
-                <ul>
-                    {functions.map((fn, index) => (
-                        <li key={index}>{fn.functionName}</li>
-                    ))}
-                </ul>
-            </div>
+            <section>
+                {componentIsContextOpen && (
+                    <ContextMenu type={'function'} item={item} />
+                )}
+            </section>
         </div>
     );
 }

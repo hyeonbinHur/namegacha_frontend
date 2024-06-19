@@ -54,7 +54,7 @@ async function updateFunction(functionId, functionName) {
 async function deleteFunction(functionId) {
     //delete
     try {
-        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function?functionId=${functionId}`;
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function?content=certain&functionId=${functionId}`;
         const response = await axios.delete(endPoint);
         return response.data;
     } catch (err) {
