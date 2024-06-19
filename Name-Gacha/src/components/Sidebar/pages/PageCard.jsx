@@ -206,10 +206,7 @@ export default function PageCard({ page }) {
                             />
                         )}
 
-                        <VarContainer
-                            variables={page.variables}
-                            pageId={page.pageId}
-                        />
+                        <VarContainer variables={page.variables} page={page} />
                     </div>
                     <div>
                         {componentIsFunctionAdd && (

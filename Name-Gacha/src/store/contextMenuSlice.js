@@ -17,11 +17,14 @@ const contextMenuSlice = createSlice({
     reducers: {
         openContextMenu(state, action) {
             state.target.name = action.payload.name;
+            console.log(action.payload.name);
             state.target.id = action.payload.id;
+            console.log(action.payload.id);
             state.isOpen = true;
             console.log('context menu open');
         },
         closeContextMenu(state) {
+            console.log('close');
             state.target.name = null;
             state.target.id = null;
             state.isOpen = false;
@@ -31,6 +34,8 @@ const contextMenuSlice = createSlice({
         },
 
         clearContextMenu(state) {
+            console.log('close');
+
             state.target.name = null;
             state.target.id = null;
             state.isOpen = false;

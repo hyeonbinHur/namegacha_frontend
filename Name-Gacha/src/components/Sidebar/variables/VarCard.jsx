@@ -4,52 +4,103 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import * as contextUtil from '../../../utils/util/contextUtils.js';
-export default function VarCard({ variables, pageId }) {
+import {
+    openContextMenu,
+    closeContextMenu,
+} from '../../../store/contextMenuSlice.js';
+import ContextMenu from '../../ContextMenu/ContextMenu.jsx';
+
+export default function VarCard({ variable, page }) {
     /* state */
-    const [newVariableName, setNewVariableName] = useState('');
+    const [newVariableName, setNewVariableName] = useState(
+        variable.variableName
+    );
+    const item = {
+        ...variable,
+        ...page,
+    };
 
     /* redux variables */
     const sliceTarget = useSelector((state) => state.currentContextMenu.target);
-    const sliceIsOpen = useSelector((state) => state.currentContextMenu.IsOpen);
+    const sliceIsOpen = useSelector((state) => state.currentContextMenu.isOpen);
     const sliceIsEdit = useSelector((state) => state.currentContextMenu.isEdit);
 
     /*component variables */
+    const componentIsThis = contextUtil.isContextVerity(
+        sliceTarget,
+        variable.variableName,
+        variable.variableId
+    );
+    const componentIsContextOpen = contextUtil.isContextOpen(
+        componentIsThis,
+        sliceIsOpen
+    );
 
-    // const componentIsThis = contextUtil.isContextVerity(sliceTarget )
-    // const componentIsContextOpen
-    // const commpoenentIsAdd
-    // const componentIsEdit
+    const componentIsEdit = contextUtil.checkIsRename(
+        componentIsThis,
+        sliceIsEdit
+    );
 
-    const { mutate: addVariable } = useMutation({
-        mutationFn: ({ variableName, pageId }) => {
-            return varAPI.createVariable(variableName, pageId);
+    /* Functions */
+
+    const dispatch = useDispatch();
+
+    const handleContextMenuOpen = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dispatch(
+            openContextMenu({
+                name: variable.variableName,
+                id: variable.variableId,
+            })
+        );
+    };
+    const queryClient = useQueryClient();
+
+    const { mutate: mutateUpdateVariable } = useMutation({
+        mutationFn: ({ variableName, variableId }) => {
+            return varAPI.updateVariable(variableId, variableName);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    const queryClient = useQueryClient();
 
-    // open context menu, close context menu, edit variable, delet variable, add variable
+    const handleKeyDownEditVariable = (e) => {
+        if (e.key === 'Enter') {
+            mutateUpdateVariable({
+                variableName: newVariableName,
+                variableId: variable.variableId,
+            });
+            dispatch(closeContextMenu());
+        } else if (e.key === 'Escape') {
+            dispatch(closeContextMenu());
+            setNewVariableName(variable.variableName);
+        }
+    };
 
-    /**
-     * open context menu
-     * close context menu
-     * edit variable
-     * add variable
-     * delete variable
-     *
-     */
-
-    // const handleContextMenuOpen = () => {
-
-    // }
-    // const handlecontextMenuClose = () => {
-
-    // }
     return (
         <div>
-            <ul></ul>
+            <div onContextMenu={(e) => handleContextMenuOpen(e)}>
+                {componentIsEdit ? (
+                    <input
+                        value={newVariableName}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => setNewVariableName(e.target.value)}
+                        onKeyDown={(e) => handleKeyDownEditVariable(e)}
+                    />
+                ) : (
+                    <div>{variable.variableName}</div>
+                )}
+            </div>
+            <div>{componentIsThis}</div>
+            <button onClick={() => console.log(variable)}> ?? </button>
+
+            <section>
+                {componentIsContextOpen && (
+                    <ContextMenu type={'variable'} item={item} />
+                )}
+            </section>
         </div>
     );
 }

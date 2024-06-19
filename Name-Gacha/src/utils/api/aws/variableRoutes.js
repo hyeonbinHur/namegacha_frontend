@@ -55,7 +55,7 @@ async function updateVariable(variableId, variableName) {
 async function deleteVariable(variableId) {
     //delete
     try {
-        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable?variableId=${variableId}`;
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable?content=certain&variableId=${variableId}`;
         const response = await axios.delete(endPoint);
         return response.data;
     } catch (err) {

@@ -86,7 +86,6 @@ export default function ProjectCard({ project }) {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             dispatch(clearContextMenu());
-
             updateProject({
                 newProjectName: projectName,
                 projectId: project.projectId,
