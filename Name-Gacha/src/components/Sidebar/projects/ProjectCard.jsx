@@ -13,7 +13,6 @@ import * as projectAPI from '../../../utils/api/aws/projectRoutes.js';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     openContextMenu,
-    closeContextMenu,
     clearContextMenu,
 } from '../../../store/contextMenuSlice.js';
 import * as contextUtil from '../../../utils/util/contextUtils.js';
@@ -68,10 +67,6 @@ export default function ProjectCard({ project }) {
 
     const dispatch = useDispatch();
 
-    const handleContextMenuClose = (e) => {
-        e.preventDefault();
-        dispatch(closeContextMenu());
-    };
     const handleContextMenu = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -106,11 +101,7 @@ export default function ProjectCard({ project }) {
     };
 
     return (
-        <div
-            className="project-container"
-            onClick={(e) => handleContextMenuClose(e)}
-            onContextMenu={(e) => handleContextMenuClose(e)}
-        >
+        <div className="project-container">
             <div className="name name-main project-name ">
                 <div
                     className="name-sub"

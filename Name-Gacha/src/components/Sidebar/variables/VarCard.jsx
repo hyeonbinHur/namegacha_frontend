@@ -85,7 +85,6 @@ export default function VarCard({ variable, page }) {
                 )}
             </div>
             <div>{componentIsThis}</div>
-            <button onClick={() => console.log(variable)}> ?? </button>
 
             <section>
                 {componentIsContextOpen && (

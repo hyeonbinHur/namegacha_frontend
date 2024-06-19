@@ -19,12 +19,14 @@ import * as pageAPI from '../../../utils/api/aws/pageRoutes.js';
 import * as functionAPI from '../../../utils/api/aws/functionRoutes.js';
 import * as variableAPI from '../../../utils/api/aws/variableRoutes.js';
 import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 export default function PageCard({ page }) {
     const [isOpen, setIsOpen] = useState(false);
     const [newPageName, setNewPageName] = useState(page.pageName);
     const [newVariableName, setNewVariableName] = useState('');
     const [newFunctionName, setNewFunctionName] = useState('');
+    const navigate = useNavigate();
 
     /**redux flags */
     const sliceIsContextOpen = useSelector(
@@ -128,6 +130,10 @@ export default function PageCard({ page }) {
             dispatch(closeContextMenu());
         }
     };
+
+    const handleNavigateToDetail = () => {
+        navigate(`/detail/${page.pageId}`);
+    };
     /**HTTP Request */
     const queryClient = useQueryClient();
     // edit page name
@@ -193,7 +199,10 @@ export default function PageCard({ page }) {
             </div>
 
             {isOpen && (
-                <div className="components-container">
+                <div
+                    className="components-container"
+                    onClick={handleNavigateToDetail}
+                >
                     <div>
                         {componentIsVariableAdd && (
                             <input
