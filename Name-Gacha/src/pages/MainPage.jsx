@@ -10,7 +10,6 @@ export default function MainPage() {
         e.preventDefault();
         dispatch(closeContextMenu());
     };
-
     return (
         <div
             className="Main-container"

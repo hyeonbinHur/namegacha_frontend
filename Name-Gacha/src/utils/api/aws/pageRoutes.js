@@ -40,12 +40,13 @@ async function createPage(pageName, projectId) {
     }
 }
 
-async function updatePage(pageId, pageName) {
+async function updatePage(pageId, pageName, pageExp) {
     //put
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/page?pageId=${pageId}`;
         const body = {
             pageName: pageName,
+            pageExp: pageExp,
         };
         const response = await axios.put(endPoint, body);
         return response.data;

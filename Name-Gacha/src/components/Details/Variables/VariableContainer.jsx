@@ -1,3 +1,10 @@
+import VariableCard from './VariableCard';
+
 export default function VariableContainer() {
-    return 'Hello function card';
+    return (
+        <div>
+            hello this is variable container
+            <VariableCard />
+        </div>
+    );
 }

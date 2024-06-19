@@ -1,3 +1,3 @@
 export default function VariableCard() {
-    return 'Hello function card';
+    return 'Hello this is variable card';
 }

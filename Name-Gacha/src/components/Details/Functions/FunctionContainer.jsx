@@ -1,3 +1,10 @@
+import FunctionCard from './FunctionCard';
+
 export default function FunctionContainer() {
-    return 'Hello function card';
+    return (
+        <div>
+            Hello This is function container
+            <FunctionCard />
+        </div>
+    );
 }
