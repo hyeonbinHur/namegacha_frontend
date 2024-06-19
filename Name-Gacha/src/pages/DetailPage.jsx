@@ -1,7 +1,21 @@
 import { useParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import * as pageAPI from '../utils/api/aws/pageRoutes';
+
 export default function DetailPage() {
     const params = useParams();
-    return <div>{params.pageId}</div>;
+    const { data } = useQuery(
+        'getPageInfo',
+        () => pageAPI.getPage(params.pageId),
+        { enabled: !!params.pageId }
+    );
+
+    return (
+        <div>
+            {params.pageId}
+            <button onClick={() => console.log(data)}>show page info</button>
+        </div>
+    );
 }
 
 /** 페이지 정보를 받아서,
