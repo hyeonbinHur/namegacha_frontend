@@ -7,21 +7,21 @@ const isContextVerity = (sliceTarget, name, id) => {
 };
 
 /**Shallow Equality Check */
-// const isDetailVerify = (sliceTarget, componentTarget) => {
-//     if (
-//         sliceTarget.name === componentTarget.name &&
-//         sliceTarget.type === componentTarget.type &&
-//         sliceTarget.id === componentTarget.id
-//     ) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-// };
-
 const isDetailVerify = (sliceTarget, componentTarget) => {
-    return JSON.stringify(sliceTarget) === JSON.stringify(componentTarget);
+    if (
+        sliceTarget.name === componentTarget.name &&
+        sliceTarget.type === componentTarget.type &&
+        sliceTarget.id === componentTarget.id
+    ) {
+        return true;
+    } else {
+        return false;
+    }
 };
+
+// const isDetailVerify = (sliceTarget, componentTarget) => {
+//     return JSON.stringify(sliceTarget) === JSON.stringify(componentTarget);
+// };
 
 const checkIsRename = (isThis, isRename) => {
     if (isThis && isRename) {
