@@ -2,15 +2,42 @@
 import { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import * as functionAPI from '../../../utils/api/aws/functionRoutes';
+import { useSelector, useDispatch } from 'react-redux';
+import * as detailReducers from '../../../store/detailPageSlice';
+import * as detailUtils from '../../../utils/util/contextUtils';
 
 export default function FunctionCard({ fn }) {
-    const [isEdit, setIsEdit] = useState(false);
     const [newName, setNewName] = useState(fn.functionName);
     const [newExp, setNewExp] = useState(fn.functionExp);
 
     const nameInputRef = useRef(null);
     const expInputRef = useRef(null);
 
+    /**redux variable */
+    const sliceTarget = useSelector((state) => state.detailPageSlice.target);
+    const sliceIsEdit = useSelector((state) => state.detailPageSlice.isEdit);
+
+    /**component variable */
+    const componentTarget = {
+        type: 'function',
+        name: fn.functionName,
+        id: fn.functionId,
+    };
+    const componentIsTargetMatch = detailUtils.isDetailVerify(
+        sliceTarget,
+        componentTarget
+    );
+    const comopnentIsEdit = detailUtils.checkIsRename(
+        componentIsTargetMatch,
+        sliceIsEdit
+    );
+
+    /**dispatches */
+    const dispatch = useDispatch();
+    const startEdit = () => {
+        dispatch(detailReducers.setClear());
+        dispatch(detailReducers.setIsEdit({ target: componentTarget }));
+    };
     /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateFunction } = useMutation({
@@ -71,12 +98,12 @@ export default function FunctionCard({ fn }) {
     const cancelEditFunction = () => {
         setNewName('');
         setNewExp('');
-        setIsEdit(false);
+        dispatch(detailReducers.setClear());
     };
 
     return (
         <div>
-            {isEdit ? (
+            {comopnentIsEdit ? (
                 <div>
                     <div>
                         <div>
@@ -109,7 +136,7 @@ export default function FunctionCard({ fn }) {
                 <div>
                     <div>{fn?.functionName}</div>
                     <div>{fn?.functionExp}</div>
-                    <button onClick={() => setIsEdit(true)}>Edit</button>
+                    <button onClick={() => startEdit()}>Edit</button>
                     {/* <button onClick={() => console.log('hello')}>Edit</button> */}
                     <button
                         onClick={() =>
