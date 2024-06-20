@@ -1,14 +1,42 @@
 import { useState, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import * as variableAPI from '../../../utils/api/aws/variableRoutes';
+import { useSelector, useDispatch } from 'react-redux';
+import * as detailReducers from '../../../store/detailPageSlice';
+import * as detailUtils from '../../../utils/util/contextUtils';
+
 /* eslint-disable react/prop-types */
 export default function VariableCard({ variable }) {
-    const [isEdit, setIsEdit] = useState(false);
     const [newName, setNewName] = useState(variable.variableName);
     const [newExp, setNewExp] = useState(variable.variableExp);
-
     const nameInputRef = useRef(null);
     const expInputRef = useRef(null);
+
+    /**redux variable */
+    const sliceTarget = useSelector((state) => state.detailPageSlice.target);
+    const sliceIsEdit = useSelector((state) => state.detailPageSlice.isEdit);
+
+    /**component variable */
+    const componentTarget = {
+        type: 'variable',
+        name: variable.variableName,
+        id: variable.variableId,
+    };
+    const componentIsTargetMatch = detailUtils.isDetailVerify(
+        sliceTarget,
+        componentTarget
+    );
+    const comopnentIsEdit = detailUtils.checkIsRename(
+        componentIsTargetMatch,
+        sliceIsEdit
+    );
+
+    /**dispatches */
+    const dispatch = useDispatch();
+    const startEdit = () => {
+        dispatch(detailReducers.setClear());
+        dispatch(detailReducers.setIsEdit({ target: componentTarget }));
+    };
 
     /* Http request */
     const queryClient = useQueryClient();
@@ -69,14 +97,14 @@ export default function VariableCard({ variable }) {
     const cancelEditVariable = () => {
         setNewName('');
         setNewExp('');
-        setIsEdit(false);
+        dispatch(detailReducers.setClear());
     };
 
     //handleKey down
 
     return (
         <div>
-            {isEdit ? (
+            {comopnentIsEdit ? (
                 <div>
                     <div>
                         <div>
@@ -109,7 +137,7 @@ export default function VariableCard({ variable }) {
                 <div>
                     <div>{variable?.variableName}</div>
                     <div>{variable?.variableExp}</div>
-                    <button onClick={() => setIsEdit(true)}>Edit</button>
+                    <button onClick={() => startEdit()}>Edit</button>
                     <button
                         onClick={() =>
                             mutateDeleteVariable({
