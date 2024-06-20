@@ -14,15 +14,18 @@ const detailPageSlice = createSlice({
     name: 'detailPageSlice',
     initialState: initialState,
     reducers: {
-        setTaget(state, action) {
-            state.target.type = action.payload.type;
-            state.target.id = action.payload.id;
-            state.target.name = action.payload.name;
-        },
-        setIsAdd(state) {
+        setIsAdd(state, action) {
+            const componentTarget = action.payload.target;
+            state.target.type = componentTarget.type;
+            state.target.id = componentTarget.id;
+            state.target.name = componentTarget.name;
             state.isAdd = true;
         },
-        setIsEdit(state) {
+        setIsEdit(state, action) {
+            const componentTarget = action.payload.target;
+            state.target.type = componentTarget.type;
+            state.target.id = componentTarget.id;
+            state.target.name = componentTarget.name;
             state.isEdit = true;
         },
         setClear(state) {

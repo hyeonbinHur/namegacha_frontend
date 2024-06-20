@@ -3,14 +3,32 @@ import { useState, useRef } from 'react';
 import VariableCard from './VariableCard';
 import { useMutation, useQueryClient } from 'react-query';
 import { createVariable } from '../../../utils/api/aws/variableRoutes';
+import * as sliceUtils from '../../../utils/util/contextUtils';
+import { useSelector, useDispatch } from 'react-redux';
+import * as detailReducers from '../../../store/detailPageSlice';
 
 export default function VariableContainer({ variables, pageId }) {
-    const [isAdd, setIsAdd] = useState(false);
     const [newName, setNewName] = useState('');
     const [newExp, setNewExp] = useState('');
     const nameInputRef = useRef(null);
     const expInputRef = useRef(null);
-
+    /**redux variables */
+    const sliceTarget = useSelector((state) => state.detailPageSlice.target);
+    const sliceIsAdd = useSelector((state) => state.detailPageSlice.isAdd);
+    /**component variables */
+    const componentTarget = {
+        type: 'variableConatiner',
+        name: 'variableConatinerName',
+        id: 'variableContainerId',
+    };
+    const componentIsTargetMatch = sliceUtils.isDetailVerify(
+        sliceTarget,
+        componentTarget
+    );
+    const componentIsAdd = sliceUtils.checkIsAdd(
+        componentIsTargetMatch,
+        sliceIsAdd
+    );
     /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateAddVariable } = useMutation({
@@ -21,7 +39,12 @@ export default function VariableContainer({ variables, pageId }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
+    /**dispatches */
+    const dispatch = useDispatch();
+    const startAdd = () => {
+        dispatch(detailReducers.setClear());
+        dispatch(detailReducers.setIsAdd({ target: componentTarget }));
+    };
     /**Basic functions */
     const handleKeyDownAddVariable = (e) => {
         const input = e.target;
@@ -45,7 +68,6 @@ export default function VariableContainer({ variables, pageId }) {
             }
         }
     };
-
     const addNewVariable = () => {
         if (newName.length == 0) {
             console.log(newName);
@@ -59,16 +81,14 @@ export default function VariableContainer({ variables, pageId }) {
         });
         cancelNewVariable();
     };
-
     const cancelNewVariable = () => {
         setNewName('');
         setNewExp('');
-        setIsAdd(false);
+        dispatch(detailReducers.setClear());
     };
-
     return (
         <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
-            {isAdd ? (
+            {componentIsAdd ? (
                 <div>
                     <div>
                         <label>Name</label>{' '}
@@ -96,7 +116,7 @@ export default function VariableContainer({ variables, pageId }) {
                     <button onClick={() => cancelNewVariable()}>cancel</button>
                 </div>
             ) : (
-                <button onClick={() => setIsAdd(true)}>Add new variable</button>
+                <button onClick={() => startAdd()}>Add new variable</button>
             )}
             <ul>
                 {variables.map((v) => (

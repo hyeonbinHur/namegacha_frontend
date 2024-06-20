@@ -1,23 +1,42 @@
-const isContextVerity = (contextTarget, name, id) => {
-    if (contextTarget.name === name && contextTarget.id === id) {
+/**slice target, sliceIsAdd, sliceIsEdit */
+
+const isContextVerity = (sliceTarget, name, id) => {
+    if (sliceTarget.name === name && sliceTarget.id === id) {
         return true;
     } else return false;
 };
 
-const checkIsRename = (showContext, isRename) => {
-    if (showContext && isRename) {
+/**Shallow Equality Check */
+// const isDetailVerify = (sliceTarget, componentTarget) => {
+//     if (
+//         sliceTarget.name === componentTarget.name &&
+//         sliceTarget.type === componentTarget.type &&
+//         sliceTarget.id === componentTarget.id
+//     ) {
+//         return true;
+//     } else {
+//         return false;
+//     }
+// };
+
+const isDetailVerify = (sliceTarget, componentTarget) => {
+    return JSON.stringify(sliceTarget) === JSON.stringify(componentTarget);
+};
+
+const checkIsRename = (isThis, isRename) => {
+    if (isThis && isRename) {
         return true;
     } else return false;
 };
 
-const isContextOpen = (isContext, isContextOpen) => {
-    if (isContext && isContextOpen) {
+const isContextOpen = (isThis, sliceIsOpen) => {
+    if (isThis && sliceIsOpen) {
         return true;
     } else return false;
 };
 
-const checkIsAdd = (isContext, isAddRedux) => {
-    if (isContext && isAddRedux) {
+const checkIsAdd = (isThis, sliceIsAdd) => {
+    if (isThis && sliceIsAdd) {
         return true;
     } else return false;
 };
@@ -40,4 +59,5 @@ export {
     checkIsAdd,
     checkIsFunctionAdd,
     checkIsVariableAdd,
+    isDetailVerify,
 };

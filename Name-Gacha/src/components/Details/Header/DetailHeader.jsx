@@ -3,15 +3,35 @@ import { useMutation, useQueryClient } from 'react-query';
 import * as pageAPI from '../../../utils/api/aws/pageRoutes';
 import { deleteVariablesInPage } from '../../../utils/api/aws/variableRoutes';
 import { deleteFunctionsInPage } from '../../../utils/api/aws/functionRoutes';
+import * as sliceUtils from '../../../utils/util/contextUtils';
+import { useSelector, useDispatch } from 'react-redux';
+import * as detailReducers from '../../../store/detailPageSlice';
 
 /* eslint-disable react/prop-types */
 export default function DeatilHeader({ page }) {
-    const [isEdit, setIsEdit] = useState(false);
     const [newName, setNewName] = useState(page.pageName);
     const [newExp, setNewExp] = useState(page.pageExp);
 
     const nameInputRef = useRef(null);
     const expInputRef = useRef(null);
+
+    /** Redux variables */
+    const sliceTarget = useSelector((state) => state.detailPageSlice.target);
+    const sliceIsEdit = useSelector((state) => state.detailPageSlice.isEdit);
+    /** Component Variables*/
+    const componentTarget = {
+        type: 'page',
+        id: page.pageId,
+        name: page.pageName,
+    };
+    const isTargetMatch = sliceUtils.isDetailVerify(
+        sliceTarget,
+        componentTarget
+    );
+    const componentIsEdit = sliceUtils.checkIsRename(
+        isTargetMatch,
+        sliceIsEdit
+    );
 
     /*Http requset */
     //1. edit page
@@ -55,11 +75,11 @@ export default function DeatilHeader({ page }) {
                 pageName: newName,
                 pageExp: newExp,
             });
-            setIsEdit(false);
+            dispatch(detailReducers.setClear());
         } else if (e.key === 'Escape') {
             setNewExp(page.pageExp);
             setNewName(page.pageName);
-            setIsEdit(false);
+            dispatch(detailReducers.setClear());
         } else if (e.key === 'Tab') {
             e.preventDefault();
 
@@ -70,7 +90,6 @@ export default function DeatilHeader({ page }) {
             }
         }
     };
-
     const handleDeletePage = async () => {
         if (page.variables.length > 0) {
             await mutateDeleteVariable(page.pageId);
@@ -80,25 +99,33 @@ export default function DeatilHeader({ page }) {
         }
         mutateDeletePage(page.pageId);
     };
-
     const handleSaveEdit = () => {
         mutateUpdatePage({
             pageId: page.pageId,
             pageName: newName,
             pageExp: newExp,
         });
-        setIsEdit(false);
+        dispatch(detailReducers.setClear());
     };
     const handleCancelEdit = () => {
         setNewExp(page.pageExp);
         setNewName(page.pageName);
-        setIsEdit(false);
+        dispatch(detailReducers.setClear());
+    };
+
+    /**Redux actions */
+
+    const dispatch = useDispatch();
+
+    const startEdit = () => {
+        dispatch(detailReducers.setClear());
+        dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
 
     return (
         <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
             <div>
-                {isEdit ? (
+                {componentIsEdit ? (
                     <div>
                         <input
                             value={newName}
@@ -132,7 +159,7 @@ export default function DeatilHeader({ page }) {
                             page explanation : <span>{page.pageExp}</span>
                         </div>
                         <div>
-                            <button onClick={() => setIsEdit((prev) => !prev)}>
+                            <button onClick={() => startEdit()}>
                                 edit page
                             </button>
                             <button onClick={() => handleDeletePage()}>
