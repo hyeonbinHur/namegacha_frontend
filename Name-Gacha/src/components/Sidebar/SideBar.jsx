@@ -1,7 +1,7 @@
 import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
 import './sidebar.css';
-import { useQuery, useMutation, useQueryClient } from 'react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 import { useNavigate } from 'react-router-dom';

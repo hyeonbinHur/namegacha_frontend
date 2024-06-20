@@ -4,7 +4,7 @@ import { addChild, editItSelf } from '../../store/contextMenuSlice';
 import * as pageAPI from '../../utils/api/aws/pageRoutes';
 import * as functionAPI from '../../utils/api/aws/functionRoutes';
 import * as variableAPI from '../../utils/api/aws/variableRoutes';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 export default function PageContextMenu({ item }) {
     const dispatch = useDispatch();
 

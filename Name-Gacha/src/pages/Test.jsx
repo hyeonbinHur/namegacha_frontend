@@ -4,7 +4,7 @@ import * as pageAPI from '../utils/api/aws/pageRoutes';
 import * as variableAPI from '../utils/api/aws/variableRoutes';
 import * as functionAPI from '../utils/api/aws/functionRoutes';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Test() {
     const createThread = async () => {
@@ -41,10 +41,14 @@ export default function Test() {
 function ProjectTestCard() {
     const [items, setItems] = useState(null);
     const [item, setItem] = useState(null);
-    const { data } = useQuery('getProjects', projectAPI.getProjects);
-    const { data: data1 } = useQuery('getProject', () =>
-        projectAPI.getProject(4)
-    );
+    const { data } = useQuery({
+        queryKey: 'getProjects',
+        queryFn: projectAPI.getProjects,
+    });
+    const { data: data1 } = useQuery({
+        queryKey: ['getProject', 4],
+        queryFn: projectAPI.getProject(4),
+    });
 
     useEffect(() => {
         if (data) {

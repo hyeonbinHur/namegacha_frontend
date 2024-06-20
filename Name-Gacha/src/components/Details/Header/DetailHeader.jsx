@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as pageAPI from '../../../utils/api/aws/pageRoutes';
 import { deleteVariablesInPage } from '../../../utils/api/aws/variableRoutes';
 import { deleteFunctionsInPage } from '../../../utils/api/aws/functionRoutes';

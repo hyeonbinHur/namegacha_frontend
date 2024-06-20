@@ -45,6 +45,10 @@ design : https://uncle-hyeonb.tistory.com/27
 
 npm install node-sass
 
+# react query devtool
+
+npm i @tanstack/react-query-devtools
+
 ### 06 / 15
 
 -   [x] 프로젝트 생성
@@ -66,6 +70,3 @@ npm install node-sass
 useQuery -> 캐싱,
 로딩 컴포넌트
 디테일페이지에서 edit이랑 delete할때 다른건 꺼져있어야 할 것같은느낌?
-
-급한거
--> 디테일 페이지에서 edit 이나 add 누르면 다른 모든 edit이랑 add flag는 false만들기 -> redux로 해야할듯

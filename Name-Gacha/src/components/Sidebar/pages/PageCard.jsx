@@ -18,7 +18,7 @@ import ContextMenu from '../../ContextMenu/ContextMenu.jsx';
 import * as pageAPI from '../../../utils/api/aws/pageRoutes.js';
 import * as functionAPI from '../../../utils/api/aws/functionRoutes.js';
 import * as variableAPI from '../../../utils/api/aws/variableRoutes.js';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
 export default function PageCard({ page }) {

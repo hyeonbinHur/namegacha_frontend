@@ -2,7 +2,7 @@
 import { useDispatch } from 'react-redux';
 import { addChild, editItSelf } from '../../store/contextMenuSlice';
 import * as functionAPI from '../../utils/api/aws/functionRoutes';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function FunctionContextMenu({ item }) {
     const queryClient = useQueryClient();

@@ -3,7 +3,7 @@
 import { TbFunction } from 'react-icons/tb';
 import './FnCard.css';
 import * as fnAPI from '../../../utils/api/aws/functionRoutes';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import FunctionCard from './FunctionCard';
 
 export default function FunctionContainer({ functions, page }) {

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from 'react';
 import VariableCard from './VariableCard';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createVariable } from '../../../utils/api/aws/variableRoutes';
 import * as sliceUtils from '../../../utils/util/contextUtils';
 import { useSelector, useDispatch } from 'react-redux';

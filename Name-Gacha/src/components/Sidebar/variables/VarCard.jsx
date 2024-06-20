@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import * as varAPI from '../../../utils/api/aws/variableRoutes.js';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import * as contextUtil from '../../../utils/util/contextUtils.js';

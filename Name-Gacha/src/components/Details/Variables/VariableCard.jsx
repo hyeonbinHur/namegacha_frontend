@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as variableAPI from '../../../utils/api/aws/variableRoutes';
 import { useSelector, useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';

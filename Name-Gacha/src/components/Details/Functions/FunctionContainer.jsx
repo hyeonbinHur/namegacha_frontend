@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useRef } from 'react';
 import FunctionCard from './FunctionCard';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createFunction } from '../../../utils/api/aws/functionRoutes';
 import { useSelector, useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';

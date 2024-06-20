@@ -7,7 +7,7 @@ import {
     closeContextMenu,
 } from '../../../store/contextMenuSlice';
 import * as contextUtils from '../../../utils/util/contextUtils';
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as functionAPI from '../../../utils/api/aws/functionRoutes';
 import ContextMenu from '../../ContextMenu/ContextMenu';
 export default function FunctionCard({ fnction, page }) {
