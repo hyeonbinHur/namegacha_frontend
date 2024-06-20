@@ -8,8 +8,8 @@ import FunctionCard from './FunctionCard';
 
 export default function FunctionContainer({ functions, page }) {
     const { mutate: addFunction } = useMutation({
-        mutationFn: ({ functionName, pageId }) => {
-            return fnAPI.createFunction(functionName, pageId);
+        mutationFn: ({ functionName, pageId, functionExp }) => {
+            return fnAPI.createFunction(pageId, functionName, functionExp);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -27,6 +27,7 @@ export default function FunctionContainer({ functions, page }) {
                     onClick={() =>
                         addFunction({
                             functionName: 'add function test',
+                            fuctionExp: '',
                             pageId: page.pageId,
                         })
                     }

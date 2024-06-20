@@ -22,7 +22,7 @@ async function getFunctions() {
     }
 }
 
-async function createFunction(functionName, functionExp, pageId) {
+async function createFunction(pageId, functionName, functionExp) {
     //post
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function`;
@@ -38,7 +38,7 @@ async function createFunction(functionName, functionExp, pageId) {
     }
 }
 
-async function updateFunction(functionId, functionExp, functionName) {
+async function updateFunction(functionId, functionName, functionExp) {
     //put
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function?functionId=${functionId}`;

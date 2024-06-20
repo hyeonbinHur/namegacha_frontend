@@ -54,8 +54,8 @@ export default function ProjectCard({ project }) {
 
     /** HTTP request */
     const { mutate: addPage } = useMutation({
-        mutationFn: ({ pageName, projectId }) => {
-            return PageAPI.createPage(pageName, projectId);
+        mutationFn: ({ pageName, pageExp, projectId }) => {
+            return PageAPI.createPage(projectId, pageName, pageExp);
         },
     });
 
@@ -93,7 +93,11 @@ export default function ProjectCard({ project }) {
     };
     const handleKeyDownAddPage = (e) => {
         if (e.key === 'Enter') {
-            addPage({ pageName: newPageName, projectId: project.projectId });
+            addPage({
+                pageName: newPageName,
+                pageExp: '',
+                projectId: project.projectId,
+            });
         } else if (e.key === 'Escape') {
             dispatch(clearContextMenu());
             setNewPageName('');
@@ -135,6 +139,7 @@ export default function ProjectCard({ project }) {
                     onClick={() =>
                         addPage({
                             projectId: project.projectId,
+                            pageExp: '',
                             pageName: 'add page test',
                         })
                     }

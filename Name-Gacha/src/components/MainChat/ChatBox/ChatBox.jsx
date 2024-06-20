@@ -12,10 +12,6 @@ export default function ChatBox() {
         (state) => state.currentThread.currentThread
     );
 
-    // const currentMessages = useSelector(
-    //     (state) => state.currentThread.messages
-    // );
-
     useEffect(() => {
         //
 
@@ -23,13 +19,6 @@ export default function ChatBox() {
             chatAI();
         }
     }, [currentThread]);
-
-    // useEffect(() => {
-    //     const sessionThreadId = sessionStorage.setItem('threadId', currentThread);
-    //     if(sessionThreadId !== null){
-    //         메세지 가져와서 보여주기?
-    //     }
-    // }, [])
 
     const dispatch = useDispatch();
 

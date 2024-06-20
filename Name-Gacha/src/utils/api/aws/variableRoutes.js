@@ -22,7 +22,7 @@ async function getVariables() {
     }
 }
 
-async function createVariable(variableName, variableExp, pageId) {
+async function createVariable(pageId, variableName, variableExp) {
     //post
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable`;

@@ -49,19 +49,23 @@ export default function VarCard({ variable, page }) {
             })
         );
     };
+
+    /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateVariable } = useMutation({
-        mutationFn: ({ variableName, variableId }) => {
-            return varAPI.updateVariable(variableId, variableName);
+        mutationFn: ({ variableName, variableExp, variableId }) => {
+            return varAPI.updateVariable(variableId, variableName, variableExp);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
+
     const handleKeyDownEditVariable = (e) => {
         if (e.key === 'Enter') {
             mutateUpdateVariable({
                 variableName: newVariableName,
+                variabeExp: variable.variableExp,
                 variableId: variable.variableId,
             });
             dispatch(closeContextMenu());

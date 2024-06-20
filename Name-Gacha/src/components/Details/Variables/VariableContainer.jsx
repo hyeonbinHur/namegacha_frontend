@@ -4,7 +4,7 @@ import VariableCard from './VariableCard';
 import { useMutation, useQueryClient } from 'react-query';
 import { createVariable } from '../../../utils/api/aws/variableRoutes';
 
-export default function VariableContainer({ variables }) {
+export default function VariableContainer({ variables, pageId }) {
     const [isAdd, setIsAdd] = useState(false);
     const [newName, setNewName] = useState('');
     const [newExp, setNewExp] = useState('');
@@ -14,8 +14,8 @@ export default function VariableContainer({ variables }) {
     /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateAddVariable } = useMutation({
-        mutationFn: ({ variableName, variableExp }) => {
-            return createVariable(variableName, variableExp);
+        mutationFn: ({ variableName, variableExp, pageId }) => {
+            return createVariable(pageId, variableName, variableExp);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -48,7 +48,11 @@ export default function VariableContainer({ variables }) {
 
     const addNewVariable = () => {
         if (newName.length === 0) return;
-        mutateAddVariable({ variableName: newName, variableExp: newExp });
+        mutateAddVariable({
+            pageId: pageId,
+            variableName: newName,
+            variableExp: newExp,
+        });
         cancelNewVariable();
     };
 

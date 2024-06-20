@@ -52,6 +52,7 @@ export default function FunctionCard({ fnction, page }) {
         if (e.key === 'Enter') {
             mutateUpdateFunction({
                 functionId: fnction.functionId,
+                functionExp: '',
                 functionName: newFunctionName,
             });
             dispatch(closeContextMenu());
@@ -64,8 +65,12 @@ export default function FunctionCard({ fnction, page }) {
     /** HTTP request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateFunction } = useMutation({
-        mutationFn: ({ functionName, functionId }) => {
-            return functionAPI.updateFunction(functionId, functionName);
+        mutationFn: ({ functionName, functionId, functionExp }) => {
+            return functionAPI.updateFunction(
+                functionId,
+                functionName,
+                functionExp
+            );
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');

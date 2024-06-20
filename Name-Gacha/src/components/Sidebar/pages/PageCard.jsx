@@ -88,6 +88,7 @@ export default function PageCard({ page }) {
             else {
                 mutateUpdatePage({
                     pageId: page.pageId,
+                    pageExp: '',
                     pageName: newPageName,
                 });
             }
@@ -105,6 +106,7 @@ export default function PageCard({ page }) {
             } else {
                 mutateAddVariable({
                     pageId: page.pageId,
+                    variableExp: '',
                     variableName: newVariableName,
                 });
             }
@@ -121,6 +123,7 @@ export default function PageCard({ page }) {
             else {
                 mutateAddFunction({
                     pageId: page.pageId,
+                    functionExp: '',
                     functionName: newFunctionName,
                 });
             }
@@ -138,8 +141,8 @@ export default function PageCard({ page }) {
     const queryClient = useQueryClient();
     // edit page name
     const { mutate: mutateUpdatePage } = useMutation({
-        mutationFn: ({ pageId, pageName }) => {
-            return pageAPI.updatePage(pageId, pageName);
+        mutationFn: ({ pageId, pageName, pageExp }) => {
+            return pageAPI.updatePage(pageId, pageName, pageExp);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -147,8 +150,12 @@ export default function PageCard({ page }) {
     });
     // add function
     const { mutate: mutateAddFunction } = useMutation({
-        mutationFn: ({ pageId, functionName }) => {
-            return functionAPI.createFunction(functionName, pageId);
+        mutationFn: ({ pageId, functionName, functionExp }) => {
+            return functionAPI.createFunction(
+                pageId,
+                functionName,
+                functionExp
+            );
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -156,8 +163,12 @@ export default function PageCard({ page }) {
     });
     // add variable
     const { mutate: mutateAddVariable } = useMutation({
-        mutationFn: ({ pageId, variableName }) => {
-            return variableAPI.createVariable(variableName, pageId);
+        mutationFn: ({ pageId, variableName, variableExp }) => {
+            return variableAPI.createVariable(
+                pageId,
+                variableName,
+                variableExp
+            );
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');

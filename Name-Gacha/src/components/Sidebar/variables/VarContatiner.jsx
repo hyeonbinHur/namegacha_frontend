@@ -9,8 +9,8 @@ export default function VarContainer({ variables, page }) {
     /* 컨텍스트 메뉴 일단 보류, add variable 말고 추가 할게 없음 */
     const queryClient = useQueryClient();
     const { mutate: addVariable } = useMutation({
-        mutationFn: ({ variableName, pageId }) => {
-            return varAPI.createVariable(variableName, pageId);
+        mutationFn: ({ variableName, variableExp, pageId }) => {
+            return varAPI.createVariable(pageId, variableName, variableExp);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -26,6 +26,7 @@ export default function VarContainer({ variables, page }) {
                     onClick={() =>
                         addVariable({
                             variableName: 'add variable test',
+                            variableExp: '',
                             pageId: variables[0].pageId_frk,
                         })
                     }

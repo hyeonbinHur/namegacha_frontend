@@ -4,7 +4,7 @@ import FunctionCard from './FunctionCard';
 import { useMutation, useQueryClient } from 'react-query';
 import { createFunction } from '../../../utils/api/aws/functionRoutes';
 
-export default function FunctionContainer({ functions }) {
+export default function FunctionContainer({ functions, pageId }) {
     const [isAdd, setIsAdd] = useState(false);
     const [newName, setNewName] = useState('');
     const [newExp, setNewExp] = useState('');
@@ -14,8 +14,8 @@ export default function FunctionContainer({ functions }) {
     /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateAddFunction } = useMutation({
-        mutationFn: ({ functionName, functionExp }) => {
-            return createFunction(functionName, functionExp);
+        mutationFn: ({ functionName, functionExp, pageId }) => {
+            return createFunction(pageId, functionName, functionExp);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -48,7 +48,11 @@ export default function FunctionContainer({ functions }) {
 
     const addNewFunction = () => {
         if (newName.length === 0) return;
-        mutateAddFunction({ functionName: newName, functionExp: newExp });
+        mutateAddFunction({
+            functionName: newName,
+            pageId: pageId,
+            functionExp: newExp,
+        });
         cancelNewFunction();
     };
 
