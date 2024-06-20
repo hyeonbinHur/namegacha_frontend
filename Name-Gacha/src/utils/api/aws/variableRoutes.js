@@ -22,13 +22,14 @@ async function getVariables() {
     }
 }
 
-async function createVariable(variableName, pageId) {
+async function createVariable(variableName, variableExp, pageId) {
     //post
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable`;
         const body = {
             variableName: variableName,
             pageId: pageId,
+            variableExp: variableExp,
         };
         const response = await axios.post(endPoint, body);
         console.log('create variable done');
@@ -38,12 +39,13 @@ async function createVariable(variableName, pageId) {
     }
 }
 
-async function updateVariable(variableId, variableName) {
+async function updateVariable(variableId, variableName, variableExp) {
     //put
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/variable?variableId=${variableId}`;
         const body = {
             variableName: variableName,
+            variableExp: variableExp,
         };
         const response = await axios.put(endPoint, body);
         return response.data;

@@ -22,18 +22,16 @@ async function getPages() {
     }
 }
 
-async function createPage(pageName, projectId) {
+async function createPage(pageName, pageExp, projectId) {
     //post
     try {
-        console.log('page name :' + pageName);
-        console.log('projectId :' + projectId);
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/page`;
         const body = {
             pageName: pageName,
             projectId: projectId,
+            pageExp: pageExp,
         };
         const response = await axios.post(endPoint, body);
-        console.log(response.data);
         return response.data;
     } catch (err) {
         console.error(err.message);

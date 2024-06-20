@@ -22,13 +22,14 @@ async function getFunctions() {
     }
 }
 
-async function createFunction(functionName, pageId) {
+async function createFunction(functionName, functionExp, pageId) {
     //post
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function`;
         const body = {
             functionName: functionName,
             pageId: pageId,
+            functionExp: functionExp,
         };
         const response = await axios.post(endPoint, body);
         return response.data;
@@ -37,12 +38,13 @@ async function createFunction(functionName, pageId) {
     }
 }
 
-async function updateFunction(functionId, functionName) {
+async function updateFunction(functionId, functionExp, functionName) {
     //put
     try {
         const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/function?functionId=${functionId}`;
         const body = {
             functionName: functionName,
+            functionExp: functionExp,
         };
         const response = await axios.put(endPoint, body);
         return response.data;
