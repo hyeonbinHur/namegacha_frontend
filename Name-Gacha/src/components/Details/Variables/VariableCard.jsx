@@ -36,7 +36,7 @@ export default function VariableCard({ variable }) {
     /* Basic Fuctions */
     const handleKeyDownEditVariable = (e) => {
         const input = e.target;
-        if (input.varName) {
+        if (input.name === 'varName') {
             if (e.key === 'Escape') {
                 cancelEditVariable();
             } else if (e.key === 'Enter') {
@@ -83,7 +83,9 @@ export default function VariableCard({ variable }) {
                             <label>variable name</label>
                             <input
                                 type="text"
+                                name="varName"
                                 value={newName}
+                                ref={nameInputRef}
                                 onChange={(e) => setNewName(e.target.value)}
                                 onKeyDown={(e) => handleKeyDownEditVariable(e)}
                             />
@@ -92,7 +94,9 @@ export default function VariableCard({ variable }) {
                             <label>variable Exp</label>
                             <input
                                 type="text"
+                                name="expName"
                                 value={newExp}
+                                ref={expInputRef}
                                 onChange={(e) => setNewExp(e.target.value)}
                                 onKeyDown={(e) => handleKeyDownEditVariable(e)}
                             />
@@ -103,8 +107,8 @@ export default function VariableCard({ variable }) {
                 </div>
             ) : (
                 <div>
-                    <div>{variable.variableName}</div>
-                    <div>{variable.variableExp}</div>
+                    <div>{variable?.variableName}</div>
+                    <div>{variable?.variableExp}</div>
                     <button onClick={() => setIsEdit(true)}>Edit</button>
                     <button
                         onClick={() =>

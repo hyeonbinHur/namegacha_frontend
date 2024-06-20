@@ -38,7 +38,7 @@ export default function FunctionCard({ fn }) {
     /**Basic functions */
     const handleKeyDownEditFunction = (e) => {
         const input = e.target;
-        if (input.varName) {
+        if (input.name === 'fnName') {
             if (e.key === 'Escape') {
                 cancelEditFunction();
             } else if (e.key === 'Enter') {
@@ -83,6 +83,8 @@ export default function FunctionCard({ fn }) {
                             <label>function name</label>
                             <input
                                 type="text"
+                                ref={nameInputRef}
+                                name="fnName"
                                 value={newName}
                                 onChange={(e) => setNewName(e.target.value)}
                                 onKeyDown={(e) => handleKeyDownEditFunction(e)}
@@ -92,20 +94,23 @@ export default function FunctionCard({ fn }) {
                             <label>function Exp</label>
                             <input
                                 type="text"
+                                ref={expInputRef}
+                                name="fnExp"
                                 value={newExp}
                                 onChange={(e) => setNewExp(e.target.value)}
                                 onKeyDown={(e) => handleKeyDownEditFunction(e)}
                             />
                         </div>
                     </div>
-                    <button onClick={editFunction()}>save</button>
-                    <button onClick={cancelEditFunction()}>cancel</button>
+                    <button onClick={() => editFunction()}>save</button>
+                    <button onClick={() => cancelEditFunction()}>cancel</button>
                 </div>
             ) : (
                 <div>
-                    <div>{fn.functionName}</div>
-                    <div>{fn.functionExp}</div>
+                    <div>{fn?.functionName}</div>
+                    <div>{fn?.functionExp}</div>
                     <button onClick={() => setIsEdit(true)}>Edit</button>
+                    {/* <button onClick={() => console.log('hello')}>Edit</button> */}
                     <button
                         onClick={() =>
                             mutateDeleteFunction({

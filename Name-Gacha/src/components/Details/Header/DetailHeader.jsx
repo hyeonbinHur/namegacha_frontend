@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import * as pageAPI from '../../../utils/api/aws/pageRoutes';
 import { deleteVariablesInPage } from '../../../utils/api/aws/variableRoutes';
@@ -9,6 +9,9 @@ export default function DeatilHeader({ page }) {
     const [isEdit, setIsEdit] = useState(false);
     const [newName, setNewName] = useState(page.pageName);
     const [newExp, setNewExp] = useState(page.pageExp);
+
+    const nameInputRef = useRef(null);
+    const expInputRef = useRef(null);
 
     /*Http requset */
     //1. edit page
@@ -45,6 +48,7 @@ export default function DeatilHeader({ page }) {
     });
     /*Functions */
     const handleKeyDownEdit = (e) => {
+        const input = e.target;
         if (e.key === 'Enter') {
             mutateUpdatePage({
                 pageId: page.pageId,
@@ -56,6 +60,14 @@ export default function DeatilHeader({ page }) {
             setNewExp(page.pageExp);
             setNewName(page.pageName);
             setIsEdit(false);
+        } else if (e.key === 'Tab') {
+            e.preventDefault();
+
+            if (input.name === 'pageName') {
+                expInputRef.current.focus();
+            } else {
+                nameInputRef.current.focus();
+            }
         }
     };
 
@@ -86,44 +98,50 @@ export default function DeatilHeader({ page }) {
     return (
         <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
             <div>
-                page name :
                 {isEdit ? (
-                    <input
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                        onKeyDown={(e) => handleKeyDownEdit(e)}
-                    />
+                    <div>
+                        <input
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                            onKeyDown={(e) => handleKeyDownEdit(e)}
+                            name="pageName"
+                            ref={nameInputRef}
+                        />
+                        <input
+                            value={newExp}
+                            onChange={(e) => setNewExp(e.target.value)}
+                            onKeyDown={(e) => handleKeyDownEdit(e)}
+                            name="pageExp"
+                            ref={expInputRef}
+                        />
+                        <div>
+                            <button onClick={() => handleSaveEdit()}>
+                                save
+                            </button>
+                            <button onClick={() => handleCancelEdit()}>
+                                cancel
+                            </button>
+                        </div>
+                    </div>
                 ) : (
-                    <span>{page.pageName}</span>
+                    <div>
+                        <div>
+                            page name : <span>{page.pageName}</span>
+                        </div>
+                        <div>
+                            page explanation : <span>{page.pageExp}</span>
+                        </div>
+                        <div>
+                            <button onClick={() => setIsEdit((prev) => !prev)}>
+                                edit page
+                            </button>
+                            <button onClick={() => handleDeletePage()}>
+                                delete page
+                            </button>
+                        </div>
+                    </div>
                 )}
             </div>
-            <div>
-                page explanation
-                {isEdit ? (
-                    <input
-                        value={newExp}
-                        onChange={(e) => setNewExp(e.target.value)}
-                        onKeyDown={(e) => handleKeyDownEdit(e)}
-                    />
-                ) : (
-                    <span>{page.pageExp}</span>
-                )}
-            </div>
-            {isEdit ? (
-                <div>
-                    <button onClick={() => handleSaveEdit()}>save</button>
-                    <button onClick={() => handleCancelEdit()}>cancel</button>
-                </div>
-            ) : (
-                <div>
-                    <button onClick={() => setIsEdit((prev) => !prev)}>
-                        edit page
-                    </button>
-                    <button onClick={() => handleDeletePage()}>
-                        delete page
-                    </button>
-                </div>
-            )}
         </div>
     );
 }

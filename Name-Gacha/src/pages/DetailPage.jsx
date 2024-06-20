@@ -39,10 +39,16 @@ export default function DetailPage() {
                         <DetailHeader page={page} />
                     </header>
                     <div>
-                        <VariableContainer variables={page.variables} />
+                        <VariableContainer
+                            variables={page.variables}
+                            pageId={page.pageId}
+                        />
                     </div>
                     <div>
-                        <FunctionContainer functions={page.functions} />
+                        <FunctionContainer
+                            functions={page.functions}
+                            pageId={page.pageId}
+                        />
                     </div>
                     <button onClick={() => console.log(page)}>
                         show page info

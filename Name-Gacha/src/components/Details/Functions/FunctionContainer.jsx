@@ -25,7 +25,7 @@ export default function FunctionContainer({ functions, pageId }) {
     /**Basic functions */
     const handleKeyDownAddFunction = (e) => {
         const input = e.target;
-        if (input.varName) {
+        if (input.name === 'fnName') {
             if (e.key === 'Escape') {
                 cancelNewFunction();
             } else if (e.key === 'Enter') {
@@ -63,24 +63,28 @@ export default function FunctionContainer({ functions, pageId }) {
     };
 
     return (
-        <div>
+        <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
             {isAdd ? (
                 <div>
                     <div>
                         <label>Name</label>{' '}
                         <input
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
                             ref={nameInputRef}
                             type="text"
-                            name="varName"
+                            name="fnName"
                             onKeyDown={(e) => handleKeyDownAddFunction(e)}
                         />
                     </div>
                     <div>
                         <label>Explanation</label>
                         <input
+                            value={newExp}
+                            onChange={(e) => setNewExp(e.target.value)}
                             ref={expInputRef}
                             type="text"
-                            name="varExp"
+                            name="fnExp"
                             onKeyDown={(e) => handleKeyDownAddFunction(e)}
                         />
                     </div>
@@ -88,13 +92,12 @@ export default function FunctionContainer({ functions, pageId }) {
                     <button onClick={() => cancelNewFunction()}>cancel</button>
                 </div>
             ) : (
-                <button onClick={() => setIsAdd(true)}>Add new variable</button>
+                <button onClick={() => setIsAdd(true)}>Add new function</button>
             )}
-            <button onClick={() => setIsAdd(true)}> Add new variable </button>
             <ul>
                 {functions.map((f) => (
                     <li key={f.functionId}>
-                        <FunctionCard function={f} />
+                        <FunctionCard fn={f} />
                     </li>
                 ))}
             </ul>

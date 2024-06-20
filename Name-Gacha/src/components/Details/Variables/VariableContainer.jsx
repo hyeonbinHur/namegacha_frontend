@@ -25,7 +25,7 @@ export default function VariableContainer({ variables, pageId }) {
     /**Basic functions */
     const handleKeyDownAddVariable = (e) => {
         const input = e.target;
-        if (input.varName) {
+        if (input.name === 'varName') {
             if (e.key === 'Escape') {
                 cancelNewVariable();
             } else if (e.key === 'Enter') {
@@ -47,7 +47,11 @@ export default function VariableContainer({ variables, pageId }) {
     };
 
     const addNewVariable = () => {
-        if (newName.length === 0) return;
+        if (newName.length == 0) {
+            console.log(newName);
+            console.log('add fail');
+            return;
+        }
         mutateAddVariable({
             pageId: pageId,
             variableName: newName,
@@ -63,12 +67,14 @@ export default function VariableContainer({ variables, pageId }) {
     };
 
     return (
-        <div>
+        <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
             {isAdd ? (
                 <div>
                     <div>
                         <label>Name</label>{' '}
                         <input
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
                             ref={nameInputRef}
                             type="text"
                             name="varName"
@@ -78,6 +84,8 @@ export default function VariableContainer({ variables, pageId }) {
                     <div>
                         <label>Explanation</label>
                         <input
+                            value={newExp}
+                            onChange={(e) => setNewExp(e.target.value)}
                             ref={expInputRef}
                             type="text"
                             name="varExp"
@@ -90,7 +98,6 @@ export default function VariableContainer({ variables, pageId }) {
             ) : (
                 <button onClick={() => setIsAdd(true)}>Add new variable</button>
             )}
-            <button onClick={() => setIsAdd(true)}> Add new variable </button>
             <ul>
                 {variables.map((v) => (
                     <li key={v.variableId}>
