@@ -34,9 +34,6 @@ export default function LoginForm() {
         const form = e.target; // 이벤트 타겟에서 폼 요소를 가져옵니다.
         const id = form.username.value; // 폼 요소의 name 속성을 사용하여 값을 가져옵니다.
         const pw = form.password.value;
-        console.log('Form submitted');
-        console.log('Username:', id);
-        console.log('Password:', pw);
         try {
             const response = await auth.signUpUser(id, pw);
             console.log('User created:', response.data);
