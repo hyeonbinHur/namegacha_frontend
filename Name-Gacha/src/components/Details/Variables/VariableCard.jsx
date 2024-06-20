@@ -1,9 +1,7 @@
 import { useState, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import {
-    updateVariable,
-    deleteVariable,
-} from '../../../utils/api/aws/variableRoutes';
+
+import * as variableAPI from '../../../utils/api/aws/variableRoutes';
 
 /* eslint-disable react/prop-types */
 export default function VariableCard({ variable }) {
@@ -11,11 +9,18 @@ export default function VariableCard({ variable }) {
     const [newName, setNewName] = useState(variable.variableName);
     const [newExp, setNewExp] = useState(variable.variableExp);
 
+    const nameInputRef = useRef(null);
+    const expInputRef = useRef(null);
+
     /* Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateVariable } = useMutation({
         mutationFn: ({ variableId, variableName, variableExp }) => {
-            return updateVariable(variableId, variableName, variableExp);
+            return variableAPI.updateVariable(
+                variableId,
+                variableName,
+                variableExp
+            );
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -23,7 +28,7 @@ export default function VariableCard({ variable }) {
     });
     const { mutate: mutateDeleteVariable } = useMutation({
         mutationFn: ({ variableId }) => {
-            return deleteVariable(variableId);
+            return variableAPI.deleteVariable(variableId);
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
@@ -32,11 +37,11 @@ export default function VariableCard({ variable }) {
 
     //update / delete
     /* Basic Fuctions */
-    const handleKeyDownAddVariable = (e) => {
+    const handleKeyDownEditVariable = (e) => {
         const input = e.target;
         if (input.varName) {
             if (e.key === 'Escape') {
-                cancelNewVariable();
+                cancelEditVariable();
             } else if (e.key === 'Enter') {
                 expInputRef.current.focus();
             } else if (e.key === 'Tab') {
@@ -45,24 +50,29 @@ export default function VariableCard({ variable }) {
             }
         } else {
             if (e.key === 'Escape') {
-                cancelNewVariable();
+                cancelEditVariable();
             } else if (e.key === 'Enter') {
-                addNewVariable();
+                editVariable();
             } else if (e.key === 'Tab') {
                 e.preventDefault();
                 nameInputRef.current.focus();
             }
         }
     };
-    const addNewVariable = () => {
+
+    const editVariable = () => {
         if (newName.length === 0) return;
-        mutateAddVariable({ variableName: newName, variableExp: newExp });
-        cancelNewVariable();
+        mutateUpdateVariable({
+            variableId: variable.variableId,
+            variableName: newName,
+            variableExp: newExp,
+        });
+        cancelEditVariable();
     };
-    const cancelNewVariable = () => {
+    const cancelEditVariable = () => {
         setNewName('');
         setNewExp('');
-        setIsAdd(false);
+        setIsEdit(false);
     };
 
     //handleKey down
@@ -71,17 +81,45 @@ export default function VariableCard({ variable }) {
 
     return (
         <div>
-            <div>{variable.variableName}</div>
-            <div>{variable.variableExp}</div>
             {isEdit ? (
                 <div>
-                    <button>save</button>
-                    <button>cancel</button>
+                    <div>
+                        <div>
+                            <label>variable name</label>
+                            <input
+                                type="text"
+                                value={newName}
+                                onChange={(e) => setNewName(e.target.value)}
+                                onKeyDown={(e) => handleKeyDownEditVariable(e)}
+                            />
+                        </div>
+                        <div>
+                            <label>variable Exp</label>
+                            <input
+                                type="text"
+                                value={newExp}
+                                onChange={(e) => setNewExp(e.target.value)}
+                                onKeyDown={(e) => handleKeyDownEditVariable(e)}
+                            />
+                        </div>
+                    </div>
+                    <button onClick={editVariable}>save</button>
+                    <button onClick={cancelEditVariable}>cancel</button>
                 </div>
             ) : (
                 <div>
-                    <button>Edit</button>
-                    <button>delete</button>
+                    <div>{variable.variableName}</div>
+                    <div>{variable.variableExp}</div>
+                    <button onClick={() => setIsEdit(true)}>Edit</button>
+                    <button
+                        onClick={() =>
+                            mutateDeleteVariable({
+                                variableId: variable.variableId,
+                            })
+                        }
+                    >
+                        delete
+                    </button>
                 </div>
             )}
         </div>
