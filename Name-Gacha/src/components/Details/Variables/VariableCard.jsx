@@ -1,8 +1,6 @@
 import { useState, useRef } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-
 import * as variableAPI from '../../../utils/api/aws/variableRoutes';
-
 /* eslint-disable react/prop-types */
 export default function VariableCard({ variable }) {
     const [isEdit, setIsEdit] = useState(false);
@@ -35,7 +33,6 @@ export default function VariableCard({ variable }) {
         },
     });
 
-    //update / delete
     /* Basic Fuctions */
     const handleKeyDownEditVariable = (e) => {
         const input = e.target;
@@ -76,8 +73,6 @@ export default function VariableCard({ variable }) {
     };
 
     //handleKey down
-    //save
-    //cancel
 
     return (
         <div>
