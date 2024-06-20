@@ -52,33 +52,20 @@ npm install node-sass
 -   [x] 함수 및 변수 생성
 
 6/19
-Detail page
-all features
-
--   variable 나열 -> 각각 제거 & 변경
--   funtions 나열 -> 각각 제거 & 변경
--   variable 컨테이너에서 variable 추가 -> 이름이랑 설명 둘다(이름은 비어도 되지만 설명은 비어있으면 안됨)
--   functin 컨테이너에서 function 추가 -> 이름이랑 설명 둘다(이름은 비어도 되지만 설명은 비어있으면 안됨)
 
     think about the page structure
     formatting ai answer
     -> 하면 모든 구현 끝
 
--   page, variable, function 이름이랑 설명 같이 create 하려면 백엔드 람다 코드 수정해야함
-
 -   useRef가 정확히 뭐지 ?
-
-백엔드 : {
-페이지 생성시 : 이름 설명
-변수 생성시 : 이름 설명
-함수 생성시 : 이름 설명
-
-    페이지 에딧 : 이름 설명
-    변수 에딧 : 이름 설명
-    함수 에딧 : 이름 설명
-
-}
 
 프론트 엔드 : {
 아까 만들었던 폼 같은 코드가 3~4 번 반복되는거같은데 reuse할 방법 찾기
 }
+
+useQuery -> 캐싱,
+로딩 컴포넌트
+디테일페이지에서 edit이랑 delete할때 다른건 꺼져있어야 할 것같은느낌?
+
+급한거
+-> 디테일 페이지에서 edit 이나 add 누르면 다른 모든 edit이랑 add flag는 false만들기 -> redux로 해야할듯
