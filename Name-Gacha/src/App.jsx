@@ -3,6 +3,7 @@ import DetailPage from './pages/DetailPage';
 import MainPage from './pages/MainPage';
 import AuthPage from './pages/AuthPage';
 import Test2 from './pages/Test2';
+import ErrorPage from './pages/ErrorPage';
 import './index.css';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/auth" element={<AuthPage />} />
                 <Route path="/detail/:pageId" element={<DetailPage />} />
                 <Route path="/" element={<MainPage />} />
+                <Route path="/*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
     );

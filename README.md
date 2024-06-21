@@ -67,6 +67,4 @@ npm i @tanstack/react-query-devtools
 아까 만들었던 폼 같은 코드가 3~4 번 반복되는거같은데 reuse할 방법 찾기
 }
 
-useQuery -> 캐싱,
-로딩 컴포넌트
-디테일페이지에서 edit이랑 delete할때 다른건 꺼져있어야 할 것같은느낌?
+에러 나면 에러 페이지 + 에러 모달 + 화면 refresh하는 함수 모달 안에 넣기
