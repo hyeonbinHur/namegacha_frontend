@@ -14,12 +14,10 @@ export default function Header() {
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
     const navigator = useNavigate();
-    const {
-        data: projects,
-        // error,
-        isLoading,
-    } = useQuery('getCertainProjects', () => getCertainProjects(user.uuid), {
-        enabled: !!user,
+    const { data: projects, isLoading } = useQuery({
+        queryKey: ['getCertainProjects', user?.uuid], // 쿼리 키에 user의 uuid를 포함시켜 각 uuid에 대해 별도의 캐시를 관리
+        queryFn: () => getCertainProjects(user.uuid),
+        enabled: !!user, // user가 존재할 때만 쿼리 실행
     });
     const moveToSignInPage = () => {
         navigator('/auth');
