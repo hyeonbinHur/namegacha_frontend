@@ -1,81 +1,77 @@
+import { useQuery, useMutation } from 'react-query';
+import { useEffect } from 'react';
 import axios from 'axios';
-import { useState } from 'react';
 
-export default function Test2() {
-    const [threadId, setThread] = useState(null);
-    const [runId, setRunId] = useState(null);
+// 프로젝트 데이터를 가져오는 함수
+async function getProjects() {
+    //get
+    try {
+        const endPoint =
+            'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project/projects?content=all';
+        const response = await axios.get(endPoint);
+        return response.data;
+    } catch (err) {
+        console.error(err.message);
+    }
+}
 
-    const createThread = async () => {
-        try {
-            const response = await axios.get(
-                'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/ai?content=thread'
-            );
-            const resposeThreadId = response.data;
-            setThread(resposeThreadId);
-            console.log(resposeThreadId);
-        } catch (err) {
-            console.error(err);
+// 프로젝트를 업데이트하는 함수
+const updateProject = async (projectId, projectName) => {
+    const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project?projectId=${projectId}`;
+    const body = {
+        projectId: projectId,
+        projectName: projectName,
+    };
+    const response = await axios.put(endPoint, body);
+    return response.data;
+};
+
+const Component = () => {
+    const { data: projects, refetch: refetchGetProjects } = useQuery(
+        'projects',
+        getProjects
+    );
+    const {
+        mutate: mutateUpdateProject,
+        isError: isErrorGetProject,
+        error: errorGetProject,
+    } = useMutation({
+        mutationFn: ({ projectId, projectName }) =>
+            updateProject(projectId, projectName),
+        onSuccess: () => {
+            refetchGetProjects();
+        },
+        onError: (error) => {
+            console.error('Mutation error:', error);
+        },
+    });
+
+    useEffect(() => {
+        if (isErrorGetProject) {
+            console.log('isError:', isErrorGetProject);
+            console.log('error:', errorGetProject);
         }
+    }, [isErrorGetProject, errorGetProject]);
+
+    const handleMakeError = () => {
+        mutateUpdateProject({
+            projectId: 'make error',
+            projectName: 'make error',
+        });
     };
 
-    const readMessages = async () => {
-        try {
-            const response = await axios.get(
-                `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/ai?content=messages&threadId=${threadId}`
-            );
-            console.log(response);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-
-    const sendMessage = async () => {
-        try {
-            const body = {
-                threadId: threadId,
-                message:
-                    'I want to create function, camel case, the function to check whether character is dead or not',
-            };
-            const endPoint =
-                'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/ai';
-            const response = await axios.post(endPoint, body);
-            const resposeRunId = response.data;
-            setRunId(resposeRunId);
-            console.log(response);
-            console.log(resposeRunId);
-        } catch (err) {
-            console.error(err);
-        }
-    };
-    const chectStatus = async () => {
-        try {
-            const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/ai?content=status&threadId=${threadId}&runId=${runId}`;
-            const response = await axios.get(endPoint);
-            const status = response.data;
-            console.log(response);
-            console.log(status);
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-    const readReply = async () => {
-        try {
-            const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/ai?content=reply&threadId=${threadId}`;
-            const response = await axios.get(endPoint);
-            const reply = response.data;
-            console.log(reply[0].text.value);
-            console.log(response);
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
     return (
-        <div style={{ display: 'flex' }}>
-            <button onClick={() => createThread()}>create thread button</button>
-            <button onClick={() => readMessages()}>read message button</button>
-            <button onClick={() => sendMessage()}>send message button</button>
-            <button onClick={() => chectStatus()}>check status button</button>
-            <button onClick={() => readReply()}>get reply button</button>
+        <div>
+            <button onClick={handleMakeError}>Make Error</button>
+            {isErrorGetProject && <div>Error: {errorGetProject.message}</div>}
+            <div>
+                {projects &&
+                    projects.map((project) => (
+                        <div key={project.id}>{project.name}</div>
+                    ))}
+            </div>
         </div>
     );
-}
+};
+
+export default Component;
