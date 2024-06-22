@@ -8,7 +8,7 @@ import { createPortal } from 'react-dom';
 const ErrorModal = forwardRef(function ErrorModal(props, ref) {
     const modal = useRef(null);
 
-    const sliceError = useSelector((state) => state.errorSlice.error);
+    const sliceError = useSelector((state) => state.errorSlice.errorCode);
     const dispatch = useDispatch();
 
     useImperativeHandle(ref, () => {
