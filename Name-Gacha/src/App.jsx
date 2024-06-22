@@ -13,14 +13,14 @@ import { setError } from './store/errorSlice.js';
 
 function App() {
     const errorModal = useRef(null);
-    const isError = useSelector((state) => state.errorSlice.isError);
+    const sliceIsError = useSelector((state) => state.errorSlice.isError);
     const dispatch = useDispatch();
 
     // Define the error handler function
     const apiErrorHandler = (error) => {
-        console.log('API Error Handler Called:', error);
-        const serviceCode = error?.response?.data?.code;
-        const httpMessage = error?.response?.data?.message;
+        const serviceCode = error?.response?.status;
+        const httpMessage = error.response.data;
+        console.log(httpMessage);
         dispatch(setError({ message: httpMessage, code: serviceCode }));
     };
 
@@ -38,12 +38,12 @@ function App() {
 
     // UseEffect to open/close modal based on error state
     useEffect(() => {
-        if (isError) {
+        if (sliceIsError) {
             errorModal.current.open();
         } else {
             errorModal.current.close();
         }
-    }, [isError]);
+    }, [sliceIsError]);
 
     return (
         <QueryClientProvider client={queryClient}>

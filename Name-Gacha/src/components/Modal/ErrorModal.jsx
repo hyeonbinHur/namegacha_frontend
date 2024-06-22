@@ -8,7 +8,10 @@ import { createPortal } from 'react-dom';
 const ErrorModal = forwardRef(function ErrorModal(props, ref) {
     const modal = useRef(null);
 
-    const sliceError = useSelector((state) => state.errorSlice.errorCode);
+    const sliceErrorCode = useSelector((state) => state.errorSlice.errorCode);
+    const sliceErrorMessage = useSelector(
+        (state) => state.errorSlice.errorMessage
+    );
     const dispatch = useDispatch();
 
     useImperativeHandle(ref, () => {
@@ -27,8 +30,8 @@ const ErrorModal = forwardRef(function ErrorModal(props, ref) {
         <div>
             <dialog ref={modal}>
                 <button onClick={() => ref.current.close()}>close</button>
-                <div>{sliceError}</div>
-                <div>Hello I am Error</div>
+                <div>{sliceErrorCode}</div>
+                <div>{sliceErrorMessage}</div>
             </dialog>
         </div>,
         document.getElementById('modal')
