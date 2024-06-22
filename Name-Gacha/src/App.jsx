@@ -10,7 +10,7 @@ import { useRef, useEffect } from 'react';
 import ErrorModal from './components/Modal/ErrorModal.jsx';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setError, clearError } from './store/errorSlice.js';
+import { setError } from './store/errorSlice.js';
 
 function App() {
     const dispatch = useDispatch();
