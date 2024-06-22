@@ -6,12 +6,11 @@ import Test2 from './pages/Test2';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import './index.css';
-import useApiErrorHandler from './hooks/useApiErrorHandle.js';
 import { useRef, useEffect } from 'react';
 import ErrorModal from './components/Modal/ErrorModal.jsx';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { setError } from './store/errorSlice.js';
+import { setError, clearError } from './store/errorSlice.js';
 
 function App() {
     const dispatch = useDispatch();
@@ -45,6 +44,7 @@ function App() {
             errorModal.current.open();
         } else {
             console.log('clear error on app.jsx');
+            errorModal.current.close();
         }
     }, [isError]);
 

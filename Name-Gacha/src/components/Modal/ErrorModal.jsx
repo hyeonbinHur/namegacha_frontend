@@ -26,7 +26,7 @@ const ErrorModal = forwardRef(function ErrorModal(props, ref) {
     return createPortal(
         <div>
             <dialog ref={modal}>
-                <button onClick={() => modal.current.close()}>close</button>
+                <button onClick={() => ref.current.close()}>close</button>
                 <div>{sliceError}</div>
                 <div>Hello I am Error</div>
             </dialog>
