@@ -8,21 +8,22 @@ import { useNavigate } from 'react-router-dom';
 // import { useEffect, useState } from 'react';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
 import { useState } from 'react';
-
 export default function Header() {
     const [isAdd, setIsAdd] = useState(false);
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
     const navigator = useNavigate();
-    const { data: projects, isLoading } = useQuery({
+    /**Http  request */
+    const queryClient = useQueryClient();
+    const {
+        data: projects,
+        isLoading,
+        refetch: refetchGetProjects,
+    } = useQuery({
         queryKey: ['getCertainProjects', user?.uuid], // 쿼리 키에 user의 uuid를 포함시켜 각 uuid에 대해 별도의 캐시를 관리
         queryFn: () => getCertainProjects(user.uuid),
         enabled: !!user, // user가 존재할 때만 쿼리 실행
     });
-    const moveToSignInPage = () => {
-        navigator('/auth');
-    };
-    const queryClient = useQueryClient();
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
             return projectAPI.createProject(projectName, userId);
@@ -31,7 +32,10 @@ export default function Header() {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
+    /** basic functions */
+    const moveToSignInPage = () => {
+        navigator('/auth');
+    };
     const startAddProject = (e) => {
         e.preventDefault();
         if (newProjectName.length == 0) return;
@@ -41,7 +45,6 @@ export default function Header() {
         });
         setIsAdd(false);
     };
-
     return (
         <div className="main">
             <div className="logo-container">
@@ -49,12 +52,6 @@ export default function Header() {
                     <img src={logo} className="logo" />
                 </div>
                 <div onClick={() => console.log(user.uuid)}>show user</div>
-                <button
-                    className="show-projects-btn"
-                    onClick={() => console.log(projects)}
-                >
-                    console button
-                </button>
             </div>
             <div>{isLoading && <div> is loading</div>}</div>
             <div>
@@ -67,6 +64,9 @@ export default function Header() {
                                 style={{ fontSize: '2rem' }}
                                 onClick={() => setIsAdd((prev) => !prev)}
                             ></i>
+                            <button onClick={() => refetchGetProjects()}>
+                                refetch
+                            </button>
                         </div>
                     </div>
                 )}

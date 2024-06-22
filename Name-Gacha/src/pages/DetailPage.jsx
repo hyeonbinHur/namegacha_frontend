@@ -21,9 +21,9 @@ export default function DetailPage() {
         error,
         isLoading,
     } = useQuery({
-        queryKey: ['getPageInfo', pageId], // 쿼리 키에 pageId를 포함시켜 각 pageId에 대해 별도의 캐시를 관리
+        queryKey: ['getPageInfo', pageId],
         queryFn: () => pageAPI.getPage(pageId),
-        enabled: !!pageId, // pageId가 존재할 때만 쿼리 실행
+        enabled: !!pageId,
     });
 
     if (isLoading) return <div>Loading...</div>;
@@ -56,16 +56,3 @@ export default function DetailPage() {
         </div>
     );
 }
-
-/**
- * 페이지 이름 보여주기
- * 페이지 설명 보여주기
- *
- * 페이지 삭제, 이름 변경
- *
- * variables 보여주기, 설명이랑 같이
- * functions 보여주기, 설명이랑 같이
- *
- * variable 추가 삭제 이름, 설명 변경
- * function 추가 삭제 이름, 설명 변경
- */

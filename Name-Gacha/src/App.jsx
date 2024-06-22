@@ -29,6 +29,9 @@ function App() {
         defaultOptions: {
             queries: {
                 onError: apiErrorHandler,
+                staleTime: 1000 * 60 * 15, // 5 minutes
+                cacheTime: 1000 * 60 * 60, // 15 minutes
+                refetchOnWindowFocus: false,
             },
             mutations: {
                 onError: apiErrorHandler,
@@ -52,8 +55,8 @@ function App() {
                 <Routes>
                     <Route path="/test" element={<Test2 />} />
                     <Route path="/auth" element={<AuthPage />} />
-                    <Route path="/detail/:pageId" element={<DetailPage />} />
-                    <Route path="/" element={<MainPage />} />
+                    {/* <Route path="/detail/:pageId" element={<DetailPage />} /> */}
+                    <Route path="/*" element={<MainPage />} />
                 </Routes>
             </BrowserRouter>
             <ReactQueryDevtools initialIsOpen={false} />

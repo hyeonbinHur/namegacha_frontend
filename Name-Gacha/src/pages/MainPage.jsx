@@ -1,10 +1,10 @@
 import SideBar from '../components/Sidebar/SideBar';
 import MainChat from '../components/MainChat/MainChat';
 import './MainPage.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { closeContextMenu } from '../store/contextMenuSlice';
-import ErrorModal from '../components/Modal/ErrorModal';
-import { useEffect, useRef } from 'react';
+import DetailPage from './DetailPage';
+import { Routes, Route } from 'react-router-dom';
 
 export default function MainPage() {
     const dispatch = useDispatch();
@@ -12,14 +12,6 @@ export default function MainPage() {
         e.preventDefault();
         dispatch(closeContextMenu());
     };
-    const isError = useSelector((state) => state.errorSlice.isError);
-    const errorModal = useRef(null);
-
-    useEffect(() => {
-        if (isError === true) {
-            errorModal.current.open();
-        }
-    }, [isError]);
 
     return (
         <div
@@ -30,11 +22,25 @@ export default function MainPage() {
                 <SideBar />
             </div>
 
-            <div className="mainChat">
-                <MainChat />
-            </div>
+            <Routes>
+                <Route path="/" element={<WrappedMainChat />} />
+                <Route path="/detail/:pageId" element={<WrappedDetailPage />} />
+            </Routes>
+        </div>
+    );
+}
+function WrappedMainChat() {
+    return (
+        <div className="mainChat">
+            <MainChat />
+        </div>
+    );
+}
 
-            <ErrorModal ref={errorModal} />
+function WrappedDetailPage() {
+    return (
+        <div className="mainChat">
+            <DetailPage />
         </div>
     );
 }
