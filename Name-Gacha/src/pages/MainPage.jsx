@@ -29,6 +29,7 @@ export default function MainPage() {
             <div className="sidebar">
                 <SideBar />
             </div>
+
             <div className="mainChat">
                 <MainChat />
             </div>

@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isError: false,
-    error: null,
+    errorMessage: null,
+    errorCode: null,
 };
 
 const errorSlice = createSlice({
@@ -12,11 +13,14 @@ const errorSlice = createSlice({
         setError(state, action) {
             console.log('error setted in reducer');
             state.isError = true;
-            state.error = action.payload.error;
+            state.errorMessage = action.payload.message;
+            state.errorCode = action.payload.code;
         },
         clearError(state) {
+            console.log('clear error in reducer');
             state.isError = false;
-            state.error = null;
+            state.errorMessage = null;
+            state.errorCode = null;
         },
     },
 });

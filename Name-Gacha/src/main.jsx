@@ -1,23 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
 import { AuthContextProvider } from './context/authContext.jsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.js';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
-const queryClient = new QueryClient();
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorPage from './pages/ErrorPage.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
-            <QueryClientProvider client={queryClient}>
-                <AuthContextProvider>
+            <AuthContextProvider>
+                <ErrorBoundary
+                    FallbackComponent={ErrorPage}
+                    onError={(error, errorInfo) => {
+                        console.log('Error caught by ErrorBoundary: ', error);
+                        console.log('Error details: ', errorInfo);
+                    }}
+                >
                     <App />
-                </AuthContextProvider>
-                <ReactQueryDevtools initialIsOpen={false} />
-            </QueryClientProvider>
+                </ErrorBoundary>
+            </AuthContextProvider>
         </Provider>
     </React.StrictMode>
 );

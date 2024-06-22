@@ -1,9 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { useEffect, useRef } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { setError } from '../store/errorSlice';
-import ErrorModal from '../components/Modal/ErrorModal';
 // QueryClient 인스턴스 생성
 
 // 프로젝트 데이터를 가져오는 함수
@@ -46,28 +42,7 @@ export default function Test2() {
         onSuccess: () => {
             refetchGetProjects();
         },
-        onError: (error) => {
-            console.error('Mutation error:', error);
-        },
     });
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (isErrorGetProject) {
-            console.log('isError:', isErrorGetProject);
-            console.log('error:', errorGetProject);
-            dispatch(setError({ error: errorGetProject.response.data }));
-        }
-    }, [isErrorGetProject, errorGetProject, dispatch]);
-
-    const isError = useSelector((state) => state.errorSlice.isError);
-    const errorModal = useRef(null);
-
-    useEffect(() => {
-        if (isError) {
-            errorModal.current.open();
-        }
-    }, [isError]);
 
     const handleMakeError = () => {
         mutateUpdateProject({
@@ -75,6 +50,16 @@ export default function Test2() {
             projectName: 'make error',
         });
     };
+
+    const throwError = () => {
+        throw new Error('Error test');
+    };
+
+    const errorBoundaryTest = false;
+
+    if (errorBoundaryTest) {
+        throw new Error('Error thrown from ErrorComponent');
+    }
 
     return (
         <div>
@@ -87,8 +72,7 @@ export default function Test2() {
                     ))}
             </div>
             <button onClick={() => window.location.reload()}> refresh </button>
-
-            <ErrorModal ref={errorModal} />
+            <button onClick={() => throwError()}> Throw error</button>
         </div>
     );
 }
