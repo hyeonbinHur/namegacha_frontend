@@ -1,8 +1,10 @@
 import SideBar from '../components/Sidebar/SideBar';
 import MainChat from '../components/MainChat/MainChat';
 import './MainPage.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeContextMenu } from '../store/contextMenuSlice';
+import ErrorModal from '../components/Modal/ErrorModal';
+import { useEffect, useRef } from 'react';
 
 export default function MainPage() {
     const dispatch = useDispatch();
@@ -10,6 +12,15 @@ export default function MainPage() {
         e.preventDefault();
         dispatch(closeContextMenu());
     };
+    const isError = useSelector((state) => state.errorSlice.isError);
+    const errorModal = useRef(null);
+
+    useEffect(() => {
+        if (isError === true) {
+            errorModal.current.open();
+        }
+    }, [isError]);
+
     return (
         <div
             className="Main-container"
@@ -21,6 +32,8 @@ export default function MainPage() {
             <div className="mainChat">
                 <MainChat />
             </div>
+
+            <ErrorModal ref={errorModal} />
         </div>
     );
 }

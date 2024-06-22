@@ -1,7 +1,9 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import axios from 'axios';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { setError } from '../store/errorSlice';
+import ErrorModal from '../components/Modal/ErrorModal';
 // QueryClient 인스턴스 생성
 
 // 프로젝트 데이터를 가져오는 함수
@@ -48,13 +50,24 @@ export default function Test2() {
             console.error('Mutation error:', error);
         },
     });
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (isErrorGetProject) {
             console.log('isError:', isErrorGetProject);
             console.log('error:', errorGetProject);
+            dispatch(setError({ error: errorGetProject.response.data }));
         }
-    }, [isErrorGetProject, errorGetProject]);
+    }, [isErrorGetProject, errorGetProject, dispatch]);
+
+    const isError = useSelector((state) => state.errorSlice.isError);
+    const errorModal = useRef(null);
+
+    useEffect(() => {
+        if (isError) {
+            errorModal.current.open();
+        }
+    }, [isError]);
 
     const handleMakeError = () => {
         mutateUpdateProject({
@@ -73,6 +86,9 @@ export default function Test2() {
                         <div key={project.projectId}>{project.name}</div>
                     ))}
             </div>
+            <button onClick={() => window.location.reload()}> refresh </button>
+
+            <ErrorModal ref={errorModal} />
         </div>
     );
 }
