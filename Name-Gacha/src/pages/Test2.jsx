@@ -1,10 +1,11 @@
-import { useQuery, useMutation } from 'react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import axios from 'axios';
 
+// QueryClient 인스턴스 생성
+
 // 프로젝트 데이터를 가져오는 함수
-async function getProjects() {
-    //get
+const getProjects = async () => {
     try {
         const endPoint =
             'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project/projects?content=all';
@@ -12,8 +13,9 @@ async function getProjects() {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err; // 에러를 던져야 React Query에서 인식 가능
     }
-}
+};
 
 // 프로젝트를 업데이트하는 함수
 const updateProject = async (projectId, projectName) => {
@@ -26,11 +28,12 @@ const updateProject = async (projectId, projectName) => {
     return response.data;
 };
 
-const Component = () => {
-    const { data: projects, refetch: refetchGetProjects } = useQuery(
-        'projects',
-        getProjects
-    );
+export default function Test2() {
+    const { data: projects, refetch: refetchGetProjects } = useQuery({
+        queryKey: ['projects'],
+        queryFn: getProjects,
+    });
+
     const {
         mutate: mutateUpdateProject,
         isError: isErrorGetProject,
@@ -67,11 +70,9 @@ const Component = () => {
             <div>
                 {projects &&
                     projects.map((project) => (
-                        <div key={project.id}>{project.name}</div>
+                        <div key={project.projectId}>{project.name}</div>
                     ))}
             </div>
         </div>
     );
-};
-
-export default Component;
+}

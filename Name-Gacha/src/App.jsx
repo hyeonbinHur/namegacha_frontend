@@ -11,10 +11,22 @@ function App() {
         <BrowserRouter>
             <nav>{/* Header main nav will come here */}</nav>
             <Routes>
-                <Route path="/test" element={<Test2 />} />
+                <Route
+                    path="/test"
+                    element={<Test2 />}
+                    errorElement={<ErrorPage />}
+                />
                 <Route path="/auth" element={<AuthPage />} />
-                <Route path="/detail/:pageId" element={<DetailPage />} />
-                <Route path="/" element={<MainPage />} />
+                <Route
+                    path="/detail/:pageId"
+                    element={<DetailPage />}
+                    errorElement={<ErrorPage />}
+                />
+                <Route
+                    path="/"
+                    element={<MainPage />}
+                    errorElement={<ErrorPage />}
+                />
                 <Route path="/*" element={<ErrorPage />} />
             </Routes>
         </BrowserRouter>
