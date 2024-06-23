@@ -3,25 +3,20 @@ import './ChatBox.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
 import { setThread, setMessages } from '../../../store/threadSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function ChatBox() {
-    // const sessionStorage =
+    const [userMessage, setUserMessage] = useState('');
 
     const currentThread = useSelector(
         (state) => state.currentThread.currentThread
     );
-
     useEffect(() => {
-        //
-
         if (currentThread !== null) {
             chatAI();
         }
     }, [currentThread]);
-
     const dispatch = useDispatch();
-
     const createSetThread = async () => {
         try {
             const response = await aiAPI.createThread();
@@ -31,7 +26,6 @@ export default function ChatBox() {
             return false;
         }
     };
-
     const sendMessage = async () => {
         console.log('send message start');
         if (currentThread === null) {
@@ -40,7 +34,7 @@ export default function ChatBox() {
                 try {
                     const sendMessageResponse = await aiAPI.sendMessage(
                         currentThread,
-                        'function, camel case, check whether character is dead or not'
+                        userMessage
                     );
                     return sendMessageResponse;
                 } catch (err) {
@@ -51,7 +45,7 @@ export default function ChatBox() {
             try {
                 const sendMessageResponse = await aiAPI.sendMessage(
                     currentThread,
-                    'function, camel case, check whether character is dead or not'
+                    userMessage
                 );
                 return sendMessageResponse;
             } catch (err) {
@@ -59,7 +53,6 @@ export default function ChatBox() {
             }
         }
     };
-
     const checkStatus = async (runId) => {
         try {
             const responseStatus = await aiAPI.checkStatus(
@@ -71,7 +64,6 @@ export default function ChatBox() {
             console.error(err);
         }
     };
-
     const readReply = async (runId) => {
         try {
             console.log('read reply start');
@@ -79,6 +71,7 @@ export default function ChatBox() {
             console.log('current status : ' + status);
             if (status === 'completed') {
                 const messages = await aiAPI.readMessages(currentThread);
+                console.log(messages);
                 dispatch(setMessages({ messages: messages.data }));
             } else if (status === undefined) {
                 return;
@@ -91,6 +84,7 @@ export default function ChatBox() {
     };
 
     const chatAI = async () => {
+        console.log(userMessage);
         if (currentThread == null) {
             createSetThread();
         } else {
@@ -112,7 +106,12 @@ export default function ChatBox() {
             {/* <button onClick={() => console.log(reply)}>show reply</button> */}
 
             <div className="chat-content-container">
-                <input className="user-input-content" type="text" />
+                <input
+                    className="user-input-content"
+                    type="text"
+                    value={userMessage}
+                    onChange={(e) => setUserMessage(e.target.value)}
+                />
 
                 <div className="chat-button-container">
                     <div className="name-style-container">
