@@ -3,13 +3,20 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as detailUtil from '../../../utils/util/contextUtils';
 import * as detailReducers from '../../../store/detailPageSlice';
-
+/**
+ * 
+    componentTarget, // id, exp, type, name
+    type, // Add or Edit
+    apiAction, // update, add api function
+    startAction, // start edit or start add
+    deleteAction, // if type is Edit, delete function is required
+ */
 export default function DetailForm({
-    componentTarget,
-    type,
-    apiAction,
-    startAction,
-    deleteAction,
+    componentTarget, // id, exp, type, name
+    type, // Add or Edit
+    apiAction, // update, add api function
+    startAction, // start edit or start add
+    deleteAction, // if type is Edit, delete function is required
 }) {
     const [newName, setNewName] = useState('');
     const [newExp, setNewExp] = useState('');
@@ -18,9 +25,9 @@ export default function DetailForm({
     const expInputRef = useRef(null);
 
     useEffect(() => {
-        if (type === 'edit') {
+        if (type === 'Edit') {
             setNewName(componentTarget.name);
-            setNewExp(componentTarget.exp); // 여기서 'exp'가 실제로 존재하는지 확인 필요
+            setNewExp(componentTarget.exp);
         }
     }, [componentTarget, type]);
 
@@ -55,7 +62,7 @@ export default function DetailForm({
     /**dispatches */
     const dispatch = useDispatch();
     const cancelActions = () => {
-        if (type === 'edit') {
+        if (type === 'Edit') {
             setNewName(componentTarget.name);
             setNewExp(componentTarget.exp);
         } else {
@@ -113,13 +120,16 @@ export default function DetailForm({
                             onKeyDown={(e) => handleKeyDown(e)}
                         />
                     </div>
-                    <button onClick={() => apiAction()}> save </button>
+                    <button onClick={() => apiAction(newName, newExp)}>
+                        {' '}
+                        save{' '}
+                    </button>
                     <button onClick={() => cancelActions()}> cancel </button>
                 </div>
             ) : (
                 <div>
                     <button onClick={() => startAction()}>action</button>
-                    {type === 'edit' && (
+                    {type === 'Edit' && (
                         <button onClick={() => deleteAction()}>delete</button>
                     )}
                 </div>

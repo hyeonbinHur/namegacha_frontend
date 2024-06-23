@@ -5,6 +5,7 @@ import DetailHeader from '../components/Details/Header/DetailHeader';
 import VariableContainer from '../components/Details/Variables/VariableContainer';
 import FunctionContainer from '../components/Details/Functions/FunctionContainer';
 import { useEffect, useState } from 'react';
+import DetailTest from '../components/Details/Common/DetailTest';
 
 export default function DetailPage() {
     const params = useParams();
@@ -34,7 +35,7 @@ export default function DetailPage() {
             {page && (
                 <div>
                     <header>
-                        <DetailHeader page={page} />
+                        <DetailTest page={page} />
                     </header>
                     <div>
                         <VariableContainer

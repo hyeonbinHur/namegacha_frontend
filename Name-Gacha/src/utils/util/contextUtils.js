@@ -29,6 +29,12 @@ const checkIsRename = (isThis, isRename) => {
     } else return false;
 };
 
+const checkIsEdit = (isThis, isRename) => {
+    if (isThis && isRename) {
+        return true;
+    } else return false;
+};
+
 const isContextOpen = (isThis, sliceIsOpen) => {
     if (isThis && sliceIsOpen) {
         return true;
@@ -60,4 +66,5 @@ export {
     checkIsFunctionAdd,
     checkIsVariableAdd,
     isDetailVerify,
+    checkIsEdit,
 };
