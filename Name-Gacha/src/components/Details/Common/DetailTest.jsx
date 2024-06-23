@@ -6,70 +6,59 @@ import { deleteFunctionsInPage } from '../../../utils/api/aws/functionRoutes';
 import * as detailReducers from '../../../store/detailPageSlice';
 import { useDispatch } from 'react-redux';
 import DetailForm from './DetailForm';
-export default function DetailTest({ page }) {
-    //page
+import VariableCard from '../Variables/VariableCard';
+import { createVariable } from '../../../utils/api/aws/variableRoutes';
+export default function DetailTest({ variables, pageId }) {
+    // variable container
+
     const componentTarget = {
-        type: 'page',
-        name: page.pageName,
-        id: page.pageId,
-        exp: page.pageExp,
+        type: 'functionContainer',
+        id: 'functionContainerId',
+        name: 'functionContainerName',
+        exp: '',
     };
+
+    /**Http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateUpdatePage } = useMutation({
-        mutationFn: ({ pageName, pageExp, pageId }) =>
-            pageAPI.updatePage(pageId, pageName, pageExp),
-        onSuccess: () => queryClient.invalidateQueries('getCertainProjects'),
+    const { mutate: mutateAddFunction } = useMutation({
+        mutationFn: ({ functionName, functionExp, pageId }) => {
+            return createFunction(pageId, functionName, functionExp);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
     });
-    const { mutate: mutateDeletePage } = useMutation({
-        mutationFn: ({ pageId }) => pageAPI.deletePage(pageId),
-        onSuccess: () => queryClient.invalidateQueries('getCertainProjects'),
-    });
-    const { mutateAsync: mutateDeleteVariable } = useMutation({
-        mutationFn: ({ pageId }) => deleteVariablesInPage(pageId),
-    });
-    const { mutateAsync: mutateDeleteFunction } = useMutation({
-        mutationFn: ({ pageId }) => deleteFunctionsInPage(pageId),
-    });
-    const handleDeletePage = async () => {
-        try {
-            if (page.variables.length > 0) {
-                await mutateDeleteVariable({ pageId: page.pageId });
-            }
-            if (page.functions.length > 0) {
-                await mutateDeleteFunction({ pageId: page.pageId });
-            }
-            mutateDeletePage({ pageId: page.pageId });
-        } catch (error) {
-            console.error('Failed to delete page:', error);
-        }
-    };
-    const dispatch = useDispatch();
-    const handleSaveEdit = (newName, newExp) => {
-        mutateUpdatePage({
-            pageId: page.pageId,
-            pageName: newName,
-            pageExp: newExp,
+    const addNewFunction = (newName, newExp) => {
+        if (newName.length === 0) return;
+        mutateAddFunction({
+            functionName: newName,
+            pageId: pageId,
+            functionExp: newExp,
         });
+    };
+
+    const dispatch = useDispatch();
+    const startAdd = () => {
         dispatch(detailReducers.setClear());
+        dispatch(detailReducers.setIsAdd({ target: componentTarget }));
     };
-    const startEdit = () => {
-        dispatch(detailReducers.setIsEdit({ target: componentTarget }));
-    };
+
     return (
         <div>
             <DetailForm
                 componentTarget={componentTarget}
-                type="Edit"
-                apiAction={handleSaveEdit}
-                startAction={startEdit}
-                deleteAction={handleDeletePage}
+                type={'Add'}
+                apiAction={addNewVariable}
+                startAction={startAdd}
             />
+            {variables.map((v) => (
+                <li key={v.variableId}>
+                    <VariableCard variable={v} />
+                </li>
+            ))}
         </div>
     );
 }
-// export default function DetailTest() { // container
-//     return <div></div>;
-// }
 // export default function DetailTest() { // card
 //     return <div></div>;
 // }

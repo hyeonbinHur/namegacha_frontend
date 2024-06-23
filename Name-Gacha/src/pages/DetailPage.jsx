@@ -35,7 +35,7 @@ export default function DetailPage() {
             {page && (
                 <div>
                     <header>
-                        <DetailTest page={page} />
+                        <DetailHeader page={page} />
                     </header>
                     <div>
                         <VariableContainer

@@ -14,7 +14,7 @@ import * as detailReducers from '../../../store/detailPageSlice';
 export default function DetailForm({
     componentTarget, // id, exp, type, name
     type, // Add or Edit
-    apiAction, // update, add api function
+    apiAction, // update, add api  function
     startAction, // start edit or start add
     deleteAction, // if type is Edit, delete function is required
 }) {
@@ -95,8 +95,15 @@ export default function DetailForm({
         }
     };
 
+    /**basic functions */
+
+    const startButtonAction = () => {
+        apiAction(newName, newExp);
+        cancelActions();
+    };
+
     return (
-        <div>
+        <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
             {componentFlag ? (
                 <div>
                     <div>
@@ -119,9 +126,7 @@ export default function DetailForm({
                             onKeyDown={(e) => handleKeyDown(e)}
                         />
                     </div>
-                    <button onClick={() => apiAction(newName, newExp)}>
-                        save
-                    </button>
+                    <button onClick={() => startButtonAction()}>save</button>
                     <button onClick={() => cancelActions()}> cancel </button>
                 </div>
             ) : (
@@ -135,7 +140,7 @@ export default function DetailForm({
                             </button>
                         </div>
                     )}
-                    <button onClick={() => startAction()}>action</button>
+                    <button onClick={() => startAction()}>start action</button>
                 </div>
             )}
         </div>
