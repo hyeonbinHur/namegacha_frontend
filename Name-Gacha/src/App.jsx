@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-import DetailPage from './pages/DetailPage';
 import MainPage from './pages/MainPage';
 import AuthPage from './pages/AuthPage';
 import Test2 from './pages/Test2';

@@ -88,4 +88,3 @@ get해당 페이지 query랑 getProjects유저 아이디 재실행 시키기
 ai 대답 formatting
 ai 대답 add project에 넣기
 로딩
-페이지 스트럭쳐

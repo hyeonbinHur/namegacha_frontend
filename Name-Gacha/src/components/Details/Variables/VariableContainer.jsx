@@ -91,7 +91,7 @@ export default function VariableContainer({ variables, pageId }) {
             {componentIsAdd ? (
                 <div>
                     <div>
-                        <label>Name</label>{' '}
+                        <label>Name</label>
                         <input
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}

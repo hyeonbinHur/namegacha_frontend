@@ -30,14 +30,12 @@ export default function VariableCard({ variable }) {
         componentIsTargetMatch,
         sliceIsEdit
     );
-
     /**dispatches */
     const dispatch = useDispatch();
     const startEdit = () => {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
-
     /* Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateVariable } = useMutation({
@@ -60,7 +58,6 @@ export default function VariableCard({ variable }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     /* Basic Fuctions */
     const handleKeyDownEditVariable = (e) => {
         const input = e.target;
@@ -84,7 +81,6 @@ export default function VariableCard({ variable }) {
             }
         }
     };
-
     const editVariable = () => {
         if (newName.length === 0) return;
         mutateUpdateVariable({
@@ -99,9 +95,7 @@ export default function VariableCard({ variable }) {
         setNewExp('');
         dispatch(detailReducers.setClear());
     };
-
     //handleKey down
-
     return (
         <div>
             {comopnentIsEdit ? (
