@@ -110,7 +110,6 @@ export default function DetailForm({
                         />
                     </div>
                     <div>
-                        <label>variable Exp</label>
                         <input
                             type="text"
                             name="exp"
@@ -121,17 +120,22 @@ export default function DetailForm({
                         />
                     </div>
                     <button onClick={() => apiAction(newName, newExp)}>
-                        {' '}
-                        save{' '}
+                        save
                     </button>
                     <button onClick={() => cancelActions()}> cancel </button>
                 </div>
             ) : (
                 <div>
-                    <button onClick={() => startAction()}>action</button>
                     {type === 'Edit' && (
-                        <button onClick={() => deleteAction()}>delete</button>
+                        <div>
+                            <div> {componentTarget.name} </div>
+                            <div> {componentTarget.exp}</div>
+                            <button onClick={() => deleteAction()}>
+                                delete
+                            </button>
+                        </div>
                     )}
+                    <button onClick={() => startAction()}>action</button>
                 </div>
             )}
         </div>
