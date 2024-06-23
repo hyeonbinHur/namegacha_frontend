@@ -3,14 +3,6 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as detailUtil from '../../../utils/util/contextUtils';
 import * as detailReducers from '../../../store/detailPageSlice';
-/**
- * 
-    componentTarget, // id, exp, type, name
-    type, // Add or Edit
-    apiAction, // update, add api function
-    startAction, // start edit or start add
-    deleteAction, // if type is Edit, delete function is required
- */
 export default function DetailForm({
     componentTarget, // id, exp, type, name
     type, // Add or Edit
@@ -33,9 +25,6 @@ export default function DetailForm({
 
     /**redux variable */
     const sliceTarget = useSelector((state) => state.detailPageSlice.target);
-    // const sliceIsEdit = useSelector((state) => state.detailPageSlice.isEdit);
-    // const sliceIsAdd = useSelector((state) => state.detailPageSlice.isAdd);
-
     const sliceFlag = useSelector(
         (state) => state.detailPageSlice[`is${type}`]
     );
@@ -50,15 +39,6 @@ export default function DetailForm({
         sliceFlag
     );
 
-    // const componentIsEdit = detailUtil.checkIsRename(
-    //     componentIsTargetMatch,
-    //     sliceIsEdit
-    // );
-    // const componentIsAdd = detailUtil.checkIsAdd(
-    //     componentIsTargetMatch,
-    //     sliceIsAdd
-    // );
-
     /**dispatches */
     const dispatch = useDispatch();
     const cancelActions = () => {
@@ -71,7 +51,6 @@ export default function DetailForm({
         }
         dispatch(detailReducers.setClear());
     };
-
     const handleKeyDown = (e) => {
         const input = e.target;
         if (input.name === 'name') {
@@ -94,14 +73,11 @@ export default function DetailForm({
             }
         }
     };
-
     /**basic functions */
-
     const startButtonAction = () => {
         apiAction(newName, newExp);
         cancelActions();
     };
-
     return (
         <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
             {componentFlag ? (

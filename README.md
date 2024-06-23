@@ -74,17 +74,10 @@ npm i @tanstack/react-query-devtools
 
 > npm install react-error-boundary
 
-6월 23일 기본 stale타임이랑 cache타임 생성 완료
-
-page안에 있는 page,variable, functions 에서 생성, 삭제, 업데이트시
-
-get해당 페이지 query랑 getProjects유저 아이디 재실행 시키기
-
 일단 page 재사용하는 방법부터 고민 해봐야할듯?
 
 남은거
 
-페이지 재사용
 ai 대답 formatting
 ai 대답 add project에 넣기
 로딩

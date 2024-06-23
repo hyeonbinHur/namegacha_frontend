@@ -5,11 +5,12 @@ import DetailHeader from '../components/Details/Header/DetailHeader';
 import VariableContainer from '../components/Details/Variables/VariableContainer';
 import FunctionContainer from '../components/Details/Functions/FunctionContainer';
 import { useEffect, useState } from 'react';
-import DetailTest from '../components/Details/Common/DetailTest';
+import { useNavigate } from 'react-router-dom';
 
 export default function DetailPage() {
     const params = useParams();
     const [pageId, setPageId] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (params.pageId) {
@@ -49,9 +50,7 @@ export default function DetailPage() {
                             pageId={page.pageId}
                         />
                     </div>
-                    <button onClick={() => console.log(page)}>
-                        show page info
-                    </button>
+                    <button onClick={() => navigate('/')}>back to chat</button>
                 </div>
             )}
         </div>
