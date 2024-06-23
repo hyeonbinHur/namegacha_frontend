@@ -9,38 +9,53 @@ import DetailForm from './DetailForm';
 import VariableCard from '../Variables/VariableCard';
 import { createVariable } from '../../../utils/api/aws/variableRoutes';
 export default function DetailTest({ variables, pageId }) {
-    // variable container
-
     const componentTarget = {
-        type: 'functionContainer',
-        id: 'functionContainerId',
-        name: 'functionContainerName',
-        exp: '',
+        type: 'function',
+        name: fn.functionName,
+        id: fn.functionId,
+        ext: fn,
+        functionExp,
     };
 
     /**Http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateAddFunction } = useMutation({
-        mutationFn: ({ functionName, functionExp, pageId }) => {
-            return createFunction(pageId, functionName, functionExp);
+    const { mutate: mutateUpdateFunction } = useMutation({
+        mutationFn: ({ functionId, functionName, functionExp }) => {
+            return functionAPI.updateFunction(
+                functionId,
+                functionName,
+                functionExp
+            );
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    const addNewFunction = (newName, newExp) => {
+
+    const { mutate: mutateDeleteFunction } = useMutation({
+        mutationFn: ({ functionId }) => {
+            return functionAPI.deleteFunction(functionId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
+    const editFunction = (newName, newExp) => {
         if (newName.length === 0) return;
-        mutateAddFunction({
+        mutateUpdateFunction({
+            functionId: fn.functionId,
             functionName: newName,
-            pageId: pageId,
             functionExp: newExp,
         });
     };
+    const deleteFunction = (itemId) => {
+        mutateDeleteFunction({ functionId: itemId });
+    };
 
     const dispatch = useDispatch();
-    const startAdd = () => {
+    const startEdit = () => {
         dispatch(detailReducers.setClear());
-        dispatch(detailReducers.setIsAdd({ target: componentTarget }));
+        dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
 
     return (
@@ -48,7 +63,7 @@ export default function DetailTest({ variables, pageId }) {
             <DetailForm
                 componentTarget={componentTarget}
                 type={'Add'}
-                apiAction={addNewVariable}
+                apiAction={addNewFunction}
                 startAction={startAdd}
             />
             {variables.map((v) => (

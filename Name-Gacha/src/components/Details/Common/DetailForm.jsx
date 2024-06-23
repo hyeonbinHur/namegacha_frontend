@@ -135,7 +135,9 @@ export default function DetailForm({
                         <div>
                             <div> {componentTarget.name} </div>
                             <div> {componentTarget.exp}</div>
-                            <button onClick={() => deleteAction()}>
+                            <button
+                                onClick={() => deleteAction(componentTarget.id)}
+                            >
                                 delete
                             </button>
                         </div>
