@@ -16,6 +16,9 @@ const threadSlice = createSlice({
             state.messages = action.payload.messages;
         },
         pushMessages(state, action) {
+            console.log('push messages');
+            console.log(action.payload.userMessage);
+            console.log(action.payload.aiMessage);
             state.messages = [
                 ...state.messages,
                 action.payload.userMessage,
