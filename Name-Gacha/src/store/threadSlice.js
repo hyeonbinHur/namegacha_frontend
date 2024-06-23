@@ -15,8 +15,20 @@ const threadSlice = createSlice({
         setMessages(state, action) {
             state.messages = action.payload.messages;
         },
+        pushMessages(state, action) {
+            state.messages = [
+                ...state.messages,
+                action.payload.userMessage,
+                action.payload.aiMessage,
+            ];
+        },
+        clearThread(state) {
+            state.currentThread = null;
+            state.messages = [];
+        },
     },
 });
 
-export const { setThread, setMessages } = threadSlice.actions;
+export const { setThread, setMessages, pushMessages, clearThread } =
+    threadSlice.actions;
 export default threadSlice.reducer;

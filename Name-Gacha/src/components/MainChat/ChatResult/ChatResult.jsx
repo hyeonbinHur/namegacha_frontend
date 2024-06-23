@@ -5,11 +5,11 @@ export default function ChatResult() {
 
     return (
         <div>
-            <button onClick={() => console.log(messages)}>Show Messages</button>
             {!messages.messages ? (
                 <div> no messages yet</div>
             ) : (
                 <div>
+                    {console.log(messages.messages)}
                     {messages.messages.map((m, index) => (
                         <li key={index}>{m[0].text.value}</li> // Ensure to return this line
                     ))}

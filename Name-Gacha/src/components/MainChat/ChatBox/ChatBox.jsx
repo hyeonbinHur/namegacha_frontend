@@ -2,7 +2,7 @@
 import './ChatBox.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
-import { setThread, setMessages } from '../../../store/threadSlice';
+import { setThread, pushMessages } from '../../../store/threadSlice';
 import { useEffect, useState } from 'react';
 
 export default function ChatBox() {
@@ -26,6 +26,7 @@ export default function ChatBox() {
             return false;
         }
     };
+
     const sendMessage = async () => {
         console.log('send message start');
         if (currentThread === null) {
@@ -72,7 +73,12 @@ export default function ChatBox() {
             if (status === 'completed') {
                 const messages = await aiAPI.readMessages(currentThread);
                 console.log(messages);
-                dispatch(setMessages({ messages: messages.data }));
+                dispatch(
+                    pushMessages({
+                        aiMessage: messages[0].data,
+                        userMessage: messages[1].data,
+                    })
+                );
             } else if (status === undefined) {
                 return;
             } else {
