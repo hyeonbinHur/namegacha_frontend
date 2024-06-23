@@ -30,7 +30,6 @@ export default function FunctionContainer({ functions, pageId }) {
             functionExp: newExp,
         });
     };
-
     const dispatch = useDispatch();
     const startAdd = () => {
         dispatch(detailReducers.setClear());
