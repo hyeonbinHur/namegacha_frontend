@@ -91,6 +91,7 @@ export default function ProjectCard({ project }) {
             setProjectName(project.projectName);
         }
     };
+
     const handleKeyDownAddPage = (e) => {
         if (e.key === 'Enter') {
             addPage({

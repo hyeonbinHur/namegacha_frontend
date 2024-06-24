@@ -2,7 +2,7 @@
 import ExpCard from './ExpCard';
 import NameCard from './NameCard';
 
-export default function AiMessage({ message, index }) {
+export default function AiMessage({ message }) {
     const messageObj = JSON.parse(message);
     const name = messageObj.Names;
     const exp = messageObj.Exp;
@@ -11,12 +11,10 @@ export default function AiMessage({ message, index }) {
             <ul>
                 <NameCard names={name} />
             </ul>
-
             <div>
                 Exp:
                 <ExpCard exp={exp} />
             </div>
-            {index}
         </div>
     );
 }
