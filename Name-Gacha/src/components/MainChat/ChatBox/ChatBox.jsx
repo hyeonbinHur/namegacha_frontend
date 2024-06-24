@@ -72,14 +72,11 @@ export default function ChatBox() {
             console.log('current status : ' + status);
             if (status === 'completed') {
                 const messages = await aiAPI.readMessages(currentThread);
-                console.log(messages);
-                console.log(messages.data);
                 // dispatch(setMessages({ messages: messages.data }));
-                console.log(messages.data[0][0].text.value);
                 dispatch(
                     pushMessages({
-                        aiMessage: messages.data[0][0].text.value,
-                        userMessage: messages.data[1][0].text.value,
+                        aiMessage: messages.data.messages[0],
+                        userMessage: messages.data.messages[1],
                     })
                 );
             } else if (status === undefined) {

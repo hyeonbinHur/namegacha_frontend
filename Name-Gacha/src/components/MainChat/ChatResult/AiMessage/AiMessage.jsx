@@ -2,14 +2,21 @@
 import ExpCard from './ExpCard';
 import NameCard from './NameCard';
 
-export default function AiMessage({ message }) {
+export default function AiMessage({ message, index }) {
     const messageObj = JSON.parse(message);
-    const name = messageObj.names;
-    const exp = messageObj.exp;
+    const name = messageObj.Names;
+    const exp = messageObj.Exp;
     return (
-        <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
-            <NameCard names={name} />
-            <ExpCard exp={exp} />
+        <div style={{ padding: '0rem 3rem', border: '1px solid black' }}>
+            <ul>
+                <NameCard names={name} />
+            </ul>
+
+            <div>
+                Exp:
+                <ExpCard exp={exp} />
+            </div>
+            {index}
         </div>
     );
 }

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
+
 export default function NameCard({ names }) {
     return (
         <div>
             <ul>
-                {names.map((name) => (
-                    <li key={name}>
+                {names.map((name, index) => (
+                    <li key={index}>
                         <NameCardUnit name={name} />
                     </li>
                 ))}
@@ -13,6 +14,6 @@ export default function NameCard({ names }) {
     );
 }
 
-const NameCardUnit = (name) => {
+const NameCardUnit = ({ name }) => {
     return <div>{name}</div>;
 };

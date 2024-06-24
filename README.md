@@ -78,5 +78,6 @@ npm i @tanstack/react-query-devtools
 
 남은거
 
-ai 대답 add project에 넣기
+ai 대답 add project에 넣기, 에딧 모달
+ai 답장 formatting
 로딩
