@@ -1,7 +1,25 @@
 import ChatBox from './ChatBox/ChatBox';
 import ChatResult from './ChatResult/ChatResult';
 import './MainChat.css';
+import IdentifierModal from '../Modal/IdentifierModal';
+import { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { useAuthContext } from '../../hooks/useAuthContext';
+
 export default function MainChat() {
+    const { user } = useAuthContext();
+
+    useEffect(() => {
+        if (sliceIdentifierIsOpen) {
+            identifierModal.current.open();
+        } else {
+            identifierModal.current.close();
+        }
+    }, [sliceIdentifierIsOpen]);
+    const identifierModal = useRef(null);
+    const sliceIdentifierIsOpen = useSelector(
+        (state) => state.identifierModalSlice.isOpen
+    );
     return (
         <div className="mainChant-container">
             <div className="chat-header"></div>
@@ -11,6 +29,8 @@ export default function MainChat() {
             <div className="chat-box">
                 <ChatBox />
             </div>
+
+            <IdentifierModal ref={identifierModal} user={user} />
         </div>
     );
 }
