@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
 import UserMessage from './UserMessage/UserMessage.jsx';
 import AiMessage from './AiMessage/AiMessage';
-
 export default function ChatResult() {
     const messages = useSelector((state) => state.currentThread.messages);
 

@@ -5,7 +5,6 @@ import { getCertainProjects } from '../../utils/api/aws/projectRoutes';
 import { createVariable } from '../../utils/api/aws/variableRoutes';
 import { createFunction } from '../../utils/api/aws/functionRoutes';
 import { createPortal } from 'react-dom';
-
 const IdentifierModal = forwardRef(function IdentifierModal(
     { user, type, newIdentifier },
     ref
@@ -15,37 +14,36 @@ const IdentifierModal = forwardRef(function IdentifierModal(
     const [selectedPage, setSelectedPage] = useState(null);
     const findItem = (type, id) => {
         if (type === 'project') {
-            const index = projects.find((project) => project.projectId === id);
-            if (index !== -1) {
-                setSelectedProject(projects[index]);
+            const project = projects.find(
+                (project) => project.projectId === id
+            );
+            if (project) {
+                setSelectedProject(project);
             }
-        } else if (type === 'page') {
-            const index = selectedProject.pages.find(
+        } else if (type === 'page' && selectedProject) {
+            const page = selectedProject.pages.find(
                 (page) => page.pageId === id
             );
-            if (index !== -1) {
-                setSelectedPage(selectedProject.pages[index]);
+            if (page) {
+                setSelectedPage(page);
             }
         }
     };
     const { data: projects } = useQuery({
-        queryKey: ['getCertainProjects', user?.uuid], // 쿼리 키에 user의 uuid를 포함시켜 각 uuid에 대해 별도의 캐시를 관리
+        queryKey: ['getCertainProjects', user?.uuid],
         queryFn: () => getCertainProjects(user.uuid),
-        enabled: !!user, // user가 존재할 때만 쿼리 실행
+        enabled: !!user,
     });
-
     const { mutate: mutateAddVariable } = useMutation({
         mutationFn: ({ pageId, variableName, variableExp }) => {
             return createVariable(pageId, variableName, variableExp);
         },
     });
-
     const { mutate: mutateAddFunction } = useMutation({
         mutationFn: ({ pageId, functionName, functionExp }) => {
             return createFunction(pageId, functionName, functionExp);
         },
     });
-
     const startAddIdentifier = () => {
         if (type === 'variable') {
             mutateAddVariable({
@@ -75,79 +73,99 @@ const IdentifierModal = forwardRef(function IdentifierModal(
         <div>
             <dialog ref={modal}>
                 <button> close </button>
-                <div className="project-contaier">
-                    <ul>
-                        {/* project card */}
-                        {projects.map((project) => (
-                            <li key={project}>
-                                <ModalCard
-                                    onClick={() =>
-                                        findItem('project', project.projectId)
-                                    }
-                                    name={project.projectName}
-                                    id={project.ProjectId}
-                                    type={'project'}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="page-container">
-                    <ul>
-                        {/* page card */}
-                        {selectedProject.pages.map((page) => (
-                            <li key={page}>
-                                <ModalCard
-                                    onClick={() =>
-                                        findItem('project', page.pageId)
-                                    }
-                                    name={page.pageName}
-                                    id={page.pageId}
-                                    type={'page'}
-                                />
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div className="identifier-container">
-                    {type === 'variable' ? (
-                        <div>
-                            {/* variable card */}
-                            {selectedPage.variables.map((variable) => (
-                                <li key={variable}>
-                                    <ModalCard
-                                        name={variable.variableName}
-                                        id={variable.variableId}
-                                    />
-                                </li>
-                            ))}
+                {projects && (
+                    <div>
+                        <div className="project-contaier">
+                            <ul>
+                                {/* project card */}
+                                {projects.map((project) => (
+                                    <li key={`project-${project.projectId}`}>
+                                        <ModalCard
+                                            onClick={() =>
+                                                findItem(
+                                                    'project',
+                                                    project.projectId
+                                                )
+                                            }
+                                            name={project.projectName}
+                                        />
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    ) : (
-                        <div>
-                            {/* function card */}
-                            {selectedPage.functions.map((fn) => (
-                                <li key={fn}>
-                                    <ModalCard
-                                        name={fn.functionName}
-                                        id={fn.functionId}
-                                    />
-                                </li>
-                            ))}
+                        <div className="page-container">
+                            {selectedProject && (
+                                <ul>
+                                    {/* page card */}
+                                    {selectedProject.pages.map((page) => (
+                                        <li key={`page-${page.pageId}`}>
+                                            <ModalCard
+                                                onClick={() =>
+                                                    findItem(
+                                                        'project',
+                                                        page.pageId
+                                                    )
+                                                }
+                                                name={page.pageName}
+                                            />
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
                         </div>
-                    )}
-                    <div className="newitem-container">
-                        <div>{newIdentifier.name}</div>
-                        <div>{newIdentifier.exp}</div>
+                        {selectedPage && (
+                            <div className="identifier-container">
+                                {type === 'variable' ? (
+                                    <div>
+                                        {/* variable card */}
+                                        {selectedPage.variables.map(
+                                            (variable) => (
+                                                <li
+                                                    key={`variable-${variable.variableId}`}
+                                                >
+                                                    <ModalCard
+                                                        name={
+                                                            variable.variableName
+                                                        }
+                                                        id={variable.variableId}
+                                                    />
+                                                </li>
+                                            )
+                                        )}
+                                    </div>
+                                ) : (
+                                    <div>
+                                        {/* function card */}
+                                        {selectedPage.functions.map((fn) => (
+                                            <li
+                                                key={`function-${fn.functionId}`}
+                                            >
+                                                <ModalCard
+                                                    name={fn.functionName}
+                                                    id={fn.functionId}
+                                                />
+                                            </li>
+                                        ))}
+                                    </div>
+                                )}
+                                <div className="newitem-container">
+                                    <div>{newIdentifier.name}</div>
+                                    <div>{newIdentifier.exp}</div>
+                                </div>
+                            </div>
+                        )}
+                        <button onClick={() => startAddIdentifier()}>
+                            save
+                        </button>
+                        <button> cancel </button>
                     </div>
-                </div>
-                <button onClick={() => startAddIdentifier()}> save </button>
-                <button> cancel </button>
+                )}
             </dialog>
         </div>,
         document.getElementById('modal')
     );
 });
-const ModalCard = () => {
-    return 'Hello card';
+const ModalCard = ({ name }) => {
+    return <div>{name}</div>;
 };
 export default IdentifierModal;
