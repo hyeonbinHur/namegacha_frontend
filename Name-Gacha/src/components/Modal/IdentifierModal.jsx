@@ -5,13 +5,18 @@ import { getCertainProjects } from '../../utils/api/aws/projectRoutes';
 import { createVariable } from '../../utils/api/aws/variableRoutes';
 import { createFunction } from '../../utils/api/aws/functionRoutes';
 import { createPortal } from 'react-dom';
+import { useDispatch } from 'react-redux';
+import { closeIedntifierModal } from '../../store/identifiyerModal';
+
 const IdentifierModal = forwardRef(function IdentifierModal(
     { user, type, newIdentifier },
     ref
 ) {
+    const dispatch = useDispatch();
     const modal = useRef(null);
     const [selectedProject, setSelectedProject] = useState(null);
     const [selectedPage, setSelectedPage] = useState(null);
+
     const findItem = (type, id) => {
         if (type === 'project') {
             const project = projects.find(
@@ -29,6 +34,7 @@ const IdentifierModal = forwardRef(function IdentifierModal(
             }
         }
     };
+
     const { data: projects } = useQuery({
         queryKey: ['getCertainProjects', user?.uuid],
         queryFn: () => getCertainProjects(user.uuid),
@@ -65,6 +71,7 @@ const IdentifierModal = forwardRef(function IdentifierModal(
                 modal.current.showModal();
             },
             close: () => {
+                dispatch(closeIedntifierModal());
                 modal.current.close();
             },
         };
@@ -73,7 +80,7 @@ const IdentifierModal = forwardRef(function IdentifierModal(
         <div>
             <dialog ref={modal}>
                 <button> close </button>
-                {projects && (
+                {user && projects && projects.length > 0 && (
                     <div>
                         <div className="project-contaier">
                             <ul>

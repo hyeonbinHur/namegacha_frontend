@@ -9,6 +9,10 @@ import { useAuthContext } from '../../hooks/useAuthContext';
 export default function MainChat() {
     const { user } = useAuthContext();
 
+    const sliceIdentifierIsOpen = useSelector(
+        (state) => state.identifierModalSlice.isOpen
+    );
+
     useEffect(() => {
         if (sliceIdentifierIsOpen) {
             identifierModal.current.open();
@@ -17,15 +21,17 @@ export default function MainChat() {
         }
     }, [sliceIdentifierIsOpen]);
     const identifierModal = useRef(null);
-    const sliceIdentifierIsOpen = useSelector(
-        (state) => state.identifierModalSlice.isOpen
-    );
+
     return (
         <div className="mainChant-container">
             <div className="chat-header"></div>
+
             <div className="chat-result">
+                <button>Variable</button>
+                <button>Function</button>
                 <ChatResult />
             </div>
+
             <div className="chat-box">
                 <ChatBox />
             </div>
