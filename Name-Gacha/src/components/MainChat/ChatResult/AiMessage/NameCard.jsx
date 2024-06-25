@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import { useState } from 'react';
+
 export default function NameCard({ names, selectNewItem }) {
     return (
         <div>
@@ -18,10 +20,28 @@ export default function NameCard({ names, selectNewItem }) {
 }
 
 const NameCardUnit = ({ name, selectNewItem }) => {
+    const [editName, setEditName] = useState(name);
+    const [isEdit, setIsEdit] = useState(false);
+    const cancelEditName = () => {
+        setEditName(name);
+        setIsEdit(false);
+    };
     return (
         <div>
-            {name}
-            <button onClick={() => selectNewItem(name)}>select</button>
+            {isEdit ? (
+                <div>
+                    <button onClick={() => setIsEdit(false)}>save</button>
+                    <button onClick={() => cancelEditName()}>cancel</button>
+                </div>
+            ) : (
+                <div>
+                    {editName}
+                    <button onClick={() => selectNewItem(editName)}>
+                        select
+                    </button>
+                    <button onClick={() => setIsEdit(true)}>Edit</button>
+                </div>
+            )}
         </div>
     );
 };

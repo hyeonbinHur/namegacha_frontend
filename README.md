@@ -81,3 +81,7 @@ npm i @tanstack/react-query-devtools
 ai 대답 add project에 넣기, 에딧 모달
 ai 답장 formatting
 로딩
+
+6 / 25
+
+설명이랑 이름 변경 가능
