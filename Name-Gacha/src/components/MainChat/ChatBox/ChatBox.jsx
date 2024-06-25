@@ -6,20 +6,46 @@ import { setThread, pushMessages } from '../../../store/threadSlice';
 import { useEffect, useState } from 'react';
 
 export default function ChatBox() {
-    const [userMessage, setUserMessage] = useState('');
-
-    const currentThread = useSelector(
-        (state) => state.currentThread.currentThread
+    const currentVariableThread = useSelector(
+        (state) => state.currentThread.currentVariableThread
     );
+
+    const globalThreadType = useSelector(
+        (state) => state.currentThread.globalThreadType
+    );
+
+    const currentFunctionThread = useSelector(
+        (state) => state.currentThread.currentFunctionthread
+    );
+
+    const [userMessage, setUserMessage] = useState('');
+    const [currentThread, setCurrentThread] = useState(currentVariableThread);
+    const [isCreateNewThread, setIsCreateNewThread] = useState(false);
+
     useEffect(() => {
-        if (currentThread !== null) {
+        if (isCreateNewThread && currentThread !== null) {
             chatAI();
         }
-    }, [currentThread]);
+    }, [currentThread, isCreateNewThread]);
+
+    useEffect(() => {
+        if (globalThreadType === 'variable') {
+            console.log('variable thread');
+            setCurrentThread(currentVariableThread);
+        } else {
+            console.log('function thread');
+            setCurrentThread(currentFunctionThread);
+        }
+    }, [globalThreadType]);
+
     const dispatch = useDispatch();
+
     const createSetThread = async () => {
+        console.log('create thread start');
         try {
             const response = await aiAPI.createThread();
+            console.log(response);
+            setCurrentThread(response);
             dispatch(setThread({ newThread: response }));
             return true;
         } catch (err) {
@@ -29,31 +55,17 @@ export default function ChatBox() {
 
     const sendMessage = async () => {
         console.log('send message start');
-        if (currentThread === null) {
-            const response = await createSetThread();
-            if (response === true) {
-                try {
-                    const sendMessageResponse = await aiAPI.sendMessage(
-                        currentThread,
-                        userMessage
-                    );
-                    return sendMessageResponse;
-                } catch (err) {
-                    return false;
-                }
-            }
-        } else {
-            try {
-                const sendMessageResponse = await aiAPI.sendMessage(
-                    currentThread,
-                    userMessage
-                );
-                return sendMessageResponse;
-            } catch (err) {
-                return false;
-            }
+        try {
+            const sendMessageResponse = await aiAPI.sendMessage(
+                currentThread,
+                userMessage
+            );
+            return sendMessageResponse;
+        } catch (err) {
+            return false;
         }
     };
+
     const checkStatus = async (runId) => {
         try {
             const responseStatus = await aiAPI.checkStatus(
@@ -65,6 +77,7 @@ export default function ChatBox() {
             console.error(err);
         }
     };
+
     const readReply = async (runId) => {
         try {
             console.log('read reply start');
@@ -88,29 +101,29 @@ export default function ChatBox() {
             console.error(err.message);
         }
     };
-
     const chatAI = async () => {
-        console.log(userMessage);
-        if (currentThread == null) {
+        if (currentThread === null && !isCreateNewThread) {
+            console.log('create Thread');
             createSetThread();
+            setIsCreateNewThread(true);
         } else {
             console.log('chat AI start');
-            const sendMessageFlag = await sendMessage();
-            if (sendMessageFlag !== false) {
-                console.log(currentThread);
-                await readReply(sendMessageFlag);
+            console.log(currentThread);
+            const runId = await sendMessage();
+            if (runId !== false) {
+                console.log(runId);
+                await readReply(runId);
+                setIsCreateNewThread(false);
+                setUserMessage('');
             }
         }
     };
-
     return (
         <div className="chat-box-container">
             <button onClick={() => console.log(currentThread)}>
                 show current thread
             </button>
-
             {/* <button onClick={() => console.log(reply)}>show reply</button> */}
-
             <div className="chat-content-container">
                 <input
                     className="user-input-content"
@@ -118,14 +131,12 @@ export default function ChatBox() {
                     value={userMessage}
                     onChange={(e) => setUserMessage(e.target.value)}
                 />
-
                 <div className="chat-button-container">
                     <div className="name-style-container">
                         <button>Camel</button>
                         <button>Pascal</button>
                         <button>Snake</button>
                     </div>
-
                     <div>
                         <button onClick={() => chatAI()}>send</button>
                     </div>

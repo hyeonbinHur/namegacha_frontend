@@ -72,7 +72,6 @@ async function refreshToken() {
         const response = await axios.post(authEndpoint, body, {
             withCredentials: true,
         });
-        console.log(response);
         return response;
     } catch (err) {
         return err;

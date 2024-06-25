@@ -24,28 +24,57 @@ const threadSlice = createSlice({
     initialState: initialState,
     reducers: {
         setThread(state, action) {
-            state.currentThread = action.payload.newThread;
+            if (state.globalThreadType === 'variable') {
+                console.log('variable thread set');
+                state.currentVariableThread = action.payload.newThread;
+            } else {
+                console.log('function thread set');
+                state.currentFunctionthread = action.payload.newThread;
+            }
         },
         setMessages(state, action) {
             state.messages = action.payload.messages;
         },
         pushMessages(state, action) {
-            console.log('push messages');
-            console.log(action.payload.userMessage);
-            console.log(action.payload.aiMessage);
-            state.messages = [
-                ...state.messages,
-                action.payload.userMessage,
-                action.payload.aiMessage,
-            ];
+            if (state.globalThreadType === 'variable') {
+                state.variableMessages = [
+                    ...state.messages,
+                    action.payload.userMessage,
+                    action.payload.aiMessage,
+                ];
+            } else {
+                state.functionMessages = [
+                    ...state.messages,
+                    action.payload.userMessage,
+                    action.payload.aiMessage,
+                ];
+            }
         },
         clearThread(state) {
-            state.currentThread = null;
-            state.messages = [];
+            state.globalThreadType = 'variable';
+            state.currentVariableThread = null;
+            state.currentFunctionthread = null;
+            state.functionMessages = [];
+            state.variableMessages = [];
+            // state.currentThread = null;
+            // state.messages = [];
+        },
+
+        chageGlobalThreadType(state, action) {
+            if (action.payload.globaltype === 'variable') {
+                state.globalThreadType = 'variable';
+            } else if (action.payload.globaltype === 'function') {
+                state.globalThreadType = 'function';
+            }
         },
     },
 });
 
-export const { setThread, setMessages, pushMessages, clearThread } =
-    threadSlice.actions;
+export const {
+    setThread,
+    setMessages,
+    pushMessages,
+    clearThread,
+    chageGlobalThreadType,
+} = threadSlice.actions;
 export default threadSlice.reducer;

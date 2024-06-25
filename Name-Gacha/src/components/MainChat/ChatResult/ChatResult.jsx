@@ -1,8 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector } from 'react-redux';
 import UserMessage from './UserMessage/UserMessage.jsx';
 import AiMessage from './AiMessage/AiMessage';
+import { useEffect, useState } from 'react';
 export default function ChatResult() {
-    const messages = useSelector((state) => state.currentThread.messages);
+    const globalThreadType = useSelector(
+        (state) => state.currentThread.globalThreadType
+    );
+    const functionMessages = useSelector(
+        (state) => state.currentThread.functionMessages
+    );
+    const variableMessages = useSelector(
+        (state) => state.currentThread.variableMessages
+    );
+    const [messages, setMessages] = useState([]);
+
+    useEffect(() => {
+        if (globalThreadType === 'variable') {
+            setMessages(variableMessages);
+        } else {
+            setMessages(functionMessages);
+        }
+    }, [globalThreadType, functionMessages, variableMessages]);
 
     return (
         <div>

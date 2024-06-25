@@ -79,7 +79,7 @@ const IdentifierModal = forwardRef(function IdentifierModal(
     return createPortal(
         <div>
             <dialog ref={modal}>
-                <button> close </button>
+                <button onClick={() => modal.current.close()}> close </button>
                 {user && projects && projects.length > 0 && (
                     <div>
                         <div className="project-contaier">
