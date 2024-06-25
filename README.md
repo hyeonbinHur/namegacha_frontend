@@ -78,18 +78,10 @@ npm i @tanstack/react-query-devtools
 
 남은거
 
-ai 대답 add project에 넣기, 에딧 모달
-ai 답장 formatting
 로딩
 
-6 / 25
-
-설명이랑 이름 변경 가능
-
 리덕스 불변성
-
 배열 복사할때
-
 let myArray = reduxArray
 myArray= action.payload.newArray
 reduxArray = myArray
@@ -104,3 +96,5 @@ myArray= action.payload.newArray
 reduxArray = myArray
 
 (o)
+
+/// 하나씩만 edit 가능
