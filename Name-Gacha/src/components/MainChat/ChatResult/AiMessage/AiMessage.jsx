@@ -9,8 +9,9 @@ export default function AiMessage({ message }) {
     const name = messageObj.Names;
     const exp = messageObj.Exp;
     const dispatch = useDispatch();
+
     const selectNewItem = (name) => {
-        dispatch(openIdentifierModal({ nam: name, exp: exp }));
+        dispatch(openIdentifierModal({ name: name, exp: exp }));
     };
 
     return (

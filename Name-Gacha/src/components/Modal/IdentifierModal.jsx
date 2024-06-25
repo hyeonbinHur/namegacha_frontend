@@ -5,18 +5,18 @@ import { getCertainProjects } from '../../utils/api/aws/projectRoutes';
 import { createVariable } from '../../utils/api/aws/variableRoutes';
 import { createFunction } from '../../utils/api/aws/functionRoutes';
 import { createPortal } from 'react-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { closeIedntifierModal } from '../../store/identifiyerModal';
 
-const IdentifierModal = forwardRef(function IdentifierModal(
-    { user, type, newIdentifier },
-    ref
-) {
+const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
+    const type = useSelector((state) => state.currentThread.globalThreadType);
+    const newIdentifier = useSelector(
+        (state) => state.identifierModalSlice.item
+    );
     const dispatch = useDispatch();
     const modal = useRef(null);
     const [selectedProject, setSelectedProject] = useState(null);
     const [selectedPage, setSelectedPage] = useState(null);
-
     const findItem = (type, id) => {
         console.log('Hello world');
         if (type === 'project') {
@@ -35,7 +35,6 @@ const IdentifierModal = forwardRef(function IdentifierModal(
             }
         }
     };
-
     const { data: projects } = useQuery({
         queryKey: ['getCertainProjects', user?.uuid],
         queryFn: () => getCertainProjects(user.uuid),
