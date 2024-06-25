@@ -1,9 +1,18 @@
 import { useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { editAiMessageExp } from '../../../../store/threadSlice';
 /* eslint-disable react/prop-types */
-export default function ExpCard({ exp, handleExpChange }) {
+export default function ExpCard({ exp, arrayIndex }) {
     const [isEdit, setIsEdit] = useState(false);
+    const [newExp, setNewExp] = useState(exp);
+
+    const dispatch = useDispatch();
+    const startEditExp = () => {
+        dispatch(editAiMessageExp({ arrayIndex: arrayIndex, newExp: newExp }));
+        setIsEdit(false);
+    };
     const cancelEditExp = () => {
+        setNewExp(exp);
         setIsEdit(false);
     };
     return (
@@ -11,15 +20,15 @@ export default function ExpCard({ exp, handleExpChange }) {
             {isEdit ? (
                 <div>
                     <input
-                        value={exp}
-                        onChange={(e) => handleExpChange(e.target.value)}
+                        value={newExp}
+                        onChange={(e) => setNewExp(e.target.value)}
                     />
-                    <button onClick={() => setIsEdit(false)}>save</button>
+                    <button onClick={() => startEditExp()}>save</button>
                     <button onClick={() => cancelEditExp()}>cancel</button>
                 </div>
             ) : (
                 <div>
-                    {exp}
+                    {newExp}
                     <button onClick={() => setIsEdit(true)}>edit</button>
                 </div>
             )}

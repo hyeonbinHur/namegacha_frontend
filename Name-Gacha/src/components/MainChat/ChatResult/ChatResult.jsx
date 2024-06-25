@@ -41,7 +41,11 @@ export default function ChatResult() {
                         return index % 2 === 0 ? (
                             <UserMessage key={index} message={m} />
                         ) : (
-                            <AiMessage key={index} message={m} />
+                            <AiMessage
+                                key={index}
+                                message={m}
+                                arrayIndex={index}
+                            />
                         );
                     })}
                 </div>

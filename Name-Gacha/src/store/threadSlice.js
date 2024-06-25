@@ -49,8 +49,6 @@ const threadSlice = createSlice({
             state.currentFunctionthread = null;
             state.functionMessages = [];
             state.variableMessages = [];
-            // state.currentThread = null;
-            // state.messages = [];
         },
         chageGlobalThreadType(state, action) {
             if (action.payload.globaltype === 'variable') {
@@ -59,8 +57,7 @@ const threadSlice = createSlice({
                 state.globalThreadType = 'function';
             }
         },
-
-        changeExp(state, action) {
+        editAiMessageExp(state, action) {
             const arrayIndex = action.payload.arrayIndex;
             if (state.globalThreadType === 'variable') {
                 let newAiMeesage = [...state.variableMessages];
@@ -72,11 +69,14 @@ const threadSlice = createSlice({
                 state.functionMessages = newAiMeesage;
             }
         },
-        changeName(state, action) {
+        editAiMessageName(state, action) {
             const arrayIndex = action.payload.arrayIndex;
             const nameIndex = action.payload.nameIndex;
+            console.log(arrayIndex);
+            console.log(nameIndex);
             if (state.globalThreadType === 'variable') {
                 let newAiMeesage = [...state.variableMessages];
+
                 newAiMeesage[arrayIndex].Names[nameIndex] =
                     action.payload.newName;
                 state.variableMessages = newAiMeesage;
@@ -96,5 +96,7 @@ export const {
     pushMessages,
     clearThread,
     chageGlobalThreadType,
+    editAiMessageExp,
+    editAiMessageName,
 } = threadSlice.actions;
 export default threadSlice.reducer;
