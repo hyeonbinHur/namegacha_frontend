@@ -95,7 +95,7 @@ export default function ChatBox() {
             } else if (status === undefined) {
                 return;
             } else {
-                setTimeout(() => readReply(runId), 5000); // Wait for 5 seconds before retrying
+                setTimeout(() => readReply(runId), 2000); // Wait for 2 seconds before retrying
             }
         } catch (err) {
             console.error(err.message);

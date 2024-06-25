@@ -38,6 +38,7 @@ export default function MainChat() {
             <div className="chat-result">
                 <button onClick={() => changeGlobalToVar()}>Variable</button>
                 <button onClick={() => changeGlobalTypeToFn()}>Function</button>
+                <button onClick={() => console.log(user)}> user info</button>
                 <ChatResult />
             </div>
 

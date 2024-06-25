@@ -18,8 +18,9 @@ const IdentifierModal = forwardRef(function IdentifierModal(
     const [selectedPage, setSelectedPage] = useState(null);
 
     const findItem = (type, id) => {
+        console.log('Hello world');
         if (type === 'project') {
-            const project = projects.find(
+            const project = projects.data.find(
                 (project) => project.projectId === id
             );
             if (project) {
@@ -79,13 +80,14 @@ const IdentifierModal = forwardRef(function IdentifierModal(
     return createPortal(
         <div>
             <dialog ref={modal}>
-                <button onClick={() => modal.current.close()}> close </button>
-                {user && projects && projects.length > 0 && (
+                <button onClick={() => console.log(user)}>user info</button>
+                <button onClick={() => ref.current.close()}> close </button>
+                {user && projects && projects.data.length > 0 && (
                     <div>
                         <div className="project-contaier">
                             <ul>
                                 {/* project card */}
-                                {projects.map((project) => (
+                                {projects.data.map((project) => (
                                     <li key={`project-${project.projectId}`}>
                                         <ModalCard
                                             onClick={() =>
@@ -109,7 +111,7 @@ const IdentifierModal = forwardRef(function IdentifierModal(
                                             <ModalCard
                                                 onClick={() =>
                                                     findItem(
-                                                        'project',
+                                                        'page',
                                                         page.pageId
                                                     )
                                                 }
@@ -172,7 +174,7 @@ const IdentifierModal = forwardRef(function IdentifierModal(
         document.getElementById('modal')
     );
 });
-const ModalCard = ({ name }) => {
-    return <div>{name}</div>;
+const ModalCard = ({ name, onClick }) => {
+    return <button onClick={onClick}>{name}</button>;
 };
 export default IdentifierModal;
