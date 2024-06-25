@@ -85,3 +85,22 @@ ai 답장 formatting
 6 / 25
 
 설명이랑 이름 변경 가능
+
+리덕스 불변성
+
+배열 복사할때
+
+let myArray = reduxArray
+myArray= action.payload.newArray
+reduxArray = myArray
+
+(x)
+
+이렇게 하면 문제가 생기는게, my배열 = 리덕스 배열 하면, 참조 복사가 되서, my배열 = action.payload.newArray했을때 리덕스 배열도 변한다. 이러면 불변성 어쩌고가 문제가 생겨서
+
+복사할때
+let changeArray = [...reduxArray] 로복사해줘야한다
+myArray= action.payload.newArray
+reduxArray = myArray
+
+(o)

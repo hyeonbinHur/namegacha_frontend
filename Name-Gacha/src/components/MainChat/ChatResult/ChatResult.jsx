@@ -39,12 +39,9 @@ export default function ChatResult() {
                         console.log(m);
                         // Conditionally render UserMessage or AiMessage based on index
                         return index % 2 === 0 ? (
-                            <UserMessage
-                                key={index}
-                                message={m[0].text.value}
-                            />
+                            <UserMessage key={index} message={m} />
                         ) : (
-                            <AiMessage key={index} message={m[0].text.value} />
+                            <AiMessage key={index} message={m} />
                         );
                     })}
                 </div>
