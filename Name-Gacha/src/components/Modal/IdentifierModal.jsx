@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { forwardRef, useImperativeHandle, useState, useRef } from 'react';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes';
 import { createVariable } from '../../utils/api/aws/variableRoutes';
 import { createFunction } from '../../utils/api/aws/functionRoutes';
@@ -40,14 +40,22 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
         queryFn: () => getCertainProjects(user.uuid),
         enabled: !!user,
     });
+    const queryClient = useQueryClient();
+
     const { mutate: mutateAddVariable } = useMutation({
         mutationFn: ({ pageId, variableName, variableExp }) => {
             return createVariable(pageId, variableName, variableExp);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
         },
     });
     const { mutate: mutateAddFunction } = useMutation({
         mutationFn: ({ pageId, functionName, functionExp }) => {
             return createFunction(pageId, functionName, functionExp);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
         },
     });
     const startAddIdentifier = () => {
@@ -55,13 +63,16 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
             mutateAddVariable({
                 pageId: selectedPage.pageId,
                 variableName: newIdentifier.name,
-                variableExp: newIdentifier.exp,
+                variableExp: newIdentifier.exp[0],
             });
         } else {
+            console.log('page Id ' + selectedPage.pageId);
+            console.log('identifier name ' + newIdentifier.name);
+            console.log('identifier exp ' + newIdentifier.exp[0]);
             mutateAddFunction({
                 pageId: selectedPage.pageId,
                 functionName: newIdentifier.name,
-                functionExp: newIdentifier.exp,
+                functionExp: newIdentifier.exp[0],
             });
         }
     };

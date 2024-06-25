@@ -17,6 +17,7 @@ export default function VariableContainer({ variables, pageId }) {
     const queryClient = useQueryClient();
     const { mutate: mutateAddVariable } = useMutation({
         mutationFn: ({ variableName, variableExp, pageId }) => {
+            console.log(pageId);
             return createVariable(pageId, variableName, variableExp);
         },
         onSuccess: () => {
