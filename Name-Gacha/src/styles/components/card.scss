@@ -1,7 +1,8 @@
 .sd-project{
     &--main{
-        font-size: 2rem;
+        font-size: 2.3rem;
         display: flex;
+        position: relative;
         &--name{
             display: flex;
             width: 80%;
@@ -12,25 +13,58 @@
                 text-overflow: ellipsis;
             }
         }
-
         &--icons{
             margin:0 1rem;
+            padding-top: .4rem;
         }
-
-        position: relative;
-
         &__plus-icon{
             position: absolute;
             right: 10%;
             top:12%;
             opacity: 0;
             font-size:2.5rem ;
-            border: 1px solid black;
+            transition: all 0.2s ease; 
+            &::after{
+                content: "";
+                display: inline-block;
+                width: 120%;
+                height: 100%;
+                border-radius: 5px;
+                position: absolute;
+                top: -12%;
+                left: -8%;
+                z-index:-1;
+            }
         }
-
+        &__plus-icon:hover{
+            &::after{
+                background-color: $color-grey-dark-1;
+            }
+        }
     }
-    
     &--main:hover &--main__plus-icon{
         opacity: 1;
     }
+}
+
+.sd-item-container{
+    &--main{
+        font-size: 2.3rem;
+        display: flex;
+        position: relative;
+      &__icons{
+        margin:0 1rem;
+        padding-top: .4rem;
+      }
+      &__name{
+        max-width: 50%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    
+    }
+}
+.sd-fn-container{
+    margin-left: 2rem;
 }

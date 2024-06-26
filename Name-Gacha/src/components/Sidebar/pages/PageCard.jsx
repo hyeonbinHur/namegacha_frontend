@@ -6,7 +6,6 @@ import { AiFillFolder } from 'react-icons/ai';
 import { AiFillFolderOpen } from 'react-icons/ai';
 import FunctionContainer from '../functions/FnContainer';
 import VarContainer from '../variables/VarContatiner.jsx';
-import './pageCard.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -176,22 +175,19 @@ export default function PageCard({ page }) {
     });
 
     return (
-        <div>
-            <section
-                className="name name-main page-name"
-                onClick={() => setIsOpen((prev) => !prev)}
-            >
+        <div className="sd-item-container sd-fn-container">
+            <section onClick={() => setIsOpen((prev) => !prev)}>
                 <div
-                    className="name name-sub "
+                    className="sd-item-container--main"
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div>
+                        <div className="sd-item-container--main__icons">
                             <BsCaretUp className="arrow" />
                             <AiFillFolderOpen className="folder" />
                         </div>
                     ) : (
-                        <div>
+                        <div className="sd-item-container--main__icons">
                             <BsCaretDown className="arrow" />
                             <AiFillFolder className="folder" />
                         </div>
@@ -204,7 +200,9 @@ export default function PageCard({ page }) {
                             onKeyDown={(e) => handleEditNameKeyDown(e)}
                         />
                     ) : (
-                        <div>{page.pageName}</div>
+                        <div className="sd-item-container--main__name">
+                            {page.pageName}
+                        </div>
                     )}
                 </div>
             </section>

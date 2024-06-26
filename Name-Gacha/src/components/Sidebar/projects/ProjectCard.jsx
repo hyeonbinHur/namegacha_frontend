@@ -104,20 +104,20 @@ export default function ProjectCard({ project }) {
     };
 
     return (
-        <div className="sd-project-container">
-            <section className="sd-project--main">
+        <div className="sd-project-container sd-item-container">
+            <section className="sd-project--main sd-item-contaniner--main">
                 <div
                     className="sd-project--main--name"
                     onClick={() => setIsOpen((prev) => !prev)}
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div className="sd-project--main--icons">
+                        <div className="sd-project--main--icons sd-item-contaniner--main__icons">
                             <BsCaretUp className="sd-project--main--name__arrow" />
                             <AiFillFolderOpen className="sd-project--main--name__folder" />
                         </div>
                     ) : (
-                        <div className="sd-project--main--icons">
+                        <div className="sd-project--main--icons sd-item-contaniner--main__icons">
                             <BsCaretDown className="sd-project--main--name__arrow" />
                             <AiFillFolder className="sd-project--main--name__folder" />
                         </div>
@@ -131,21 +131,21 @@ export default function ProjectCard({ project }) {
                             onKeyDown={(e) => handleKeyDown(e)}
                         />
                     ) : (
-                        <div className="sd-project--main--name__name">
+                        <div className="sd-project--main--name__name sd-item-contaniner--main__name">
                             {project.projectName}
                         </div>
                     )}
+                    <i
+                        className="icon-basic-elaboration-document-plus sd-project--main__plus-icon sd-item-contaniner--main__plus-icon"
+                        onClick={() =>
+                            addPage({
+                                projectId: project.projectId,
+                                pageExp: '',
+                                pageName: 'add page test',
+                            })
+                        }
+                    ></i>
                 </div>
-                <i
-                    className="icon-basic-elaboration-document-plus sd-project--main__plus-icon"
-                    onClick={() =>
-                        addPage({
-                            projectId: project.projectId,
-                            pageExp: '',
-                            pageName: 'add page test',
-                        })
-                    }
-                ></i>
             </section>
 
             <section>

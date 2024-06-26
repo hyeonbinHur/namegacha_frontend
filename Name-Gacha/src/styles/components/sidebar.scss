@@ -33,7 +33,7 @@
         justify-content: space-between;
         &__feature{
             opacity: 0;
-            transition: opacity 0.2s ease; 
+            transition: all 0.2s ease; 
             &__1, &__2{
                 border-radius: 3px;
                 text-align: center;
