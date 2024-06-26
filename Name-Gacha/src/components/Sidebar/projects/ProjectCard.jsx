@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { SlOptions } from 'react-icons/sl';
 import { AiFillFolder } from 'react-icons/ai';
 import { AiFillFolderOpen } from 'react-icons/ai';
 import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import PageCard from '../pages/PageCard.jsx';
-import './projectCard.css';
+// import './projectCard.css';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import * as PageAPI from '../../../utils/api/aws/pageRoutes.js';
@@ -23,8 +22,7 @@ export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
     const [projectName, setProjectName] = useState(project.projectName || '');
     const [newPageName, setNewPageName] = useState('');
-
-    /**Redux*/
+    /**Slice variables*/
     const sliceContextTarget = useSelector(
         (state) => state.currentContextMenu.target
     );
@@ -51,7 +49,6 @@ export default function ProjectCard({ project }) {
     const componentIsAdd = contextUtil.checkIsAdd(componentIsThis, sliceIsAdd);
 
     /** Functions */
-
     /** HTTP request */
     const { mutate: addPage } = useMutation({
         mutationFn: ({ pageName, pageExp, projectId }) => {
@@ -65,6 +62,7 @@ export default function ProjectCard({ project }) {
         },
     });
 
+    /**Slice Functions */
     const dispatch = useDispatch();
 
     const handleContextMenu = (e) => {
@@ -106,24 +104,25 @@ export default function ProjectCard({ project }) {
     };
 
     return (
-        <div className="project-container">
-            <section className="name name-main project-name">
+        <div className="sd-project-container">
+            <section className="sd-project--main">
                 <div
-                    className="name-sub"
+                    className="sd-project--main--name"
                     onClick={() => setIsOpen((prev) => !prev)}
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div>
-                            <BsCaretUp className="arrow" />
-                            <AiFillFolderOpen className="folder" />
+                        <div className="sd-project--main--icons">
+                            <BsCaretUp className="sd-project--main--name__arrow" />
+                            <AiFillFolderOpen className="sd-project--main--name__folder" />
                         </div>
                     ) : (
-                        <div>
-                            <BsCaretDown className="arrow" />
-                            <AiFillFolder className="folder" />
+                        <div className="sd-project--main--icons">
+                            <BsCaretDown className="sd-project--main--name__arrow" />
+                            <AiFillFolder className="sd-project--main--name__folder" />
                         </div>
                     )}
+
                     {componentIsEdit ? (
                         <input
                             value={projectName}
@@ -132,11 +131,13 @@ export default function ProjectCard({ project }) {
                             onKeyDown={(e) => handleKeyDown(e)}
                         />
                     ) : (
-                        <div> {project.projectName} </div>
+                        <div className="sd-project--main--name__name">
+                            {project.projectName}
+                        </div>
                     )}
                 </div>
                 <i
-                    className="icon-basic-elaboration-document-plus"
+                    className="icon-basic-elaboration-document-plus sd-project--main__plus-icon"
                     onClick={() =>
                         addPage({
                             projectId: project.projectId,
@@ -145,9 +146,6 @@ export default function ProjectCard({ project }) {
                         })
                     }
                 ></i>
-                <div className="option">
-                    <SlOptions />
-                </div>
             </section>
 
             <section>

@@ -1,0 +1,36 @@
+.sd-project{
+    &--main{
+        font-size: 2rem;
+        display: flex;
+        &--name{
+            display: flex;
+            width: 80%;
+            &__name{
+                width: 60%;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+
+        &--icons{
+            margin:0 1rem;
+        }
+
+        position: relative;
+
+        &__plus-icon{
+            position: absolute;
+            right: 10%;
+            top:12%;
+            opacity: 0;
+            font-size:2.5rem ;
+            border: 1px solid black;
+        }
+
+    }
+    
+    &--main:hover &--main__plus-icon{
+        opacity: 1;
+    }
+}
