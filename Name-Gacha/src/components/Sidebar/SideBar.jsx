@@ -1,6 +1,5 @@
 import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
-import './sidebar.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
@@ -46,10 +45,10 @@ export default function Header() {
         setIsAdd(false);
     };
     return (
-        <div className="main">
-            <header className="logo-container">
-                <div className="logo">
-                    <img src={logo} className="logo" />
+        <main className="sidebar-main">
+            <header className="sidebar-header">
+                <div className="sidebar-header__logo-container">
+                    <img src={logo} className="sidebar-header__logo" />
                 </div>
             </header>
 
@@ -107,6 +106,6 @@ export default function Header() {
                     </button>
                 )}
             </section>
-        </div>
+        </main>
     );
 }

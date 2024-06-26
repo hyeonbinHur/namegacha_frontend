@@ -1,0 +1,21 @@
+.sidebar-header{
+    width: 100%;
+    height: 10rem;
+    &__logo-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    &__logo{
+        height: 50%;
+        position: absolute;
+        top:30%;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        color: $color-blue-primary;
+        transition: all .2s;
+    }
+    &__logo:hover{
+        transform: translate(-50%, 0%) translateY(-5px);
+    }
+}

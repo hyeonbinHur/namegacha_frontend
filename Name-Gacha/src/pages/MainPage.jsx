@@ -1,6 +1,5 @@
 import SideBar from '../components/Sidebar/SideBar';
 import MainChat from '../components/MainChat/MainChat';
-import './MainPage.css';
 import { useDispatch } from 'react-redux';
 import { closeContextMenu } from '../store/contextMenuSlice';
 import DetailPage from './DetailPage';
@@ -14,18 +13,20 @@ export default function MainPage() {
     };
 
     return (
-        <main
-            className="Main-container"
-            onClick={(e) => handleContextMenuClose(e)}
-        >
-            <aside className="sidebar">
+        <main className="main" onClick={(e) => handleContextMenuClose(e)}>
+            <aside className="main--sidebar">
                 <SideBar />
             </aside>
 
-            <Routes>
-                <Route path="/" element={<WrappedMainChat />} />
-                <Route path="/detail/:pageId" element={<WrappedDetailPage />} />
-            </Routes>
+            <section className="main--main">
+                <Routes>
+                    <Route path="/" element={<WrappedMainChat />} />
+                    <Route
+                        path="/detail/:pageId"
+                        element={<WrappedDetailPage />}
+                    />
+                </Routes>
+            </section>
         </main>
     );
 }
