@@ -14,19 +14,19 @@ export default function MainPage() {
     };
 
     return (
-        <div
+        <main
             className="Main-container"
             onClick={(e) => handleContextMenuClose(e)}
         >
-            <div className="sidebar">
+            <aside className="sidebar">
                 <SideBar />
-            </div>
+            </aside>
 
             <Routes>
                 <Route path="/" element={<WrappedMainChat />} />
                 <Route path="/detail/:pageId" element={<WrappedDetailPage />} />
             </Routes>
-        </div>
+        </main>
     );
 }
 function WrappedMainChat() {

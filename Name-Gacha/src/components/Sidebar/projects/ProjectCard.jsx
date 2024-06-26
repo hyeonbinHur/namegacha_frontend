@@ -107,7 +107,7 @@ export default function ProjectCard({ project }) {
 
     return (
         <div className="project-container">
-            <div className="name name-main project-name ">
+            <section className="name name-main project-name">
                 <div
                     className="name-sub"
                     onClick={() => setIsOpen((prev) => !prev)}
@@ -148,26 +148,31 @@ export default function ProjectCard({ project }) {
                 <div className="option">
                     <SlOptions />
                 </div>
-            </div>
-            {isOpen == true && (
-                <ul>
-                    {componentIsAdd && (
-                        <div>
-                            <input
-                                value={newPageName}
-                                onClick={(e) => e.stopPropagation()}
-                                onChange={(e) => setNewPageName(e.target.value)}
-                                onKeyDown={(e) => handleKeyDownAddPage(e)}
-                            />
-                        </div>
-                    )}
-                    {project.pages.map((page) => (
-                        <li key={page.pageId}>
-                            <PageCard page={page} />
-                        </li>
-                    ))}
-                </ul>
-            )}
+            </section>
+
+            <section>
+                {isOpen == true && (
+                    <ul>
+                        {componentIsAdd && (
+                            <div>
+                                <input
+                                    value={newPageName}
+                                    onClick={(e) => e.stopPropagation()}
+                                    onChange={(e) =>
+                                        setNewPageName(e.target.value)
+                                    }
+                                    onKeyDown={(e) => handleKeyDownAddPage(e)}
+                                />
+                            </div>
+                        )}
+                        {project.pages.map((page) => (
+                            <li key={page.pageId}>
+                                <PageCard page={page} />
+                            </li>
+                        ))}
+                    </ul>
+                )}
+            </section>
 
             <section>
                 {componentIsContextOpen && (

@@ -44,6 +44,7 @@ design : https://uncle-hyeonb.tistory.com/27
 # sass
 
 npm install node-sass
+npm install -D sass
 
 # react query devtool
 

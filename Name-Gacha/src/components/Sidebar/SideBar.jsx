@@ -47,13 +47,14 @@ export default function Header() {
     };
     return (
         <div className="main">
-            <div className="logo-container">
+            <header className="logo-container">
                 <div className="logo">
                     <img src={logo} className="logo" />
                 </div>
-                <div onClick={() => console.log(user.uuid)}>show user</div>
-            </div>
+            </header>
+
             <div>{isLoading && <div> is loading</div>}</div>
+
             <div>
                 {user && (
                     <div>
@@ -72,7 +73,7 @@ export default function Header() {
                 )}
             </div>
 
-            <div>
+            <section>
                 {user ? (
                     projects && projects.data.length > 0 ? (
                         <div className="project">
@@ -105,7 +106,7 @@ export default function Header() {
                         go to sign in
                     </button>
                 )}
-            </div>
+            </section>
         </div>
     );
 }

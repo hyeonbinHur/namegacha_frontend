@@ -19,7 +19,7 @@ export default function VarContainer({ variables, page }) {
     });
     return (
         <div className="vars-container">
-            <div className="var-name">
+            <section className="var-name">
                 <HiOutlineVariable className="icon" size="1.2rem" />
                 var container
                 <i
@@ -32,8 +32,9 @@ export default function VarContainer({ variables, page }) {
                         })
                     }
                 ></i>
-            </div>
-            <div style={{ paddingLeft: '30%' }}>
+            </section>
+
+            <section style={{ paddingLeft: '30%' }}>
                 <ul>
                     {variables.map((variable) => (
                         <li key={variable.variableId}>
@@ -41,7 +42,7 @@ export default function VarContainer({ variables, page }) {
                         </li>
                     ))}
                 </ul>
-            </div>
+            </section>
         </div>
     );
 }

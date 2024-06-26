@@ -177,7 +177,7 @@ export default function PageCard({ page }) {
 
     return (
         <div>
-            <div
+            <section
                 className="name name-main page-name"
                 onClick={() => setIsOpen((prev) => !prev)}
             >
@@ -207,50 +207,61 @@ export default function PageCard({ page }) {
                         <div>{page.pageName}</div>
                     )}
                 </div>
-            </div>
+            </section>
 
-            {isOpen && (
-                <div
-                    className="components-container"
-                    onClick={handleNavigateToDetail}
-                >
-                    <div>
-                        {componentIsVariableAdd && (
-                            <input
-                                onClick={(e) => e.stopPropagation()}
-                                value={newVariableName}
-                                onChange={(e) =>
-                                    setNewVariableName(e.target.value)
-                                }
-                                onKeyDown={(e) => handleAddVariableKeyDown(e)}
+            <section>
+                {isOpen && (
+                    <div
+                        className="components-container"
+                        onClick={handleNavigateToDetail}
+                    >
+                        <div>
+                            {componentIsVariableAdd && (
+                                <input
+                                    onClick={(e) => e.stopPropagation()}
+                                    value={newVariableName}
+                                    onChange={(e) =>
+                                        setNewVariableName(e.target.value)
+                                    }
+                                    onKeyDown={(e) =>
+                                        handleAddVariableKeyDown(e)
+                                    }
+                                />
+                            )}
+
+                            <VarContainer
+                                variables={page.variables}
+                                page={page}
                             />
-                        )}
+                        </div>
+                        <div>
+                            {componentIsFunctionAdd && (
+                                <input
+                                    value={newFunctionName}
+                                    onClick={(e) => e.stopPropagation()}
+                                    onChange={(e) =>
+                                        setNewFunctionName(e.target.value)
+                                    }
+                                    onKeyDown={(e) =>
+                                        handleAddFunctionKeyDown(e)
+                                    }
+                                />
+                            )}
 
-                        <VarContainer variables={page.variables} page={page} />
-                    </div>
-                    <div>
-                        {componentIsFunctionAdd && (
-                            <input
-                                value={newFunctionName}
-                                onClick={(e) => e.stopPropagation()}
-                                onChange={(e) =>
-                                    setNewFunctionName(e.target.value)
-                                }
-                                onKeyDown={(e) => handleAddFunctionKeyDown(e)}
+                            <FunctionContainer
+                                functions={page.functions}
+                                page={page}
                             />
-                        )}
-
-                        <FunctionContainer
-                            functions={page.functions}
-                            page={page}
-                        />
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </section>
 
-            {componentIsContextOpen && (
-                <ContextMenu type={'page'} item={page} />
-            )}
+            <section>
+                {componentIsContextOpen && (
+                    <ContextMenu type={'page'} item={page} />
+                )}
+            </section>
         </div>
     );
 }

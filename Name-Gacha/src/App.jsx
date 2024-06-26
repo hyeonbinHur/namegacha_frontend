@@ -3,12 +3,12 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 // import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-
 import MainPage from './pages/MainPage';
 import AuthPage from './pages/AuthPage';
 import Test2 from './pages/Test2';
 import ErrorModal from './components/Modal/ErrorModal.jsx';
 import { setError } from './store/errorSlice.js';
+import './styles/index.scss';
 
 function App() {
     const errorModal = useRef(null);

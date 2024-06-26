@@ -74,9 +74,10 @@ export default function VarCard({ variable, page }) {
             setNewVariableName(variable.variableName);
         }
     };
+
     return (
         <div>
-            <div onContextMenu={(e) => handleContextMenuOpen(e)}>
+            <section onContextMenu={(e) => handleContextMenuOpen(e)}>
                 {componentIsEdit ? (
                     <input
                         value={newVariableName}
@@ -87,8 +88,7 @@ export default function VarCard({ variable, page }) {
                 ) : (
                     <div>{variable.variableName}</div>
                 )}
-            </div>
-            <div>{componentIsThis}</div>
+            </section>
 
             <section>
                 {componentIsContextOpen && (

@@ -38,18 +38,21 @@ export default function DetailPage() {
                     <header>
                         <DetailHeader page={page} />
                     </header>
-                    <div>
+
+                    <section>
                         <VariableContainer
                             variables={page.variables}
                             pageId={page.pageId}
                         />
-                    </div>
-                    <div>
+                    </section>
+
+                    <section>
                         <FunctionContainer
                             functions={page.functions}
                             pageId={page.pageId}
                         />
-                    </div>
+                    </section>
+
                     <button onClick={() => navigate('/')}>back to chat</button>
                 </div>
             )}

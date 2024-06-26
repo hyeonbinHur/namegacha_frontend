@@ -79,7 +79,7 @@ export default function FunctionCard({ fnction, page }) {
 
     return (
         <div>
-            <div onContextMenu={(e) => handleOpenContextMenu(e)}>
+            <section onContextMenu={(e) => handleOpenContextMenu(e)}>
                 {componentIsEdit ? (
                     <input
                         onClick={(e) => e.stopPropagation()}
@@ -90,7 +90,7 @@ export default function FunctionCard({ fnction, page }) {
                 ) : (
                     <div>{fnction.functionName}</div>
                 )}
-            </div>
+            </section>
             <section>
                 {componentIsContextOpen && (
                     <ContextMenu type={'function'} item={item} />

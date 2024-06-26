@@ -19,7 +19,7 @@ export default function FunctionContainer({ functions, page }) {
     // open context menu, close context menu, edit variable, delet variable, add variable
     return (
         <div className="fns-container">
-            <div className="fn-name">
+            <section className="fn-name">
                 <TbFunction className="icon" size="1.2rem" />
                 function container
                 <i
@@ -32,8 +32,9 @@ export default function FunctionContainer({ functions, page }) {
                         })
                     }
                 ></i>
-            </div>
-            <div style={{ paddingLeft: '30%' }}>
+            </section>
+
+            <section style={{ paddingLeft: '30%' }}>
                 <ul>
                     {functions.map((fn) => (
                         <li key={fn.functionId}>
@@ -41,7 +42,7 @@ export default function FunctionContainer({ functions, page }) {
                         </li>
                     ))}
                 </ul>
-            </div>
+            </section>
         </div>
     );
 }
