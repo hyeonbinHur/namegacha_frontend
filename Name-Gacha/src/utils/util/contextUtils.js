@@ -19,6 +19,19 @@ const isDetailVerify = (sliceTarget, componentTarget) => {
     }
 };
 
+/**Shallow Equality check */
+const isAiMessageVerify = (sliceTarget, componentTarget) => {
+    if (
+        sliceTarget.type === componentTarget.type &&
+        sliceTarget.arrIndex === componentTarget.arrIndex &&
+        sliceTarget.nameIndex === componentTarget.nameIndex
+    ) {
+        return true;
+    } else {
+        return false;
+    }
+};
+
 // const isDetailVerify = (sliceTarget, componentTarget) => {
 //     return JSON.stringify(sliceTarget) === JSON.stringify(componentTarget);
 // };
@@ -67,4 +80,5 @@ export {
     checkIsVariableAdd,
     isDetailVerify,
     checkIsEdit,
+    isAiMessageVerify,
 };

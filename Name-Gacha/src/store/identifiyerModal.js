@@ -13,7 +13,6 @@ const identifierModalSlice = createSlice({
     initialState: initialState,
     reducers: {
         openIdentifierModal(state, action) {
-            console.log(action.payload.name);
             state.isOpen = true;
             state.item.name = action.payload.name;
             state.item.exp = action.payload.exp;

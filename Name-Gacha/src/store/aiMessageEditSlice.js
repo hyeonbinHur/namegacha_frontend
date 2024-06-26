@@ -15,9 +15,10 @@ const aiMessageEditSlice = createSlice({
     reducers: {
         setIsEdit(state, action) {
             state.isEdit = true;
-            state.target.type = action.payload.type;
-            state.target.arrIndex = action.payload.arrIndex;
-            state.target.nameIndex = action.payload.nameIndex;
+            const componetTarget = action.payload.target;
+            state.target.type = componetTarget.type;
+            state.target.arrIndex = componetTarget.arrIndex;
+            state.target.nameIndex = componetTarget.nameIndex;
         },
         clearIsEdit(state) {
             state.target.type = null;

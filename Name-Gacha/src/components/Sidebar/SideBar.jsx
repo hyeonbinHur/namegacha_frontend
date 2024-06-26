@@ -60,9 +60,7 @@ export default function Header() {
                     <img src={logo} className="sidebar-header__logo" />
                 </div>
             </header>
-
             <div>{isLoading && <div> is loading</div>}</div>
-
             <div>
                 <div className="sidebar-sub-header">
                     {user && (
@@ -70,13 +68,11 @@ export default function Header() {
                             <div className="sidebar-sub-header--content__name">
                                 {user.userId}
                             </div>
-
                             <div className="sidebar-sub-header--content__feature">
                                 <i
                                     className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"
                                     onClick={() => setIsAdd((prev) => !prev)}
                                 ></i>
-
                                 <button onClick={() => refetchGetProjects()}>
                                     <i className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"></i>
                                 </button>
@@ -85,7 +81,6 @@ export default function Header() {
                     )}
                 </div>
             </div>
-
             <section className="sidebar-project">
                 {user ? (
                     projects && projects.data.length > 0 ? (
