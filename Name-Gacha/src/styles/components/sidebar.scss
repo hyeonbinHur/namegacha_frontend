@@ -19,3 +19,71 @@
         transform: translate(-50%, 0%) translateY(-5px);
     }
 }
+.sidebar-sub-header {
+    font-size: $font-size-big;
+    position: relative;
+    height: 3rem;
+    border-bottom: 3px solid $color-grey-light-1;
+    margin-top: 1.5rem;
+    &--content{
+        position: absolute;
+        left:10%;
+        right: 10%;
+        display: flex;
+        justify-content: space-between;
+        &__feature{
+            opacity: 0;
+            transition: opacity 0.2s ease; 
+            &__1, &__2{
+                border-radius: 3px;
+                text-align: center;
+                align-items: center;
+                display: inline-block;
+                width: 3.5rem;
+                height: 2.5rem;
+            }
+            &__1:hover{
+                background-color: $color-grey-dark-2;
+            }
+            &__2:hover{
+                background-color: $color-grey-dark-2;
+            }
+        }
+        
+        &__name{
+            letter-spacing: .1rem;
+            text-transform: uppercase;
+            font-weight:500;
+            max-width: 80%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &:hover &--content__feature { 
+        opacity: 1;
+    }
+}
+.sidebar-project{
+    margin-top: 3rem;
+
+    &--card:not(:last-child){
+        margin-bottom: 1.5rem;
+    }
+
+    &--create {
+        width: 90%;
+        &__input{
+            width: 70%;
+            outline: 1px solid black;
+        }
+
+        &__input:focus{
+            outline: 1px solid black;
+        }
+    }
+   
+}
+
+

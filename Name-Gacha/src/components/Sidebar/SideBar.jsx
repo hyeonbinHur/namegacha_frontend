@@ -4,6 +4,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 import { useNavigate } from 'react-router-dom';
+import { AiFillFolder } from 'react-icons/ai';
+
 // import { useEffect, useState } from 'react';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
 import { useState } from 'react';
@@ -35,15 +37,22 @@ export default function Header() {
     const moveToSignInPage = () => {
         navigator('/auth');
     };
-    const startAddProject = (e) => {
+
+    const handleOnKeyDownCreateProject = (e) => {
         e.preventDefault();
-        if (newProjectName.length == 0) return;
-        addProject({
-            projectName: newProjectName,
-            userId: user.uuid,
-        });
+        if (e.key === 'Enter') {
+            if (newProjectName.length == 0) return;
+            addProject({
+                projectName: newProjectName,
+                userId: user.uuid,
+            });
+        } else if (e.key === 'Escape') {
+            setIsAdd(false);
+            console.log('escape presses');
+        }
         setIsAdd(false);
     };
+
     return (
         <main className="sidebar-main">
             <header className="sidebar-header">
@@ -55,43 +64,53 @@ export default function Header() {
             <div>{isLoading && <div> is loading</div>}</div>
 
             <div>
-                {user && (
-                    <div>
-                        {user.userId}
-                        <div>
-                            <i
-                                className="icon-basic-elaboration-folder-plus"
-                                style={{ fontSize: '2rem' }}
-                                onClick={() => setIsAdd((prev) => !prev)}
-                            ></i>
-                            <button onClick={() => refetchGetProjects()}>
-                                refetch
-                            </button>
+                <div className="sidebar-sub-header">
+                    {user && (
+                        <div className="sidebar-sub-header--content">
+                            <div className="sidebar-sub-header--content__name">
+                                {user.userId}
+                            </div>
+
+                            <div className="sidebar-sub-header--content__feature">
+                                <i
+                                    className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"
+                                    onClick={() => setIsAdd((prev) => !prev)}
+                                ></i>
+
+                                <button onClick={() => refetchGetProjects()}>
+                                    <i className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
             </div>
 
-            <section>
+            <section className="sidebar-project">
                 {user ? (
                     projects && projects.data.length > 0 ? (
-                        <div className="project">
+                        <div>
                             {isAdd && (
-                                <div>
+                                <div className="sidebar-project--create">
+                                    <AiFillFolder className="folder" />
                                     <input
+                                        onKeyDown={(e) =>
+                                            handleOnKeyDownCreateProject(e)
+                                        }
                                         value={newProjectName}
                                         onChange={(e) =>
                                             setNewProjectName(e.target.value)
                                         }
+                                        className="sidebar-project--create__input"
                                     />
-                                    <button onClick={(e) => startAddProject(e)}>
-                                        add project
-                                    </button>
                                 </div>
                             )}
-                            <ul>
+                            <ul className="sidebar-project--container">
                                 {projects.data.map((project) => (
-                                    <li key={project.projectId}>
+                                    <li
+                                        key={project.projectId}
+                                        className="sidebar-project--card"
+                                    >
                                         <ProjectCard project={project} />
                                     </li>
                                 ))}
