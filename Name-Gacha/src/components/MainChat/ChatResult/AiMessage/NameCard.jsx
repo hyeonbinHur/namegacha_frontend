@@ -28,7 +28,6 @@ export default function NameCard({ names, selectNewItem, arrayIndex }) {
 const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
     const [newName, setNewName] = useState(name);
     const dispatch = useDispatch();
-
     /**redux variable */
     const sliceTarget = useSelector((state) => state.aiMessageEditSlice.target);
     const sliceIsEdit = useSelector((state) => state.aiMessageEditSlice.isEdit);
@@ -38,17 +37,14 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
         arrayIndex: arrayIndex,
         nameIndex: nameIndex,
     };
-
     const componentIsTargetMatch = aiUtil.isAiMessageVerify(
         sliceTarget,
         componentTarget
     );
-
     const componentIsEdit = aiUtil.checkIsEdit(
         componentIsTargetMatch,
         sliceIsEdit
     );
-
     const startEditNameInSlice = () => {
         dispatch(
             editAiMessageName({
@@ -62,7 +58,6 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
     const startEditInComponent = () => {
         dispatch(setIsEdit({ target: componentTarget }));
     };
-
     const cancelEditName = () => {
         setNewName(name);
         dispatch(clearIsEdit());
