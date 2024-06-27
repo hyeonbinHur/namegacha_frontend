@@ -29,7 +29,10 @@ const AuthModal = forwardRef(function AuthModal(props, ref) {
                 </div>
                 <div>
                     {isSignIn ? (
-                        <SignInForm toSignUp={toggleForm} />
+                        <SignInForm
+                            toSignUp={toggleForm}
+                            close={() => ref.current && ref.current.close()}
+                        />
                     ) : (
                         <SignUpForm toSignIn={toggleForm} />
                     )}

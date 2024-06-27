@@ -4,13 +4,14 @@ import { signInUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
 import * as authUtil from '../../../utils/util/authUtil';
 
-export default function SignInForm({ toSignUp }) {
+export default function SignInForm({ toSignUp, close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { mutate: mutateSigIn } = useMutation({
         mutationFn: ({ userId, userPassword }) => {
             return signInUser(userId, userPassword);
         },
+        onSuccess: () => close(),
     });
     const componentSignIn = () => {
         mutateSigIn({ userId: username, userPassword: password });
