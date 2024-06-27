@@ -1,3 +1,4 @@
+import { CgClose } from 'react-icons/cg';
 import { forwardRef, useRef, useImperativeHandle, useState } from 'react';
 import { createPortal } from 'react-dom';
 import SignInForm from './SignInForm';
@@ -21,13 +22,17 @@ const AuthModal = forwardRef(function AuthModal(props, ref) {
     const toggleForm = () => {
         setIsSignIn((prev) => !prev);
     };
+
     return createPortal(
         <div>
-            <dialog ref={modal}>
-                <div>
-                    <button onClick={() => ref.current.close()}>close</button>
+            <dialog ref={modal} className="modal auth-modal">
+                <div className="close-box item-left">
+                    <CgClose
+                        className="close-box--close"
+                        onClick={() => ref.current.close()}
+                    />
                 </div>
-                <div>
+                <section className="auth-section">
                     {isSignIn ? (
                         <SignInForm
                             toSignUp={toggleForm}
@@ -36,7 +41,7 @@ const AuthModal = forwardRef(function AuthModal(props, ref) {
                     ) : (
                         <SignUpForm toSignIn={toggleForm} />
                     )}
-                </div>
+                </section>
             </dialog>
         </div>,
         document.getElementById('modal')

@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom';
 
 export default function MainPage() {
     const dispatch = useDispatch();
+
     const handleContextMenuClose = (e) => {
         e.preventDefault();
         dispatch(closeContextMenu());

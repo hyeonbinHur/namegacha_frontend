@@ -95,11 +95,11 @@ reduxArray = myArray
 let changeArray = [...reduxArray] 로복사해줘야한다
 myArray= action.payload.newArray
 reduxArray = myArray
+
 (o)
+
 /// 하나씩만 edit 가능
 
 6/27
 
-사인업이 성공이라면, 로그인 컴포넌트로 변경
-로그인이 성공이라면 모달 닫기
 로그인 디자인

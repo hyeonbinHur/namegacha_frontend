@@ -15,7 +15,7 @@ const checkPasswordValidation = (password) => {
 };
 
 const checkIsPasswordMatch = (password, passwordCheck) => {
-    if (password === passwordCheck) {
+    if (password === passwordCheck && passwordCheck.length !== 0) {
         return true;
     } else {
         return false;

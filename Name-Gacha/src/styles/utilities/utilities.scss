@@ -1,4 +1,5 @@
 /*
+
 요소 가로 중앙 정렬
 요소 세로 중앙 정렬
 요소 중앙
@@ -9,4 +10,17 @@
 
 마진 바텀 스몰 미디 빅
 마진 탑 스몰 미디 빅
+
+요소 오른쪽 끝으로 붙힘
+
 */
+
+.item-left{
+    display: flex;
+    justify-content: end;
+}
+
+.item-horizontal-center{
+    display: flex;
+    justify-content: center;
+}
