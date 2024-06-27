@@ -1,26 +1,31 @@
+/* eslint-disable react/prop-types */
 import { useMutation } from '@tanstack/react-query';
 import { signInUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
-export default function SignInForm() {
+import * as authUtil from '../../../utils/util/authUtil';
+
+export default function SignInForm({ toSignUp }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const { mutate: mutateSigIn } = useMutation({
         mutationFn: ({ userId, userPassword }) => {
             return signInUser(userId, userPassword);
         },
     });
-    const componentSingnIn = (e) => {
-        e.preventDefault();
+    const componentSignIn = () => {
         mutateSigIn({ userId: username, userPassword: password });
     };
-    // 아이디 5글자 이상
-    // 비번 7글자 이상
-    // 모든 칸이 채워지지 않았다면 버튼 disable
+
+    // 로그인 유효성 검사 변수들
+    const emailIsValid =
+        authUtil.isNotEmpty(username) && !authUtil.checkIdValidation(username);
+    const passwordIsValid =
+        authUtil.isNotEmpty(password) &&
+        !authUtil.checkPasswordValidation(password);
 
     return (
         <div>
-            <form action={componentSingnIn}>
+            <form>
                 <div>
                     <input
                         type="text"
@@ -32,6 +37,9 @@ export default function SignInForm() {
                         onChange={(e) => setUsername(e.target.value)}
                     />
                     <label htmlFor="username">Username</label>
+                    {emailIsValid && (
+                        <div>username must be longer than 5 letters</div>
+                    )}
                 </div>
                 <div>
                     <input
@@ -44,9 +52,17 @@ export default function SignInForm() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <label>Password</label>
+                    {passwordIsValid && (
+                        <div>password must be longer than 7 letters</div>
+                    )}
                 </div>
                 <div>
-                    <button>submit</button>
+                    <button type="submit" onClick={() => componentSignIn()}>
+                        submit
+                    </button>
+                    <button type="button" onClick={() => toSignUp()}>
+                        Go to Sign up
+                    </button>
                 </div>
             </form>
         </div>

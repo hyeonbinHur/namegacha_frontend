@@ -22,4 +22,17 @@ const checkIsPasswordMatch = (password, passwordCheck) => {
     }
 };
 
-export { checkIdValidation, checkIsPasswordMatch, checkPasswordValidation };
+const isNotEmpty = (input) => {
+    if (input.length === 0) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
+export {
+    isNotEmpty,
+    checkIdValidation,
+    checkIsPasswordMatch,
+    checkPasswordValidation,
+};

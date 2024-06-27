@@ -17,7 +17,6 @@ export default function MainPage() {
             <aside className="main--sidebar">
                 <SideBar />
             </aside>
-
             <section className="main--main">
                 <Routes>
                     <Route path="/" element={<WrappedMainChat />} />
@@ -30,6 +29,7 @@ export default function MainPage() {
         </main>
     );
 }
+
 function WrappedMainChat() {
     return (
         <div className="mainChat">

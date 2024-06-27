@@ -3,17 +3,18 @@ import ProjectCard from './projects/ProjectCard.jsx';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
-import { useNavigate } from 'react-router-dom';
 import { AiFillFolder } from 'react-icons/ai';
+import AuthModal from '../Modal/Auth/AuthModal.jsx';
 
 // import { useEffect, useState } from 'react';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 export default function Header() {
     const [isAdd, setIsAdd] = useState(false);
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
-    const navigator = useNavigate();
+    const authModal = useRef(null);
+
     /**Http  request */
     const queryClient = useQueryClient();
     const {
@@ -25,6 +26,7 @@ export default function Header() {
         queryFn: () => getCertainProjects(user.uuid),
         enabled: !!user, // user가 존재할 때만 쿼리 실행
     });
+
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
             return projectAPI.createProject(projectName, userId);
@@ -33,9 +35,10 @@ export default function Header() {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
+
     /** basic functions */
     const moveToSignInPage = () => {
-        navigator('/auth');
+        authModal.current.open();
     };
 
     const handleOnKeyDownCreateProject = (e) => {
@@ -120,6 +123,7 @@ export default function Header() {
                     </button>
                 )}
             </section>
+            <AuthModal ref={authModal} />
         </main>
     );
 }

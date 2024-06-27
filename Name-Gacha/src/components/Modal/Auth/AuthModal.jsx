@@ -6,6 +6,7 @@ import SignUpForm from './SignUpForm';
 const AuthModal = forwardRef(function AuthModal(props, ref) {
     const modal = useRef(null);
     const [isSignIn, setIsSignIn] = useState(true);
+
     useImperativeHandle(ref, () => {
         return {
             open: () => {
@@ -22,14 +23,13 @@ const AuthModal = forwardRef(function AuthModal(props, ref) {
     };
     return createPortal(
         <div>
-            <dialog>
+            <dialog ref={modal}>
                 <div>
-                    <button onClick={ref.current.close()}>close</button>
+                    <button onClick={() => ref.current.close()}>close</button>
                 </div>
-
                 <div>
                     {isSignIn ? (
-                        <SignInForm toSignIn={toggleForm} />
+                        <SignInForm toSignUp={toggleForm} />
                     ) : (
                         <SignUpForm toSignIn={toggleForm} />
                     )}
