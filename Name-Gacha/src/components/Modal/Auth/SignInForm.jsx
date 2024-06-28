@@ -1,12 +1,11 @@
-import { AiOutlineRobot } from 'react-icons/ai';
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import { useMutation } from '@tanstack/react-query';
 import { signInUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
-import blackLogo from '../../../assets/logo/black-logo-full.png';
 import * as authUtil from '../../../utils/util/authUtil';
 
-export default function SignInForm({ toSignUp, close }) {
+export default function SignInForm({ close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { mutate: mutateSigIn } = useMutation({
@@ -29,13 +28,16 @@ export default function SignInForm({ toSignUp, close }) {
     return (
         <div>
             <form className="sign-in-form">
-                <div>
-                    <div>
+                <div className="item-horizontal-center">
+                    <div className="auth-heading-container item-horizontal-center">
                         <h2 className="heading-secondary">
                             Sign In to Name Gacha
                         </h2>
-                    </div>
 
+                        <h3 className="heading-tertiary">
+                            Let's join to generate name!
+                        </h3>
+                    </div>
                     <input
                         className="sign-in-form--input"
                         type="text"
@@ -46,7 +48,6 @@ export default function SignInForm({ toSignUp, close }) {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
-
                     {emailIsValid ? (
                         <label className="sign-in-form--label label__invalid">
                             Username must be longer than 5 letters
@@ -59,8 +60,6 @@ export default function SignInForm({ toSignUp, close }) {
                             Username
                         </label>
                     )}
-                </div>
-                <div>
                     <input
                         className="sign-in-form--input"
                         type="password"
@@ -80,28 +79,15 @@ export default function SignInForm({ toSignUp, close }) {
                             Password
                         </label>
                     )}
+                    <button
+                        className="sign-in-form--btn__submit btn-round"
+                        type="submit"
+                        onClick={() => componentSignIn()}
+                    >
+                        submit
+                    </button>
                 </div>
-                <button
-                    className="sign-in-form--btn__submit btn-round"
-                    type="submit"
-                    onClick={() => componentSignIn()}
-                >
-                    submit
-                </button>
-                <button
-                    className="sign-in-form--btn__navigate btn-text"
-                    type="button"
-                    onClick={() => toSignUp()}
-                >
-                    Sign up &rarr;
-                </button>
             </form>
-            <div className="auth-logo-box">
-                <div className="item-horizontal-center">
-                    <AiOutlineRobot className="auth-logo-box--robot" />
-                </div>
-                <img src={blackLogo} className="auth-logo-box--logo" />
-            </div>
         </div>
     );
 }

@@ -1,10 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 import { useMutation } from '@tanstack/react-query';
 import { signUpUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
 import * as authUtil from '../../../utils/util/authUtil';
-import { AiOutlineRobot } from 'react-icons/ai';
-import blackLogo from '../../../assets/logo/black-logo-full.png';
 
 export default function SignUpForm({ toSignIn }) {
     const [username, setUsername] = useState('');
@@ -39,11 +38,15 @@ export default function SignUpForm({ toSignIn }) {
     return (
         <div>
             <form className="sign-in-form">
-                <div>
-                    <div>
+                <div className="item-horizontal-center">
+                    <div className="auth-heading-container item-horizontal-center">
                         <h2 className="heading-secondary">
                             Sign Up to Name Gacha
                         </h2>
+
+                        <h3 className="heading-tertiary">
+                            Let's join to generate name!
+                        </h3>
                     </div>
                     <input
                         className="sign-in-form--input"
@@ -67,8 +70,6 @@ export default function SignUpForm({ toSignIn }) {
                             Username
                         </label>
                     )}
-                </div>
-                <div>
                     <input
                         className="sign-in-form--input"
                         type="password"
@@ -107,29 +108,14 @@ export default function SignUpForm({ toSignIn }) {
                             Password Check
                         </label>
                     )}
-                </div>
-                <div>
                     <button
                         className="sign-in-form--btn__submit btn-round"
                         onClick={() => componentSignUp()}
                     >
                         Sign up
                     </button>
-                    <button
-                        className="sign-in-form--btn__navigate btn-text"
-                        type="button"
-                        onClick={toSignIn}
-                    >
-                        Sign in
-                    </button>
                 </div>
             </form>
-            <div className="auth-logo-box">
-                <div className="item-horizontal-center">
-                    <AiOutlineRobot className="auth-logo-box--robot" />
-                </div>
-                <img src={blackLogo} className="auth-logo-box--logo" />
-            </div>
         </div>
     );
 }

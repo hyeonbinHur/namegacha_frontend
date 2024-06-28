@@ -19,8 +19,16 @@
     display: flex;
     justify-content: end;
 }
+.item-between{
+    display: flex;
+    justify-content: space-between;
+}
 
 .item-horizontal-center{
-    display: flex;
+    display: grid;
+    align-items: center;
     justify-content: center;
+}
+.item-flex{
+    display: flex;
 }

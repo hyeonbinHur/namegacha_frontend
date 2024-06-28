@@ -1,34 +1,75 @@
 .auth-modal{
     width: 80rem;
-    height: 40rem;
-    background-image: linear-gradient(110deg, 
-                                        $color-blue-primary 0%,
-                                        $color-blue-secondary 50%); 
-     position: relative;
+    height: 48rem;
+    background-image: linear-gradient(90deg, 
+    $color-white 0%, 
+    $color-white 70%, 
+    rgba($color-blue-primary, .96) 70%), 
+    url('../assets/logo/black-logo.png');
+    position: relative;
 }
 .auth-section{
-    width: 90%;
+    width: 70%;
     height: 80%;
-    background-image: linear-gradient(110deg, 
-                                        rgba($color-white, .9) 0%,
-                                        rgba($color-white, .9)  50%, 
-                                        $color-blue-secondary 50%) ;
     padding: 2rem;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-48%);
+    top: 0;
+    left: 0;
 }
+.auth-section-sub{
+    background-image: none;
+    width: 25%;
+    height: 75%;
+    padding: 2rem;
+    position: absolute;
+    right: 0;
+    display: block;
+
+    &--content{
+        width: 100%;
+
+        &__heading{
+            display: block;
+            color: $color-white;
+        }
+
+        &__content{
+            display: inline-block;
+            text-align: center;
+            letter-spacing: .1rem;
+            color: $color-white;
+        }
+
+        &__btn{
+            margin-top: 3rem;
+            width: 100%;
+            border: 1px solid $color-white;
+            color: $color-white;
+            padding: .8rem .4rem;
+
+            &::after{
+                background-image: none;
+                background-color: $color-white;
+            }
+        }
+    }
+   
+}
+
 .sign-in-form{
+    margin-top: 3rem;
     &--input{
+        display: inline-block;
         padding:.5rem .8rem;
-        width: 40%;
+        width: 100%;
+        height: 3rem;
+        border-radius: 3px;
         border: none;
         background-color: $color-grey-light-2;
-        border-bottom: 2px solid transparent;
+        border-bottom: 3px solid transparent;
         &:focus{
             outline: none;
-            border-bottom: 2px solid $color-green-secondary;
+            border-bottom: 3px solid $color-blue-secondary;
         }
         &::-webkit-input-placeholder{
             color: $color-grey-dark-2;
@@ -45,21 +86,14 @@
     }
     &--btn{
         &__submit{
+            margin-top: 1rem;
             display: block;
-            width: 40%;
+            width: 100%;
             padding:.5rem .8rem;
         }
-        &__navigate{
-            font-size: 1.5rem;
-            display: block;
-            width:30%;
-            position: absolute;
-            left: 5%;
-            bottom:5%
-        }
+      
     }
 }
-
 .auth-logo-box{
     position: absolute;
     top:20%;
@@ -73,3 +107,4 @@
         width: 100%;
     }
 }
+

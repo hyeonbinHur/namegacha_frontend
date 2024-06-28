@@ -76,30 +76,19 @@ npm i @tanstack/react-query-devtools
 > npm install react-error-boundary
 
 일단 page 재사용하는 방법부터 고민 해봐야할듯?
-
 남은거
-
 로딩
-
 리덕스 불변성
 배열 복사할때
 let myArray = reduxArray
 myArray= action.payload.newArray
 reduxArray = myArray
-
 (x)
-
 이렇게 하면 문제가 생기는게, my배열 = 리덕스 배열 하면, 참조 복사가 되서, my배열 = action.payload.newArray했을때 리덕스 배열도 변한다. 이러면 불변성 어쩌고가 문제가 생겨서
-
 복사할때
 let changeArray = [...reduxArray] 로복사해줘야한다
 myArray= action.payload.newArray
 reduxArray = myArray
-
 (o)
-
 /// 하나씩만 edit 가능
-
 6/27
-
-로그인 디자인
