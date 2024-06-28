@@ -1,70 +1,88 @@
-.sd-project{
-    &--main{
-        font-size: 2.3rem;
+// .sd-project {
+//     &--main {
+//         font-size: 2.3rem;
+//         display: flex;
+//         position: relative;
+
+//         &--name {
+//             display: flex;
+//             width: 80%;
+//             &__name {
+//                 width: 60%;
+//                 overflow: hidden;
+//                 white-space: nowrap;
+//                 text-overflow: ellipsis;
+//             }
+//         }
+
+//         &--icons {
+//             margin: 0 1rem;
+//             padding-top: .4rem;
+//         }
+//         &__plus-icon {
+//             position: absolute;
+//             right: 10%;
+//             top: 12%;
+//             opacity: 0;
+//             font-size: 2.5rem;
+//             transition: all 0.2s ease;
+//             &::after {
+//                 content: "";
+//                 display: inline-block;
+//                 width: 120%;
+//                 height: 100%;
+//                 border-radius: 5px;
+//                 position: absolute;
+//                 top: -12%;
+//                 left: -8%;
+//                 z-index: -1;
+//             }
+//         }
+//         &__plus-icon:hover {
+//             &::after {
+//                 background-color: $color-grey-dark-1;
+//             }
+//         }
+//     }
+//     &--main:hover &--main__plus-icon {
+//         opacity: 1;
+//     }
+// }
+
+.sd-item {
+    &--main {
+        font-size: 2rem;
         display: flex;
         position: relative;
-        &--name{
-            display: flex;
-            width: 80%;
-            &__name{
-                width: 60%;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
-            }
+        &__name {
+            max-width: 60%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
-        &--icons{
-            margin:0 1rem;
+        &__icons {
+            margin: 0 1rem;
             padding-top: .4rem;
         }
         &__plus-icon{
+            font-size: 2.5rem;
             position: absolute;
-            right: 10%;
-            top:12%;
-            opacity: 0;
-            font-size:2.5rem ;
-            transition: all 0.2s ease; 
+            top:0;
+            right:5%;
+            padding: .3 .3;
+            z-index: 2;
             &::after{
-                content: "";
-                display: inline-block;
+                content: '';
                 width: 120%;
-                height: 100%;
-                border-radius: 5px;
+                height: 80%;
+                background-color: black;
                 position: absolute;
-                top: -12%;
-                left: -8%;
-                z-index:-1;
+                top:0;
+                left:1%;
+                z-index: 1;
             }
+          
         }
-        &__plus-icon:hover{
-            &::after{
-                background-color: $color-grey-dark-1;
-            }
-        }
-    }
-    &--main:hover &--main__plus-icon{
-        opacity: 1;
     }
 }
 
-.sd-item-container{
-    &--main{
-        font-size: 2.3rem;
-        display: flex;
-        position: relative;
-      &__icons{
-        margin:0 1rem;
-        padding-top: .4rem;
-      }
-      &__name{
-        max-width: 50%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-      }
-    
-    }
-}
-.sd-fn-container{
-    margin-left: 2rem;
-}

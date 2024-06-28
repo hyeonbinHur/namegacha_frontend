@@ -104,22 +104,22 @@ export default function ProjectCard({ project }) {
     };
 
     return (
-        <div className="sd-project-container sd-item-container">
-            <section className="sd-project--main sd-item-contaniner--main">
+        <div className="sd-item">
+            <section>
                 <div
-                    className="sd-project--main--name"
+                    className="sd-item--main"
                     onClick={() => setIsOpen((prev) => !prev)}
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div className="sd-project--main--icons sd-item-contaniner--main__icons">
-                            <BsCaretUp className="sd-project--main--name__arrow" />
-                            <AiFillFolderOpen className="sd-project--main--name__folder" />
+                        <div className="sd-item--main__icons">
+                            <BsCaretUp className="sd-item--main__icons__arrow" />
+                            <AiFillFolderOpen className="sd-item--main__icons__folder" />
                         </div>
                     ) : (
-                        <div className="sd-project--main--icons sd-item-contaniner--main__icons">
-                            <BsCaretDown className="sd-project--main--name__arrow" />
-                            <AiFillFolder className="sd-project--main--name__folder" />
+                        <div className="sd-item--main__icons">
+                            <BsCaretDown className="sd-item--main__icons__arrow" />
+                            <AiFillFolder className="sd-item--main__icons__folder" />
                         </div>
                     )}
 
@@ -131,12 +131,13 @@ export default function ProjectCard({ project }) {
                             onKeyDown={(e) => handleKeyDown(e)}
                         />
                     ) : (
-                        <div className="sd-project--main--name__name sd-item-contaniner--main__name">
+                        <div className="sd-item--main__name">
                             {project.projectName}
                         </div>
                     )}
+
                     <i
-                        className="icon-basic-elaboration-document-plus sd-project--main__plus-icon sd-item-contaniner--main__plus-icon"
+                        className="sd-item--main__plus-icon icon-basic-elaboration-browser-plus "
                         onClick={() =>
                             addPage({
                                 projectId: project.projectId,
