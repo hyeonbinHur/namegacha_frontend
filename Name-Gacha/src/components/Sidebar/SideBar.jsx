@@ -58,23 +58,25 @@ export default function Header() {
                     <img src={logo} className="sidebar-header__logo" />
                 </div>
             </header>
-
             <hr className="divider" />
             <div>{isLoading && <div> is loading</div>}</div>
-
             {user && (
                 <div>
                     <div className="sidebar-sub-header">
                         <div className="sidebar-sub-header--content">
-                            <div className="sidebar-sub-header--content__name">
-                                {user.userId}
-                            </div>
+                            {/* <div className="sidebar-sub-header--content__name">
+                                
+                            </div> */}
                             <div className="sidebar-sub-header--content__feature">
                                 <i
                                     className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"
                                     onClick={() => setIsAdd((prev) => !prev)}
                                 ></i>
-                                <button onClick={() => refetchGetProjects()}>
+                                <button
+                                    onClick={() => {
+                                        refetchGetProjects(), setIsAdd(false);
+                                    }}
+                                >
                                     <i className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"></i>
                                 </button>
                             </div>
@@ -125,6 +127,9 @@ export default function Header() {
                     </button>
                 )}
             </section>
+
+            {user && <section className="sidebar--user">{user.userId}</section>}
+
             <AuthModal ref={authModal} />
         </main>
     );
