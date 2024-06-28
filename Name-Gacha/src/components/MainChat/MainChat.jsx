@@ -34,14 +34,12 @@ export default function MainChat() {
     return (
         <div className="mainChant-container">
             <div className="chat-header"></div>
-
             <div className="chat-result">
                 <button onClick={() => changeGlobalToVar()}>Variable</button>
                 <button onClick={() => changeGlobalTypeToFn()}>Function</button>
                 <button onClick={() => console.log(user)}> user info</button>
                 <ChatResult />
             </div>
-
             <div className="chat-box">
                 <ChatBox />
             </div>
