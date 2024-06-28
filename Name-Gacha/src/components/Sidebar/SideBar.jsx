@@ -14,7 +14,6 @@ export default function Header() {
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
     const authModal = useRef(null);
-
     /**Http  request */
     const queryClient = useQueryClient();
     const {
@@ -26,7 +25,6 @@ export default function Header() {
         queryFn: () => getCertainProjects(user.uuid),
         enabled: !!user, // user가 존재할 때만 쿼리 실행
     });
-
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
             return projectAPI.createProject(projectName, userId);
@@ -35,12 +33,10 @@ export default function Header() {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     /** basic functions */
     const moveToSignInPage = () => {
         authModal.current.open();
     };
-
     const handleOnKeyDownCreateProject = (e) => {
         e.preventDefault();
         if (e.key === 'Enter') {
@@ -55,7 +51,6 @@ export default function Header() {
         }
         setIsAdd(false);
     };
-
     return (
         <main className="sidebar-main">
             <header className="sidebar-header">
@@ -63,10 +58,13 @@ export default function Header() {
                     <img src={logo} className="sidebar-header__logo" />
                 </div>
             </header>
+
+            <hr className="divider" />
             <div>{isLoading && <div> is loading</div>}</div>
-            <div>
-                <div className="sidebar-sub-header">
-                    {user && (
+
+            {user && (
+                <div>
+                    <div className="sidebar-sub-header">
                         <div className="sidebar-sub-header--content">
                             <div className="sidebar-sub-header--content__name">
                                 {user.userId}
@@ -81,9 +79,10 @@ export default function Header() {
                                 </button>
                             </div>
                         </div>
-                    )}
+                    </div>
                 </div>
-            </div>
+            )}
+
             <section className="sidebar-project">
                 {user ? (
                     projects && projects.data.length > 0 ? (
@@ -118,8 +117,11 @@ export default function Header() {
                         <div> No Projects </div>
                     )
                 ) : (
-                    <button onClick={() => moveToSignInPage()}>
-                        go to sign in
+                    <button
+                        className="sidebar-project--signin-btn btn-round"
+                        onClick={() => moveToSignInPage()}
+                    >
+                        sign in
                     </button>
                 )}
             </section>

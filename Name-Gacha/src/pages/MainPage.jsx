@@ -18,6 +18,7 @@ export default function MainPage() {
             <aside className="main--sidebar">
                 <SideBar />
             </aside>
+
             <section className="main--main">
                 <Routes>
                     <Route path="/" element={<WrappedMainChat />} />

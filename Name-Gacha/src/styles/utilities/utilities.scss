@@ -32,3 +32,11 @@
 .item-flex{
     display: flex;
 }
+
+.divider{
+    border: 1px solid $color-grey-dark-2;
+    border-radius: 10px;  
+    width: 90%;
+    height: .5px; 
+    background-color: $color-grey-dark-2;  
+}

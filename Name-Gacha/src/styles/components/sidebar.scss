@@ -2,28 +2,30 @@
     width: 100%;
     height: 10rem;
     &__logo-container {
-        width: 100%;
-        height: 100%;
+        width: 90%;
+        height: 90%;
         position: relative;
     }
     &__logo{
-        height: 50%;
+        height: 60%;
         position: absolute;
         top:30%;
-        left: 50%;
-        transform: translate(-50%, 0%);
+        left: 20%;
+        transform: translate(-20%, 0%);
         color: $color-blue-primary;
         transition: all .2s;
     }
     &__logo:hover{
-        transform: translate(-50%, 0%) translateY(-5px);
+        transform: translate(-20%, 0%) translateY(-5px);
+    }
+    &__logo:active{
+        transform: translate(-20%, 0%) translateY(2px);
     }
 }
 .sidebar-sub-header {
     font-size: $font-size-big;
     position: relative;
     height: 3rem;
-    border-bottom: 3px solid $color-grey-light-1;
     margin-top: 1.5rem;
     &--content{
         position: absolute;
@@ -49,7 +51,6 @@
                 background-color: $color-grey-dark-2;
             }
         }
-        
         &__name{
             letter-spacing: .1rem;
             text-transform: uppercase;
@@ -67,23 +68,27 @@
 }
 .sidebar-project{
     margin-top: 3rem;
-
     &--card:not(:last-child){
         margin-bottom: 1.5rem;
     }
-
     &--create {
         width: 90%;
         &__input{
             width: 70%;
             outline: 1px solid black;
         }
-
         &__input:focus{
             outline: 1px solid black;
         }
     }
-   
+    &--signin-btn{
+        display: block;
+        width: 50%;
+        margin: 6rem auto;
+        padding:.5rem .8rem;
+        border: 1px solid black;
+        z-index: 1;
+    }
 }
 
 

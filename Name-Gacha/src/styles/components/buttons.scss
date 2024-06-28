@@ -43,9 +43,8 @@
     color: white;
     background-image: linear-gradient(to right, $color-blue-primary, $color-blue-secondary);
     border: 1px solid transparent;
-    transform: all .2s;
     position: relative;
-    
+
     &::after{
         content: '';
         z-index: -1;
@@ -66,7 +65,6 @@
         color: $color-blue-primary;
         background-image: none; 
         box-shadow: 0 0.5rem 1rem rgba($color-black, .2);
-       
         &::after{
             transform: scaleX(1.1) scaleY(1.6);
             opacity: 0;
