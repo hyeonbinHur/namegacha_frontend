@@ -38,18 +38,19 @@ export default function Header() {
         authModal.current.open();
     };
     const handleOnKeyDownCreateProject = (e) => {
-        e.preventDefault();
         if (e.key === 'Enter') {
+            e.preventDefault();
             if (newProjectName.length == 0) return;
             addProject({
                 projectName: newProjectName,
                 userId: user.uuid,
             });
-        } else if (e.key === 'Escape') {
             setIsAdd(false);
-            console.log('escape presses');
+        } else if (e.key === 'Escape') {
+            e.preventDefault();
+            setIsAdd(false);
+            setNewProjectName('');
         }
-        setIsAdd(false);
     };
     return (
         <main className="sidebar-main">
@@ -91,7 +92,7 @@ export default function Header() {
                         <div>
                             {isAdd && (
                                 <div className="sidebar-project--create">
-                                    <AiFillFolder className="folder" />
+                                    <AiFillFolder className="sidebar-project--create__icon" />
                                     <input
                                         onKeyDown={(e) =>
                                             handleOnKeyDownCreateProject(e)
@@ -128,7 +129,11 @@ export default function Header() {
                 )}
             </section>
 
-            {user && <section className="sidebar--user">{user.userId}</section>}
+            {user && (
+                <section className="sidebar-project--user">
+                    {user.userId}
+                </section>
+            )}
 
             <AuthModal ref={authModal} />
         </main>

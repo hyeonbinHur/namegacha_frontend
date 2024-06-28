@@ -108,16 +108,21 @@ export default function ProjectCard({ project }) {
             <section>
                 <div
                     className="sd-item--main"
-                    onClick={() => setIsOpen((prev) => !prev)}
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div className="sd-item--main__icons">
+                        <div
+                            className="sd-item--main__icons"
+                            onClick={() => setIsOpen((prev) => !prev)}
+                        >
                             <BsCaretUp className="sd-item--main__icons__arrow" />
                             <AiFillFolderOpen className="sd-item--main__icons__folder" />
                         </div>
                     ) : (
-                        <div className="sd-item--main__icons">
+                        <div
+                            className="sd-item--main__icons"
+                            onClick={() => setIsOpen((prev) => !prev)}
+                        >
                             <BsCaretDown className="sd-item--main__icons__arrow" />
                             <AiFillFolder className="sd-item--main__icons__folder" />
                         </div>

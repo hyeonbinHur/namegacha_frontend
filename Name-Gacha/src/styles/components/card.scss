@@ -65,23 +65,30 @@
             padding-top: .4rem;
         }
         &__plus-icon{
+            opacity: 0;
+            text-align: center;
+            z-index:1;
+            display: inline-block;
             font-size: 2.5rem;
+            width:3.2rem;
+            height:3rem;
+            border-radius: 3px;
             position: absolute;
             top:0;
             right:5%;
-            padding: .3 .3;
-            z-index: 2;
-            &::after{
-                content: '';
-                width: 120%;
-                height: 80%;
-                background-color: black;
-                position: absolute;
-                top:0;
-                left:1%;
-                z-index: 1;
+            padding-top: .3rem;
+            transition: all .3s ease;
+            &:hover{
+                background-color: $color-grey-dark-2;
+                transform: translateY(-2px);
             }
-          
+            &:active{
+                transform: translateY(2px);
+
+            }
+        }
+        &:hover &__plus-icon{
+            opacity: 1;
         }
     }
 }

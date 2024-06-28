@@ -78,13 +78,24 @@
         margin-bottom: 1.5rem;
     }
     &--create {
-        width: 90%;
+        font-size:2rem;
+        margin-left: 2rem;
+        display: flex;
+        align-items: center;
         &__input{
-            width: 70%;
-            outline: 1px solid black;
+            width: 55%;
+            height: 2rem;
+            background-color: $color-grey-dark-2;
+            border-radius: 3px ;
+            padding: 0 1rem;
+            &:focus{
+                border: 1px solid $color-grey-dark-1;
+            }
         }
-        &__input:focus{
-            outline: 1px solid black;
+        &__icon{
+            margin:0 1rem;
+            padding-top: .4rem;
+            padding-bottom:.2rem ;
         }
     }
     &--signin-btn{
