@@ -154,9 +154,9 @@ export default function ProjectCard({ project }) {
                 </div>
             </section>
 
-            <section>
+            <section className="sd-item--sub">
                 {isOpen == true && (
-                    <ul>
+                    <ul className="sd-item--sub__pg-ul">
                         {componentIsAdd && (
                             <div>
                                 <input
@@ -170,7 +170,7 @@ export default function ProjectCard({ project }) {
                             </div>
                         )}
                         {project.pages.map((page) => (
-                            <li key={page.pageId}>
+                            <li key={page.pageId} className="sd-item--open">
                                 <PageCard page={page} />
                             </li>
                         ))}

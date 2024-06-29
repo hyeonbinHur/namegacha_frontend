@@ -23,7 +23,6 @@
     display: flex;
     justify-content: space-between;
 }
-
 .item-horizontal-center{
     display: grid;
     align-items: center;
@@ -31,6 +30,9 @@
 }
 .item-flex{
     display: flex;
+}
+.item-width-55{
+    width: 55%;
 }
 
 .divider{

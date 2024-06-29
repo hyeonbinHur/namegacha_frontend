@@ -90,6 +90,16 @@
         &:hover &__plus-icon{
             opacity: 1;
         }
+        
+    }
+    &--open{
+        list-style: none;
+    }
+
+    &--sub{
+        &__pg-ul{
+            padding-left: 2rem;
+        }
     }
 }
 

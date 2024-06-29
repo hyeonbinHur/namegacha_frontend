@@ -175,21 +175,21 @@ export default function PageCard({ page }) {
     });
 
     return (
-        <div className="sd-item-container sd-fn-container">
+        <div className="sd-item">
             <section onClick={() => setIsOpen((prev) => !prev)}>
                 <div
-                    className="sd-item-container--main"
+                    className="sd-item--main"
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div className="sd-item-container--main__icons">
-                            <BsCaretUp className="arrow" />
-                            <AiFillFolderOpen className="folder" />
+                        <div className="sd-item--main__icons">
+                            <BsCaretUp className="" />
+                            <AiFillFolderOpen className="" />
                         </div>
                     ) : (
-                        <div className="sd-item-container--main__icons">
-                            <BsCaretDown className="arrow" />
-                            <AiFillFolder className="folder" />
+                        <div className="sd-item--main__icons">
+                            <BsCaretDown className="" />
+                            <AiFillFolder className="" />
                         </div>
                     )}
                     {componentIsEdit ? (
@@ -200,17 +200,17 @@ export default function PageCard({ page }) {
                             onKeyDown={(e) => handleEditNameKeyDown(e)}
                         />
                     ) : (
-                        <div className="sd-item-container--main__name">
+                        <div className="sd-item--main__name item-width-55">
                             {page.pageName}
                         </div>
                     )}
                 </div>
             </section>
 
-            <section>
+            <section className="sd-item--sub">
                 {isOpen && (
                     <div
-                        className="components-container"
+                        className="sd-item--sub__ul"
                         onClick={handleNavigateToDetail}
                     >
                         <div>
