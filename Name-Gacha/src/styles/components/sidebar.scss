@@ -1,70 +1,83 @@
-
-.sidebar-header{
+.sidebar-header {
     width: 100%;
     height: 10rem;
+
     &__logo-container {
         width: 90%;
         height: 90%;
         position: relative;
     }
-    &__logo{
+
+    &__logo {
         height: 60%;
         position: absolute;
-        top:30%;
+        top: 30%;
         left: 20%;
         transform: translate(-20%, 0%);
         color: $color-blue-primary;
         transition: all .2s;
     }
-    &__logo:hover{
+
+    &__logo:hover {
         transform: translate(-20%, 0%) translateY(-5px);
     }
-    &__logo:active{
+
+    &__logo:active {
         transform: translate(-20%, 0%) translateY(2px);
     }
 }
+
 .sidebar-sub-header {
     font-size: $font-size-big;
     position: relative;
     height: 3rem;
     margin-top: 1.5rem;
-    &--content{
+
+    &--content {
         position: absolute;
-        left:10%;
+        left: 10%;
         right: 10%;
         display: flex;
         justify-content: end;
-        &__feature{
-            &__1, &__2{
+
+        &__feature {
+
+            &__1,
+            &__2 {
                 border-radius: 3px;
                 text-align: center;
                 align-items: center;
                 display: inline-block;
                 width: 3.5rem;
                 height: 2.5rem;
-                transition: all 0.3s ease; 
+                transition: all 0.3s ease;
             }
-            &__1:hover{
+
+            &__1:hover {
                 background-color: $color-grey-dark-2;
                 transform: translateY(-1px);
             }
-            &__2:hover{
+
+            &__2:hover {
                 background-color: $color-grey-dark-2;
                 transform: translateY(-1px);
             }
-            &__1:active{
+
+            &__1:active {
                 background-color: $color-grey-dark-2;
                 transform: translateY(2px);
             }
-            &__2:active{
+
+            &__2:active {
                 background-color: $color-grey-dark-2;
                 transform: translateY(2px);
             }
         }
-        &__name{
+
+        &__name {
             letter-spacing: .1rem;
             text-transform: uppercase;
-            font-weight:500;
+            font-weight: 500;
             max-width: 80%;
             overflow: hidden;
             white-space: nowrap;
@@ -72,46 +85,167 @@
         }
     }
 }
-.sidebar-project{
+
+.sidebar-project {
     margin-top: 3rem;
-    &--card:not(:last-child){
+
+    &--card:not(:last-child) {
         margin-bottom: 1.5rem;
     }
+
     &--create {
-        font-size:2rem;
+        font-size: 2rem;
         margin-left: 2rem;
         display: flex;
         align-items: center;
-        &__input{
+
+        &__input {
             width: 55%;
             height: 2rem;
             background-color: $color-grey-dark-2;
-            border-radius: 3px ;
+            border-radius: 3px;
             padding: 0 1rem;
-            &:focus{
+
+            &:focus {
                 border: 1px solid $color-grey-dark-1;
             }
         }
-        &__icon{
-            margin:0 1rem;
+
+        &__icon {
+            margin: 0 1rem;
             padding-top: .4rem;
-            padding-bottom:.2rem ;
+            padding-bottom: .2rem;
         }
     }
-    &--signin-btn{
+
+    &--signin-btn {
         display: block;
         width: 50%;
         margin: 6rem auto;
-        padding:.5rem .8rem;
+        padding: .5rem .8rem;
         border: 1px solid black;
         z-index: 1;
     }
-    &--container{
+
+    &--container {
         padding: 0;
     }
-    &--card{
+
+    &--card {
         list-style: none;
     }
-  
+    position: relative;
+    &--user{
+        border-top: 1px solid $color-grey-dark-2;
+        text-align: center;
+        font-size: 2rem;
+        text-transform: uppercase;
+        letter-spacing: .2rem;
+        font-weight: 500;
+
+        padding-top: 1rem ;
+        width: 95%;
+        position: absolute;
+        bottom: 2%;
+        left: 50%;
+        transform: translate(-50%, -2%);
+    }
+
 }
 
+.sd-item {
+    &--main {
+        font-size: 2rem;
+        display: flex;
+        position: relative;
+
+        &__name {
+            max-width: 60%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &__icons {
+            margin: 0 1rem;
+            padding-top: .4rem;
+        }
+
+        &__plus-icon {
+            opacity: 0;
+            text-align: center;
+            z-index: 1;
+            display: inline-block;
+            font-size: 2.5rem;
+            width: 3.2rem;
+            height: 3rem;
+            border-radius: 3px;
+            position: absolute;
+            top: 0;
+            right: 5%;
+            padding-top: .3rem;
+            transition: all .3s ease;
+
+            &:hover {
+                background-color: $color-grey-dark-2;
+                transform: translateY(-2px);
+            }
+
+            &:active {
+                transform: translateY(2px);
+
+            }
+        }
+
+        &:hover &__plus-icon {
+            opacity: 1;
+        }
+    }
+
+    &--open {
+        list-style: none;
+    }
+
+    &--sub {
+        &__pg-ul {
+            padding-left: 2rem;
+        }
+
+        &__identifier-ul {
+            padding-left: .5rem;
+        }
+    }
+}
+
+.sd-container {
+    border-left: 2px solid $color-blue-primary;
+    border-right: 2px solid $color-blue-primary;
+    border-bottom: 2px solid $color-blue-primary;
+    border-top: 1px solid $color-blue-primary;
+    margin: 1rem 1rem;
+    border-radius: 5px;
+    box-shadow: 0 .5rem .5rem rgba($color-black, .1);
+    &--heading {
+        text-align: center;
+        margin-bottom: .3rem;
+        padding-top: .3rem;
+        color: $color-grey-light-1;
+        position: relative;
+        background-image: linear-gradient(to right, $color-blue-primary, $color-blue-secondary, $color-blue-tertiary);
+        &__name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .1rem;
+        }
+    }
+    &--content{
+        &__ul{
+            padding-left: 2rem;
+        }
+        &__items{
+            font-size: 1.9rem;
+            list-style: none;
+        }
+    }
+}

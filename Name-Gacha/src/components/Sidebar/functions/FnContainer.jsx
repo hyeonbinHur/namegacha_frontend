@@ -1,28 +1,25 @@
 /* eslint-disable react/prop-types */
 
-import { TbFunction } from 'react-icons/tb';
-import './FnCard.css';
-import * as fnAPI from '../../../utils/api/aws/functionRoutes';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+// import * as fnAPI from '../../../utils/api/aws/functionRoutes';
+// import { useMutation, useQueryClient } from '@tanstack/react-query';
 import FunctionCard from './FunctionCard';
 
 export default function FunctionContainer({ functions, page }) {
-    const { mutate: addFunction } = useMutation({
-        mutationFn: ({ functionName, pageId, functionExp }) => {
-            return fnAPI.createFunction(pageId, functionName, functionExp);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
-    const queryClient = useQueryClient();
+    // const { mutate: addFunction } = useMutation({
+    //     mutationFn: ({ functionName, pageId, functionExp }) => {
+    //         return fnAPI.createFunction(pageId, functionName, functionExp);
+    //     },
+    //     onSuccess: () => {
+    //         queryClient.invalidateQueries('getCertainProjects');
+    //     },
+    // });
+    // const queryClient = useQueryClient();
     // open context menu, close context menu, edit variable, delet variable, add variable
     return (
-        <div className="fns-container">
-            <section className="fn-name">
-                <TbFunction className="icon" size="1.2rem" />
-                function container
-                <i
+        <div className="sd-container">
+            <header className="sd-container--heading">
+                <span className="sd-container--heading__name">Functions</span>{' '}
+                {/* <i
                     className="icon-basic-elaboration-message-plus"
                     onClick={() =>
                         addFunction({
@@ -31,13 +28,16 @@ export default function FunctionContainer({ functions, page }) {
                             pageId: page.pageId,
                         })
                     }
-                ></i>
-            </section>
+                ></i> */}
+            </header>
 
-            <section style={{ paddingLeft: '30%' }}>
-                <ul>
+            <section className="sd-container--content">
+                <ul className="sd-container--content__ul">
                     {functions.map((fn) => (
-                        <li key={fn.functionId}>
+                        <li
+                            key={fn.functionId}
+                            className="sd-container--content__items"
+                        >
                             <FunctionCard fnction={fn} page={page} />
                         </li>
                     ))}

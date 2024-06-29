@@ -129,11 +129,7 @@ export default function Header() {
                 )}
             </section>
 
-            {user && (
-                <section className="sidebar-project--user">
-                    {user.userId}
-                </section>
-            )}
+            {user && <div className="sidebar-project--user">{user.userId}</div>}
 
             <AuthModal ref={authModal} />
         </main>

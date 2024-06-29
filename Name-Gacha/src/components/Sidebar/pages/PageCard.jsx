@@ -210,7 +210,7 @@ export default function PageCard({ page }) {
             <section className="sd-item--sub">
                 {isOpen && (
                     <div
-                        className="sd-item--sub__ul"
+                        className="sd-item--sub__identifier-ul"
                         onClick={handleNavigateToDetail}
                     >
                         <div>
@@ -226,7 +226,6 @@ export default function PageCard({ page }) {
                                     }
                                 />
                             )}
-
                             <VarContainer
                                 variables={page.variables}
                                 page={page}
