@@ -12,7 +12,6 @@ export default function MainChat() {
     const sliceIdentifierIsOpen = useSelector(
         (state) => state.identifierModalSlice.isOpen
     );
-
     useEffect(() => {
         if (sliceIdentifierIsOpen) {
             identifierModal.current.open();
@@ -32,12 +31,25 @@ export default function MainChat() {
 
     return (
         <div className="chat">
+            <div className="chat--header">
+                <button
+                    className="chat--header__global-thread"
+                    onClick={() => changeGlobalToVar()}
+                >
+                    Variable
+                </button>
+                <button
+                    className="chat--header__global-thread"
+                    onClick={() => changeGlobalTypeToFn()}
+                >
+                    Function
+                </button>
+            </div>
+
             <div className="chat--result">
-                <button onClick={() => changeGlobalToVar()}>Variable</button>
-                <button onClick={() => changeGlobalTypeToFn()}>Function</button>
-                <button onClick={() => console.log(user)}> user info</button>
                 <ChatResult />
             </div>
+
             <div className="chat--box">
                 <ChatBox />
             </div>

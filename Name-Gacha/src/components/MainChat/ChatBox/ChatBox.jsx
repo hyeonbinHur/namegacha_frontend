@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import './ChatBox.css';
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
 import { setThread, pushMessages } from '../../../store/threadSlice';
@@ -37,9 +36,7 @@ export default function ChatBox() {
             setCurrentThread(currentFunctionThread);
         }
     }, [globalThreadType]);
-
     const dispatch = useDispatch();
-
     const createSetThread = async () => {
         console.log('create thread start');
         try {

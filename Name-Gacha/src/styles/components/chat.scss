@@ -1,13 +1,27 @@
 .chat {
     height: 97vh;
 
+    &--header{
+        height: 10%;
+        display: flex;
+        justify-content: center;
+        
+        &__global-thread{
+            font-size: 2.5rem;
+            margin-top: 1rem;
+            width: 30%;
+            height: 80%;
+            color: $color-blue-secondary;
+            border-bottom: 2px solid $color-blue-secondary;
+        }
+    }
+
     &--result {
-        height: 85%;
+        height: 75%;
     }
 
     &--box {
         height: 14%;
-
         &--container {
             height: 100%;
             width: 100%;
