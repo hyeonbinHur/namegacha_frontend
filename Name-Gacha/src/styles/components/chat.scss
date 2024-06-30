@@ -1,18 +1,83 @@
+
 .chat {
     height: 97vh;
 
-    &--header{
+    &--header {
         height: 10%;
         display: flex;
-        justify-content: center;
-        
-        &__global-thread{
-            font-size: 2.5rem;
-            margin-top: 1rem;
-            width: 30%;
-            height: 80%;
-            color: $color-blue-secondary;
-            border-bottom: 2px solid $color-blue-secondary;
+        justify-content: center; 
+        width: 100%;
+        margin-top: .3rem;
+        gap: 5rem;
+        &__radio-variable {
+            &__label {
+                font-size: 2.5rem;
+                margin-top: 1rem;
+                width: 5%;
+                padding: 0 5rem;
+                height: 50%;
+                transition: all .5s;
+                position: relative;
+                color: $color-grey-dark-2; 
+                background-image: linear-gradient(to right, $color-blue-primary, $color-blue-secondary);
+                background-clip: text;
+                background-size: 10% 100%; 
+                background-position: right top;
+                background-repeat: no-repeat;
+                font-weight: 400;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    width: 0%;
+                    height: 2px; 
+                    background-color: $color-blue-primary; 
+                    transition: all .5s;
+                }
+            }
+            &__btn:checked + &__label {
+                color: transparent; 
+                background-size: 100% 100%; 
+            }
+            &__btn:checked + &__label::after {
+                width: 100%;
+            }
+        }
+
+        &__radio-function {
+            &__label {
+                font-size: 2.5rem;
+                margin-top: 1rem;
+                width: 5%;
+                padding: 0 5rem;
+                height: 50%;
+                transition: all .5s;
+                position: relative;
+                color: $color-grey-dark-2; 
+                background-image: linear-gradient(to right, $color-blue-primary, $color-blue-secondary);
+                background-clip: text;
+                background-size: 10% 100%; 
+                background-repeat: no-repeat;
+                font-weight: 400;
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 0%;
+                    height: 2px; 
+                    background-color: $color-blue-primary; 
+                    transition: all .5s;
+                }
+            }
+            &__btn:checked + &__label {
+                color: transparent; 
+                background-size: 100% 100%; 
+            }
+            &__btn:checked + &__label::after {
+                width: 100%;
+            }
         }
     }
 
@@ -22,6 +87,7 @@
 
     &--box {
         height: 14%;
+
         &--container {
             height: 100%;
             width: 100%;
