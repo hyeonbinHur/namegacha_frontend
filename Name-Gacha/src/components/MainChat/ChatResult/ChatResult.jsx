@@ -2,7 +2,7 @@
 import { useSelector } from 'react-redux';
 import UserMessage from './UserMessage/UserMessage.jsx';
 import AiMessage from './AiMessage/AiMessage';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import NoMsg from '../../../assets/svgs/no-messages.svg';
 
 export default function ChatResult() {
@@ -23,6 +23,13 @@ export default function ChatResult() {
             setMessages(functionMessages);
         }
     }, [globalThreadType, functionMessages, variableMessages]);
+    const endOfMessagesRef = useRef(null);
+    useEffect(() => {
+        if (endOfMessagesRef.current) {
+            endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+        console.log(messages);
+    }, [messages]);
     return (
         <div className="chat--result--content">
             {messages.length == 0 ? (
@@ -49,6 +56,7 @@ export default function ChatResult() {
                             />
                         );
                     })}
+                    <div ref={endOfMessagesRef} />
                 </div>
             )}
         </div>

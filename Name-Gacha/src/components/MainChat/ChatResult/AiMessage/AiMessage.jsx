@@ -18,7 +18,6 @@ export default function AiMessage({ message, arrayIndex }) {
                 selectNewItem={selectNewItem}
                 arrayIndex={arrayIndex}
             />
-
             <div className="message--ai__exp-container">
                 <ExpCard exp={exp} arrayIndex={arrayIndex} />
             </div>

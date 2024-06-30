@@ -58,7 +58,7 @@ export default function ChatBox() {
         try {
             const sendMessageResponse = await aiAPI.sendMessage(
                 currentThread,
-                userMessage
+                userMessageTemp
             );
             dispatch(
                 pushUserMessages({
@@ -111,7 +111,7 @@ export default function ChatBox() {
             setIsCreateNewThread(true);
         } else {
             const runId = await sendMessage();
-
+            console.log(runId);
             if (runId !== false) {
                 await readReply(runId);
                 setIsCreateNewThread(false);
