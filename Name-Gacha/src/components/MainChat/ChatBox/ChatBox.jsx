@@ -131,9 +131,18 @@ export default function ChatBox() {
                     <button className="chat--box__button">Pascal</button>
                     <button className="chat--box__button">Snake</button>
                 </div>
-                <div className="chat--box__button">
-                    <button onClick={() => chatAI()}>send</button>
-                </div>
+                {userMessage.length > 0 ? (
+                    <button
+                        className="chat--box__button--send__active"
+                        onClick={() => chatAI()}
+                    >
+                        Send
+                    </button>
+                ) : (
+                    <button className="chat--box__button--send__inactive">
+                        Send
+                    </button>
+                )}
             </div>
         </div>
     );
