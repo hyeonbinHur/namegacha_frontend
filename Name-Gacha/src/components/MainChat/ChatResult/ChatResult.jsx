@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux';
 import UserMessage from './UserMessage/UserMessage.jsx';
 import AiMessage from './AiMessage/AiMessage';
 import { useEffect, useState } from 'react';
+import NoMsg from '../../../assets/svgs/no-messages.svg';
+
 export default function ChatResult() {
     const globalThreadType = useSelector(
         (state) => state.currentThread.globalThreadType
@@ -24,13 +26,14 @@ export default function ChatResult() {
     }, [globalThreadType, functionMessages, variableMessages]);
 
     return (
-        <div>
+        <div className="chat--result--content">
             {messages.length == 0 ? (
-                <div>
-                    no messages yet
-                    <button onClick={() => console.log(messages)}>
-                        messages
-                    </button>
+                <div className="chat--result__no-message">
+                    <img
+                        src={NoMsg}
+                        alt="No message image"
+                        className="chat--result__no-message__img"
+                    />
                 </div>
             ) : (
                 <div>
