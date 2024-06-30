@@ -16,7 +16,6 @@ export default function ChatResult() {
         (state) => state.currentThread.variableMessages
     );
     const [messages, setMessages] = useState([]);
-
     useEffect(() => {
         if (globalThreadType === 'variable') {
             setMessages(variableMessages);
@@ -24,7 +23,6 @@ export default function ChatResult() {
             setMessages(functionMessages);
         }
     }, [globalThreadType, functionMessages, variableMessages]);
-
     return (
         <div className="chat--result--content">
             {messages.length == 0 ? (

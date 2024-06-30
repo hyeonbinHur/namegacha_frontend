@@ -92,9 +92,9 @@
         }
         &__no-message{
             position: absolute;
-            top:40%;
+            top: 40%;
             right: 50%;
-            transform: translate(50%, -50%);
+            transform: translate(50%, -40%);
             width: 30%;
             height: 30%;
             transition: transform .5s;
@@ -103,10 +103,10 @@
                 height: 100%;
             }
             &:hover{
-                transform: translateY(-5px) translate(50%, -50%);
+                transform: translateY(-5px) translate(50%, -40%);
             }
             &:active{
-                transform: translateY(5px) translate(50%, -50%);
+                transform: translateY(5px) translate(50%, -40%);
             }
         }
     }
@@ -129,7 +129,6 @@
             box-sizing: border-box;
             height: 100%;
             border: 2px solid transparent;
-
             &:focus {
                 border: 2px solid $color-blue-primary;
             }
@@ -142,7 +141,6 @@
             width: 96%;
             transform: translate(-50%, -5%);
             justify-content: space-between;
-
             &__type {
                 .chat--box__button:not(:last-child) {
                     margin-right: 2rem;
@@ -191,6 +189,23 @@
                     }
                 }
             }
+        }
+    }
+}
+
+
+.message{
+    &--user{
+        display: flex;
+        justify-content: end;
+        padding: 2rem 2rem;
+        &__message{
+            width: 40%;
+            padding: 1rem 1rem;
+            background-color: $color-grey-dark-1;
+            text-align: center;
+            font-size: 2rem;
+            border-radius: 30px;
         }
     }
 }
