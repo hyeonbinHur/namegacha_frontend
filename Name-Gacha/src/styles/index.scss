@@ -3,6 +3,7 @@
 @import "base/reset.scss";
 @import "base/typography.scss";
 @import "base/icons.scss";
+@import "base/animation.scss";
 
 @import"utilities/utilities.scss";
 
@@ -14,3 +15,4 @@
 @import "components/auth.scss";
 @import "components/form.scss";
 @import "components/chat.scss";
+@import "components/loading.scss";

@@ -25,6 +25,7 @@ export default function Header() {
         queryFn: () => getCertainProjects(user.uuid),
         enabled: !!user, // user가 존재할 때만 쿼리 실행
     });
+
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
             return projectAPI.createProject(projectName, userId);

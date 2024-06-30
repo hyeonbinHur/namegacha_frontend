@@ -125,7 +125,7 @@ export default function ChatBox() {
 
     return (
         <div className="chat--box--container">
-            {isLoading && <div>Loading </div>}
+            {isLoading && <div className="loading-main"> </div>}
             <textarea
                 className="chat--box__input"
                 type="text"
