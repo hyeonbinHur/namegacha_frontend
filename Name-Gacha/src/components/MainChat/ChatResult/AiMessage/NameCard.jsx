@@ -78,11 +78,11 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
                 <div className="ai-name">
                     <div className="ai-name--header">
                         <i
-                            className="icon-basic-elaboration-bookmark-plus"
+                            className="icon-basic-elaboration-bookmark-plus ai--icon"
                             onClick={() => selectNewItem(newName)}
                         />
                         <i
-                            className="icon-basic-elaboration-bookmark-minus"
+                            className="icon-basic-elaboration-bookmark-minus ai--icon"
                             onClick={() => startEditInComponent()}
                         />
                     </div>

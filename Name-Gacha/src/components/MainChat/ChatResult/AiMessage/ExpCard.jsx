@@ -52,12 +52,11 @@ export default function ExpCard({ exp, arrayIndex }) {
             ) : (
                 <div className="message--ai__exp-content">
                     <div>{newExp}</div>
-                    <button
-                        className="btn-text message--ai__exp-content__btn"
+
+                    <i
+                        className="icon-basic-elaboration-bookmark-minus ai--icon"
                         onClick={() => startEditExpInComponent()}
-                    >
-                        edit
-                    </button>
+                    />
                 </div>
             )}
         </div>
