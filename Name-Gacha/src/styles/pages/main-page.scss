@@ -3,6 +3,7 @@
     position: relative;
     background-image: linear-gradient(to right bottom, $color-blue-primary, $color-blue-secondary,$color-blue-primary) ;
     height: 100vh;
+    
     &--sidebar{
         width: 15%;
         position: absolute;
@@ -13,6 +14,7 @@
         box-shadow: 0 1.5rem 4rem rgba($color-black, .4);
         border-radius: 15px;
     }
+    
     &--main{
         width: 82%;
         position: absolute;

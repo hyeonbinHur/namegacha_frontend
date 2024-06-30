@@ -173,7 +173,6 @@ export default function PageCard({ page }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     return (
         <div className="sd-item">
             <section onClick={() => setIsOpen((prev) => !prev)}>
@@ -206,7 +205,6 @@ export default function PageCard({ page }) {
                     )}
                 </div>
             </section>
-
             <section className="sd-item--sub">
                 {isOpen && (
                     <div
@@ -226,10 +224,12 @@ export default function PageCard({ page }) {
                                     }
                                 />
                             )}
-                            <VarContainer
-                                variables={page.variables}
-                                page={page}
-                            />
+                            {page.variables.length > 0 && (
+                                <VarContainer
+                                    variables={page.variables}
+                                    page={page}
+                                />
+                            )}
                         </div>
                         <div>
                             {componentIsFunctionAdd && (
@@ -244,11 +244,12 @@ export default function PageCard({ page }) {
                                     }
                                 />
                             )}
-
-                            <FunctionContainer
-                                functions={page.functions}
-                                page={page}
-                            />
+                            {page.functions.length > 0 && (
+                                <FunctionContainer
+                                    functions={page.functions}
+                                    page={page}
+                                />
+                            )}
                         </div>
                     </div>
                 )}

@@ -77,7 +77,6 @@ export default function ChatBox() {
             console.error(err);
         }
     };
-
     const readReply = async (runId) => {
         try {
             console.log('read reply start');
@@ -119,27 +118,21 @@ export default function ChatBox() {
         }
     };
     return (
-        <div className="chat-box-container">
-            <button onClick={() => console.log(currentThread)}>
-                show current thread
-            </button>
-            {/* <button onClick={() => console.log(reply)}>show reply</button> */}
-            <div className="chat-content-container">
-                <input
-                    className="user-input-content"
-                    type="text"
-                    value={userMessage}
-                    onChange={(e) => setUserMessage(e.target.value)}
-                />
-                <div className="chat-button-container">
-                    <div className="name-style-container">
-                        <button>Camel</button>
-                        <button>Pascal</button>
-                        <button>Snake</button>
-                    </div>
-                    <div>
-                        <button onClick={() => chatAI()}>send</button>
-                    </div>
+        <div className="chat--box--container">
+            <textarea
+                className="chat--box__input"
+                type="text"
+                value={userMessage}
+                onChange={(e) => setUserMessage(e.target.value)}
+            />
+            <div className="chat--box__buttons">
+                <div className="chat--box__buttons__type">
+                    <button className="chat--box__button">Camel</button>
+                    <button className="chat--box__button">Pascal</button>
+                    <button className="chat--box__button">Snake</button>
+                </div>
+                <div className="chat--box__button">
+                    <button onClick={() => chatAI()}>send</button>
                 </div>
             </div>
         </div>
