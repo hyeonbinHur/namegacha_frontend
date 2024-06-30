@@ -104,3 +104,13 @@ reduxArray = myArray
 -> 에딧 에러 고치기 -> exp 에딧 안됨 + name edit이상함
 
 -> 메시지 형태 구현
+
+리액트 쿼리
+
+//create thread
+
+//send message
+
+//check status
+
+//read message

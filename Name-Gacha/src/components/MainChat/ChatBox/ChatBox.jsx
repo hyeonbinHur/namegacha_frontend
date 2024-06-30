@@ -12,19 +12,17 @@ export default function ChatBox() {
     const currentVariableThread = useSelector(
         (state) => state.currentThread.currentVariableThread
     );
-
     const globalThreadType = useSelector(
         (state) => state.currentThread.globalThreadType
     );
-
     const currentFunctionThread = useSelector(
         (state) => state.currentThread.currentFunctionthread
     );
-
     const [userMessage, setUserMessage] = useState('');
     const [currentThread, setCurrentThread] = useState(currentVariableThread);
     const [isCreateNewThread, setIsCreateNewThread] = useState(false);
     const [userMessageTemp, setUserMessageTemp] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         if (isCreateNewThread && currentThread !== null) {
@@ -41,6 +39,7 @@ export default function ChatBox() {
             setCurrentThread(currentFunctionThread);
         }
     }, [globalThreadType]);
+
     const dispatch = useDispatch();
     const createSetThread = async () => {
         console.log('create thread start');
@@ -82,6 +81,7 @@ export default function ChatBox() {
             console.error(err);
         }
     };
+
     const readReply = async (runId) => {
         try {
             console.log('read reply start');
@@ -89,12 +89,12 @@ export default function ChatBox() {
             console.log('current status : ' + status);
             if (status === 'completed') {
                 const messages = await aiAPI.readMessages(currentThread);
-                // dispatch(setMessages({ messages: messages.data }));
                 dispatch(
                     pushAiMessages({
                         message: messages.data.messages[0],
                     })
                 );
+                setIsLoading(false);
             } else if (status === undefined) {
                 return;
             } else {
@@ -104,7 +104,9 @@ export default function ChatBox() {
             console.error(err.message);
         }
     };
+
     const chatAI = async () => {
+        setIsLoading(true);
         setUserMessage('');
         if (currentThread === null && !isCreateNewThread) {
             createSetThread();
@@ -119,8 +121,10 @@ export default function ChatBox() {
             setUserMessageTemp('');
         }
     };
+
     return (
         <div className="chat--box--container">
+            {isLoading && <div>Loading </div>}
             <textarea
                 className="chat--box__input"
                 type="text"
