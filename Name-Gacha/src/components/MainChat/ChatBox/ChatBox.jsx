@@ -96,6 +96,7 @@ export default function ChatBox() {
                 );
                 setIsLoading(false);
             } else if (status === undefined) {
+                setIsLoading(false);
                 return;
             } else {
                 setTimeout(() => readReply(runId), 2000); // Wait for 2 seconds before retrying
