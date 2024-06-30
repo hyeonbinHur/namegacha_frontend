@@ -8,10 +8,10 @@ import { clearIsEdit, setIsEdit } from '../../../../store/aiMessageEditSlice';
 
 export default function NameCard({ names, selectNewItem, arrayIndex }) {
     return (
-        <div>
-            <ul>
+        <div className="message--ai__name-container">
+            <ul className="message--ai__name__ul">
                 {names.map((name, index) => (
-                    <li key={index}>
+                    <li className="message--ai__name__li" key={index}>
                         <NameCardUnit
                             name={name}
                             selectNewItem={selectNewItem}
@@ -75,12 +75,19 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
                     <button onClick={() => cancelEditName()}>cancel</button>
                 </div>
             ) : (
-                <div>
-                    {newName}
-                    <button onClick={() => selectNewItem(newName)}>
-                        select
-                    </button>
-                    <button onClick={() => startEditInComponent()}>Edit</button>
+                <div className="ai-name">
+                    <div className="ai-name--header">
+                        <i
+                            className="icon-basic-elaboration-bookmark-plus"
+                            onClick={() => selectNewItem(newName)}
+                        />
+                        <i
+                            className="icon-basic-elaboration-bookmark-minus"
+                            onClick={() => startEditInComponent()}
+                        />
+                    </div>
+
+                    <div className="ai-name--content">{newName}</div>
                 </div>
             )}
         </div>

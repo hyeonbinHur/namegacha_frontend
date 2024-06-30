@@ -50,9 +50,12 @@ export default function ExpCard({ exp, arrayIndex }) {
                     <button onClick={() => cancelEditExp()}>cancel</button>
                 </div>
             ) : (
-                <div>
-                    {newExp}
-                    <button onClick={() => startEditExpInComponent()}>
+                <div className="message--ai__exp-content">
+                    <div>{newExp}</div>
+                    <button
+                        className="btn-text message--ai__exp-content__btn"
+                        onClick={() => startEditExpInComponent()}
+                    >
                         edit
                     </button>
                 </div>

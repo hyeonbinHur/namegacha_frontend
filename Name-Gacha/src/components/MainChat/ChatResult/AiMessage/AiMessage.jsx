@@ -12,16 +12,14 @@ export default function AiMessage({ message, arrayIndex }) {
         dispatch(openIdentifierModal({ name: name, exp: exp }));
     };
     return (
-        <div style={{ padding: '0rem 3rem', border: '1px solid black' }}>
-            <ul>
-                <NameCard
-                    names={name}
-                    selectNewItem={selectNewItem}
-                    arrayIndex={arrayIndex}
-                />
-            </ul>
-            <div>
-                Exp:
+        <div className="message--ai">
+            <NameCard
+                names={name}
+                selectNewItem={selectNewItem}
+                arrayIndex={arrayIndex}
+            />
+
+            <div className="message--ai__exp-container">
                 <ExpCard exp={exp} arrayIndex={arrayIndex} />
             </div>
         </div>

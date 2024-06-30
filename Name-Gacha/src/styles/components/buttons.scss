@@ -28,9 +28,10 @@
 .btn-text{
     border-bottom: 2px solid $color-blue-primary;
     border-radius: 3px;
-    padding: .3rem .3rem;
+    padding: .3rem .5rem;
     background-color: transparent;
     text-transform: uppercase;
+
     &:hover{
         background-image: linear-gradient(to right, $color-blue-primary, $color-blue-secondary) ;
         color:$color-white;
@@ -75,3 +76,9 @@
 .btn-radio{
     display: none;
 }
+
+
+// .btn-text{
+//     border: 1px solid black;
+//     border-bottom: 1px solid $color-blue-primary;
+// }
