@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector, useDispatch } from 'react-redux';
 import * as aiAPI from '../../../utils/api/aws/aiRoutes';
-import { setThread, pushMessages } from '../../../store/threadSlice';
+import {
+    setThread,
+    pushAiMessages,
+    pushUserMessages,
+} from '../../../store/threadSlice';
 import { useEffect, useState } from 'react';
 
 export default function ChatBox() {
@@ -20,6 +24,7 @@ export default function ChatBox() {
     const [userMessage, setUserMessage] = useState('');
     const [currentThread, setCurrentThread] = useState(currentVariableThread);
     const [isCreateNewThread, setIsCreateNewThread] = useState(false);
+    const [userMessageTemp, setUserMessageTemp] = useState('');
 
     useEffect(() => {
         if (isCreateNewThread && currentThread !== null) {
@@ -49,13 +54,16 @@ export default function ChatBox() {
             return false;
         }
     };
-
     const sendMessage = async () => {
-        console.log('send message start');
         try {
             const sendMessageResponse = await aiAPI.sendMessage(
                 currentThread,
                 userMessage
+            );
+            dispatch(
+                pushUserMessages({
+                    message: userMessageTemp,
+                })
             );
             return sendMessageResponse;
         } catch (err) {
@@ -83,9 +91,8 @@ export default function ChatBox() {
                 const messages = await aiAPI.readMessages(currentThread);
                 // dispatch(setMessages({ messages: messages.data }));
                 dispatch(
-                    pushMessages({
-                        aiMessage: messages.data.messages[0],
-                        userMessage: messages.data.messages[1],
+                    pushAiMessages({
+                        message: messages.data.messages[0],
                     })
                 );
             } else if (status === undefined) {
@@ -98,20 +105,18 @@ export default function ChatBox() {
         }
     };
     const chatAI = async () => {
+        setUserMessage('');
         if (currentThread === null && !isCreateNewThread) {
-            console.log('create Thread');
             createSetThread();
             setIsCreateNewThread(true);
         } else {
-            console.log('chat AI start');
-            console.log(currentThread);
             const runId = await sendMessage();
+
             if (runId !== false) {
-                console.log(runId);
                 await readReply(runId);
                 setIsCreateNewThread(false);
-                setUserMessage('');
             }
+            setUserMessageTemp('');
         }
     };
     return (
@@ -120,7 +125,10 @@ export default function ChatBox() {
                 className="chat--box__input"
                 type="text"
                 value={userMessage}
-                onChange={(e) => setUserMessage(e.target.value)}
+                onChange={(e) => {
+                    setUserMessage(e.target.value),
+                        setUserMessageTemp(e.target.value);
+                }}
             />
             <div className="chat--box__buttons">
                 <div className="chat--box__buttons__type">

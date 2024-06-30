@@ -62,7 +62,6 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
         setNewName(name);
         dispatch(clearIsEdit());
     };
-
     return (
         <div>
             {componentIsEdit ? (
@@ -86,7 +85,6 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
                             onClick={() => startEditInComponent()}
                         />
                     </div>
-
                     <div className="ai-name--content">{newName}</div>
                 </div>
             )}

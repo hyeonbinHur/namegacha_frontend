@@ -22,27 +22,37 @@ const threadSlice = createSlice({
         setMessages(state, action) {
             state.messages = action.payload.messages;
         },
-        pushMessages(state, action) {
-            const newAiMessage = JSON.parse(
-                action.payload.aiMessage[0].text.value
-            );
-            const newUserMessage = action.payload.userMessage[0].text.value;
-            console.log(newAiMessage);
-            console.log(newUserMessage);
+        pushAiMessages(state, action) {
+            const newMessage = JSON.parse(action.payload.message[0].text.value);
+            // const newUserMessage = action.payload.userMessage[0].text.value;
             if (state.globalThreadType === 'variable') {
                 state.variableMessages = [
                     ...state.variableMessages,
-                    newUserMessage,
-                    newAiMessage,
+                    newMessage,
                 ];
             } else {
                 state.functionMessages = [
                     ...state.functionMessages,
-                    newUserMessage,
-                    newAiMessage,
+                    newMessage,
                 ];
             }
         },
+        pushUserMessages(state, action) {
+            const newMessage = action.payload.message;
+            // const newUserMessage = action.payload.userMessage[0].text.value;
+            if (state.globalThreadType === 'variable') {
+                state.variableMessages = [
+                    ...state.variableMessages,
+                    newMessage,
+                ];
+            } else {
+                state.functionMessages = [
+                    ...state.functionMessages,
+                    newMessage,
+                ];
+            }
+        },
+
         clearThread(state) {
             state.globalThreadType = 'variable';
             state.currentVariableThread = null;
@@ -93,7 +103,8 @@ const threadSlice = createSlice({
 export const {
     setThread,
     setMessages,
-    pushMessages,
+    pushAiMessages,
+    pushUserMessages,
     clearThread,
     chageGlobalThreadType,
     editAiMessageExp,

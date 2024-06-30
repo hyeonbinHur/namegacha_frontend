@@ -52,7 +52,6 @@ export default function ExpCard({ exp, arrayIndex }) {
             ) : (
                 <div className="message--ai__exp-content">
                     <div>{newExp}</div>
-
                     <i
                         className="icon-basic-elaboration-bookmark-minus ai--icon"
                         onClick={() => startEditExpInComponent()}
