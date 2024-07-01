@@ -23,7 +23,7 @@ const isDetailVerify = (sliceTarget, componentTarget) => {
 const isAiMessageVerify = (sliceTarget, componentTarget) => {
     if (
         sliceTarget.type === componentTarget.type &&
-        sliceTarget.arrIndex === componentTarget.arrIndex &&
+        sliceTarget.arrayIndex === componentTarget.arrayIndex &&
         sliceTarget.nameIndex === componentTarget.nameIndex
     ) {
         return true;

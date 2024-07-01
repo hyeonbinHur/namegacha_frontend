@@ -37,14 +37,17 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
         arrayIndex: arrayIndex,
         nameIndex: nameIndex,
     };
+
     const componentIsTargetMatch = aiUtil.isAiMessageVerify(
         sliceTarget,
         componentTarget
     );
+
     const componentIsEdit = aiUtil.checkIsEdit(
         componentIsTargetMatch,
         sliceIsEdit
     );
+
     const startEditNameInSlice = () => {
         dispatch(
             editAiMessageName({
@@ -65,13 +68,23 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
     return (
         <div>
             {componentIsEdit ? (
-                <div>
-                    <input
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                    />
-                    <button onClick={() => startEditNameInSlice()}>save</button>
-                    <button onClick={() => cancelEditName()}>cancel</button>
+                <div className="ai-name">
+                    <div className="ai-name--header">
+                        <i
+                            onClick={() => startEditNameInSlice()}
+                            className="icon-basic-elaboration-bookmark-checck ai--icon"
+                        />
+                        <i
+                            onClick={() => cancelEditName()}
+                            className="icon-basic-elaboration-bookmark-remove ai--icon"
+                        />
+                    </div>
+                    <div className="ai-name--content">
+                        <input
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                        />
+                    </div>
                 </div>
             ) : (
                 <div className="ai-name">

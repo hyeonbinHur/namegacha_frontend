@@ -44,7 +44,6 @@ export default function ChatResult() {
                 <div>
                     {messages.map((m, index) => {
                         // Log the message for debugging purposes
-                        console.log(m);
                         // Conditionally render UserMessage or AiMessage based on index
                         return index % 2 === 0 ? (
                             <UserMessage key={index} message={m} />

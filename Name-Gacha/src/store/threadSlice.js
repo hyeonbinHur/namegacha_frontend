@@ -71,22 +71,22 @@ const threadSlice = createSlice({
             const arrayIndex = action.payload.arrayIndex;
             if (state.globalThreadType === 'variable') {
                 let newAiMeesage = [...state.variableMessages];
+                console.log(newAiMeesage[arrayIndex].Exp);
+                console.log(newAiMeesage[arrayIndex]);
                 newAiMeesage[arrayIndex].Exp = action.payload.newExp;
                 state.variableMessages = newAiMeesage;
             } else {
                 let newAiMeesage = [...state.functionMessages];
-                newAiMeesage[arrayIndex].exp = action.payload.newExp;
+                newAiMeesage[arrayIndex].Exp = action.payload.newExp;
                 state.functionMessages = newAiMeesage;
             }
         },
         editAiMessageName(state, action) {
             const arrayIndex = action.payload.arrayIndex;
             const nameIndex = action.payload.nameIndex;
-            console.log(arrayIndex);
-            console.log(nameIndex);
+
             if (state.globalThreadType === 'variable') {
                 let newAiMeesage = [...state.variableMessages];
-
                 newAiMeesage[arrayIndex].Names[nameIndex] =
                     action.payload.newName;
                 state.variableMessages = newAiMeesage;

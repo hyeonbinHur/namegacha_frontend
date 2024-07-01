@@ -95,22 +95,10 @@ reduxArray = myArray
 
 로딩 하나씩 구현
 
--> ai 채팅 로딩
-
 -> 페이지 추가할때 로딩
 
 -> 모달에서 아이템 추가하면 모달 닫히기
 
--> 에딧 에러 고치기 -> exp 에딧 안됨 + name edit이상함
-
 -> 메시지 형태 구현
 
-리액트 쿼리
-
-//create thread
-
-//send message
-
-//check status
-
-//read message
+-> 에딧 에러 고치기 -> exp 에딧 안됨 + name edit이상함

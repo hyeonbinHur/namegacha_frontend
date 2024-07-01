@@ -26,10 +26,11 @@ export default function ExpCard({ exp, arrayIndex }) {
         sliceIsEdit
     );
     /**redux dispathes */
+
     const dispatch = useDispatch();
     const startEditExpInSlice = () => {
         dispatch(editAiMessageExp({ arrayIndex: arrayIndex, newExp: newExp }));
-        setIsEdit(false);
+        dispatch(clearIsEdit());
     };
     const startEditExpInComponent = () => {
         dispatch(setIsEdit({ target: componentTarget }));
