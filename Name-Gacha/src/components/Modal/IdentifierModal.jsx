@@ -7,6 +7,7 @@ import { createFunction } from '../../utils/api/aws/functionRoutes';
 import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeIedntifierModal } from '../../store/identifiyerModal';
+import { CgClose } from 'react-icons/cg';
 
 const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     const type = useSelector((state) => state.currentThread.globalThreadType);
@@ -89,59 +90,66 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     });
     return createPortal(
         <div>
-            <dialog ref={modal}>
-                <button onClick={() => ref.current.close()}> close </button>
+            <dialog ref={modal} className="modal">
+                <div className="idf-modal--header">
+                    <div className="close-box item-between">
+                        <div>New Variable: userDataStore</div>
+                        <CgClose
+                            className="close-box--close"
+                            onClick={() => ref.current.close()}
+                        />
+                    </div>
+                </div>
 
                 {user && projects && projects.data.length > 0 && (
-                    <div>
-                        <section className="project-contaier">
-                            <ul>
+                    <div className="idf-modal">
+                        <section className="idf-modal--project">
+                            <ul className="idf-modal--ul">
                                 {/* project card */}
                                 {projects.data.map((project) => (
-                                    <li key={`project-${project.projectId}`}>
-                                        <ModalCard
-                                            onClick={() =>
-                                                findItem(
-                                                    'project',
-                                                    project.projectId
-                                                )
-                                            }
-                                            name={project.projectName}
-                                        />
+                                    <li
+                                        key={`project-${project.projectId}`}
+                                        className="idf-modal--li idf--project-card"
+                                        onClick={() =>
+                                            findItem(
+                                                'project',
+                                                project.projectId
+                                            )
+                                        }
+                                    >
+                                        <ModalCard name={project.projectName} />
                                     </li>
                                 ))}
                             </ul>
                         </section>
-
-                        <section className="page-container">
+                        <section className="idf-modal--page">
                             {selectedProject && (
-                                <ul>
+                                <ul className="idf-modal--ul">
                                     {/* page card */}
                                     {selectedProject.pages.map((page) => (
-                                        <li key={`page-${page.pageId}`}>
-                                            <ModalCard
-                                                onClick={() =>
-                                                    findItem(
-                                                        'page',
-                                                        page.pageId
-                                                    )
-                                                }
-                                                name={page.pageName}
-                                            />
+                                        <li
+                                            key={`page-${page.pageId}`}
+                                            className="idf-modal--li idf--page-card"
+                                            onClick={() =>
+                                                findItem('page', page.pageId)
+                                            }
+                                        >
+                                            <ModalCard name={page.pageName} />
                                         </li>
                                     ))}
                                 </ul>
                             )}
                         </section>
-                        <section>
+                        <section className="idf-modal--idf">
                             {selectedPage && (
-                                <div className="identifier-container">
+                                <div>
                                     {type === 'variable' ? (
-                                        <div>
+                                        <ul className="idf-modal--ul">
                                             {/* variable card */}
                                             {selectedPage.variables.map(
                                                 (variable) => (
                                                     <li
+                                                        className="idf-modal--li idf--idf-card"
                                                         key={`variable-${variable.variableId}`}
                                                     >
                                                         <ModalCard
@@ -155,13 +163,14 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                                     </li>
                                                 )
                                             )}
-                                        </div>
+                                        </ul>
                                     ) : (
-                                        <div>
+                                        <ul className="idf-modal--ul">
                                             {/* function card */}
                                             {selectedPage.functions.map(
                                                 (fn) => (
                                                     <li
+                                                        className="idf-modal--li"
                                                         key={`function-${fn.functionId}`}
                                                     >
                                                         <ModalCard
@@ -173,21 +182,23 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                                     </li>
                                                 )
                                             )}
-                                        </div>
+                                        </ul>
                                     )}
                                     <div className="newitem-container">
                                         <div>{newIdentifier.name}</div>
                                         <div>{newIdentifier.exp}</div>
                                     </div>
+                                    <div>
+                                        <button
+                                            onClick={() => startAddIdentifier()}
+                                        >
+                                            save
+                                        </button>
+                                        <button> cancel </button>
+                                    </div>
                                 </div>
                             )}
                         </section>
-                        <div>
-                            <button onClick={() => startAddIdentifier()}>
-                                save
-                            </button>
-                            <button> cancel </button>
-                        </div>
                     </div>
                 )}
             </dialog>
@@ -196,8 +207,8 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     );
 });
 
-const ModalCard = ({ name, onClick }) => {
-    return <button onClick={onClick}>{name}</button>;
+const ModalCard = ({ name }) => {
+    return <div className="idf--card">{name}</div>;
 };
 
 export default IdentifierModal;

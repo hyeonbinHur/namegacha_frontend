@@ -15,13 +15,14 @@
 
 */
 
-.item-left{
+.item-right{
     display: flex;
     justify-content: end;
 }
 .item-between{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 .item-horizontal-center{
     display: grid;

@@ -118,6 +118,7 @@
         }
     }
     &--box {
+      
         height: 14%;
         &--container {
             height: 100%;
@@ -137,8 +138,10 @@
             height: 100%;
             border: 2px solid transparent;
             &:focus {
-                border: 2px solid $color-blue-primary;
+                outline: none;
+                border:2px solid $color-blue-primary;
             }
+
         }
         &__buttons {
             position: absolute;

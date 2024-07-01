@@ -126,6 +126,7 @@ export default function ChatBox() {
     return (
         <div className="chat--box--container">
             {isLoading && <div className="loading-main"> </div>}
+
             <textarea
                 className="chat--box__input"
                 type="text"
@@ -135,6 +136,7 @@ export default function ChatBox() {
                         setUserMessageTemp(e.target.value);
                 }}
             />
+
             <div className="chat--box__buttons">
                 <div className="chat--box__buttons__type">
                     <button className="chat--box__button">Camel</button>
