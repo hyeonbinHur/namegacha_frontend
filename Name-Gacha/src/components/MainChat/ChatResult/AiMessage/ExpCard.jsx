@@ -42,13 +42,21 @@ export default function ExpCard({ exp, arrayIndex }) {
     return (
         <div>
             {componentIsEdit ? (
-                <div>
+                <div className="message--ai__exp-content">
                     <input
                         value={newExp}
                         onChange={(e) => setNewExp(e.target.value)}
                     />
-                    <button onClick={() => startEditExpInSlice()}>save</button>
-                    <button onClick={() => cancelEditExp()}>cancel</button>
+                    <div>
+                        <i
+                            className="icon-basic-elaboration-bookmark-plus ai--icon"
+                            onClick={() => startEditExpInSlice()}
+                        />
+                        <i
+                            className="icon-basic-elaboration-bookmark-remove ai--icon__cancel"
+                            onClick={() => cancelEditExp()}
+                        />
+                    </div>
                 </div>
             ) : (
                 <div className="message--ai__exp-content">

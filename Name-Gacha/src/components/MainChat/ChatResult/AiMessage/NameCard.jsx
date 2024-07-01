@@ -76,7 +76,7 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
                         />
                         <i
                             onClick={() => cancelEditName()}
-                            className="icon-basic-elaboration-bookmark-remove ai--icon"
+                            className="icon-basic-elaboration-bookmark-remove ai--icon__cancel"
                         />
                     </div>
                     <div className="ai-name--content">

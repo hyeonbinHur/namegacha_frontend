@@ -14,7 +14,8 @@ export default function SignUpForm({ toSignIn }) {
         mutationFn: ({ userId, userPassword }) => {
             return signUpUser(userId, userPassword);
         },
-        onSuccess: () => toSignIn(),
+        // ,
+        // onSuccess: () => toSignIn(),
     });
 
     const componentSignUp = () => {

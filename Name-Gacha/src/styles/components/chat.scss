@@ -1,6 +1,5 @@
 .chat {
     height: 97vh;
-
     &--header {
         height: 10%;
         display: flex;
@@ -8,7 +7,6 @@
         width: 100%;
         margin-top: .3rem;
         gap: 5rem;
-
         &__radio-variable {
             &__label {
                 font-size: 2.5rem;
@@ -25,7 +23,6 @@
                 background-position: right top;
                 background-repeat: no-repeat;
                 font-weight: 400;
-
                 &::after {
                     content: '';
                     position: absolute;
@@ -37,12 +34,10 @@
                     transition: all .5s;
                 }
             }
-
             &__btn:checked+&__label {
                 color: transparent;
                 background-size: 100% 100%;
             }
-
             &__btn:checked+&__label::after {
                 width: 100%;
             }
@@ -297,7 +292,6 @@
             font-weight: 500;
         }
     }
-
     &--icon{
         border-bottom: 1px solid $color-blue-primary;
         margin-right: .5rem;
@@ -307,6 +301,17 @@
             background-color: $color-grey-dark-2;
             border-bottom: 1px solid transparent;
             border-radius: 3px;
+        }
+        &__cancel{
+            border-bottom: 1px solid $color-blue-primary;
+            margin-right: .5rem;
+            padding-top: .5rem;
+            &:hover{
+                font-weight: 700;
+                background-color: $color-red-light;
+                border-bottom: 1px solid transparent;
+                border-radius: 3px;
+            }
         }
     }
 }
