@@ -13,10 +13,10 @@ export default function SignInForm({ close }) {
             return signInUser(userId, userPassword);
         },
 
-        // ,
-        // onSuccess: () => close(),
+        onSuccess: () => close(),
     });
     const componentSignIn = () => {
+        console.log('sign in ');
         mutateSigIn({ userId: username, userPassword: password });
     };
 
@@ -83,7 +83,7 @@ export default function SignInForm({ close }) {
                     )}
                     <button
                         className="sign-in-form--btn__submit btn-round"
-                        type="submit"
+                        type="button"
                         onClick={() => componentSignIn()}
                     >
                         submit

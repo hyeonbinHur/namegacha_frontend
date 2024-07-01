@@ -74,13 +74,13 @@ export default function Header() {
                                     className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"
                                     onClick={() => setIsAdd((prev) => !prev)}
                                 ></i>
-                                <button
+
+                                <i
                                     onClick={() => {
                                         refetchGetProjects(), setIsAdd(false);
                                     }}
-                                >
-                                    <i className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"></i>
-                                </button>
+                                    className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"
+                                ></i>
                             </div>
                         </div>
                     </div>

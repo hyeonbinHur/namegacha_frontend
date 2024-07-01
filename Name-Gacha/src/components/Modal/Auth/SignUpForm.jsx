@@ -14,8 +14,7 @@ export default function SignUpForm({ toSignIn }) {
         mutationFn: ({ userId, userPassword }) => {
             return signUpUser(userId, userPassword);
         },
-        // ,
-        // onSuccess: () => toSignIn(),
+        onSuccess: () => toSignIn(),
     });
 
     const componentSignUp = () => {
@@ -112,6 +111,7 @@ export default function SignUpForm({ toSignIn }) {
                     <button
                         className="sign-in-form--btn__submit btn-round"
                         onClick={() => componentSignUp()}
+                        type="button"
                     >
                         Sign up
                     </button>

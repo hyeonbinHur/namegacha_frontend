@@ -102,3 +102,5 @@ reduxArray = myArray
 -> 모달에서 아이템 추가하면 모달 닫히기
 
 -> 모달 css
+
+-> 대화 기록 고민 // sign in error found
