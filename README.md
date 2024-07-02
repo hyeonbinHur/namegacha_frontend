@@ -91,31 +91,27 @@ myArray= action.payload.newArray
 reduxArray = myArray
 (o)
 /// 하나씩만 edit 가능
+
 6/30
 
 로딩 하나씩 구현
 
 -> 페이지 추가할때 로딩
 
--> 메시지 형태 구현--> case, func or var, user content, ai한테서온 설명 고치기
-
 -> 대화 기록 고민 // sign in error found
-
-## 아이덴티 파이어 모달
-
--> 모달에서 아이템 추가하면 모달 닫히기
-
--> 모달 css
 
 user가 프로젝트가 없으면
 
 -> 모달이 이상하게 뜸
+
 -> 사이드바 css
 
-## 로그인, 로그 아웃
+오늘
 
-로그인 할때 url에 유저 비번 보이는거 없애야할듯
+-> 라디오 버튼 만들기
 
-로그인 버튼 누르면 로그인
+-> 메시지 형태 구현--> case, func or var, user content, ai한테서온 설명 고치기
 
-로그아웃 버튼 만들기
+////
+
+-> 디테일 페이지 css

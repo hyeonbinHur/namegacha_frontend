@@ -85,7 +85,6 @@
         }
     }
 }
-
 .sidebar-project {
     margin-top: 3rem;
     &--card:not(:last-child) {
@@ -116,7 +115,6 @@
             padding-bottom: .2rem;
         }
     }
-
     &--signin-btn {
         display: block;
         width: 50%;
@@ -125,11 +123,9 @@
         border: 1px solid black;
         z-index: 1;
     }
-
     &--container {
         padding: 0;
     }
-
     &--card {
         list-style: none;
     }
@@ -146,7 +142,6 @@
         bottom: 2%;
         left: 50%;
         transform: translate(-50%, -2%);
-
         &__sign-out{
             position: absolute;
             top:60%;

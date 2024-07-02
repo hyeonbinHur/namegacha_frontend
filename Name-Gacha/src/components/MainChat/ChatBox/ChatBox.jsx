@@ -22,24 +22,33 @@ export default function ChatBox() {
     const [currentThread, setCurrentThread] = useState(currentVariableThread);
     const [isCreateNewThread, setIsCreateNewThread] = useState(false);
     const [userMessageTemp, setUserMessageTemp] = useState('');
+    const [selectedType, setSelectedType] = useState('camel case');
+    const [userMessageFormatted, setUserMessageFormatted] = useState({
+        nameType: 'Name type : ' + selectedType,
+        definition: 'Definition : ' + userMessage,
+        identifier: 'Identifier : ' + globalThreadType,
+    });
     const [isLoading, setIsLoading] = useState(false);
-
     useEffect(() => {
         if (isCreateNewThread && currentThread !== null) {
             chatAI();
         }
     }, [currentThread, isCreateNewThread]);
-
     useEffect(() => {
         if (globalThreadType === 'variable') {
-            console.log('variable thread');
             setCurrentThread(currentVariableThread);
+            setUserMessageFormatted((prev) => ({
+                ...prev,
+                identifier: 'Identifier : variable',
+            }));
         } else {
-            console.log('function thread');
             setCurrentThread(currentFunctionThread);
+            setUserMessageFormatted((prev) => ({
+                ...prev,
+                identifier: 'Identifier : function',
+            }));
         }
     }, [globalThreadType]);
-
     const dispatch = useDispatch();
     const createSetThread = async () => {
         console.log('create thread start');
@@ -57,19 +66,20 @@ export default function ChatBox() {
         try {
             const sendMessageResponse = await aiAPI.sendMessage(
                 currentThread,
-                userMessageTemp
+                userMessageFormatted
             );
             dispatch(
                 pushUserMessages({
                     message: userMessageTemp,
                 })
+
+                ///이게 문제네
             );
             return sendMessageResponse;
         } catch (err) {
             return false;
         }
     };
-
     const checkStatus = async (runId) => {
         try {
             const responseStatus = await aiAPI.checkStatus(
@@ -122,6 +132,15 @@ export default function ChatBox() {
             setUserMessageTemp('');
         }
     };
+    const typeOnChange = (event) => {
+        const value = event.target.value;
+        console.log(value);
+        setSelectedType(value);
+        setUserMessageFormatted((prevState) => ({
+            ...prevState,
+            nameType: 'Name type : ' + value,
+        }));
+    };
 
     return (
         <div className="chat--box--container">
@@ -132,8 +151,13 @@ export default function ChatBox() {
                 type="text"
                 value={userMessage}
                 onChange={(e) => {
-                    setUserMessage(e.target.value),
-                        setUserMessageTemp(e.target.value);
+                    const newValue = e.target.value;
+                    setUserMessage(newValue);
+                    setUserMessageTemp(newValue);
+                    setUserMessageFormatted((prevState) => ({
+                        ...prevState,
+                        definition: 'Definition : ' + newValue,
+                    }));
                 }}
             />
 
@@ -142,6 +166,38 @@ export default function ChatBox() {
                     <button className="chat--box__button">Camel</button>
                     <button className="chat--box__button">Pascal</button>
                     <button className="chat--box__button">Snake</button>
+
+                    <input
+                        type="radio"
+                        id="camel"
+                        name="name-type"
+                        value="camel case"
+                        checked={selectedType === 'camel case'}
+                        onChange={typeOnChange}
+                    />
+                    <label htmlFor="camel">Camel</label>
+                    <input
+                        type="radio"
+                        id="pascal"
+                        name="name-type"
+                        value="pascal case"
+                        checked={selectedType === 'pascal case'}
+                        onChange={typeOnChange}
+                    />
+                    <label htmlFor="pascal">Pascal</label>
+                    <input
+                        type="radio"
+                        id="snake"
+                        name="name-type"
+                        value="snake case"
+                        checked={selectedType === 'snake case'}
+                        onChange={typeOnChange}
+                    />
+                    <label htmlFor="snake">Snake</label>
+
+                    <button onClick={() => console.log(userMessageFormatted)}>
+                        console
+                    </button>
                 </div>
                 {userMessage.length > 0 ? (
                     <button
