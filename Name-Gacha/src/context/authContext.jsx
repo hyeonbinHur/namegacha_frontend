@@ -20,7 +20,6 @@ export const AuthContextProvider = ({ children }) => {
     const [state, dispatch] = useReducer(authReducer, {
         user: null,
     });
-
     useEffect(() => {
         const checkAuthStatus = async () => {
             const authCheck = await authAPI.checkTokens();

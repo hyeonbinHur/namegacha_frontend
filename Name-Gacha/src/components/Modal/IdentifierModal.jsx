@@ -191,16 +191,13 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             )}
                                         </ul>
                                     )}
-
                                     <div className="idf-modal--new">
                                         <div className="idf-modal--new__name">
                                             {newIdentifier.name}
                                         </div>
-
                                         <div className="idf-modal--new__exp">
                                             {newIdentifier.exp}
                                         </div>
-
                                         <div className="idf-modal--new__btns">
                                             <button
                                                 className="idf-modal--new__btns__save"

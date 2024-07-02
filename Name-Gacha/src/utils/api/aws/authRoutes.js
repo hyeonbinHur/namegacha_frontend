@@ -28,7 +28,22 @@ async function signInUser(userId, userPassword) {
         const response = await axios.post(authEndpoint, body, {
             withCredentials: true,
         });
-        return response;
+
+        try {
+            const uuid = response.uuid;
+            const userResponse = await getUserData(uuid);
+            const userObject = {
+                uuid: uuid,
+                userID: userResponse.data.userId,
+                createdAt: userResponse.data.createdAt,
+            };
+            return userObject;
+        } catch (err) {
+            console.error(
+                'Get user data error in sign in ',
+                err.response || err.message
+            );
+        }
     } catch (err) {
         console.error('SignIn Error: ', err.response || err.message);
     }
