@@ -53,14 +53,12 @@ export default function FunctionCard({ fn }) {
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
     return (
-        <div>
-            <DetailForm
-                componentTarget={componentTarget}
-                type={'Edit'}
-                apiAction={editFunction}
-                startAction={startEdit}
-                deleteAction={deleteFunction}
-            />
-        </div>
+        <DetailForm
+            componentTarget={componentTarget}
+            type={'Edit'}
+            apiAction={editFunction}
+            startAction={startEdit}
+            deleteAction={deleteFunction}
+        />
     );
 }

@@ -43,17 +43,23 @@ export default function VariableContainer({ variables, pageId }) {
         dispatch(detailReducers.setIsAdd({ target: componentTarget }));
     };
     return (
-        <div>
-            <DetailForm
-                componentTarget={componentTarget}
-                type={'Add'}
-                apiAction={addNewVariable}
-                startAction={startAdd}
-            />
-            <ul>
+        <div className="detail-idf--main">
+            <header className="detail-idf--header">
+                <span className="detail-idf--header__name">Variable</span>
+                <DetailForm
+                    componentTarget={componentTarget}
+                    type={'Add'}
+                    apiAction={addNewVariable}
+                    startAction={startAdd}
+                    from="idf"
+                />
+            </header>
+
+            <ul className="item-ul detail-idf--content__item">
                 {variables.map((v) => (
-                    <li key={v.variableId}>
+                    <li key={v.variableId} className="item-li">
                         <VariableCard variable={v} />
+                        <hr className="divider" />
                     </li>
                 ))}
             </ul>

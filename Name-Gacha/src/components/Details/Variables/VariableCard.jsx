@@ -12,7 +12,6 @@ export default function VariableCard({ variable }) {
         id: variable.variableId,
         exp: variable.variableExp,
     };
-
     /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateVariable } = useMutation({
@@ -27,7 +26,6 @@ export default function VariableCard({ variable }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     const { mutate: mutateDeleteVariable } = useMutation({
         mutationFn: ({ variableId }) => {
             return variableAPI.deleteVariable(variableId);
@@ -36,7 +34,6 @@ export default function VariableCard({ variable }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
     const editVariable = (newName, newExp) => {
         if (newName.length === 0) return;
         mutateUpdateVariable({
@@ -45,25 +42,22 @@ export default function VariableCard({ variable }) {
             variableExp: newExp,
         });
     };
-
     const deleteVariable = (itemId) => {
         mutateDeleteVariable({ variableId: itemId });
     };
-
     const dispatch = useDispatch();
     const startEdit = () => {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
     return (
-        <div>
-            <DetailForm
-                componentTarget={componentTarget}
-                type={'Edit'}
-                apiAction={editVariable}
-                startAction={startEdit}
-                deleteAction={deleteVariable}
-            />
-        </div>
+        <DetailForm
+            componentTarget={componentTarget}
+            type={'Edit'}
+            apiAction={editVariable}
+            startAction={startEdit}
+            deleteAction={deleteVariable}
+            from="idf"
+        />
     );
 }

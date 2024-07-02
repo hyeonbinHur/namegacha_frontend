@@ -117,24 +117,25 @@ export default function DetailForm({
                 <div className={`detail-${from}--basic`}>
                     {type === 'Edit' ? (
                         <div className={`detail-${from}--basic__container`}>
-                            <div className={`detail-${from}--basic__name`}>
+                            <span className={`detail-${from}--basic__name`}>
                                 {componentTarget.name}
-                            </div>
-
+                            </span>
                             <div className={`detail-${from}--basic__exp`}>
                                 {componentTarget.exp}
                             </div>
                             <i
                                 onClick={() => deleteAction(componentTarget.id)}
-                                className={`icon-basic-elaboration-calendar-remove detail-${from}--btn__del`}
+                                className={`icon-basic-elaboration-calendar-remove
+                                     detail-${from}--btn__del`}
                             />
                             <i
                                 onClick={() => startAction()}
-                                className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}
+                                className={`icon-basic-elaboration-calendar-pencil
+                                     detail-${from}--btn__edit`}
                             />
                         </div>
                     ) : (
-                        <div className={`detail-${from}--basic__container`}>
+                        <div>
                             <i
                                 onClick={() => startAction()}
                                 className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}

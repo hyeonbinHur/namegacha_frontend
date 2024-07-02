@@ -43,9 +43,9 @@ export default function FunctionContainer({ functions, pageId }) {
                 apiAction={addNewFunction}
                 startAction={startAdd}
             />
-            <ul>
+            <ul className="item-ul">
                 {functions.map((f) => (
-                    <li key={f.functionId}>
+                    <li key={f.functionId} className="item-li">
                         <FunctionCard fn={f} />
                     </li>
                 ))}

@@ -1,0 +1,17 @@
+@mixin absolute-center-bottom($bottom, $right) {
+    position: absolute;
+    bottom: $bottom;
+    right: $right;
+}
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+@mixin absolute-bottom-right {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

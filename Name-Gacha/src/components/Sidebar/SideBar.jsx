@@ -69,9 +69,6 @@ export default function Header() {
                 <div>
                     <div className="sidebar-sub-header">
                         <div className="sidebar-sub-header--content">
-                            {/* <div className="sidebar-sub-header--content__name">
-                                
-                            </div> */}
                             <div className="sidebar-sub-header--content__feature">
                                 <i
                                     className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"

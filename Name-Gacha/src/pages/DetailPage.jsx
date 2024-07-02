@@ -39,12 +39,14 @@ export default function DetailPage() {
                     <header className="detail--header">
                         <DetailHeader page={page} />
                     </header>
+                    <hr className="divider" />
                     <section className="detail--variable">
                         <VariableContainer
                             variables={page.variables}
                             pageId={page.pageId}
                         />
                     </section>
+                    <hr className="divider" />
                     <section className="detail--functions">
                         <FunctionContainer
                             functions={page.functions}

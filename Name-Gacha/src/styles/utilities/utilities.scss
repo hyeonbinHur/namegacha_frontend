@@ -35,11 +35,16 @@
 .item-width-55{
     width: 55%;
 }
-
+.item-li{
+    list-style: none;
+}
+.item-ul{
+    padding: 0;
+}
 .divider{
     border: 1px solid $color-grey-dark-2;
     border-radius: 10px;  
-    width: 90%;
+    width: 95%;
     height: .5px; 
     background-color: $color-grey-dark-2;  
 }
