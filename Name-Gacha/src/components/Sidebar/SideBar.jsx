@@ -1,3 +1,4 @@
+import { GoSignOut } from 'react-icons/go';
 import logo from '../../assets/logo/black-logo-full.png';
 import ProjectCard from './projects/ProjectCard.jsx';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
@@ -5,11 +6,13 @@ import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 import { AiFillFolder } from 'react-icons/ai';
 import AuthModal from '../Modal/Auth/AuthModal.jsx';
-
+import {} from '../../utils/api/aws/authRoutes.js';
 // import { useEffect, useState } from 'react';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
 import { useRef, useState } from 'react';
+import { useSignOut } from '../../hooks/useSignOut.js';
 export default function Header() {
+    const { mutateSignOutUser } = useSignOut();
     const [isAdd, setIsAdd] = useState(false);
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
@@ -134,9 +137,12 @@ export default function Header() {
                 <div className="sidebar-project--user">
                     <hr className="divider" />
                     {user.userId}
+                    <GoSignOut
+                        onClick={() => mutateSignOutUser()}
+                        className="sidebar-project--user__sign-out"
+                    />
                 </div>
             )}
-
             <AuthModal ref={authModal} />
         </main>
     );

@@ -146,6 +146,18 @@
         bottom: 2%;
         left: 50%;
         transform: translate(-50%, -2%);
+
+        &__sign-out{
+            position: absolute;
+            top:60%;
+            right: 0%;
+            transform: translate(-60%, -10%);
+            padding: .5rem .5rem;
+            border-radius: 5px;
+            &:hover{
+                background-color: $color-red-light;
+            }
+        }
     }
 
 }

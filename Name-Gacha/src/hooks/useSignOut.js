@@ -1,4 +1,4 @@
-import { useAuthContext } from './useAuthContext';
+import { useAuthContext } from './useAuth';
 import { signOutUser } from '../utils/api/aws/authRoutes';
 import { useMutation } from '@tanstack/react-query';
 

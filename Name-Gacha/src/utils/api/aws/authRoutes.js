@@ -30,13 +30,15 @@ async function signInUser(userId, userPassword) {
         });
 
         try {
-            const uuid = response.uuid;
+            const uuid = response.data.uuid;
             const userResponse = await getUserData(uuid);
+            console.log(userResponse);
             const userObject = {
                 uuid: uuid,
-                userID: userResponse.data.userId,
+                userId: userResponse.data.userId,
                 createdAt: userResponse.data.createdAt,
             };
+            console.log(userObject);
             return userObject;
         } catch (err) {
             console.error(
@@ -51,6 +53,7 @@ async function signInUser(userId, userPassword) {
 async function signOutUser() {
     //post
     try {
+        console.log('Start sign out');
         const body = {
             content: 'sign out',
         };

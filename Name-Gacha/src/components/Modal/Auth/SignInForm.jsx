@@ -4,17 +4,28 @@ import { useMutation } from '@tanstack/react-query';
 import { signInUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
 import * as authUtil from '../../../utils/util/authUtil';
+import { useAuthContext } from '../../../hooks/useAuth';
+
+// import { useSignIn } from '../../../hooks/useSignIn';
 
 export default function SignInForm({ close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { dispatch } = useAuthContext();
+    // const { mutateSigIn } = useSignIn();
     const { mutate: mutateSigIn } = useMutation({
-        mutationFn: ({ userId, userPassword }) => {
-            return signInUser(userId, userPassword);
+        mutationFn: async ({ userId, userPassword }) => {
+            return await signInUser(userId, userPassword);
         },
 
-        onSuccess: () => close(),
+        onSuccess: (responseData) => {
+            console.log(responseData);
+
+            dispatch({ type: 'SIGN-IN', payload: responseData });
+            close();
+        },
     });
+
     const componentSignIn = () => {
         console.log('sign in ');
         mutateSigIn({ userId: username, userPassword: password });

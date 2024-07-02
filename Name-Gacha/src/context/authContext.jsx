@@ -2,6 +2,7 @@
 import { createContext, useEffect, useReducer } from 'react';
 // import * as auth from '../utils/api/local/authData.js';
 import * as authAPI from '../utils/api/aws/authRoutes';
+
 export const UserContext = createContext();
 
 // eslint-disable-next-line react-refresh/only-export-components
