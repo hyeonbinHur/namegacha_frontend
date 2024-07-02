@@ -49,6 +49,7 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
+            ref.current.close();
         },
     });
     const { mutate: mutateAddFunction } = useMutation({
@@ -144,12 +145,15 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                             {selectedPage && (
                                 <div>
                                     {type === 'variable' ? (
-                                        <ul className="idf-modal--ul">
+                                        <ul className="idf-modal--ul__idf">
+                                            <div className="idf-modal--idf__header">
+                                                Variables
+                                            </div>
                                             {/* variable card */}
                                             {selectedPage.variables.map(
                                                 (variable) => (
                                                     <li
-                                                        className="idf-modal--li idf--idf-card"
+                                                        className="idf-modal--li"
                                                         key={`variable-${variable.variableId}`}
                                                     >
                                                         <ModalCard
@@ -167,6 +171,9 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                     ) : (
                                         <ul className="idf-modal--ul">
                                             {/* function card */}
+                                            <div className="idf-modal--idf__header">
+                                                Functions
+                                            </div>
                                             {selectedPage.functions.map(
                                                 (fn) => (
                                                     <li
@@ -184,17 +191,34 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             )}
                                         </ul>
                                     )}
-                                    <div className="newitem-container">
-                                        <div>{newIdentifier.name}</div>
-                                        <div>{newIdentifier.exp}</div>
-                                    </div>
-                                    <div>
-                                        <button
-                                            onClick={() => startAddIdentifier()}
-                                        >
-                                            save
-                                        </button>
-                                        <button> cancel </button>
+
+                                    <div className="idf-modal--new">
+                                        <div className="idf-modal--new__name">
+                                            {newIdentifier.name}
+                                        </div>
+
+                                        <div className="idf-modal--new__exp">
+                                            {newIdentifier.exp}
+                                        </div>
+
+                                        <div className="idf-modal--new__btns">
+                                            <button
+                                                className="idf-modal--new__btns__save"
+                                                onClick={() =>
+                                                    startAddIdentifier()
+                                                }
+                                            >
+                                                save
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    ref.current.close()
+                                                }
+                                                className="idf-modal--new__btns__cancel"
+                                            >
+                                                cancel
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             )}

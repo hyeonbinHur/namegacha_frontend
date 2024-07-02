@@ -4,7 +4,6 @@
     height: 45rem;
     box-sizing: border-box;
     justify-content: center;
-    position: relative;
     & > *:not(:first-child):not(:last-child) {
         border-right: 2px solid $color-grey-dark-2;
     }
@@ -17,6 +16,14 @@
     }
     &--ul {
         padding: 0;
+        &__idf{
+            padding:0;
+            height: 22rem;
+            border-bottom: 1px solid $color-grey-dark-1;
+            & > *:nth-child(2) {
+                padding-top: 1rem;
+            }
+        }
     }
     &--li {
         list-style: none;
@@ -28,6 +35,57 @@
         box-sizing: border-box;
         flex-shrink: 0;
         height: 45rem;
+        position: relative;
+    }
+    &--idf{
+        &__header{
+            font-size: 1.6rem;
+            font-weight: 500;
+            border-bottom: 1px solid $color-grey-dark-1;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+    }
+    &--new{
+        padding: 0 1rem;
+        font-size: 1.6rem;
+        font-weight: 400;
+        &__name{
+            border-bottom: 1px solid $color-grey-dark-1;
+            background-color: $color-grey-light-1;
+            padding: .5rem 1rem;            
+        }
+
+        &__exp{
+            background-color: $color-grey-light-1;
+            padding: .5rem 1rem;   
+        }
+
+        &__btns{
+            position: absolute;
+            bottom: 3%;
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+
+            &__save,
+            &__cancel{
+                width: 45%;
+                text-transform: uppercase;
+                font-weight: 500;
+                border-radius: 5px;
+                padding: .5rem 0rem;
+            }
+
+            &__save:hover{
+                background-image: linear-gradient(to right bottom, $color-blue-primary, $color-blue-secondary);
+            }   
+
+            &__cancel:hover{
+                background-color: $color-red-light;
+            }
+        }
     }
 }
 .idf {
@@ -38,11 +96,11 @@
         margin-left: 1rem;
     }
     &--project-card,
-    &--page-card,
-    &--idf-card {
+    &--page-card{
         padding: 1.5rem 0rem;
         border-bottom: 1px solid $color-grey-dark-1;
         font-size: 2rem;
         font-weight: 500;
     }
+  
 }
