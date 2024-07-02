@@ -1,0 +1,81 @@
+.detail{
+    overflow: hidden;
+    box-sizing: border-box;
+    height: 97vh;
+    position: relative;
+    &--header{
+        margin-top: 1rem;
+        height: 15%;
+    }
+    &--variable{
+        border: 1px solid green;
+        height: 42.5%;
+        overflow-y: scroll;
+    }
+    &--functions{
+        border: 1px solid blue;
+        height: 42.5%;
+        overflow-y: scroll;
+    }
+    &--btns{
+        position: absolute;
+        bottom: 3%;
+        right: 3%;
+        box-shadow: 0 1rem 1rem rgba($color-black,.3);
+        font-size: 9rem;
+        color: $color-blue-primary;
+        padding: 2rem;
+        border-radius: 2rem;
+        background-color: $color-grey-light-2;
+        transition:transform .3s;
+        &:hover{
+            transform: translateY(-5px);
+        }
+        &:active{
+            transform: translateY(3px);
+        }
+    }   
+}
+.detail-page{
+    height: 100%;
+    padding: 0 2rem;
+    position: relative;
+    border: 1px solid red;
+
+    &--basic{
+        font-size: 2rem;
+        height: 100%;
+        &__container{
+            position: relative;
+            border: 1px solid black;
+            height: 100%;
+        }
+        &__name{
+
+        }
+        &__exp{
+
+        }
+    }
+
+    &--btn{
+        &__del{
+            position: absolute;
+            top: 2%;
+            right: 2%;
+            width: 10%;
+        }
+        &__cancel{
+
+        }
+        &__save{
+
+        }
+        &__action{
+            position: absolute;
+            bottom: 0;
+            width: 10%;
+
+        }
+    }
+}

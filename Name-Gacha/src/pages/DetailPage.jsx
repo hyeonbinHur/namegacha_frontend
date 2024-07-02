@@ -1,3 +1,4 @@
+import { BsChatSquareDotsFill } from 'react-icons/bs';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import * as pageAPI from '../utils/api/aws/pageRoutes';
@@ -32,28 +33,28 @@ export default function DetailPage() {
     if (error) return <div>An error occurred: {error.message}</div>;
 
     return (
-        <div>
+        <div className="detail">
             {page && (
-                <div>
-                    <header>
+                <div className="detail">
+                    <header className="detail--header">
                         <DetailHeader page={page} />
                     </header>
-
-                    <section>
+                    <section className="detail--variable">
                         <VariableContainer
                             variables={page.variables}
                             pageId={page.pageId}
                         />
                     </section>
-
-                    <section>
+                    <section className="detail--functions">
                         <FunctionContainer
                             functions={page.functions}
                             pageId={page.pageId}
                         />
                     </section>
-
-                    <button onClick={() => navigate('/')}>back to chat</button>
+                    <BsChatSquareDotsFill
+                        onClick={() => navigate('/')}
+                        className="detail--btns"
+                    />
                 </div>
             )}
         </div>

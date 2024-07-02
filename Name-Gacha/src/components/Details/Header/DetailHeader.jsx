@@ -56,15 +56,14 @@ export default function DetailTest({ page }) {
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
     return (
-        <div>
-            <DetailForm
-                componentTarget={componentTarget}
-                type="Edit"
-                apiAction={handleSaveEdit}
-                startAction={startEdit}
-                deleteAction={handleDeletePage}
-            />
-        </div>
+        <DetailForm
+            componentTarget={componentTarget}
+            type="Edit"
+            apiAction={handleSaveEdit}
+            startAction={startEdit}
+            deleteAction={handleDeletePage}
+            from="page"
+        />
     );
 }
 // export default function DetailTest() { // container

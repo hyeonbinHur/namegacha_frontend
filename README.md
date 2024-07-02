@@ -97,7 +97,6 @@ reduxArray = myArray
 로딩 하나씩 구현
 
 -> 페이지 추가할때 로딩
-
 -> 대화 기록 고민 // sign in error found
 
 user가 프로젝트가 없으면
@@ -108,10 +107,6 @@ user가 프로젝트가 없으면
 
 오늘
 
--> 라디오 버튼 만들기
-
--> 메시지 형태 구현--> case, func or var, user content, ai한테서온 설명 고치기
-
-////
-
 -> 디테일 페이지 css
+
+-> idf 모달 라디오 버튼

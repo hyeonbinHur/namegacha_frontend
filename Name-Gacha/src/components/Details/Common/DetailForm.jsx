@@ -9,10 +9,10 @@ export default function DetailForm({
     apiAction, // update, add api  function
     startAction, // start edit or start add
     deleteAction, // if type is Edit, delete function is required
+    from,
 }) {
     const [newName, setNewName] = useState('');
     const [newExp, setNewExp] = useState('');
-
     const nameInputRef = useRef(null);
     const expInputRef = useRef(null);
 
@@ -79,46 +79,66 @@ export default function DetailForm({
         cancelActions();
     };
     return (
-        <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
+        <div className={`detail-${from}`}>
             {componentFlag ? (
-                <div>
-                    <div>
-                        <input
-                            type="text"
-                            name="name"
-                            value={newName}
-                            ref={nameInputRef}
-                            onChange={(e) => setNewName(e.target.value)}
-                            onKeyDown={(e) => handleKeyDown(e)}
-                        />
-                    </div>
-                    <div>
-                        <input
-                            type="text"
-                            name="exp"
-                            value={newExp}
-                            ref={expInputRef}
-                            onChange={(e) => setNewExp(e.target.value)}
-                            onKeyDown={(e) => handleKeyDown(e)}
-                        />
-                    </div>
-                    <button onClick={() => startButtonAction()}>save</button>
-                    <button onClick={() => cancelActions()}> cancel </button>
+                <div className={`detail-${from}--edit`}>
+                    <input
+                        className={`detail-${from}--edit__name`}
+                        type="text"
+                        name="name"
+                        value={newName}
+                        ref={nameInputRef}
+                        onChange={(e) => setNewName(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e)}
+                    />
+                    <input
+                        className={`detail-${from}--edit__exp`}
+                        type="text"
+                        name="exp"
+                        value={newExp}
+                        ref={expInputRef}
+                        onChange={(e) => setNewExp(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e)}
+                    />
+                    <button
+                        className={`detail-${from}--btn__save`}
+                        onClick={() => startButtonAction()}
+                    >
+                        save
+                    </button>
+                    <button
+                        className={`detail-${from}--btn__cancel`}
+                        onClick={() => cancelActions()}
+                    >
+                        cancel
+                    </button>
                 </div>
             ) : (
-                <div>
+                <div className={`detail-${from}--basic`}>
                     {type === 'Edit' && (
-                        <div>
-                            <div> {componentTarget.name} </div>
-                            <div> {componentTarget.exp}</div>
+                        <div className={`detail-${from}--basic__container`}>
+                            <div className={`detail-${from}--basic__name`}>
+                                {componentTarget.name}
+                            </div>
+
+                            <div className={`detail-${from}--basic__exp`}>
+                                {componentTarget.exp}
+                            </div>
+
                             <button
+                                className={`detail-${from}--btn__del`}
                                 onClick={() => deleteAction(componentTarget.id)}
                             >
                                 delete
                             </button>
                         </div>
                     )}
-                    <button onClick={() => startAction()}>start action</button>
+                    <button
+                        className={`detail-${from}--btn__action`}
+                        onClick={() => startAction()}
+                    >
+                        start action
+                    </button>
                 </div>
             )}
         </div>

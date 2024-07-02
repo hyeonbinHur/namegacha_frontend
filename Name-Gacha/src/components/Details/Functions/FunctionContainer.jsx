@@ -36,7 +36,7 @@ export default function FunctionContainer({ functions, pageId }) {
         dispatch(detailReducers.setIsAdd({ target: componentTarget }));
     };
     return (
-        <div style={{ padding: '3rem 3rem', border: '1px solid black' }}>
+        <div>
             <DetailForm
                 componentTarget={componentTarget}
                 type={'Add'}
