@@ -115,7 +115,7 @@ export default function DetailForm({
                 </div>
             ) : (
                 <div className={`detail-${from}--basic`}>
-                    {type === 'Edit' && (
+                    {type === 'Edit' ? (
                         <div className={`detail-${from}--basic__container`}>
                             <div className={`detail-${from}--basic__name`}>
                                 {componentTarget.name}
@@ -124,21 +124,23 @@ export default function DetailForm({
                             <div className={`detail-${from}--basic__exp`}>
                                 {componentTarget.exp}
                             </div>
-
-                            <button
-                                className={`detail-${from}--btn__del`}
+                            <i
                                 onClick={() => deleteAction(componentTarget.id)}
-                            >
-                                delete
-                            </button>
+                                className={`icon-basic-elaboration-calendar-remove detail-${from}--btn__del`}
+                            />
+                            <i
+                                onClick={() => startAction()}
+                                className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}
+                            />
+                        </div>
+                    ) : (
+                        <div className={`detail-${from}--basic__container`}>
+                            <i
+                                onClick={() => startAction()}
+                                className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}
+                            />
                         </div>
                     )}
-                    <button
-                        className={`detail-${from}--btn__action`}
-                        onClick={() => startAction()}
-                    >
-                        start action
-                    </button>
                 </div>
             )}
         </div>
