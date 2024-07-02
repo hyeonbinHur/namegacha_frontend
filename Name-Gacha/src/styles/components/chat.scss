@@ -42,7 +42,6 @@
                 width: 100%;
             }
         }
-
         &__radio-function {
             &__label {
                 font-size: 2.5rem;
@@ -58,7 +57,6 @@
                 background-size: 10% 100%;
                 background-repeat: no-repeat;
                 font-weight: 400;
-
                 &::after {
                     content: '';
                     position: absolute;
@@ -70,12 +68,10 @@
                     transition: all .5s;
                 }
             }
-
             &__btn:checked+&__label {
                 color: transparent;
                 background-size: 100% 100%;
             }
-
             &__btn:checked+&__label::after {
                 width: 100%;
             }
@@ -118,7 +114,6 @@
         }
     }
     &--box {
-      
         height: 14%;
         &--container {
             height: 100%;
@@ -151,12 +146,11 @@
             width: 96%;
             transform: translate(-50%, -5%);
             justify-content: space-between;
-            &__type {
-                .chat--box__button:not(:last-child) {
-                    margin-right: 2rem;
-                }
+            &__type>label:not(:last-child){
+                margin-right: 2rem;
             }
         }
+        &--radio__label,
         &__button {
             font-size: 1.5rem;
             font-weight: 700;
@@ -168,13 +162,11 @@
             border: 1px solid black;
             display: inline-block;
             transition: all .2s;
-
             &:hover {
                 color: $color-white;
                 background-color: $color-blue-primary;
                 border: 1px solid transparent;
             }
-
             &--send {
                 &__inactive {
                     font-size: 1.5rem;
@@ -203,6 +195,13 @@
                         transform: translateY(2px);
                     }
                 }
+            }
+        }
+        &--radio{
+            &__btn:checked+&__label{
+                color: $color-white;
+                background-color: $color-blue-primary;
+                border: 1px solid transparent;
             }
         }
     }

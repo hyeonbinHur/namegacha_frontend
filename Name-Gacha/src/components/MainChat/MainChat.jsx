@@ -8,6 +8,7 @@ import { chageGlobalThreadType } from '../../store/threadSlice';
 
 export default function MainChat() {
     const [selectedOption, setSelectedOption] = useState('variable');
+
     const { user } = useAuthContext();
     const dispatch = useDispatch();
     const sliceIdentifierIsOpen = useSelector(

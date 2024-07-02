@@ -21,14 +21,16 @@ export default function ChatBox() {
     const [userMessage, setUserMessage] = useState('');
     const [currentThread, setCurrentThread] = useState(currentVariableThread);
     const [isCreateNewThread, setIsCreateNewThread] = useState(false);
-    const [userMessageTemp, setUserMessageTemp] = useState('');
     const [selectedType, setSelectedType] = useState('camel case');
+
     const [userMessageFormatted, setUserMessageFormatted] = useState({
-        nameType: 'Name type : ' + selectedType,
-        definition: 'Definition : ' + userMessage,
-        identifier: 'Identifier : ' + globalThreadType,
+        nameType: selectedType,
+        definition: userMessage,
+        identifier: globalThreadType,
     });
+
     const [isLoading, setIsLoading] = useState(false);
+
     useEffect(() => {
         if (isCreateNewThread && currentThread !== null) {
             chatAI();
@@ -64,16 +66,16 @@ export default function ChatBox() {
     };
     const sendMessage = async () => {
         try {
+            const formattedMessageString = JSON.stringify(userMessageFormatted);
+            console.log(formattedMessageString);
             const sendMessageResponse = await aiAPI.sendMessage(
                 currentThread,
-                userMessageFormatted
+                formattedMessageString
             );
             dispatch(
                 pushUserMessages({
-                    message: userMessageTemp,
+                    message: userMessageFormatted.definition,
                 })
-
-                ///이게 문제네
             );
             return sendMessageResponse;
         } catch (err) {
@@ -129,23 +131,27 @@ export default function ChatBox() {
                 await readReply(runId);
                 setIsCreateNewThread(false);
             }
-            setUserMessageTemp('');
+            setUserMessageFormatted({
+                nameType: selectedType,
+                definition: userMessage,
+                identifier: globalThreadType,
+            });
         }
     };
+
     const typeOnChange = (event) => {
         const value = event.target.value;
         console.log(value);
         setSelectedType(value);
         setUserMessageFormatted((prevState) => ({
             ...prevState,
-            nameType: 'Name type : ' + value,
+            nameType: value,
         }));
     };
 
     return (
         <div className="chat--box--container">
             {isLoading && <div className="loading-main"> </div>}
-
             <textarea
                 className="chat--box__input"
                 type="text"
@@ -153,20 +159,15 @@ export default function ChatBox() {
                 onChange={(e) => {
                     const newValue = e.target.value;
                     setUserMessage(newValue);
-                    setUserMessageTemp(newValue);
                     setUserMessageFormatted((prevState) => ({
                         ...prevState,
-                        definition: 'Definition : ' + newValue,
+                        definition: newValue,
                     }));
                 }}
             />
 
             <div className="chat--box__buttons">
                 <div className="chat--box__buttons__type">
-                    <button className="chat--box__button">Camel</button>
-                    <button className="chat--box__button">Pascal</button>
-                    <button className="chat--box__button">Snake</button>
-
                     <input
                         type="radio"
                         id="camel"
@@ -174,8 +175,11 @@ export default function ChatBox() {
                         value="camel case"
                         checked={selectedType === 'camel case'}
                         onChange={typeOnChange}
+                        className="btn-radio chat--box--radio__btn"
                     />
-                    <label htmlFor="camel">Camel</label>
+                    <label htmlFor="camel" className="chat--box--radio__label">
+                        Camel
+                    </label>
                     <input
                         type="radio"
                         id="pascal"
@@ -183,8 +187,11 @@ export default function ChatBox() {
                         value="pascal case"
                         checked={selectedType === 'pascal case'}
                         onChange={typeOnChange}
+                        className="btn-radio chat--box--radio__btn"
                     />
-                    <label htmlFor="pascal">Pascal</label>
+                    <label className="chat--box--radio__label" htmlFor="pascal">
+                        Pascal
+                    </label>
                     <input
                         type="radio"
                         id="snake"
@@ -192,12 +199,11 @@ export default function ChatBox() {
                         value="snake case"
                         checked={selectedType === 'snake case'}
                         onChange={typeOnChange}
+                        className="btn-radio chat--box--radio__btn"
                     />
-                    <label htmlFor="snake">Snake</label>
-
-                    <button onClick={() => console.log(userMessageFormatted)}>
-                        console
-                    </button>
+                    <label className="chat--box--radio__label" htmlFor="snake">
+                        Snake
+                    </label>
                 </div>
                 {userMessage.length > 0 ? (
                     <button
