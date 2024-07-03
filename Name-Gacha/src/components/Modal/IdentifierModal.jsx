@@ -41,6 +41,7 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
         },
         onSuccess: () => {
             queryClient.invalidateQueries('getCertainProjects');
+            ref.current.close();
         },
     });
     const startAddIdentifier = () => {
@@ -51,9 +52,6 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                 variableExp: newIdentifier.exp[0],
             });
         } else {
-            console.log('page Id ' + selectedPage.pageId);
-            console.log('identifier name ' + newIdentifier.name);
-            console.log('identifier exp ' + newIdentifier.exp[0]);
             mutateAddFunction({
                 pageId: selectedPage.pageId,
                 functionName: newIdentifier.name,

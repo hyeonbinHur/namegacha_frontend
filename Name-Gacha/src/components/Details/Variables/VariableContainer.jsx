@@ -45,7 +45,7 @@ export default function VariableContainer({ variables, pageId }) {
     return (
         <div className="detail-idf--main">
             <header className="detail-idf--header">
-                <span className="detail-idf--header__name">Variable</span>
+                <span className="detail-idf--header__name">Variables</span>
                 <DetailForm
                     componentTarget={componentTarget}
                     type={'Add'}

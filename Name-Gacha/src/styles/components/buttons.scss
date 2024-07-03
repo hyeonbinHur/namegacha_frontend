@@ -1,9 +1,13 @@
 .close-box{
-    margin: .5rem .5rem;
+    margin: 0rem 1rem;
+    position: relative;
     &--close{
         font-size: 2rem;
         border-radius: 4px;
         transition: all .2s;
+        position: absolute;
+        top: 15%;
+        right: 0%;
     }
     &--close:hover{
         background-color: $color-red;
@@ -19,12 +23,10 @@
         border-radius: 5px;
         transition: all .3s;
     }
-
     &--logo:hover{
         transform: translateY(-3px);
     }
 }
-
 .btn-text{
     border-bottom: 2px solid $color-blue-primary;
     border-radius: 3px;

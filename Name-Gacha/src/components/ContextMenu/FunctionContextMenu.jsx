@@ -26,8 +26,6 @@ export default function FunctionContextMenu({ item }) {
     };
 
     const startAddFunction = (e) => {
-        console.log('page name : ' + item.pageName);
-        console.log('page Id : ' + item.pageId_frk);
         dispatch(
             addChild({
                 addType: 'function',
