@@ -18,24 +18,7 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     const modal = useRef(null);
     const [selectedProject, setSelectedProject] = useState(null);
     const [selectedPage, setSelectedPage] = useState(null);
-    const findItem = (type, id) => {
-        console.log('Hello world');
-        if (type === 'project') {
-            const project = projects.data.find(
-                (project) => project.projectId === id
-            );
-            if (project) {
-                setSelectedProject(project);
-            }
-        } else if (type === 'page' && selectedProject) {
-            const page = selectedProject.pages.find(
-                (page) => page.pageId === id
-            );
-            if (page) {
-                setSelectedPage(page);
-            }
-        }
-    };
+
     const { data: projects } = useQuery({
         queryKey: ['getCertainProjects', user?.uuid],
         queryFn: () => getCertainProjects(user.uuid),
@@ -89,6 +72,34 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
             },
         };
     });
+
+    const findItem = (type, id) => {
+        if (type === 'project') {
+            const project = projects.data.find(
+                (project) => project.projectId === id
+            );
+            if (project) {
+                setSelectedProject(project);
+            }
+        } else if (type === 'page' && selectedProject) {
+            const page = selectedProject.pages.find(
+                (page) => page.pageId === id
+            );
+            if (page) {
+                setSelectedPage(page);
+            }
+        }
+    };
+
+    const onChangeProject = (e) => {
+        const value = e.target.value;
+        findItem('project', value);
+    };
+
+    const onChangePage = (e) => {
+        const value = e.target.value;
+        findItem('page', value);
+    };
     return createPortal(
         <div>
             <dialog ref={modal} className="modal">
@@ -110,7 +121,12 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                 {projects.data.map((project) => (
                                     <li
                                         key={`project-${project.projectId}`}
-                                        className="idf-modal--li idf--project-card"
+                                        className={`idf-modal--li idf--project-card ${
+                                            selectedProject?.projectId ===
+                                            project.projectId
+                                                ? 'selected'
+                                                : ''
+                                        }`}
                                         onClick={() =>
                                             findItem(
                                                 'project',
@@ -118,9 +134,21 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             )
                                         }
                                     >
-                                        <input type="radio" />
-                                        <label>{project.projectName}</label>
-                                        <ModalCard name={project.projectName} />
+                                        <input
+                                            type="radio"
+                                            id={project.projectName}
+                                            name="project"
+                                            value={project.projectId}
+                                            onChange={onChangeProject}
+                                            checked={
+                                                selectedProject?.projectId ===
+                                                project.projectId
+                                            }
+                                            className="btn-radio idf--project-card__radio"
+                                        />
+                                        <label htmlFor="project">
+                                            {project.projectName}
+                                        </label>
                                     </li>
                                 ))}
                             </ul>
@@ -132,12 +160,31 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                     {selectedProject.pages.map((page) => (
                                         <li
                                             key={`page-${page.pageId}`}
-                                            className="idf-modal--li idf--page-card"
+                                            className={`idf-modal--li idf--page-card ${
+                                                selectedPage?.pageId ===
+                                                page.pageId
+                                                    ? `selected`
+                                                    : ''
+                                            }`}
                                             onClick={() =>
                                                 findItem('page', page.pageId)
                                             }
                                         >
-                                            <ModalCard name={page.pageName} />
+                                            <input
+                                                type="radio"
+                                                id={page.pageId}
+                                                name="page"
+                                                value={page.pageId}
+                                                onChange={onChangePage}
+                                                checked={
+                                                    selectedPage?.pageId ===
+                                                    page?.pageId
+                                                }
+                                                className="btn-radio"
+                                            />
+                                            <label htmlFor="page">
+                                                {page.pageName}
+                                            </label>
                                         </li>
                                     ))}
                                 </ul>
