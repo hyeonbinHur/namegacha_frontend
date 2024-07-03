@@ -55,7 +55,7 @@ export default function VariableContainer({ variables, pageId }) {
                 />
             </header>
 
-            <ul className="item-ul detail-idf--content__item">
+            <ul className="item-ul detail-idf--content">
                 {variables.map((v) => (
                     <li key={v.variableId} className="item-li">
                         <VariableCard variable={v} />

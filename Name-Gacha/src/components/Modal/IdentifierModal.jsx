@@ -118,6 +118,8 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             )
                                         }
                                     >
+                                        <input type="radio" />
+                                        <label>{project.projectName}</label>
                                         <ModalCard name={project.projectName} />
                                     </li>
                                 ))}

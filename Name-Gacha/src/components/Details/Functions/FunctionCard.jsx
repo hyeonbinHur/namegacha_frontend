@@ -52,6 +52,7 @@ export default function FunctionCard({ fn }) {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
+
     return (
         <DetailForm
             componentTarget={componentTarget}
@@ -59,6 +60,7 @@ export default function FunctionCard({ fn }) {
             apiAction={editFunction}
             startAction={startEdit}
             deleteAction={deleteFunction}
+            from="idf"
         />
     );
 }

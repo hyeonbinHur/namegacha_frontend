@@ -36,17 +36,23 @@ export default function FunctionContainer({ functions, pageId }) {
         dispatch(detailReducers.setIsAdd({ target: componentTarget }));
     };
     return (
-        <div>
-            <DetailForm
-                componentTarget={componentTarget}
-                type={'Add'}
-                apiAction={addNewFunction}
-                startAction={startAdd}
-            />
-            <ul className="item-ul">
+        <div className="detail-idf--main">
+            <header className="detail-idf--header">
+                <span className="detail-idf--header__name">Variable</span>
+                <DetailForm
+                    componentTarget={componentTarget}
+                    type={'Add'}
+                    apiAction={addNewFunction}
+                    startAction={startAdd}
+                    from="idf"
+                />
+            </header>
+
+            <ul className="item-ul detail-idf--content">
                 {functions.map((f) => (
                     <li key={f.functionId} className="item-li">
                         <FunctionCard fn={f} />
+                        <hr className="divider" />
                     </li>
                 ))}
             </ul>

@@ -135,12 +135,10 @@ export default function DetailForm({
                             />
                         </div>
                     ) : (
-                        <div>
-                            <i
-                                onClick={() => startAction()}
-                                className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}
-                            />
-                        </div>
+                        <i
+                            onClick={() => startAction()}
+                            className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}
+                        />
                     )}
                 </div>
             )}
