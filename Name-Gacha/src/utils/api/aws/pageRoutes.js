@@ -8,6 +8,7 @@ async function getPage(pageId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -19,6 +20,7 @@ async function getPages() {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -36,13 +38,14 @@ async function createPage(projectId, pageName, pageExp) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
 async function updatePage(pageId, pageName, pageExp) {
     //put
     try {
-        const endPoint = `ttps://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/page?pageId=${pageId}`;
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/page?pageId=${pageId}`;
         const body = {
             pageName: pageName,
             pageExp: pageExp,
@@ -64,6 +67,7 @@ async function deletePage(pageId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 

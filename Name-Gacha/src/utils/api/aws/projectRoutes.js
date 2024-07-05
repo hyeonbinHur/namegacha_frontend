@@ -8,6 +8,7 @@ async function getProject(projectId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -17,7 +18,8 @@ async function getCertainProjects(uuid) {
         const response = await axios.get(endPoint);
         return response;
     } catch (err) {
-        return err;
+        console.error(err.message);
+        throw err;
     }
 }
 
@@ -30,6 +32,7 @@ async function getProjects() {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 async function createProject(projectName, uuid) {
@@ -48,16 +51,22 @@ async function createProject(projectName, uuid) {
         return response;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 async function updateProject(projectId, projectName) {
-    const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project?projectId=${projectId}`;
-    const body = {
-        projectId: projectId,
-        projectName: projectName,
-    };
-    const response = await axios.put(endPoint, body);
-    return response; // API 응답 데이터를 반환
+    try {
+        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/project?projectId=${projectId}`;
+        const body = {
+            projectId: projectId,
+            projectName: projectName,
+        };
+        const response = await axios.put(endPoint, body);
+        return response; // API 응답 데이터를 반환
+    } catch (err) {
+        console.error(err.message);
+        throw err;
+    }
 }
 async function deleteProject(projectId) {
     //delete
@@ -67,6 +76,7 @@ async function deleteProject(projectId) {
         return response;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 

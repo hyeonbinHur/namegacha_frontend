@@ -15,6 +15,7 @@ async function signUpUser(userId, userPassword) {
         return response;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 async function signInUser(userId, userPassword) {
@@ -48,6 +49,7 @@ async function signInUser(userId, userPassword) {
         }
     } catch (err) {
         console.error('SignIn Error: ', err.response || err.message);
+        throw err;
     }
 }
 async function signOutUser() {
@@ -63,6 +65,7 @@ async function signOutUser() {
         return response;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 async function accessToken() {
@@ -76,7 +79,8 @@ async function accessToken() {
         });
         return response;
     } catch (err) {
-        return err;
+        console.error(err.message);
+        throw err;
     }
 }
 
@@ -92,7 +96,8 @@ async function refreshToken() {
         });
         return response;
     } catch (err) {
-        return err;
+        console.error(err.message);
+        throw err;
     }
 }
 
@@ -125,7 +130,8 @@ async function checkTokens() {
             }
         }
     } catch (err) {
-        return false;
+        console.error(err.message);
+        throw err;
     }
 }
 
@@ -135,7 +141,8 @@ async function getUserData(uuid) {
         const response = await axios.get(endPoint);
         return response;
     } catch (err) {
-        return err;
+        console.error(err.message);
+        throw err;
     }
 }
 

@@ -11,6 +11,7 @@ const createThread = async () => {
         return responseThreadId;
     } catch (err) {
         console.error(err);
+        throw err;
     }
 };
 
@@ -22,6 +23,7 @@ const readMessages = async (threadId) => {
         return response;
     } catch (err) {
         console.error(err);
+        throw err;
     }
 };
 
@@ -38,6 +40,7 @@ const sendMessage = async (threadId, message) => {
         return responseRunId;
     } catch (err) {
         console.error(err);
+        throw err;
     }
 };
 const checkStatus = async (threadId, runId) => {
@@ -48,6 +51,7 @@ const checkStatus = async (threadId, runId) => {
         return status;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 };
 const readReply = async (threadId) => {
@@ -59,6 +63,7 @@ const readReply = async (threadId) => {
         return answer;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 };
 

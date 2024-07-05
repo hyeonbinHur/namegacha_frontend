@@ -8,6 +8,7 @@ async function getVariable(variableId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -19,6 +20,7 @@ async function getVariables() {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -36,6 +38,7 @@ async function createVariable(pageId, variableName, variableExp) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -51,6 +54,7 @@ async function updateVariable(variableId, variableName, variableExp) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -62,6 +66,7 @@ async function deleteVariable(variableId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -72,6 +77,7 @@ async function deleteVariablesInPage(pageId) {
         return response;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 

@@ -8,6 +8,7 @@ async function getFunction(functionId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -19,6 +20,7 @@ async function getFunctions() {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -39,6 +41,7 @@ async function createFunction(pageId, functionName, functionExp) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -54,6 +57,7 @@ async function updateFunction(functionId, functionName, functionExp) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -65,6 +69,7 @@ async function deleteFunction(functionId) {
         return response.data;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
@@ -75,6 +80,7 @@ async function deleteFunctionsInPage(pageId) {
         return response;
     } catch (err) {
         console.error(err.message);
+        throw err;
     }
 }
 
