@@ -115,7 +115,6 @@ export default function PageCard({ page }) {
             dispatch(closeContextMenu());
         }
     };
-
     const handleAddFunctionKeyDown = (e) => {
         if (e.key === 'Enter') {
             if (newFunctionName.length === 0) return;
@@ -132,7 +131,6 @@ export default function PageCard({ page }) {
             dispatch(closeContextMenu());
         }
     };
-
     const handleNavigateToDetail = () => {
         navigate(`/detail/${page.pageId}`);
     };

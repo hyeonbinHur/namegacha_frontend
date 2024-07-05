@@ -15,3 +15,10 @@
     right: 0;
     bottom: 0;
 }
+
+@mixin absCustom($top, $left){
+    position: absolute;
+    top:$top;
+    left:$left;
+    transform: translate(-$left, -$top);
+}

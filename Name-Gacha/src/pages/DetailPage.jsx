@@ -7,6 +7,7 @@ import VariableContainer from '../components/Details/Variables/VariableContainer
 import FunctionContainer from '../components/Details/Functions/FunctionContainer';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import loading from '../assets/svgs/loading.svg';
 
 export default function DetailPage() {
     const params = useParams();
@@ -29,7 +30,11 @@ export default function DetailPage() {
         enabled: !!pageId,
     });
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading)
+        return (
+            <img src={loading} alt="loading image" className="loading-sub" />
+        );
+
     if (error) return <div>An error occurred: {error.message}</div>;
 
     return (

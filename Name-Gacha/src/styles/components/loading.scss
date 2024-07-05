@@ -9,3 +9,6 @@
     border-radius:50%;
     animation: bounce 2s infinite;
 }
+.loading-sub{
+    @include absCustom(50%, 50%);
+}

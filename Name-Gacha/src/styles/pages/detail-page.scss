@@ -3,20 +3,16 @@
     box-sizing: border-box;
     height: 97vh;
     position: relative;
-
     &--header {
         margin-top: 1rem;
         height: 15%;
     }
-
     &--variable {
         height: 42.5%;
     }
-
     &--functions {
         height: 42.5%;
     }
-
     &--btns {
         position: absolute;
         bottom: 3%;
@@ -28,11 +24,9 @@
         border-radius: 2rem;
         background-color: $color-grey-light-2;
         transition: transform .3s;
-
         &:hover {
             transform: translateY(-5px);
         }
-
         &:active {
             transform: translateY(3px);
         }
