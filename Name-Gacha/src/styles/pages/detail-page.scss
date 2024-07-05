@@ -5,13 +5,13 @@
     position: relative;
     &--header {
         margin-top: 1rem;
-        height: 15%;
+        height: 10%;
     }
     &--variable {
-        height: 42.5%;
+        height: 40%;
     }
     &--functions {
-        height: 42.5%;
+        height: 40%;
     }
     &--btns {
         position: absolute;
@@ -86,13 +86,11 @@
 }
 
 .detail-idf {
-
     &--main {
         border: 1px solid $color-blue-primary;
         margin: 1rem 1rem;
         border-radius: 5px;
     }
-
     &--header {
         position: relative;
         display: flex;
@@ -102,12 +100,10 @@
         color: $color-white;
         height: 3.5rem;
         background-image: linear-gradient(to right bottom, $color-blue-primary, $color-blue-secondary, $color-blue-tertiary);
-
         &__name {
-            font-size: 2rem;
+            font-size: 1.6rem;
         }
     }
-
     &--content {
         height: 33vh;
         overflow-y: scroll;
@@ -115,7 +111,6 @@
             display: none; 
         }
     }
-
     &--btn {
         &__action {
             position: absolute;

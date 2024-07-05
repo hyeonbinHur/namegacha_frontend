@@ -3,6 +3,7 @@ import * as variableAPI from '../../../utils/api/aws/variableRoutes';
 import { useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';
 import DetailForm from '../Common/DetailForm';
+import { checkPendingStatus } from '../../../utils/util/util';
 
 /* eslint-disable react/prop-types */
 export default function VariableCard({ variable }) {
@@ -14,26 +15,31 @@ export default function VariableCard({ variable }) {
     };
     /**Http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateUpdateVariable } = useMutation({
-        mutationFn: ({ variableId, variableName, variableExp }) => {
-            return variableAPI.updateVariable(
-                variableId,
-                variableName,
-                variableExp
-            );
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
-    const { mutate: mutateDeleteVariable } = useMutation({
-        mutationFn: ({ variableId }) => {
-            return variableAPI.deleteVariable(variableId);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
+    const { mutate: mutateUpdateVariable, status: isUpdateVariableStatus } =
+        useMutation({
+            mutationFn: ({ variableId, variableName, variableExp }) => {
+                return variableAPI.updateVariable(
+                    variableId,
+                    variableName,
+                    variableExp
+                );
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+        });
+
+    const { mutate: mutateDeleteVariable, status: isDeleteVariableStatus } =
+        useMutation({
+            mutationFn: ({ variableId }) => {
+                return variableAPI.deleteVariable(variableId);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+        });
+
+    /**basic functions */
     const editVariable = (newName, newExp) => {
         if (newName.length === 0) return;
         mutateUpdateVariable({
@@ -50,6 +56,12 @@ export default function VariableCard({ variable }) {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
+
+    const isLoading = checkPendingStatus([
+        isUpdateVariableStatus,
+        isDeleteVariableStatus,
+    ]);
+
     return (
         <DetailForm
             componentTarget={componentTarget}
@@ -58,6 +70,7 @@ export default function VariableCard({ variable }) {
             startAction={startEdit}
             deleteAction={deleteVariable}
             from="idf"
+            isLoading={isLoading}
         />
     );
 }

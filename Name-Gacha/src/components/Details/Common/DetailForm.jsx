@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as detailUtil from '../../../utils/util/contextUtils';
 import * as detailReducers from '../../../store/detailPageSlice';
+import Spinner from '../../../assets/svgs/loading.svg';
+
 export default function DetailForm({
     componentTarget, // id, exp, type, name
     type, // Add or Edit
@@ -10,6 +12,7 @@ export default function DetailForm({
     startAction, // start edit or start add
     deleteAction, // if type is Edit, delete function is required
     from,
+    isLoading,
 }) {
     const [newName, setNewName] = useState('');
     const [newExp, setNewExp] = useState('');
@@ -119,20 +122,36 @@ export default function DetailForm({
                         <div className={`detail-${from}--basic__container`}>
                             <span className={`detail-${from}--basic__name`}>
                                 {componentTarget.name}
+                                <div>{isLoading}</div>
                             </span>
+
                             <div className={`detail-${from}--basic__exp`}>
                                 {componentTarget.exp}
                             </div>
-                            <i
-                                onClick={() => deleteAction(componentTarget.id)}
-                                className={`icon-basic-elaboration-calendar-remove
-                                     detail-${from}--btn__del`}
-                            />
-                            <i
-                                onClick={() => startAction()}
-                                className={`icon-basic-elaboration-calendar-pencil
-                                     detail-${from}--btn__edit`}
-                            />
+                            {isLoading ? (
+                                <div>
+                                    <img src={Spinner} alt="loading spinner" />
+                                </div>
+                            ) : (
+                                <div>
+                                    <i
+                                        onClick={() =>
+                                            deleteAction(componentTarget.id)
+                                        }
+                                        className={`icon-basic-elaboration-calendar-remove
+                                  detail-${from}--btn__del`}
+                                    />
+                                    <i
+                                        onClick={() => startAction()}
+                                        className={`icon-basic-elaboration-calendar-pencil
+                                  detail-${from}--btn__edit`}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    ) : isLoading ? (
+                        <div>
+                            <img src={Spinner} alt="loading spinner" />
                         </div>
                     ) : (
                         <i

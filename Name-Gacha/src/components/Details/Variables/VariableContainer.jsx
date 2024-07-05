@@ -5,6 +5,7 @@ import { createVariable } from '../../../utils/api/aws/variableRoutes';
 import { useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';
 import DetailForm from '../Common/DetailForm';
+import { checkPendingStatus } from '../../../utils/util/util';
 
 export default function VariableContainer({ variables, pageId }) {
     const componentTarget = {
@@ -13,17 +14,20 @@ export default function VariableContainer({ variables, pageId }) {
         exp: '',
         id: 'variableContainerId',
     };
+
     /**Http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateAddVariable } = useMutation({
-        mutationFn: ({ variableName, variableExp, pageId }) => {
-            console.log(pageId);
-            return createVariable(pageId, variableName, variableExp);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
+    const { mutate: mutateAddVariable, status: isAddVariableStatus } =
+        useMutation({
+            mutationFn: ({ variableName, variableExp, pageId }) => {
+                console.log(pageId);
+                return createVariable(pageId, variableName, variableExp);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+        });
+
     const addNewVariable = (newName, newExp) => {
         if (newName.length == 0) {
             console.log(newName);
@@ -36,12 +40,15 @@ export default function VariableContainer({ variables, pageId }) {
             variableExp: newExp,
         });
     };
+
     /**Functions */
     const dispatch = useDispatch();
     const startAdd = () => {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsAdd({ target: componentTarget }));
     };
+    const isLoading = checkPendingStatus([isAddVariableStatus]);
+
     return (
         <div className="detail-idf--main">
             <header className="detail-idf--header">
@@ -52,9 +59,9 @@ export default function VariableContainer({ variables, pageId }) {
                     apiAction={addNewVariable}
                     startAction={startAdd}
                     from="idf"
+                    isLoading={isLoading}
                 />
             </header>
-
             <ul className="item-ul detail-idf--content">
                 {variables.map((v) => (
                     <li key={v.variableId} className="item-li">

@@ -5,6 +5,8 @@ import { createFunction } from '../../../utils/api/aws/functionRoutes';
 import { useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';
 import DetailForm from '../Common/DetailForm';
+import { checkPendingStatus } from '../../../utils/util/util';
+
 export default function FunctionContainer({ functions, pageId }) {
     const componentTarget = {
         type: 'functionContainer',
@@ -14,14 +16,17 @@ export default function FunctionContainer({ functions, pageId }) {
     };
     /**Http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateAddFunction } = useMutation({
-        mutationFn: ({ functionName, functionExp, pageId }) => {
-            return createFunction(pageId, functionName, functionExp);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
+    const { mutate: mutateAddFunction, status: isAddFunctionStatus } =
+        useMutation({
+            mutationFn: ({ functionName, functionExp, pageId }) => {
+                return createFunction(pageId, functionName, functionExp);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+        });
+
+    /**basic functions */
     const addNewFunction = (newName, newExp) => {
         if (newName.length === 0) return;
         mutateAddFunction({
@@ -35,6 +40,8 @@ export default function FunctionContainer({ functions, pageId }) {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsAdd({ target: componentTarget }));
     };
+    const isLoading = checkPendingStatus([isAddFunctionStatus]);
+
     return (
         <div className="detail-idf--main">
             <header className="detail-idf--header">
@@ -45,6 +52,7 @@ export default function FunctionContainer({ functions, pageId }) {
                     apiAction={addNewFunction}
                     startAction={startAdd}
                     from="idf"
+                    isLoading={isLoading}
                 />
             </header>
 

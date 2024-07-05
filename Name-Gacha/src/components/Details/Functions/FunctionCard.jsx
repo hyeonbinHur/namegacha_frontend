@@ -4,6 +4,8 @@ import * as functionAPI from '../../../utils/api/aws/functionRoutes';
 import { useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';
 import DetailForm from '../Common/DetailForm';
+import { checkPendingStatus } from '../../../utils/util/util';
+
 export default function FunctionCard({ fn }) {
     const componentTarget = {
         type: 'function',
@@ -14,27 +16,28 @@ export default function FunctionCard({ fn }) {
 
     /**Http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateUpdateFunction } = useMutation({
-        mutationFn: ({ functionId, functionName, functionExp }) => {
-            return functionAPI.updateFunction(
-                functionId,
-                functionName,
-                functionExp
-            );
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
-
-    const { mutate: mutateDeleteFunction } = useMutation({
-        mutationFn: ({ functionId }) => {
-            return functionAPI.deleteFunction(functionId);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
+    const { mutate: mutateUpdateFunction, status: isUpdateFunctionStatus } =
+        useMutation({
+            mutationFn: ({ functionId, functionName, functionExp }) => {
+                return functionAPI.updateFunction(
+                    functionId,
+                    functionName,
+                    functionExp
+                );
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+        });
+    const { mutate: mutateDeleteFunction, status: isDeleteFunctionStatus } =
+        useMutation({
+            mutationFn: ({ functionId }) => {
+                return functionAPI.deleteFunction(functionId);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+        });
     const editFunction = (newName, newExp) => {
         if (newName.length === 0) return;
         mutateUpdateFunction({
@@ -52,6 +55,10 @@ export default function FunctionCard({ fn }) {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
+    const isLoading = checkPendingStatus([
+        isUpdateFunctionStatus,
+        isDeleteFunctionStatus,
+    ]);
 
     return (
         <DetailForm
@@ -61,6 +68,7 @@ export default function FunctionCard({ fn }) {
             startAction={startEdit}
             deleteAction={deleteFunction}
             from="idf"
+            isLoading={isLoading}
         />
     );
 }

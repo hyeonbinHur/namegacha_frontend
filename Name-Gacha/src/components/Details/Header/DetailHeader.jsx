@@ -6,6 +6,8 @@ import { deleteFunctionsInPage } from '../../../utils/api/aws/functionRoutes';
 import * as detailReducers from '../../../store/detailPageSlice';
 import { useDispatch } from 'react-redux';
 import DetailForm from '../Common/DetailForm';
+import { checkPendingStatus } from '../../../utils/util/util';
+
 export default function DetailTest({ page }) {
     /**component variable */
     const componentTarget = {
@@ -17,21 +19,41 @@ export default function DetailTest({ page }) {
 
     /** http request */
     const queryClient = useQueryClient();
-    const { mutate: mutateUpdatePage } = useMutation({
-        mutationFn: ({ pageName, pageExp, pageId }) =>
-            pageAPI.updatePage(pageId, pageName, pageExp),
-        onSuccess: () => queryClient.invalidateQueries('getCertainProjects'),
-    });
-    const { mutate: mutateDeletePage } = useMutation({
-        mutationFn: ({ pageId }) => pageAPI.deletePage(pageId),
-        onSuccess: () => queryClient.invalidateQueries('getCertainProjects'),
-    });
-    const { mutateAsync: mutateDeleteVariable } = useMutation({
+    const { mutate: mutateUpdatePage, status: isUpdatePageStatus } =
+        useMutation({
+            mutationFn: ({ pageName, pageExp, pageId }) => {
+                console.log('Updating page...');
+                return pageAPI.updatePage(pageId, pageName, pageExp);
+            },
+            onSuccess: () => {
+                console.log('Update page success');
+                queryClient.invalidateQueries('getCertainProjects');
+            },
+            onMutate: () => {
+                console.log('Update mutation started');
+            },
+        });
+
+    const { mutate: mutateDeletePage, status: isDeletePageStatus } =
+        useMutation({
+            mutationFn: ({ pageId }) => pageAPI.deletePage(pageId),
+            onSuccess: () =>
+                queryClient.invalidateQueries('getCertainProjects'),
+        });
+
+    const {
+        mutateAsync: mutateDeleteVariable,
+        status: isDeleteVariableStatus,
+    } = useMutation({
         mutationFn: ({ pageId }) => deleteVariablesInPage(pageId),
     });
-    const { mutateAsync: mutateDeleteFunction } = useMutation({
+    const {
+        mutateAsync: mutateDeleteFunction,
+        status: isDeleteFunctionStatus,
+    } = useMutation({
         mutationFn: ({ pageId }) => deleteFunctionsInPage(pageId),
     });
+
     const handleDeletePage = async () => {
         if (page.variables.length > 0) {
             await mutateDeleteVariable({ pageId: page.pageId });
@@ -42,7 +64,7 @@ export default function DetailTest({ page }) {
         mutateDeletePage({ pageId: page.pageId });
     };
 
-    /**Dispatch functions */
+    /**Dispatches &  functions */
     const dispatch = useDispatch();
     const handleSaveEdit = (newName, newExp) => {
         mutateUpdatePage({
@@ -55,6 +77,14 @@ export default function DetailTest({ page }) {
     const startEdit = () => {
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };
+
+    const isLoading = checkPendingStatus([
+        isUpdatePageStatus,
+        isDeletePageStatus,
+        isDeleteFunctionStatus,
+        isDeleteVariableStatus,
+    ]);
+
     return (
         <DetailForm
             componentTarget={componentTarget}
@@ -63,12 +93,7 @@ export default function DetailTest({ page }) {
             startAction={startEdit}
             deleteAction={handleDeletePage}
             from="page"
+            isLoading={isLoading}
         />
     );
 }
-// export default function DetailTest() { // container
-//     return <div></div>;
-// }
-// export default function DetailTest() { // card
-//     return <div></div>;
-// }
