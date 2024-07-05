@@ -42,15 +42,16 @@ async function createPage(projectId, pageName, pageExp) {
 async function updatePage(pageId, pageName, pageExp) {
     //put
     try {
-        const endPoint = `https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/page?pageId=${pageId}`;
+        const endPoint = `ttps://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/page?pageId=${pageId}`;
         const body = {
             pageName: pageName,
             pageExp: pageExp,
         };
         const response = await axios.put(endPoint, body);
         return response.data;
-    } catch (err) {
-        console.error(err.message);
+    } catch (error) {
+        console.error('API error:', error);
+        throw error; // 에러를 다시 던져 react-query의 onError가 처리할 수 있도록 합니다.
     }
 }
 

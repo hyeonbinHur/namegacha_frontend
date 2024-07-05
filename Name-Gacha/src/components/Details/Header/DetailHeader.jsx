@@ -16,7 +16,6 @@ export default function DetailTest({ page }) {
         id: page.pageId,
         exp: page.pageExp,
     };
-
     /** http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdatePage, status: isUpdatePageStatus } =
@@ -26,11 +25,7 @@ export default function DetailTest({ page }) {
                 return pageAPI.updatePage(pageId, pageName, pageExp);
             },
             onSuccess: () => {
-                console.log('Update page success');
                 queryClient.invalidateQueries('getCertainProjects');
-            },
-            onMutate: () => {
-                console.log('Update mutation started');
             },
         });
 
