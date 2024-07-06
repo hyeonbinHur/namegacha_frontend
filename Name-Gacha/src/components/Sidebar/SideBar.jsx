@@ -10,6 +10,8 @@ import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
 import { useRef, useState } from 'react';
 import { useSignOut } from '../../hooks/useSignOut.js';
 import { toast } from 'react-toastify';
+import { checkLength } from '../../utils/util/util.js';
+import { isNotEmpty } from '../../utils/util/authUtil.js';
 export default function Header() {
     const { mutateSignOutUser } = useSignOut();
     const [isAdd, setIsAdd] = useState(false);
@@ -51,12 +53,21 @@ export default function Header() {
     const handleOnKeyDownCreateProject = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            if (newProjectName.length == 0) return;
-            addProject({
-                projectName: newProjectName,
-                userId: user.uuid,
-            });
-            setIsAdd(false);
+            const empty = isNotEmpty(newProjectName);
+            const max = checkLength(newProjectName, 50);
+            if (!empty) {
+                toast.error('Variable name should not be empty.');
+                return;
+            } else if (!max) {
+                toast.error('Variable name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
+                addProject({
+                    projectName: newProjectName,
+                    userId: user.uuid,
+                });
+                setIsAdd(false);
+            }
         } else if (e.key === 'Escape') {
             e.preventDefault();
             setIsAdd(false);
@@ -72,9 +83,6 @@ export default function Header() {
             </header>
             <hr className="divider" />
             <div>{isLoading && <div> is loading</div>}</div>
-            <button onClick={() => toast.success('안녕하세요!')}>
-                토스트 알림 보이기
-            </button>
             {user && (
                 <div>
                     <div className="sidebar-sub-header">

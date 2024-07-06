@@ -19,6 +19,9 @@ import * as functionAPI from '../../../utils/api/aws/functionRoutes.js';
 import * as variableAPI from '../../../utils/api/aws/variableRoutes.js';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { checkLength } from '../../../utils/util/util.js';
+import { isNotEmpty } from '../../../utils/util/authUtil.js';
+import { toast } from 'react-toastify';
 
 export default function PageCard({ page }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -83,15 +86,22 @@ export default function PageCard({ page }) {
 
     const handleEditNameKeyDown = (e) => {
         if (e.key === 'Enter') {
-            if (newPageName.length == 0) return;
-            else {
+            const empty = isNotEmpty(newPageName);
+            const max = checkLength(newPageName, 50);
+            if (!empty) {
+                toast.error('Page name should not be empty.');
+                return;
+            } else if (!max) {
+                toast.error('Page name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
                 mutateUpdatePage({
                     pageId: page.pageId,
                     pageExp: '',
                     pageName: newPageName,
                 });
+                dispatch(closeContextMenu());
             }
-            dispatch(closeContextMenu());
         } else if (e.key === 'Escape') {
             setNewPageName(page.pageName);
             dispatch(closeContextMenu());
@@ -100,16 +110,22 @@ export default function PageCard({ page }) {
 
     const handleAddVariableKeyDown = (e) => {
         if (e.key === 'Enter') {
-            if (newVariableName.length == 0) {
+            const empty = isNotEmpty(newVariableName);
+            const max = checkLength(newVariableName, 50);
+            if (!empty) {
+                toast.error('Variable name should not be empty.');
                 return;
-            } else {
+            } else if (!max) {
+                toast.error('Variable name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
                 mutateAddVariable({
                     pageId: page.pageId,
                     variableExp: '',
                     variableName: newVariableName,
                 });
+                dispatch(closeContextMenu());
             }
-            dispatch(closeContextMenu());
         } else if (e.key === 'Escape') {
             setNewVariableName('');
             dispatch(closeContextMenu());
@@ -117,15 +133,22 @@ export default function PageCard({ page }) {
     };
     const handleAddFunctionKeyDown = (e) => {
         if (e.key === 'Enter') {
-            if (newFunctionName.length === 0) return;
-            else {
+            const empty = isNotEmpty(newFunctionName);
+            const max = checkLength(newFunctionName, 50);
+            if (!empty) {
+                toast.error('Function name should not be empty.');
+                return;
+            } else if (!max) {
+                toast.error('Function name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
                 mutateAddFunction({
                     pageId: page.pageId,
                     functionExp: '',
                     functionName: newFunctionName,
                 });
+                dispatch(closeContextMenu());
             }
-            dispatch(closeContextMenu());
         } else if (e.key === 'Escape') {
             setNewFunctionName('');
             dispatch(closeContextMenu());
@@ -136,7 +159,6 @@ export default function PageCard({ page }) {
     };
     /**HTTP Request */
     const queryClient = useQueryClient();
-    // edit page name
     const { mutate: mutateUpdatePage } = useMutation({
         mutationFn: ({ pageId, pageName, pageExp }) => {
             return pageAPI.updatePage(pageId, pageName, pageExp);
@@ -145,7 +167,6 @@ export default function PageCard({ page }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    // add function
     const { mutate: mutateAddFunction } = useMutation({
         mutationFn: ({ pageId, functionName, functionExp }) => {
             return functionAPI.createFunction(
@@ -158,7 +179,6 @@ export default function PageCard({ page }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    // add variable
     const { mutate: mutateAddVariable } = useMutation({
         mutationFn: ({ pageId, variableName, variableExp }) => {
             return variableAPI.createVariable(

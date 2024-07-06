@@ -9,7 +9,9 @@ import {
     closeContextMenu,
 } from '../../../store/contextMenuSlice.js';
 import ContextMenu from '../../ContextMenu/ContextMenu.jsx';
-
+import { checkLength } from '../../../utils/util/util.js';
+import { isNotEmpty } from '../../../utils/util/authUtil.js';
+import { toast } from 'react-toastify';
 export default function VarCard({ variable, page }) {
     /* state */
     const [newVariableName, setNewVariableName] = useState(
@@ -63,12 +65,22 @@ export default function VarCard({ variable, page }) {
 
     const handleKeyDownEditVariable = (e) => {
         if (e.key === 'Enter') {
-            mutateUpdateVariable({
-                variableName: newVariableName,
-                variabeExp: variable.variableExp,
-                variableId: variable.variableId,
-            });
-            dispatch(closeContextMenu());
+            const empty = isNotEmpty(newVariableName);
+            const max = checkLength(newVariableName, 50);
+            if (!empty) {
+                toast.error('Variable name should not be empty.');
+                return;
+            } else if (!max) {
+                toast.error('Variable name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
+                mutateUpdateVariable({
+                    variableName: newVariableName,
+                    variabeExp: variable.variableExp,
+                    variableId: variable.variableId,
+                });
+                dispatch(closeContextMenu());
+            }
         } else if (e.key === 'Escape') {
             dispatch(closeContextMenu());
             setNewVariableName(variable.variableName);

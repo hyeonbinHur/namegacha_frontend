@@ -7,4 +7,13 @@ function checkPendingStatus(array) {
     return false;
 }
 
-export { checkPendingStatus };
+function checkLength(string, max) {
+    console.log(string.length);
+    if (string.length >= max) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+export { checkPendingStatus, checkLength };

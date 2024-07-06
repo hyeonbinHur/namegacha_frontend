@@ -16,6 +16,9 @@ import {
 } from '../../../store/contextMenuSlice.js';
 import * as contextUtil from '../../../utils/util/contextUtils.js';
 import ContextMenu from '../../../components/ContextMenu/ContextMenu.jsx';
+import { checkLength } from '../../../utils/util/util.js';
+import { isNotEmpty } from '../../../utils/util/authUtil.js';
+import { toast } from 'react-toastify';
 
 export default function ProjectCard({ project }) {
     /** States */
@@ -79,11 +82,21 @@ export default function ProjectCard({ project }) {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             dispatch(clearContextMenu());
-            updateProject({
-                newProjectName: projectName,
-                projectId: project.projectId,
-            });
-            console.log(projectName);
+            const empty = isNotEmpty(projectName);
+            const max = checkLength(projectName, 50);
+            if (!empty) {
+                toast.error('Project name should not be empty.');
+                return;
+            } else if (!max) {
+                toast.error('Project name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
+                updateProject({
+                    newProjectName: projectName,
+                    projectId: project.projectId,
+                });
+                dispatch(clearContextMenu());
+            }
         } else if (e.key === 'Escape') {
             dispatch(clearContextMenu());
             setProjectName(project.projectName);
@@ -92,11 +105,22 @@ export default function ProjectCard({ project }) {
 
     const handleKeyDownAddPage = (e) => {
         if (e.key === 'Enter') {
-            addPage({
-                pageName: newPageName,
-                pageExp: '',
-                projectId: project.projectId,
-            });
+            const empty = isNotEmpty(newPageName);
+            const max = checkLength(newPageName, 50);
+            if (!empty) {
+                toast.error('Project name should not be empty.');
+                return;
+            } else if (!max) {
+                toast.error('Project name must be under 30 characters.');
+                return;
+            } else if (max && empty) {
+                addPage({
+                    pageName: newPageName,
+                    pageExp: '',
+                    projectId: project.projectId,
+                });
+                dispatch(clearContextMenu());
+            }
         } else if (e.key === 'Escape') {
             dispatch(clearContextMenu());
             setNewPageName('');
