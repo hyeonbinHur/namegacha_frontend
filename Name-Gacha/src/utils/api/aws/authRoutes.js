@@ -3,6 +3,13 @@ import axios from 'axios';
 const authEndpoint =
     'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/auth';
 
+const buildResponse = (status, userObject) => {
+    return {
+        status: status,
+        userObject: userObject,
+    };
+};
+
 async function signUpUser(userId, userPassword) {
     //post
     try {
@@ -15,7 +22,6 @@ async function signUpUser(userId, userPassword) {
         return response;
     } catch (err) {
         console.error(err.message);
-        throw err;
     }
 }
 async function signInUser(userId, userPassword) {
@@ -29,7 +35,6 @@ async function signInUser(userId, userPassword) {
         const response = await axios.post(authEndpoint, body, {
             withCredentials: true,
         });
-
         try {
             const uuid = response.data.uuid;
             const userResponse = await getUserData(uuid);
@@ -39,8 +44,7 @@ async function signInUser(userId, userPassword) {
                 userId: userResponse.data.userId,
                 createdAt: userResponse.data.createdAt,
             };
-            console.log(userObject);
-            return userObject;
+            return buildResponse(response.status, userObject);
         } catch (err) {
             console.error(
                 'Get user data error in sign in ',
@@ -48,8 +52,8 @@ async function signInUser(userId, userPassword) {
             );
         }
     } catch (err) {
-        console.error('SignIn Error: ', err.response || err.message);
-        throw err;
+        console.error('SignIn Error: ', err);
+        return buildResponse(err.response.status, null);
     }
 }
 async function signOutUser() {
@@ -65,9 +69,9 @@ async function signOutUser() {
         return response;
     } catch (err) {
         console.error(err.message);
-        throw err;
     }
 }
+
 async function accessToken() {
     //post
     try {
@@ -79,8 +83,7 @@ async function accessToken() {
         });
         return response;
     } catch (err) {
-        console.error(err.message);
-        throw err;
+        return err;
     }
 }
 
@@ -96,8 +99,7 @@ async function refreshToken() {
         });
         return response;
     } catch (err) {
-        console.error(err.message);
-        throw err;
+        return err;
     }
 }
 
@@ -130,8 +132,7 @@ async function checkTokens() {
             }
         }
     } catch (err) {
-        console.error(err.message);
-        throw err;
+        return false;
     }
 }
 
@@ -141,8 +142,7 @@ async function getUserData(uuid) {
         const response = await axios.get(endPoint);
         return response;
     } catch (err) {
-        console.error(err.message);
-        throw err;
+        return err;
     }
 }
 

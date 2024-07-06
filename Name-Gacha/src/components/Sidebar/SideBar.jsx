@@ -6,8 +6,6 @@ import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
 import { AiFillFolder } from 'react-icons/ai';
 import AuthModal from '../Modal/Auth/AuthModal.jsx';
-import {} from '../../utils/api/aws/authRoutes.js';
-// import { useEffect, useState } from 'react';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
 import { useRef, useState } from 'react';
 import { useSignOut } from '../../hooks/useSignOut.js';
@@ -16,19 +14,29 @@ export default function Header() {
     const [isAdd, setIsAdd] = useState(false);
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
-
     const authModal = useRef(null);
+
     /**Http  request */
     const queryClient = useQueryClient();
+
     const {
         data: projects,
-        isLoading,
         refetch: refetchGetProjects,
+        isLoading,
     } = useQuery({
-        queryKey: ['getCertainProjects', user?.uuid], // 쿼리 키에 user의 uuid를 포함시켜 각 uuid에 대해 별도의 캐시를 관리
+        queryKey: ['getCertainProjects', user?.uuid],
         queryFn: () => getCertainProjects(user.uuid),
-        enabled: !!user, // user가 존재할 때만 쿼리 실행
+        onError: (error) => {
+            console.error('Query failed:', error);
+        },
+        enabled: !!user,
     });
+
+    // useEffect(() => {
+    //     console.log('isLoading : ' + isLoading);
+    //     console.log('isFetching : ' + isFetching);
+    // }, [isLoading, isFetching]);
+
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
             return projectAPI.createProject(projectName, userId);
@@ -37,10 +45,12 @@ export default function Header() {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
+
     /** basic functions */
     const moveToSignInPage = () => {
         authModal.current.open();
     };
+
     const handleOnKeyDownCreateProject = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -56,6 +66,7 @@ export default function Header() {
             setNewProjectName('');
         }
     };
+
     return (
         <main className="sidebar-main">
             <header className="sidebar-header">
@@ -74,10 +85,10 @@ export default function Header() {
                                     className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"
                                     onClick={() => setIsAdd((prev) => !prev)}
                                 ></i>
-
                                 <i
                                     onClick={() => {
-                                        refetchGetProjects(), setIsAdd(false);
+                                        refetchGetProjects(true),
+                                            setIsAdd(false);
                                     }}
                                     className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"
                                 ></i>
@@ -105,6 +116,9 @@ export default function Header() {
                                     />
                                 </div>
                             )}
+                            {/* {isPressReFetching ? (
+                                <div> fetching </div>
+                            ) : ( */}
                             <ul className="sidebar-project--container">
                                 {projects.data.map((project) => (
                                     <li
@@ -115,6 +129,7 @@ export default function Header() {
                                     </li>
                                 ))}
                             </ul>
+                            {/* )} */}
                         </div>
                     ) : (
                         <div> No Projects </div>
@@ -128,7 +143,6 @@ export default function Header() {
                     </button>
                 )}
             </section>
-
             {user && (
                 <div className="sidebar-project--user">
                     <hr className="divider" />

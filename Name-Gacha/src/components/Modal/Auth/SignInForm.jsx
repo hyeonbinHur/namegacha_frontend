@@ -5,6 +5,8 @@ import { signInUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
 import * as authUtil from '../../../utils/util/authUtil';
 import { useAuthContext } from '../../../hooks/useAuth';
+import Spinner from '../../../assets/svgs/loading.svg';
+import { checkPendingStatus } from '../../../utils/util/util';
 
 // import { useSignIn } from '../../../hooks/useSignIn';
 
@@ -13,23 +15,34 @@ export default function SignInForm({ close }) {
     const [password, setPassword] = useState('');
     const { dispatch } = useAuthContext();
     // const { mutateSigIn } = useSignIn();
-    const { mutate: mutateSigIn } = useMutation({
+    const [isIdWrong, setIsIdWrong] = useState(false);
+    const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+
+    const { mutate: mutateSigIn, status: isSignInStatus } = useMutation({
         mutationFn: async ({ userId, userPassword }) => {
             return await signInUser(userId, userPassword);
         },
-
         onSuccess: (responseData) => {
             console.log(responseData);
-
-            dispatch({ type: 'SIGN-IN', payload: responseData });
-            close();
+            if (responseData.status === 200) {
+                dispatch({ type: 'SIGN-IN', payload: responseData.userObject });
+                setIsIdWrong(false);
+                setIsPasswordWrong(false);
+                close();
+            } else if (responseData.status === 404) {
+                setIsIdWrong(true);
+                setIsPasswordWrong(false);
+            } else if (responseData.status === 401) {
+                setIsIdWrong(false);
+                setIsPasswordWrong(true);
+            }
         },
     });
-
     const componentSignIn = () => {
         console.log('sign in ');
         mutateSigIn({ userId: username, userPassword: password });
     };
+    const isLoading = checkPendingStatus([isSignInStatus]);
 
     // 로그인 유효성 검사 변수들
     const emailIsValid =
@@ -40,67 +53,72 @@ export default function SignInForm({ close }) {
 
     return (
         <div>
-            <form className="sign-in-form">
-                <div className="item-horizontal-center">
-                    <div className="auth-heading-container item-horizontal-center">
-                        <h2 className="heading-secondary">
-                            Sign In to Name Gacha
-                        </h2>
-
-                        <h3 className="heading-tertiary">
-                            Let's join to generate name!
-                        </h3>
-                    </div>
-                    <input
-                        className="sign-in-form--input"
-                        type="text"
-                        name="username"
-                        required
-                        id="username"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    {emailIsValid ? (
-                        <label className="sign-in-form--label label__invalid">
-                            Username must be longer than 5 letters
-                        </label>
-                    ) : (
-                        <label
-                            className="sign-in-form--label label__valid"
-                            htmlFor="username"
+            {isLoading ? (
+                <img src={Spinner} />
+            ) : (
+                <form className="sign-in-form">
+                    <div className="item-horizontal-center">
+                        <div className="auth-heading-container item-horizontal-center">
+                            <h2 className="heading-secondary">
+                                Sign In to Name Gacha
+                            </h2>
+                            <h3 className="heading-tertiary">
+                                Let's join to generate name!
+                            </h3>
+                        </div>
+                        {isIdWrong && <div>id wrong </div>}
+                        {isPasswordWrong && <div>password wrong </div>}
+                        <input
+                            className="sign-in-form--input"
+                            type="text"
+                            name="username"
+                            required
+                            id="username"
+                            placeholder="Username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        {emailIsValid ? (
+                            <label className="sign-in-form--label label__invalid">
+                                Username must be longer than 5 letters
+                            </label>
+                        ) : (
+                            <label
+                                className="sign-in-form--label label__valid"
+                                htmlFor="username"
+                            >
+                                Username
+                            </label>
+                        )}
+                        <input
+                            className="sign-in-form--input"
+                            type="password"
+                            name="password"
+                            required
+                            id="password"
+                            placeholder="Password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        {passwordIsValid ? (
+                            <label className="sign-in-form--label label__invalid">
+                                Password must be longer than 7 letters
+                            </label>
+                        ) : (
+                            <label className="sign-in-form--label label__valid">
+                                Password
+                            </label>
+                        )}
+                        <button
+                            className="sign-in-form--btn__submit btn-round"
+                            type="button"
+                            onClick={() => componentSignIn()}
                         >
-                            Username
-                        </label>
-                    )}
-                    <input
-                        className="sign-in-form--input"
-                        type="password"
-                        name="password"
-                        required
-                        id="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                    {passwordIsValid ? (
-                        <label className="sign-in-form--label label__invalid">
-                            Password must be longer than 7 letters
-                        </label>
-                    ) : (
-                        <label className="sign-in-form--label label__valid">
-                            Password
-                        </label>
-                    )}
-                    <button
-                        className="sign-in-form--btn__submit btn-round"
-                        type="button"
-                        onClick={() => componentSignIn()}
-                    >
-                        submit
-                    </button>
-                </div>
-            </form>
+                            submit
+                        </button>
+                    </div>
+                </form>
+            )}
         </div>
     );
 }

@@ -92,22 +92,9 @@ reduxArray = myArray
 (o)
 /// 하나씩만 edit 가능
 
-6/30
-
-로딩 하나씩 구현
-
--> 페이지 추가할때 로딩
--> 대화 기록 고민 // sign in error found
-
-user가 프로젝트가 없으면
-
--> 모달이 이상하게 뜸
-
--> 사이드바 css
-
 오늘
 
-로그인 로딩
+css-----
 
 에러 페이지 css
 
@@ -117,14 +104,18 @@ user가 프로젝트가 없으면
 
 css 피드백 고치기
 
-특이사항 에러 css + js
-
 context menu css
-
-사이드바 로그인시 프로젝트때 css
-
-사이드바 새로고침 로딩
 
 사이드바 add page
 
+사이드바 로그인시 프로젝트때 css
+
+js----------
+
+만약 토큰 expired라면 로그인 세션 만료 토스트?
+
 사이드바 new var or func 인풋 체크
+
+useQuery에러 확인
+
+특이사항 에러 css + js

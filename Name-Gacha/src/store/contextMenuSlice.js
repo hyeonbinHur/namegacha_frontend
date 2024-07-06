@@ -35,7 +35,6 @@ const contextMenuSlice = createSlice({
 
         clearContextMenu(state) {
             console.log('close');
-
             state.target.name = null;
             state.target.id = null;
             state.isOpen = false;
