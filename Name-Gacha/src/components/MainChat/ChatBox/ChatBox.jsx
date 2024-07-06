@@ -36,6 +36,7 @@ export default function ChatBox() {
             chatAI();
         }
     }, [currentThread, isCreateNewThread]);
+
     useEffect(() => {
         if (globalThreadType === 'variable') {
             setCurrentThread(currentVariableThread);
@@ -51,6 +52,7 @@ export default function ChatBox() {
             }));
         }
     }, [globalThreadType]);
+
     const dispatch = useDispatch();
     const createSetThread = async () => {
         console.log('create thread start');

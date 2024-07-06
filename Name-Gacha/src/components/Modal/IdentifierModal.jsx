@@ -49,13 +49,13 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
             mutateAddVariable({
                 pageId: selectedPage.pageId,
                 variableName: newIdentifier.name,
-                variableExp: newIdentifier.exp[0],
+                variableExp: newIdentifier.exp,
             });
         } else {
             mutateAddFunction({
                 pageId: selectedPage.pageId,
                 functionName: newIdentifier.name,
-                functionExp: newIdentifier.exp[0],
+                functionExp: newIdentifier.exp,
             });
         }
     };
