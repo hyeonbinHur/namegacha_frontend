@@ -7,7 +7,7 @@ import * as authUtil from '../../../utils/util/authUtil';
 import { useAuthContext } from '../../../hooks/useAuth';
 import Spinner from '../../../assets/svgs/loading.svg';
 import { checkPendingStatus } from '../../../utils/util/util';
-
+import { toast } from 'react-toastify';
 export default function SignInForm({ close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -29,13 +29,15 @@ export default function SignInForm({ close }) {
                 setIsPasswordWrong(false);
                 close();
             } else if (responseData.status === 404) {
+                // 아이디 틀림
                 setIsIdWrong(true);
                 setIsPasswordWrong(false);
             } else if (responseData.status === 401) {
+                // 비번 틀림
                 setIsIdWrong(false);
                 setIsPasswordWrong(true);
             } else {
-                console.log('undexpected error has been occured');
+                toast.error('Unexpected error has been occured.');
             }
         },
     });
@@ -48,10 +50,14 @@ export default function SignInForm({ close }) {
             if (!emailIsValid && !passwordIsValid) {
                 mutateSigIn({ userId: username, userPassword: password });
             } else {
-                console.log('요구사항을 확인해주세요');
+                toast.error(
+                    'Please check the requirements for each field and try again.'
+                );
             }
         } else {
-            console.log('폼 먼저 채우세요');
+            toast.error(
+                'Please complete all required fields before submitting.'
+            );
         }
         console.log('sign in ');
     };

@@ -4,11 +4,13 @@ import { useMutation } from '@tanstack/react-query';
 import { signUpUser } from '../../../utils/api/aws/authRoutes';
 import { useState } from 'react';
 import * as authUtil from '../../../utils/util/authUtil';
+import { toast } from 'react-toastify';
 
 export default function SignUpForm({ toSignIn }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
+    const [isConflict, setIsConflict] = useState(false);
 
     /**http request */
 
@@ -19,11 +21,13 @@ export default function SignUpForm({ toSignIn }) {
         onSuccess: (response) => {
             console.log(response);
             if (response.status === 409) {
-                console.log('user already existing');
+                setIsConflict(true);
             } else if (response.status === 200) {
+                setIsConflict(false);
                 toSignIn();
             } else {
-                console.log('undexpected error has been occured');
+                setIsConflict(false);
+                toast.error('Unexpected error has been occured.');
             }
         },
     });
@@ -38,12 +42,14 @@ export default function SignUpForm({ toSignIn }) {
             if (!emailIsValid && !passwordIsValid && !passCheckIsValid) {
                 mutateSignUp({ userId: username, userPassword: password });
             } else {
-                console.log('요구사항을 확인해주세요');
-                //ui 업데이터
+                toast.error(
+                    'Please check the requirements for each field and try again.'
+                );
             }
         } else {
-            console.log('폼을 먼저 다 채우세요');
-            //ui 업데이터
+            toast.error(
+                'Please complete all required fields before submitting.'
+            );
         }
     };
 
@@ -131,7 +137,7 @@ export default function SignUpForm({ toSignIn }) {
                             Password Check
                         </label>
                     )}
-
+                    {isConflict && <div> user id conflict </div>}
                     <button
                         className="sign-in-form--btn__submit btn-round"
                         onClick={() => componentSignUp()}
