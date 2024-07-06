@@ -1,13 +1,20 @@
-@mixin absolute-center-bottom($bottom, $right) {
+@mixin absolute-center-bottom($top, $left) {
     position: absolute;
-    bottom: $bottom;
-    right: $right;
+    bottom: $top;
+    right: $left;
+}
+
+@mixin absCustom($top, $left) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    background-color: red;
 }
 
 @mixin flex-center {
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
 }
 
 @mixin absolute-bottom-right {
@@ -16,9 +23,9 @@
     bottom: 0;
 }
 
-@mixin absCustom($top, $left){
+@mixin absCustom($top, $left) {
     position: absolute;
-    top:$top;
-    left:$left;
+    top: $top;
+    left: $left;
     transform: translate(-$left, -$top);
 }

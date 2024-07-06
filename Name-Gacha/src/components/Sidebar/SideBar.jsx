@@ -1,5 +1,5 @@
 import { GoSignOut } from 'react-icons/go';
-import logo from '../../assets/logo/black-logo-full.png';
+
 import ProjectCard from './projects/ProjectCard.jsx';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';
@@ -12,17 +12,16 @@ import { useSignOut } from '../../hooks/useSignOut.js';
 import { toast } from 'react-toastify';
 import { checkLength } from '../../utils/util/util.js';
 import { isNotEmpty } from '../../utils/util/authUtil.js';
+import logo from '../../assets/sLogo/logo-blue.png';
 export default function Header() {
     const { mutateSignOutUser } = useSignOut();
     const [isAdd, setIsAdd] = useState(false);
-
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
     const authModal = useRef(null);
 
     /**Http  request */
     const queryClient = useQueryClient();
-
     const {
         data: projects,
         refetch: refetchGetProjects,
@@ -35,7 +34,6 @@ export default function Header() {
         },
         enabled: !!user,
     });
-
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
             return projectAPI.createProject(projectName, userId);
@@ -49,7 +47,6 @@ export default function Header() {
     const moveToSignInPage = () => {
         authModal.current.open();
     };
-
     const handleOnKeyDownCreateProject = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -74,8 +71,9 @@ export default function Header() {
             setNewProjectName('');
         }
     };
+
     return (
-        <main className="sidebar-main">
+        <main className="sidebar">
             <header className="sidebar-header">
                 <div className="sidebar-header__logo-container">
                     <img src={logo} className="sidebar-header__logo" />

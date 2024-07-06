@@ -45,8 +45,6 @@ export default function VariableCard({ variable }) {
 
     /**basic functions */
     const editVariable = (newName, newExp) => {
-        if (newName.length === 0) return;
-
         const emptyName = isNotEmpty(newName);
         const maxName = checkLength(newName, 50);
         const emptyExp = isNotEmpty(newExp);
