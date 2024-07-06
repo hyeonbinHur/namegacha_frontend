@@ -13,6 +13,8 @@ import { toast } from 'react-toastify';
 import { checkLength } from '../../utils/util/util.js';
 import { isNotEmpty } from '../../utils/util/authUtil.js';
 import logo from '../../assets/sLogo/logo-blue.png';
+import Spinner from '../../assets/svgs/loading.svg';
+
 export default function Header() {
     const { mutateSignOutUser } = useSignOut();
     const [isAdd, setIsAdd] = useState(false);
@@ -74,87 +76,90 @@ export default function Header() {
 
     return (
         <main className="sidebar">
-            <header className="sidebar-header">
-                <div className="sidebar-header__logo-container">
-                    <img src={logo} className="sidebar-header__logo" />
-                </div>
+            <header className="sidebar--header">
+                <img src={logo} className="sidebar--header__logo" />
             </header>
             <hr className="divider" />
-            <div>{isLoading && <div> is loading</div>}</div>
             {user && (
-                <div>
-                    <div className="sidebar-sub-header">
-                        <div className="sidebar-sub-header--content">
-                            <div className="sidebar-sub-header--content__feature">
-                                <i
-                                    className="icon-basic-elaboration-folder-plus sidebar-sub-header--content__feature__1"
-                                    onClick={() => setIsAdd((prev) => !prev)}
-                                ></i>
-                                <i
-                                    onClick={() => {
-                                        refetchGetProjects(true),
-                                            setIsAdd(false);
-                                    }}
-                                    className="icon-basic-elaboration-folder-refresh sidebar-sub-header--content__feature__2"
-                                ></i>
-                            </div>
-                        </div>
-                    </div>
+                <div className="sidebar--header__sub">
+                    <i
+                        className="icon-basic-elaboration-folder-plus sidebar--icon "
+                        onClick={() => setIsAdd((prev) => !prev)}
+                    ></i>
+                    <i
+                        onClick={() => {
+                            refetchGetProjects(true), setIsAdd(false);
+                        }}
+                        className="icon-basic-elaboration-folder-refresh sidebar--icon"
+                    ></i>
                 </div>
             )}
-            <section className="sidebar-project">
-                {user ? (
-                    projects && projects.data.length > 0 ? (
-                        <div>
-                            {isAdd && (
-                                <div className="sidebar-project--create">
-                                    <AiFillFolder className="sidebar-project--create__icon" />
-                                    <input
-                                        onKeyDown={(e) =>
-                                            handleOnKeyDownCreateProject(e)
-                                        }
-                                        value={newProjectName}
-                                        onChange={(e) =>
-                                            setNewProjectName(e.target.value)
-                                        }
-                                        className="sidebar-project--create__input"
-                                    />
-                                </div>
-                            )}
-                            {/* {isPressReFetching ? (
-                                <div> fetching </div>
-                            ) : ( */}
-                            <ul className="sidebar-project--container">
-                                {projects.data.map((project) => (
-                                    <li
-                                        key={project.projectId}
-                                        className="sidebar-project--card"
-                                    >
-                                        <ProjectCard project={project} />
-                                    </li>
-                                ))}
-                            </ul>
-                            {/* )} */}
-                        </div>
-                    ) : (
-                        <div> No Projects </div>
-                    )
+            <div className="sidebar--main">
+                {isLoading ? (
+                    <div>
+                        <img
+                            src={Spinner}
+                            alt="loading spinner"
+                            className="loading sidebar--loading"
+                        />
+                    </div>
                 ) : (
-                    <button
-                        className="sidebar-project--signin-btn btn-round"
-                        onClick={() => moveToSignInPage()}
-                    >
-                        sign in
-                    </button>
+                    <section className="sidebar-project">
+                        {user && isAdd && (
+                            <div className="sidebar-project--create">
+                                <AiFillFolder className="sidebar-project--create__icon" />
+                                <input
+                                    onKeyDown={(e) =>
+                                        handleOnKeyDownCreateProject(e)
+                                    }
+                                    value={newProjectName}
+                                    onChange={(e) =>
+                                        setNewProjectName(e.target.value)
+                                    }
+                                    className="sidebar-project--create__input"
+                                />
+                            </div>
+                        )}
+
+                        {user ? (
+                            projects && projects.data.length > 0 ? (
+                                <div>
+                                    <ul className="sidebar-project--container">
+                                        {projects.data.map((project) => (
+                                            <li
+                                                key={project.projectId}
+                                                className="sidebar-project--card"
+                                            >
+                                                <ProjectCard
+                                                    project={project}
+                                                />
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ) : (
+                                <div className="sidebar--no-project">
+                                    No Projects
+                                </div>
+                            )
+                        ) : (
+                            <button
+                                className="sidebar-project--signin-btn btn-round"
+                                onClick={() => moveToSignInPage()}
+                            >
+                                sign in
+                            </button>
+                        )}
+                    </section>
                 )}
-            </section>
+            </div>
+            <hr className="divider" />
             {user && (
-                <div className="sidebar-project--user">
-                    <hr className="divider" />
-                    {user.userId}
+                <div className="sidebar--user">
+                    <span className="sidebar--user__name">{user.userId}</span>
                     <GoSignOut
                         onClick={() => mutateSignOutUser()}
-                        className="sidebar-project--user__sign-out"
+                        className="sidebar--sign-out"
                     />
                 </div>
             )}

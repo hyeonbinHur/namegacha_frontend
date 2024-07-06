@@ -1,6 +1,71 @@
-.sidebar{
-    width: 90%;
+.sidebar {
+    width: 85%;
     height: 100%;
     margin: 0 auto;
-    overflow-y: scroll;
+    &--header {
+        display: flex;
+        justify-content: center;
+        padding: 2rem 0rem;
+        &__logo {
+            width: 5rem;
+            transition: all .3s;
+            &:hover {
+                transform: translateY(-3px);
+            }
+            &:active {
+                transform: translateY(3px);
+            }
+        }
+        &__sub {
+            display: flex;
+            justify-content: right;
+        }
+    }
+
+    &--main{
+        position: relative;
+        height: 75%;
+        overflow-y: scroll;
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+    &--icon {
+        margin-top: .5rem;
+        padding: .5rem .5rem;
+        font-size: 2.5rem;
+        display: flex;
+        border-radius: 5px;
+        transition: all .3s;
+        &:not(:last-child) {
+            margin-right: .5rem;
+        }
+        &:hover {
+            background-color: $color-grey-dark-1;
+            transform: translateY(-3px);
+        }
+        &:active {
+            background-color: $color-grey-dark-1;
+            transform: translateY(3px);
+        }
+    }
+    &--loading{
+        width: 50%;
+    }
+    &--no-project{
+        text-align: center;
+        font-weight: 500;
+        margin-top: 5rem;
+    }
+    &--user{
+        display: flex;
+        &__name{
+            background-color: red;
+            padding: 0rem 0rem;
+        }
+    }
+    &--sign-out{
+        float: right;
+        background-color: red;
+    }
 }
