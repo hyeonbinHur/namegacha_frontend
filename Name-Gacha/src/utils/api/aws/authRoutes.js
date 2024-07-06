@@ -3,10 +3,11 @@ import axios from 'axios';
 const authEndpoint =
     'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/auth';
 
-const buildResponse = (status, userObject) => {
+const buildResponse = (status, userObject, message) => {
     return {
         status: status,
         userObject: userObject,
+        message: message,
     };
 };
 
@@ -84,6 +85,7 @@ async function accessToken() {
         });
         return response;
     } catch (err) {
+        console.log(err);
         return err;
     }
 }
@@ -100,7 +102,8 @@ async function refreshToken() {
         });
         return response;
     } catch (err) {
-        return err;
+        console.log(err);
+        return buildResponse(err.response.status, null, err.response.data);
     }
 }
 
@@ -125,8 +128,9 @@ async function checkTokens() {
             return accStatus;
         } else {
             const refStatus = await refreshToken();
-
             if (refStatus.status === 200) {
+                return refStatus;
+            } else if (refStatus.status === 401) {
                 return refStatus;
             } else {
                 return false;

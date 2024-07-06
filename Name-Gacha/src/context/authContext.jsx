@@ -33,6 +33,12 @@ export const AuthContextProvider = ({ children }) => {
                     createdAt: userResponse.data.createdAt,
                 };
                 dispatch({ type: 'SIGN-IN', payload: userObject });
+            } else if (
+                authCheck.status === 401 &&
+                authCheck.message === 'Refresh token expired'
+            ) {
+                console.log('로그인 만료');
+                //ui update & toast
             }
         };
         checkAuthStatus();
