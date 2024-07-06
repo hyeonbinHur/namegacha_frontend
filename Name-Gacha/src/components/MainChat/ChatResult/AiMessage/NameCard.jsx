@@ -6,6 +6,10 @@ import { editAiMessageName } from '../../../../store/threadSlice';
 import * as aiUtil from '../../../../utils/util/contextUtils';
 import { clearIsEdit, setIsEdit } from '../../../../store/aiMessageEditSlice';
 
+import { checkLength } from '../../../../utils/util/util';
+import { isNotEmpty } from '../../../../utils/util/authUtil.js';
+import { toast } from 'react-toastify';
+
 export default function NameCard({ names, selectNewItem, arrayIndex }) {
     return (
         <div className="message--ai__name-container">
@@ -49,14 +53,24 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
     );
 
     const startEditNameInSlice = () => {
-        dispatch(
-            editAiMessageName({
-                arrayIndex: arrayIndex,
-                nameIndex: nameIndex,
-                newName: newName,
-            })
-        );
-        dispatch(clearIsEdit());
+        const empty = isNotEmpty(newName);
+        const max = checkLength(newName, 50);
+        if (!empty) {
+            toast.error('Name should not be empty.');
+            return;
+        } else if (!max) {
+            toast.error('Name must be under 300 characters.');
+            return;
+        } else if (max && empty) {
+            dispatch(
+                editAiMessageName({
+                    arrayIndex: arrayIndex,
+                    nameIndex: nameIndex,
+                    newName: newName,
+                })
+            );
+            dispatch(clearIsEdit());
+        }
     };
     const startEditInComponent = () => {
         dispatch(setIsEdit({ target: componentTarget }));

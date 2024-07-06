@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { editAiMessageExp } from '../../../../store/threadSlice';
 import { clearIsEdit, setIsEdit } from '../../../../store/aiMessageEditSlice';
 import * as aiUtil from '../../../../utils/util/contextUtils';
-
+import { checkLength } from '../../../../utils/util/util';
+import { isNotEmpty } from '../../../../utils/util/authUtil.js';
+import { toast } from 'react-toastify';
 /* eslint-disable react/prop-types */
 export default function ExpCard({ exp, arrayIndex }) {
     const [newExp, setNewExp] = useState(exp);
@@ -29,8 +31,20 @@ export default function ExpCard({ exp, arrayIndex }) {
 
     const dispatch = useDispatch();
     const startEditExpInSlice = () => {
-        dispatch(editAiMessageExp({ arrayIndex: arrayIndex, newExp: newExp }));
-        dispatch(clearIsEdit());
+        const empty = isNotEmpty(newExp);
+        const max = checkLength(newExp, 50);
+        if (!empty) {
+            toast.error('Definition should not be empty.');
+            return;
+        } else if (!max) {
+            toast.error('Definition must be under 300 characters.');
+            return;
+        } else if (max && empty) {
+            dispatch(
+                editAiMessageExp({ arrayIndex: arrayIndex, newExp: newExp })
+            );
+            dispatch(clearIsEdit());
+        }
     };
     const startEditExpInComponent = () => {
         dispatch(setIsEdit({ target: componentTarget }));

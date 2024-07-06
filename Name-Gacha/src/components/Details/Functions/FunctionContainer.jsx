@@ -6,6 +6,9 @@ import { useDispatch } from 'react-redux';
 import * as detailReducers from '../../../store/detailPageSlice';
 import DetailForm from '../Common/DetailForm';
 import { checkPendingStatus } from '../../../utils/util/util';
+import { checkLength } from '../../../utils/util/util';
+import { isNotEmpty } from '../../../utils/util/authUtil';
+import { toast } from 'react-toastify';
 
 export default function FunctionContainer({ functions, pageId }) {
     const componentTarget = {
@@ -28,12 +31,30 @@ export default function FunctionContainer({ functions, pageId }) {
 
     /**basic functions */
     const addNewFunction = (newName, newExp) => {
-        if (newName.length === 0) return;
-        mutateAddFunction({
-            functionName: newName,
-            pageId: pageId,
-            functionExp: newExp,
-        });
+        const emptyName = isNotEmpty(newName);
+        const maxName = checkLength(newName, 50);
+        const emptyExp = isNotEmpty(newExp);
+        const maxExp = checkLength(newExp, 300);
+
+        if (!emptyName) {
+            toast.error('Function name should not be empty.');
+            return;
+        } else if (!maxName) {
+            toast.error('Function name must be under 30 characters.');
+            return;
+        } else if (!emptyExp) {
+            toast.error('Function definition hould not be empty.');
+            return;
+        } else if (!maxExp) {
+            toast.error('Function definition must be under 300 characters.');
+            return;
+        } else if (emptyName && maxName && emptyExp && maxExp) {
+            mutateAddFunction({
+                functionName: newName,
+                pageId: pageId,
+                functionExp: newExp,
+            });
+        }
     };
     const dispatch = useDispatch();
     const startAdd = () => {

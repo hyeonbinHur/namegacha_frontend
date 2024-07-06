@@ -7,6 +7,9 @@ import * as detailReducers from '../../../store/detailPageSlice';
 import { useDispatch } from 'react-redux';
 import DetailForm from '../Common/DetailForm';
 import { checkPendingStatus } from '../../../utils/util/util';
+import { checkLength } from '../../../utils/util/util';
+import { isNotEmpty } from '../../../utils/util/authUtil';
+import { toast } from 'react-toastify';
 
 export default function DetailTest({ page }) {
     /**component variable */
@@ -62,12 +65,31 @@ export default function DetailTest({ page }) {
     /**Dispatches &  functions */
     const dispatch = useDispatch();
     const handleSaveEdit = (newName, newExp) => {
-        mutateUpdatePage({
-            pageId: page.pageId,
-            pageName: newName,
-            pageExp: newExp,
-        });
-        dispatch(detailReducers.setClear());
+        const emptyName = isNotEmpty(newName);
+        const maxName = checkLength(newName, 50);
+        const emptyExp = isNotEmpty(newExp);
+        const maxExp = checkLength(newExp, 300);
+
+        if (!emptyName) {
+            toast.error('Page name should not be empty.');
+            return;
+        } else if (!maxName) {
+            toast.error('Page name must be under 30 characters.');
+            return;
+        } else if (!emptyExp) {
+            toast.error('Page definition hould not be empty.');
+            return;
+        } else if (!maxExp) {
+            toast.error('Page definition must be under 300 characters.');
+            return;
+        } else if (emptyName && maxName && emptyExp && maxExp) {
+            mutateUpdatePage({
+                pageId: page.pageId,
+                pageName: newName,
+                pageExp: newExp,
+            });
+            dispatch(detailReducers.setClear());
+        }
     };
     const startEdit = () => {
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));

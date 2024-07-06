@@ -5,6 +5,10 @@ import * as detailReducers from '../../../store/detailPageSlice';
 import DetailForm from '../Common/DetailForm';
 import { checkPendingStatus } from '../../../utils/util/util';
 
+import { checkLength } from '../../../utils/util/util';
+import { isNotEmpty } from '../../../utils/util/authUtil';
+import { toast } from 'react-toastify';
+
 /* eslint-disable react/prop-types */
 export default function VariableCard({ variable }) {
     const componentTarget = {
@@ -42,11 +46,31 @@ export default function VariableCard({ variable }) {
     /**basic functions */
     const editVariable = (newName, newExp) => {
         if (newName.length === 0) return;
-        mutateUpdateVariable({
-            variableId: variable.variableId,
-            variableName: newName,
-            variableExp: newExp,
-        });
+
+        const emptyName = isNotEmpty(newName);
+        const maxName = checkLength(newName, 50);
+        const emptyExp = isNotEmpty(newExp);
+        const maxExp = checkLength(newExp, 300);
+
+        if (!emptyName) {
+            toast.error('Variable name should not be empty.');
+            return;
+        } else if (!maxName) {
+            toast.error('Variable name must be under 30 characters.');
+            return;
+        } else if (!emptyExp) {
+            toast.error('Variable definition hould not be empty.');
+            return;
+        } else if (!maxExp) {
+            toast.error('Variable definition must be under 300 characters.');
+            return;
+        } else if (emptyName && maxName && emptyExp && maxExp) {
+            mutateUpdateVariable({
+                variableId: variable.variableId,
+                variableName: newName,
+                variableExp: newExp,
+            });
+        }
     };
     const deleteVariable = (itemId) => {
         mutateDeleteVariable({ variableId: itemId });
