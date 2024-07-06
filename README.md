@@ -50,6 +50,10 @@ npm install -D sass
 
 npm i @tanstack/react-query-devtools
 
+# taost
+
+npm install react-toastify
+
 ### 06 / 15
 
 -   [x] 프로젝트 생성
@@ -90,6 +94,7 @@ let changeArray = [...reduxArray] 로복사해줘야한다
 myArray= action.payload.newArray
 reduxArray = myArray
 (o)
+
 /// 하나씩만 edit 가능
 
 오늘
@@ -110,12 +115,19 @@ context menu css
 
 사이드바 로그인시 프로젝트때 css
 
-js----------
-
-만약 토큰 expired라면 로그인 세션 만료 토스트?
-
 사이드바 new var or func 인풋 체크
 
-useQuery에러 확인
+js----------
 
-특이사항 에러 css + js
+useQuery에러 확인 -- ㄱㅈ? --> 일단보류
+
+설명 & 이름 몇자 이상이면 안됩니다 경고 js
+->> 몇자 이상이면, 작동 안하고, 토스트
+
+ai----------
+
+ai instruction 바꾸기
+
+마지막 -->
+
+퍼포먼스

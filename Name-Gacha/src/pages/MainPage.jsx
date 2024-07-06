@@ -8,6 +8,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ErrorModal from '../components/Modal/ErrorModal';
 import { useEffect, useRef } from 'react';
 import { setError } from '../store/errorSlice';
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 
 export default function MainPage() {
     const errorModal = useRef(null);
@@ -69,6 +71,7 @@ export default function MainPage() {
                 </section>
             </main>
             <ErrorModal ref={errorModal} />
+            <ToastContainer />
         </QueryClientProvider>
     );
 }

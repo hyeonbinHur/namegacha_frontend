@@ -9,9 +9,11 @@ import AuthModal from '../Modal/Auth/AuthModal.jsx';
 import * as projectAPI from '../../utils/api/aws/projectRoutes.js';
 import { useRef, useState } from 'react';
 import { useSignOut } from '../../hooks/useSignOut.js';
+import { toast } from 'react-toastify';
 export default function Header() {
     const { mutateSignOutUser } = useSignOut();
     const [isAdd, setIsAdd] = useState(false);
+
     const [newProjectName, setNewProjectName] = useState('');
     const { user } = useAuthContext();
     const authModal = useRef(null);
@@ -31,11 +33,6 @@ export default function Header() {
         },
         enabled: !!user,
     });
-
-    // useEffect(() => {
-    //     console.log('isLoading : ' + isLoading);
-    //     console.log('isFetching : ' + isFetching);
-    // }, [isLoading, isFetching]);
 
     const { mutate: addProject } = useMutation({
         mutationFn: ({ projectName, userId }) => {
@@ -66,7 +63,6 @@ export default function Header() {
             setNewProjectName('');
         }
     };
-
     return (
         <main className="sidebar-main">
             <header className="sidebar-header">
@@ -76,6 +72,9 @@ export default function Header() {
             </header>
             <hr className="divider" />
             <div>{isLoading && <div> is loading</div>}</div>
+            <button onClick={() => toast.success('안녕하세요!')}>
+                토스트 알림 보이기
+            </button>
             {user && (
                 <div>
                     <div className="sidebar-sub-header">
@@ -153,6 +152,7 @@ export default function Header() {
                     />
                 </div>
             )}
+
             <AuthModal ref={authModal} />
         </main>
     );
