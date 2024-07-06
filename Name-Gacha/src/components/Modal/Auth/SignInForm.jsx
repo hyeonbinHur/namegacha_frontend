@@ -8,15 +8,14 @@ import { useAuthContext } from '../../../hooks/useAuth';
 import Spinner from '../../../assets/svgs/loading.svg';
 import { checkPendingStatus } from '../../../utils/util/util';
 
-// import { useSignIn } from '../../../hooks/useSignIn';
-
 export default function SignInForm({ close }) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const { dispatch } = useAuthContext();
-    // const { mutateSigIn } = useSignIn();
     const [isIdWrong, setIsIdWrong] = useState(false);
     const [isPasswordWrong, setIsPasswordWrong] = useState(false);
+
+    /**http request */
 
     const { mutate: mutateSigIn, status: isSignInStatus } = useMutation({
         mutationFn: async ({ userId, userPassword }) => {
@@ -35,16 +34,28 @@ export default function SignInForm({ close }) {
             } else if (responseData.status === 401) {
                 setIsIdWrong(false);
                 setIsPasswordWrong(true);
+            } else {
+                console.log('undexpected error has been occured');
             }
         },
     });
-    const componentSignIn = () => {
-        console.log('sign in ');
-        mutateSigIn({ userId: username, userPassword: password });
-    };
+
+    /**basic functions */
     const isLoading = checkPendingStatus([isSignInStatus]);
 
-    // 로그인 유효성 검사 변수들
+    const componentSignIn = () => {
+        if (authUtil.isNotEmpty(username) && authUtil.isNotEmpty(password)) {
+            if (!emailIsValid && !passwordIsValid) {
+                mutateSigIn({ userId: username, userPassword: password });
+            } else {
+                console.log('요구사항을 확인해주세요');
+            }
+        } else {
+            console.log('폼 먼저 채우세요');
+        }
+        console.log('sign in ');
+    };
+
     const emailIsValid =
         authUtil.isNotEmpty(username) && !authUtil.checkIdValidation(username);
     const passwordIsValid =

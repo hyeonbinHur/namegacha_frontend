@@ -19,9 +19,10 @@ async function signUpUser(userId, userPassword) {
             userPassword: userPassword,
         };
         const response = await axios.post(authEndpoint, body);
-        return response;
+        return buildResponse(response.status);
     } catch (err) {
         console.error(err.message);
+        return buildResponse(err.response.status);
     }
 }
 async function signInUser(userId, userPassword) {

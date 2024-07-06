@@ -10,15 +10,41 @@ export default function SignUpForm({ toSignIn }) {
     const [password, setPassword] = useState('');
     const [passwordCheck, setPasswordCheck] = useState('');
 
+    /**http request */
+
     const { mutate: mutateSignUp } = useMutation({
         mutationFn: ({ userId, userPassword }) => {
             return signUpUser(userId, userPassword);
         },
-        onSuccess: () => toSignIn(),
+        onSuccess: (response) => {
+            console.log(response);
+            if (response.status === 409) {
+                console.log('user already existing');
+            } else if (response.status === 200) {
+                toSignIn();
+            } else {
+                console.log('undexpected error has been occured');
+            }
+        },
     });
+    /**basic functions */
 
     const componentSignUp = () => {
-        mutateSignUp({ userId: username, userPassword: password });
+        if (
+            authUtil.isNotEmpty(username) &&
+            authUtil.isNotEmpty(password) &&
+            authUtil.isNotEmpty(passwordCheck)
+        ) {
+            if (!emailIsValid && !passwordIsValid && !passCheckIsValid) {
+                mutateSignUp({ userId: username, userPassword: password });
+            } else {
+                console.log('요구사항을 확인해주세요');
+                //ui 업데이터
+            }
+        } else {
+            console.log('폼을 먼저 다 채우세요');
+            //ui 업데이터
+        }
     };
 
     const emailIsValid =
@@ -32,9 +58,6 @@ export default function SignUpForm({ toSignIn }) {
         authUtil.isNotEmpty(passwordCheck) &&
         !authUtil.checkIsPasswordMatch(password, passwordCheck);
 
-    //아이디 5글자 이상 비번 7글자 이상
-    //비번 체크가 일치하지 않으면 버튼 disable,
-    //모든 칸이 채워지지 않았다면 버튼 disable
     return (
         <div>
             <form className="sign-in-form">
@@ -108,6 +131,7 @@ export default function SignUpForm({ toSignIn }) {
                             Password Check
                         </label>
                     )}
+
                     <button
                         className="sign-in-form--btn__submit btn-round"
                         onClick={() => componentSignUp()}
