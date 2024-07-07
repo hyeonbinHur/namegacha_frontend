@@ -47,7 +47,7 @@ export default function VariableContextMenu({ item }) {
                 className="context--menu"
                 onClick={(e) => startAddVariable(e)}
             >
-                new variable
+                New variable
             </button>
             <button
                 className="context--menu"
@@ -55,7 +55,7 @@ export default function VariableContextMenu({ item }) {
                     mutateDeleteVariable({ variableId: item.variableId })
                 }
             >
-                delete
+                Delete
             </button>
         </div>
     );

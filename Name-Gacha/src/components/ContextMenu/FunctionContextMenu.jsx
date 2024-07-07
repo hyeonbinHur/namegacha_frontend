@@ -47,7 +47,7 @@ export default function FunctionContextMenu({ item }) {
                 className="context--menu"
                 onClick={(e) => startAddFunction(e)}
             >
-                new Functcion
+                New Functcion
             </button>
             <button
                 className="context--menu"
@@ -55,7 +55,7 @@ export default function FunctionContextMenu({ item }) {
                     mutateDeleteFunction({ functionId: item.functionId })
                 }
             >
-                delete
+                Delete
             </button>
         </div>
     );

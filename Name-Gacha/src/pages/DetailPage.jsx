@@ -38,7 +38,7 @@ export default function DetailPage() {
     if (error) return <div>An error occurred: {error.message}</div>;
 
     return (
-        <div className="detail">
+        <>
             {page && (
                 <div className="detail">
                     <header className="detail--header">
@@ -64,6 +64,6 @@ export default function DetailPage() {
                     />
                 </div>
             )}
-        </div>
+        </>
     );
 }

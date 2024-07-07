@@ -1,3 +1,8 @@
+import { BiX } from 'react-icons/bi';
+import { BiCheck } from 'react-icons/bi';
+import { MdModeEditOutline } from 'react-icons/md';
+import { RiDeleteBin5Fill } from 'react-icons/ri';
+
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -86,7 +91,7 @@ export default function DetailForm({
             {componentFlag ? (
                 <div className={`detail-${from}--edit`}>
                     <input
-                        className={`detail-${from}--edit__name`}
+                        className={`detail-${from}--edit__name input-basic`}
                         type="text"
                         name="name"
                         value={newName}
@@ -94,8 +99,8 @@ export default function DetailForm({
                         onChange={(e) => setNewName(e.target.value)}
                         onKeyDown={(e) => handleKeyDown(e)}
                     />
-                    <input
-                        className={`detail-${from}--edit__exp`}
+                    <textarea
+                        className={`detail-${from}--edit__exp input-basic`}
                         type="text"
                         name="exp"
                         value={newExp}
@@ -103,49 +108,68 @@ export default function DetailForm({
                         onChange={(e) => setNewExp(e.target.value)}
                         onKeyDown={(e) => handleKeyDown(e)}
                     />
-                    <button
-                        className={`detail-${from}--btn__save`}
-                        onClick={() => startButtonAction()}
-                    >
-                        save
-                    </button>
-                    <button
-                        className={`detail-${from}--btn__cancel`}
-                        onClick={() => cancelActions()}
-                    >
-                        cancel
-                    </button>
+
+                    <div className={`detail-${from}--basic__features`}>
+                        <button
+                            onClick={() => startButtonAction()}
+                            className={`detail-${from}--basic__edit`}
+                        >
+                            <BiCheck
+                                className={`detail-${from}--basic__icon`}
+                            />
+                            Save
+                        </button>
+                        <button
+                            onClick={() => cancelActions()}
+                            className={`detail-${from}--basic__del`}
+                        >
+                            <BiX className={`detail-${from}--basic__icon`} />
+                            Cancel
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <div className={`detail-${from}--basic`}>
                     {type === 'Edit' ? (
                         <div className={`detail-${from}--basic__container`}>
-                            <span className={`detail-${from}--basic__name`}>
+                            <div className={`detail-${from}--basic__name`}>
                                 {componentTarget.name}
                                 <div>{isLoading}</div>
-                            </span>
-
+                            </div>
                             <div className={`detail-${from}--basic__exp`}>
                                 {componentTarget.exp}
                             </div>
+
                             {isLoading ? (
-                                <div>
+                                <div
+                                    className={`detail-${from}--basic__features`}
+                                >
                                     <img src={Spinner} alt="loading spinner" />
                                 </div>
                             ) : (
-                                <div>
-                                    <i
+                                <div
+                                    className={`detail-${from}--basic__features`}
+                                >
+                                    <button
+                                        onClick={() => startAction()}
+                                        className={`detail-${from}--basic__edit`}
+                                    >
+                                        <MdModeEditOutline
+                                            className={`detail-${from}--basic__icon`}
+                                        />
+                                        Edit
+                                    </button>
+                                    <button
                                         onClick={() =>
                                             deleteAction(componentTarget.id)
                                         }
-                                        className={`icon-basic-elaboration-calendar-remove
-                                  detail-${from}--btn__del`}
-                                    />
-                                    <i
-                                        onClick={() => startAction()}
-                                        className={`icon-basic-elaboration-calendar-pencil
-                                  detail-${from}--btn__edit`}
-                                    />
+                                        className={`detail-${from}--basic__del`}
+                                    >
+                                        <RiDeleteBin5Fill
+                                            className={`detail-${from}--basic__icon`}
+                                        />
+                                        Delete
+                                    </button>
                                 </div>
                             )}
                         </div>

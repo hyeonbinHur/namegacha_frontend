@@ -152,6 +152,9 @@
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
+        &:hover{
+            background-color: $color-grey-light-2;
+        } 
     }
     &:hover &__icon__plus{
         opacity: 1;
@@ -169,6 +172,9 @@
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
+            &:hover{
+                background-color: $color-grey-light-2;
+            }
         }
     }
     &__input{
