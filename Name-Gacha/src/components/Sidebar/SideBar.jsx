@@ -45,7 +45,7 @@ export default function Header() {
         },
     });
 
-    /** basic functions */
+    /** basic functions reducer functions */
     const moveToSignInPage = () => {
         authModal.current.open();
     };

@@ -13,7 +13,6 @@ import { checkLength } from '../../../utils/util/util.js';
 import { isNotEmpty } from '../../../utils/util/authUtil.js';
 import { toast } from 'react-toastify';
 export default function VarCard({ variable, page }) {
-    /* state */
     const [newVariableName, setNewVariableName] = useState(
         variable.variableName
     );
@@ -39,7 +38,7 @@ export default function VarCard({ variable, page }) {
         componentIsThis,
         sliceIsEdit
     );
-    /* Functions */
+    /* reducer functions */
     const dispatch = useDispatch();
     const handleContextMenuOpen = (e) => {
         e.preventDefault();
@@ -51,7 +50,6 @@ export default function VarCard({ variable, page }) {
             })
         );
     };
-
     /**Http request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateVariable } = useMutation({
@@ -63,6 +61,7 @@ export default function VarCard({ variable, page }) {
         },
     });
 
+    /**basic functions */
     const handleKeyDownEditVariable = (e) => {
         if (e.key === 'Enter') {
             const empty = isNotEmpty(newVariableName);
@@ -86,19 +85,21 @@ export default function VarCard({ variable, page }) {
             setNewVariableName(variable.variableName);
         }
     };
-
     return (
         <div>
             <section onContextMenu={(e) => handleContextMenuOpen(e)}>
                 {componentIsEdit ? (
                     <input
+                        className="side-item__input__identifier input-basic"
                         value={newVariableName}
                         onClick={(e) => e.stopPropagation()}
                         onChange={(e) => setNewVariableName(e.target.value)}
                         onKeyDown={(e) => handleKeyDownEditVariable(e)}
                     />
                 ) : (
-                    <div>{variable.variableName}</div>
+                    <div className="side-item--identifier__name">
+                        {variable.variableName}
+                    </div>
                 )}
             </section>
 

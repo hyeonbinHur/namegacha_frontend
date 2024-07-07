@@ -163,5 +163,34 @@
     &--identifier{
         margin: 0rem 1rem;
         padding: 0rem 1rem;
+        &__name{
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+    }
+    &__input{
+        width: 75%;
+        padding:.3rem .3rem;
+        &__identifier{
+            width: 100%;
+        padding:.3rem .3rem;
+
+        }
+    }
+    &--create{
+        &__page{
+            padding-left: 1.4rem;
+            display: flex;
+            align-items: center;
+            margin-bottom: .5rem;
+        }
+    }
+    &--no-identifier{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1rem;
     }
 }

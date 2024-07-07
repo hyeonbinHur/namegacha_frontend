@@ -10,7 +10,6 @@ import * as contextUtils from '../../../utils/util/contextUtils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as functionAPI from '../../../utils/api/aws/functionRoutes';
 import ContextMenu from '../../ContextMenu/ContextMenu';
-
 import { checkLength } from '../../../utils/util/util.js';
 import { isNotEmpty } from '../../../utils/util/authUtil.js';
 import { toast } from 'react-toastify';
@@ -41,7 +40,7 @@ export default function FunctionCard({ fnction, page }) {
         componentIsThis,
         sliceIsEdit
     );
-    /* Functions*/
+    /* Reducer functions*/
     const dispatch = useDispatch();
     const handleOpenContextMenu = (e) => {
         dispatch(
@@ -76,7 +75,6 @@ export default function FunctionCard({ fnction, page }) {
             setNewFunctionName(fnction.functionName);
         }
     };
-
     /** HTTP request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdateFunction } = useMutation({
@@ -97,13 +95,16 @@ export default function FunctionCard({ fnction, page }) {
             <section onContextMenu={(e) => handleOpenContextMenu(e)}>
                 {componentIsEdit ? (
                     <input
+                        className="side-item__input__identifier input-basic"
                         onClick={(e) => e.stopPropagation()}
                         value={newFunctionName}
                         onKeyDown={(e) => handleKeyDownEditName(e)}
                         onChange={(e) => setNewFunctionName(e.target.value)}
                     />
                 ) : (
-                    <div>{fnction.functionName}</div>
+                    <div className="side-item--identifier__name">
+                        {fnction.functionName}
+                    </div>
                 )}
             </section>
             <section>

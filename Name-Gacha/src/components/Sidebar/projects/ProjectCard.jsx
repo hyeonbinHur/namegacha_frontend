@@ -6,7 +6,7 @@ import { BsCaretDown } from 'react-icons/bs';
 import PageCard from '../pages/PageCard.jsx';
 // import './projectCard.css';
 import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as PageAPI from '../../../utils/api/aws/pageRoutes.js';
 import * as projectAPI from '../../../utils/api/aws/projectRoutes.js';
 import { useSelector, useDispatch } from 'react-redux';
@@ -25,6 +25,7 @@ export default function ProjectCard({ project }) {
     const [isOpen, setIsOpen] = useState(false);
     const [projectName, setProjectName] = useState(project.projectName || '');
     const [newPageName, setNewPageName] = useState('');
+
     /**Slice variables*/
     const sliceContextTarget = useSelector(
         (state) => state.currentContextMenu.target
@@ -51,23 +52,27 @@ export default function ProjectCard({ project }) {
     );
     const componentIsAdd = contextUtil.checkIsAdd(componentIsThis, sliceIsAdd);
 
-    /** Functions */
     /** HTTP request */
+    const queryClient = useQueryClient();
     const { mutate: addPage } = useMutation({
         mutationFn: ({ pageName, pageExp, projectId }) => {
             return PageAPI.createPage(projectId, pageName, pageExp);
         },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
     });
-
     const { mutate: updateProject } = useMutation({
         mutationFn: ({ newProjectName, projectId }) => {
             return projectAPI.updateProject(projectId, newProjectName);
         },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
     });
 
-    /**Slice Functions */
+    /**Reducer Functions */
     const dispatch = useDispatch();
-
     const handleContextMenu = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -78,7 +83,7 @@ export default function ProjectCard({ project }) {
             })
         );
     };
-
+    /**Basic functions */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             dispatch(clearContextMenu());
@@ -120,6 +125,7 @@ export default function ProjectCard({ project }) {
                     projectId: project.projectId,
                 });
                 dispatch(clearContextMenu());
+                setNewPageName('');
             }
         } else if (e.key === 'Escape') {
             dispatch(clearContextMenu());
@@ -153,6 +159,7 @@ export default function ProjectCard({ project }) {
 
                 {componentIsEdit ? (
                     <input
+                        className="side-item__input input-basic"
                         value={projectName}
                         onClick={(e) => e.stopPropagation()}
                         onChange={(e) => setProjectName(e.target.value)}
@@ -161,41 +168,41 @@ export default function ProjectCard({ project }) {
                 ) : (
                     <div className="side-item__name">{project.projectName}</div>
                 )}
-                <i
+
+                {/* <i
                     className="side-item__icon__plus icon-basic-elaboration-browser-plus "
-                    onClick={() =>
-                        addPage({
-                            projectId: project.projectId,
-                            pageExp: '',
-                            pageName: 'add page test',
-                        })
+                    onClick={
+                        () => setIsAdd(true)
+                        // addPage({
+                        //     projectId: project.projectId,
+                        //     pageExp: '',
+                        //     pageName: 'add page test',
+                        // })
                     }
-                ></i>
+                ></i> */}
             </div>
 
-            <div className="sd-item">
-                {isOpen == true && (
-                    <ul className="side-item--sub ul">
-                        {componentIsAdd && (
-                            <div>
-                                <input
-                                    value={newPageName}
-                                    onClick={(e) => e.stopPropagation()}
-                                    onChange={(e) =>
-                                        setNewPageName(e.target.value)
-                                    }
-                                    onKeyDown={(e) => handleKeyDownAddPage(e)}
-                                />
-                            </div>
-                        )}
-                        {project.pages.map((page) => (
-                            <li key={page.pageId} className="li">
-                                <PageCard page={page} />
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+            {isOpen == true && (
+                <ul className="side-item--sub ul">
+                    {componentIsAdd && (
+                        <div className="side-item--create__page">
+                            <AiFillFolder className="side-item__icon__folder" />
+                            <input
+                                className="side-item__input input-basic"
+                                value={newPageName}
+                                onClick={(e) => e.stopPropagation()}
+                                onChange={(e) => setNewPageName(e.target.value)}
+                                onKeyDown={(e) => handleKeyDownAddPage(e)}
+                            />
+                        </div>
+                    )}
+                    {project.pages.map((page) => (
+                        <li key={page.pageId} className="li">
+                            <PageCard page={page} />
+                        </li>
+                    ))}
+                </ul>
+            )}
 
             <div>
                 {componentIsContextOpen && (

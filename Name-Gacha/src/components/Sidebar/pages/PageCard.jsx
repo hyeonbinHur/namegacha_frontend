@@ -15,8 +15,7 @@ import {
 import * as contextUtil from '../../../utils/util/contextUtils.js';
 import ContextMenu from '../../ContextMenu/ContextMenu.jsx';
 import * as pageAPI from '../../../utils/api/aws/pageRoutes.js';
-import * as functionAPI from '../../../utils/api/aws/functionRoutes.js';
-import * as variableAPI from '../../../utils/api/aws/variableRoutes.js';
+// import * as variableAPI from '../../../utils/api/aws/variableRoutes.js';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { checkLength } from '../../../utils/util/util.js';
@@ -26,15 +25,13 @@ import { toast } from 'react-toastify';
 export default function PageCard({ page }) {
     const [isOpen, setIsOpen] = useState(false);
     const [newPageName, setNewPageName] = useState(page.pageName);
-    const [newVariableName, setNewVariableName] = useState('');
-    const [newFunctionName, setNewFunctionName] = useState('');
+
     const navigate = useNavigate();
 
     /**redux flags */
     const sliceIsContextOpen = useSelector(
         (state) => state.currentContextMenu.isOpen
     );
-
     const sliceContextTarget = useSelector(
         (state) => state.currentContextMenu.target
     );
@@ -70,9 +67,8 @@ export default function PageCard({ page }) {
         sliceIsEdit
     );
 
-    /** Functions */
+    /** Reducer functions */
     const dispatch = useDispatch();
-
     const handleContextMenu = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -83,7 +79,7 @@ export default function PageCard({ page }) {
             })
         );
     };
-
+    /**Basic functions */
     const handleEditNameKeyDown = (e) => {
         if (e.key === 'Enter') {
             const empty = isNotEmpty(newPageName);
@@ -107,56 +103,10 @@ export default function PageCard({ page }) {
             dispatch(closeContextMenu());
         }
     };
-
-    const handleAddVariableKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            const empty = isNotEmpty(newVariableName);
-            const max = checkLength(newVariableName, 50);
-            if (!empty) {
-                toast.error('Variable name should not be empty.');
-                return;
-            } else if (!max) {
-                toast.error('Variable name must be under 30 characters.');
-                return;
-            } else if (max && empty) {
-                mutateAddVariable({
-                    pageId: page.pageId,
-                    variableExp: '',
-                    variableName: newVariableName,
-                });
-                dispatch(closeContextMenu());
-            }
-        } else if (e.key === 'Escape') {
-            setNewVariableName('');
-            dispatch(closeContextMenu());
-        }
-    };
-    const handleAddFunctionKeyDown = (e) => {
-        if (e.key === 'Enter') {
-            const empty = isNotEmpty(newFunctionName);
-            const max = checkLength(newFunctionName, 50);
-            if (!empty) {
-                toast.error('Function name should not be empty.');
-                return;
-            } else if (!max) {
-                toast.error('Function name must be under 30 characters.');
-                return;
-            } else if (max && empty) {
-                mutateAddFunction({
-                    pageId: page.pageId,
-                    functionExp: '',
-                    functionName: newFunctionName,
-                });
-                dispatch(closeContextMenu());
-            }
-        } else if (e.key === 'Escape') {
-            setNewFunctionName('');
-            dispatch(closeContextMenu());
-        }
-    };
     const handleNavigateToDetail = () => {
         navigate(`/detail/${page.pageId}`);
     };
+
     /**HTTP Request */
     const queryClient = useQueryClient();
     const { mutate: mutateUpdatePage } = useMutation({
@@ -167,30 +117,7 @@ export default function PageCard({ page }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    const { mutate: mutateAddFunction } = useMutation({
-        mutationFn: ({ pageId, functionName, functionExp }) => {
-            return functionAPI.createFunction(
-                pageId,
-                functionName,
-                functionExp
-            );
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
-    const { mutate: mutateAddVariable } = useMutation({
-        mutationFn: ({ pageId, variableName, variableExp }) => {
-            return variableAPI.createVariable(
-                pageId,
-                variableName,
-                variableExp
-            );
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
+
     return (
         <div>
             <section onClick={() => setIsOpen((prev) => !prev)}>
@@ -211,6 +138,7 @@ export default function PageCard({ page }) {
                     )}
                     {componentIsEdit ? (
                         <input
+                            className="side-item__input input-basic"
                             value={newPageName}
                             onClick={(e) => e.stopPropagation()}
                             onChange={(e) => setNewPageName(e.target.value)}
@@ -225,44 +153,20 @@ export default function PageCard({ page }) {
                 {isOpen && (
                     <div onClick={handleNavigateToDetail}>
                         <div>
-                            {componentIsVariableAdd && (
-                                <input
-                                    onClick={(e) => e.stopPropagation()}
-                                    value={newVariableName}
-                                    onChange={(e) =>
-                                        setNewVariableName(e.target.value)
-                                    }
-                                    onKeyDown={(e) =>
-                                        handleAddVariableKeyDown(e)
-                                    }
-                                />
-                            )}
-                            {page.variables.length > 0 && (
-                                <VarContainer
-                                    variables={page.variables}
-                                    page={page}
-                                />
-                            )}
+                            <VarContainer
+                                variables={page.variables}
+                                page={page}
+                                componentIsVariableAdd={componentIsVariableAdd}
+                                handleContextMenu={handleContextMenu}
+                            />
                         </div>
                         <div>
-                            {componentIsFunctionAdd && (
-                                <input
-                                    value={newFunctionName}
-                                    onClick={(e) => e.stopPropagation()}
-                                    onChange={(e) =>
-                                        setNewFunctionName(e.target.value)
-                                    }
-                                    onKeyDown={(e) =>
-                                        handleAddFunctionKeyDown(e)
-                                    }
-                                />
-                            )}
-                            {page.functions.length > 0 && (
-                                <FunctionContainer
-                                    functions={page.functions}
-                                    page={page}
-                                />
-                            )}
+                            <FunctionContainer
+                                functions={page.functions}
+                                page={page}
+                                componentIsFunctionAdd={componentIsFunctionAdd}
+                                handleContextMenu={handleContextMenu}
+                            />
                         </div>
                     </div>
                 )}
