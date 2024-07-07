@@ -1,5 +1,4 @@
 import { GoSignOut } from 'react-icons/go';
-
 import ProjectCard from './projects/ProjectCard.jsx';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getCertainProjects } from '../../utils/api/aws/projectRoutes.js';

@@ -38,9 +38,19 @@ export default function FunctionContextMenu({ item }) {
 
     return (
         <div>
-            <button onClick={(e) => startRename(e)}>Rename</button>
-            <button onClick={(e) => startAddFunction(e)}>new Functcion</button>
+            <div className="heading-quaternary">Function</div>
+
+            <button className="context--menu" onClick={(e) => startRename(e)}>
+                Rename
+            </button>
             <button
+                className="context--menu"
+                onClick={(e) => startAddFunction(e)}
+            >
+                new Functcion
+            </button>
+            <button
+                className="context--menu"
                 onClick={() =>
                     mutateDeleteFunction({ functionId: item.functionId })
                 }

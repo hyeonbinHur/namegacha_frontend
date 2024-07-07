@@ -78,6 +78,8 @@ export default function ProjectCard({ project }) {
         e.stopPropagation();
         dispatch(
             openContextMenu({
+                x: e.clientX,
+                y: e.clientY,
                 name: project.projectName,
                 id: project.projectId,
             })
@@ -134,42 +136,45 @@ export default function ProjectCard({ project }) {
     };
 
     return (
-        <di>
-            <div
-                className="side-item"
-                onContextMenu={(e) => handleContextMenu(e)}
-            >
-                {isOpen ? (
-                    <div
-                        className="side-item__icon"
-                        onClick={() => setIsOpen((prev) => !prev)}
-                    >
-                        <BsCaretUp className="side-item__icon__arrow" />
-                        <AiFillFolderOpen className="side-item__icon__folder" />
-                    </div>
-                ) : (
-                    <div
-                        className="side-item__icon"
-                        onClick={() => setIsOpen((prev) => !prev)}
-                    >
-                        <BsCaretDown className="side-item__icon__arrow" />
-                        <AiFillFolder className="side-item__icon__folder" />
-                    </div>
-                )}
+        <>
+            <div>
+                <div
+                    className="side-item"
+                    onContextMenu={(e) => handleContextMenu(e)}
+                >
+                    {isOpen ? (
+                        <div
+                            className="side-item__icon"
+                            onClick={() => setIsOpen((prev) => !prev)}
+                        >
+                            <BsCaretUp className="side-item__icon__arrow" />
+                            <AiFillFolderOpen className="side-item__icon__folder" />
+                        </div>
+                    ) : (
+                        <div
+                            className="side-item__icon"
+                            onClick={() => setIsOpen((prev) => !prev)}
+                        >
+                            <BsCaretDown className="side-item__icon__arrow" />
+                            <AiFillFolder className="side-item__icon__folder" />
+                        </div>
+                    )}
 
-                {componentIsEdit ? (
-                    <input
-                        className="side-item__input input-basic"
-                        value={projectName}
-                        onClick={(e) => e.stopPropagation()}
-                        onChange={(e) => setProjectName(e.target.value)}
-                        onKeyDown={(e) => handleKeyDown(e)}
-                    />
-                ) : (
-                    <div className="side-item__name">{project.projectName}</div>
-                )}
+                    {componentIsEdit ? (
+                        <input
+                            className="side-item__input input-basic"
+                            value={projectName}
+                            onClick={(e) => e.stopPropagation()}
+                            onChange={(e) => setProjectName(e.target.value)}
+                            onKeyDown={(e) => handleKeyDown(e)}
+                        />
+                    ) : (
+                        <div className="side-item__name">
+                            {project.projectName}
+                        </div>
+                    )}
 
-                {/* <i
+                    {/* <i
                     className="side-item__icon__plus icon-basic-elaboration-browser-plus "
                     onClick={
                         () => setIsAdd(true)
@@ -180,35 +185,37 @@ export default function ProjectCard({ project }) {
                         // })
                     }
                 ></i> */}
+                </div>
+
+                {isOpen == true && (
+                    <ul className="side-item--sub ul">
+                        {componentIsAdd && (
+                            <div className="side-item--create__page">
+                                <AiFillFolder className="side-item__icon__folder" />
+                                <input
+                                    className="side-item__input input-basic"
+                                    value={newPageName}
+                                    onClick={(e) => e.stopPropagation()}
+                                    onChange={(e) =>
+                                        setNewPageName(e.target.value)
+                                    }
+                                    onKeyDown={(e) => handleKeyDownAddPage(e)}
+                                />
+                            </div>
+                        )}
+                        {project.pages.map((page) => (
+                            <li key={page.pageId} className="li">
+                                <PageCard page={page} />
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
-
-            {isOpen == true && (
-                <ul className="side-item--sub ul">
-                    {componentIsAdd && (
-                        <div className="side-item--create__page">
-                            <AiFillFolder className="side-item__icon__folder" />
-                            <input
-                                className="side-item__input input-basic"
-                                value={newPageName}
-                                onClick={(e) => e.stopPropagation()}
-                                onChange={(e) => setNewPageName(e.target.value)}
-                                onKeyDown={(e) => handleKeyDownAddPage(e)}
-                            />
-                        </div>
-                    )}
-                    {project.pages.map((page) => (
-                        <li key={page.pageId} className="li">
-                            <PageCard page={page} />
-                        </li>
-                    ))}
-                </ul>
-            )}
-
             <div>
                 {componentIsContextOpen && (
                     <ContextMenu type={'project'} item={project} />
                 )}
             </div>
-        </di>
+        </>
     );
 }

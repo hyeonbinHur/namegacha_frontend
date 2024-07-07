@@ -45,6 +45,8 @@ export default function VarCard({ variable, page }) {
         e.stopPropagation();
         dispatch(
             openContextMenu({
+                x: e.clientX,
+                y: e.clientY,
                 name: variable.variableName,
                 id: variable.variableId,
             })

@@ -39,9 +39,18 @@ export default function VariableContextMenu({ item }) {
 
     return (
         <div>
-            <button onClick={(e) => startRename(e)}>Rename</button>
-            <button onClick={(e) => startAddVariable(e)}>new variable</button>
+            <div className="heading-quaternary">Variables</div>
+            <button className="context--menu" onClick={(e) => startRename(e)}>
+                Rename
+            </button>
             <button
+                className="context--menu"
+                onClick={(e) => startAddVariable(e)}
+            >
+                new variable
+            </button>
+            <button
+                className="context--menu"
                 onClick={() =>
                     mutateDeleteVariable({ variableId: item.variableId })
                 }

@@ -33,13 +33,21 @@ export default function ProjectContextMenu({ item }) {
     });
 
     return (
-        <div>
-            <button onClick={(e) => startRename(e)}>Rename</button>
-            <div onClick={(e) => startAddChild(e)}>New Page</div>
-            <div onClick={() => deleteProject({ projectId: item.projectId })}>
+        <>
+            <div className="heading-quaternary">Project</div>
+            <button className="context--menu" onClick={(e) => startRename(e)}>
+                Rename
+            </button>
+            <button className="context--menu" onClick={(e) => startAddChild(e)}>
+                New Page
+            </button>
+            <button
+                className="context--menu"
+                onClick={() => deleteProject({ projectId: item.projectId })}
+            >
                 Delete Project
-            </div>
-            <div>Share</div>
-        </div>
+            </button>
+            {/* <div>Share</div> */}
+        </>
     );
 }

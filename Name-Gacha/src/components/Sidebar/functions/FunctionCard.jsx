@@ -45,6 +45,8 @@ export default function FunctionCard({ fnction, page }) {
     const handleOpenContextMenu = (e) => {
         dispatch(
             openContextMenu({
+                x: e.clientX,
+                y: e.clientY,
                 name: fnction.functionName,
                 id: fnction.functionId,
             })

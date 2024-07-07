@@ -3,10 +3,17 @@ import ProjectContextMenu from './ProjectContextMenu';
 import PageContextMenu from './PageContextMenu';
 import FunctionContextMenu from './FunctionContextMenu';
 import VariableContextMenu from './VariableContextMenu';
-import VarContainerContext from './VarContainetContext';
-import FnContainerContext from './FnContainer';
+import { useSelector } from 'react-redux';
 
 export default function ContextMenu({ type, item }) {
+    const contextMenu = useSelector((state) => state.currentContextMenu);
+    const style = {
+        position: 'fixed',
+        left: `${contextMenu.x}px`,
+        top: `${contextMenu.y}px`,
+        display: contextMenu.isOpen ? 'block' : 'none',
+        zIndex: '10',
+    };
     const renderContextMenu = () => {
         switch (type) {
             case 'project':
@@ -17,14 +24,14 @@ export default function ContextMenu({ type, item }) {
                 return <VariableContextMenu item={item} />;
             case 'function':
                 return <FunctionContextMenu item={item} />;
-            case 'varContainer':
-                return <VarContainerContext item={item} />;
-            case 'FnContainer':
-                return <FnContainerContext item={item} />;
             default:
                 return <div> No Menu available</div>;
         }
     };
 
-    return <div>{renderContextMenu()}</div>;
+    return (
+        <div className="context" style={style}>
+            {renderContextMenu()}
+        </div>
+    );
 }

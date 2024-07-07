@@ -74,6 +74,8 @@ export default function PageCard({ page }) {
         e.stopPropagation();
         dispatch(
             openContextMenu({
+                x: e.clientX,
+                y: e.clientY,
                 name: page.pageName,
                 id: page.pageId,
             })
@@ -171,12 +173,9 @@ export default function PageCard({ page }) {
                     </div>
                 )}
             </section>
-
-            <section>
-                {componentIsContextOpen && (
-                    <ContextMenu type={'page'} item={page} />
-                )}
-            </section>
+            {componentIsContextOpen && (
+                <ContextMenu type={'page'} item={page} />
+            )}
         </div>
     );
 }

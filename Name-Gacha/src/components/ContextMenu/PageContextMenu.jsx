@@ -75,10 +75,25 @@ export default function PageContextMenu({ item }) {
 
     return (
         <div>
-            <div onClick={(e) => startRename(e)}>Rename</div>
-            <div onClick={(e) => startAddVariable(e)}>New Variable</div>
-            <div onClick={(e) => startAddFunction(e)}>New Function</div>
-            <div onClick={() => startDelete()}>Delete</div>
+            <div className="heading-quaternary">Page</div>
+            <button className="context--menu" onClick={(e) => startRename(e)}>
+                Rename
+            </button>
+            <button
+                className="context--menu"
+                onClick={(e) => startAddVariable(e)}
+            >
+                New Variable
+            </button>
+            <button
+                className="context--menu"
+                onClick={(e) => startAddFunction(e)}
+            >
+                New Function
+            </button>
+            <button className="context--menu" onClick={() => startDelete()}>
+                Delete
+            </button>
         </div>
     );
 }
