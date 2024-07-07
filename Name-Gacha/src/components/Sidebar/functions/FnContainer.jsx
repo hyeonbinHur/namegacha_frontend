@@ -16,10 +16,9 @@ export default function FunctionContainer({ functions, page }) {
     // const queryClient = useQueryClient();
     // open context menu, close context menu, edit variable, delet variable, add variable
     return (
-        <div className="sd-container">
-            <header className="sd-container--heading">
-                <span className="sd-container--heading__name">Functions</span>{' '}
-                {/* <i
+        <div className="side-item--identifier">
+            <span className="heading-quaternary">Functions</span>
+            {/* <i
                     className="icon-basic-elaboration-message-plus"
                     onClick={() =>
                         addFunction({
@@ -29,20 +28,13 @@ export default function FunctionContainer({ functions, page }) {
                         })
                     }
                 ></i> */}
-            </header>
-
-            <section className="sd-container--content">
-                <ul className="sd-container--content__ul">
-                    {functions.map((fn) => (
-                        <li
-                            key={fn.functionId}
-                            className="sd-container--content__items"
-                        >
-                            <FunctionCard fnction={fn} page={page} />
-                        </li>
-                    ))}
-                </ul>
-            </section>
+            <ul className="ul">
+                {functions.map((fn) => (
+                    <li key={fn.functionId} className="li">
+                        <FunctionCard fnction={fn} page={page} />
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

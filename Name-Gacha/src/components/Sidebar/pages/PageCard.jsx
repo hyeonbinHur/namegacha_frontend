@@ -192,21 +192,21 @@ export default function PageCard({ page }) {
         },
     });
     return (
-        <div className="sd-item">
+        <div>
             <section onClick={() => setIsOpen((prev) => !prev)}>
                 <div
-                    className="sd-item--main"
+                    className="side-item"
                     onContextMenu={(e) => handleContextMenu(e)}
                 >
                     {isOpen ? (
-                        <div className="sd-item--main__icons">
-                            <BsCaretUp className="" />
-                            <AiFillFolderOpen className="" />
+                        <div className="side-item__icon">
+                            <BsCaretUp className="side-item__icon__arrow" />
+                            <AiFillFolderOpen className="side-item__icon__folder" />
                         </div>
                     ) : (
-                        <div className="sd-item--main__icons">
-                            <BsCaretDown className="" />
-                            <AiFillFolder className="" />
+                        <div className="side-item__icon">
+                            <BsCaretDown className="side-item__icon__arrow" />
+                            <AiFillFolder className="side-item__icon__folder" />
                         </div>
                     )}
                     {componentIsEdit ? (
@@ -217,18 +217,13 @@ export default function PageCard({ page }) {
                             onKeyDown={(e) => handleEditNameKeyDown(e)}
                         />
                     ) : (
-                        <div className="sd-item--main__name item-width-55">
-                            {page.pageName}
-                        </div>
+                        <div className="side-item__name">{page.pageName}</div>
                     )}
                 </div>
             </section>
-            <section className="sd-item--sub">
+            <section className="side-item--sub">
                 {isOpen && (
-                    <div
-                        className="sd-item--sub__identifier-ul"
-                        onClick={handleNavigateToDetail}
-                    >
+                    <div onClick={handleNavigateToDetail}>
                         <div>
                             {componentIsVariableAdd && (
                                 <input

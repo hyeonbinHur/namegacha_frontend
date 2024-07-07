@@ -1,9 +1,0 @@
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0) scale(1, 1); /* 공이 상단에서 시작하고 원래 상태로 돌아옴 */
-    }
-    50% {
-        transform: translateY(15rem) scale(1, 0.7); /* 공이 바닥에 닿았을 때 찌그러짐 */
-    }
-}

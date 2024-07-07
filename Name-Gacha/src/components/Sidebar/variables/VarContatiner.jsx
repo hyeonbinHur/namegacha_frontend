@@ -15,10 +15,9 @@ export default function VarContainer({ variables, page }) {
     //     },
     // });
     return (
-        <div className="sd-container">
-            <header className="sd-container--heading">
-                <span className="sd-container--heading__name">Variables</span>
-                {/* <i
+        <div className="side-item--identifier">
+            <span className="heading-quaternary">Variables</span>
+            {/* <i
                     className="icon-basic-elaboration-message-plus sd-container--heading__icon"
                     onClick={() =>
                         addVariable({
@@ -28,19 +27,13 @@ export default function VarContainer({ variables, page }) {
                         })
                     }
                 ></i> */}
-            </header>
-            <section className="sd-container--content">
-                <ul className="sd-container--content__ul">
-                    {variables.map((variable) => (
-                        <li
-                            key={variable.variableId}
-                            className="sd-container--content__items"
-                        >
-                            <VarCard variable={variable} page={page} />
-                        </li>
-                    ))}
-                </ul>
-            </section>
+            <ul className="ul">
+                {variables.map((variable) => (
+                    <li key={variable.variableId} className="li">
+                        <VarCard variable={variable} page={page} />
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 }

@@ -39,15 +39,16 @@
         color:$color-white;
     }
 }
-
 .btn-round {
     border-radius: 10rem;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     color: white;
     background-image: linear-gradient(to right, $color-blue-primary, $color-blue-secondary);
     border: 1px solid transparent;
+    z-index: 2;
+    font-size: 2rem;
+    padding: .3rem 1rem;
     position: relative;
-
     &::after{
         content: '';
         z-index: -1;
@@ -68,7 +69,7 @@
         background-image: none; 
         box-shadow: 0 0.5rem 1rem rgba($color-black, .2);
         &::after{
-            transform: scaleX(1.1) scaleY(1.6);
+            transform: scaleX(1.2) scaleY(1.6);
             opacity: 0;
         }
     }

@@ -106,8 +106,8 @@ export default function Header() {
                 ) : (
                     <section className="sidebar-project">
                         {user && isAdd && (
-                            <div className="sidebar-project--create">
-                                <AiFillFolder className="sidebar-project--create__icon" />
+                            <div className="sidebar--create">
+                                <AiFillFolder className="sidebar--create__icon" />
                                 <input
                                     onKeyDown={(e) =>
                                         handleOnKeyDownCreateProject(e)
@@ -116,7 +116,7 @@ export default function Header() {
                                     onChange={(e) =>
                                         setNewProjectName(e.target.value)
                                     }
-                                    className="sidebar-project--create__input"
+                                    className="sidebar--create__input input-basic"
                                 />
                             </div>
                         )}
@@ -124,11 +124,11 @@ export default function Header() {
                         {user ? (
                             projects && projects.data.length > 0 ? (
                                 <div>
-                                    <ul className="sidebar-project--container">
+                                    <ul className="sidebar-project--container ul">
                                         {projects.data.map((project) => (
                                             <li
                                                 key={project.projectId}
-                                                className="sidebar-project--card"
+                                                className="side-item--card"
                                             >
                                                 <ProjectCard
                                                     project={project}
@@ -144,10 +144,10 @@ export default function Header() {
                             )
                         ) : (
                             <button
-                                className="sidebar-project--signin-btn btn-round"
+                                className="sidebar--sign-in btn-round"
                                 onClick={() => moveToSignInPage()}
                             >
-                                sign in
+                                Sign-In
                             </button>
                         )}
                     </section>

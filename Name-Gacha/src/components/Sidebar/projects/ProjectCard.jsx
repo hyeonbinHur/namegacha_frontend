@@ -128,59 +128,54 @@ export default function ProjectCard({ project }) {
     };
 
     return (
-        <div className="sd-item">
-            <section>
-                <div
-                    className="sd-item--main"
-                    onContextMenu={(e) => handleContextMenu(e)}
-                >
-                    {isOpen ? (
-                        <div
-                            className="sd-item--main__icons"
-                            onClick={() => setIsOpen((prev) => !prev)}
-                        >
-                            <BsCaretUp className="sd-item--main__icons__arrow" />
-                            <AiFillFolderOpen className="sd-item--main__icons__folder" />
-                        </div>
-                    ) : (
-                        <div
-                            className="sd-item--main__icons"
-                            onClick={() => setIsOpen((prev) => !prev)}
-                        >
-                            <BsCaretDown className="sd-item--main__icons__arrow" />
-                            <AiFillFolder className="sd-item--main__icons__folder" />
-                        </div>
-                    )}
+        <di>
+            <div
+                className="side-item"
+                onContextMenu={(e) => handleContextMenu(e)}
+            >
+                {isOpen ? (
+                    <div
+                        className="side-item__icon"
+                        onClick={() => setIsOpen((prev) => !prev)}
+                    >
+                        <BsCaretUp className="side-item__icon__arrow" />
+                        <AiFillFolderOpen className="side-item__icon__folder" />
+                    </div>
+                ) : (
+                    <div
+                        className="side-item__icon"
+                        onClick={() => setIsOpen((prev) => !prev)}
+                    >
+                        <BsCaretDown className="side-item__icon__arrow" />
+                        <AiFillFolder className="side-item__icon__folder" />
+                    </div>
+                )}
 
-                    {componentIsEdit ? (
-                        <input
-                            value={projectName}
-                            onClick={(e) => e.stopPropagation()}
-                            onChange={(e) => setProjectName(e.target.value)}
-                            onKeyDown={(e) => handleKeyDown(e)}
-                        />
-                    ) : (
-                        <div className="sd-item--main__name">
-                            {project.projectName}
-                        </div>
-                    )}
+                {componentIsEdit ? (
+                    <input
+                        value={projectName}
+                        onClick={(e) => e.stopPropagation()}
+                        onChange={(e) => setProjectName(e.target.value)}
+                        onKeyDown={(e) => handleKeyDown(e)}
+                    />
+                ) : (
+                    <div className="side-item__name">{project.projectName}</div>
+                )}
+                <i
+                    className="side-item__icon__plus icon-basic-elaboration-browser-plus "
+                    onClick={() =>
+                        addPage({
+                            projectId: project.projectId,
+                            pageExp: '',
+                            pageName: 'add page test',
+                        })
+                    }
+                ></i>
+            </div>
 
-                    <i
-                        className="sd-item--main__plus-icon icon-basic-elaboration-browser-plus "
-                        onClick={() =>
-                            addPage({
-                                projectId: project.projectId,
-                                pageExp: '',
-                                pageName: 'add page test',
-                            })
-                        }
-                    ></i>
-                </div>
-            </section>
-
-            <section className="sd-item--sub">
+            <div className="sd-item">
                 {isOpen == true && (
-                    <ul className="sd-item--sub__pg-ul">
+                    <ul className="side-item--sub ul">
                         {componentIsAdd && (
                             <div>
                                 <input
@@ -194,19 +189,19 @@ export default function ProjectCard({ project }) {
                             </div>
                         )}
                         {project.pages.map((page) => (
-                            <li key={page.pageId} className="sd-item--open">
+                            <li key={page.pageId} className="li">
                                 <PageCard page={page} />
                             </li>
                         ))}
                     </ul>
                 )}
-            </section>
+            </div>
 
-            <section>
+            <div>
                 {componentIsContextOpen && (
                     <ContextMenu type={'project'} item={project} />
                 )}
-            </section>
-        </div>
+            </div>
+        </di>
     );
 }

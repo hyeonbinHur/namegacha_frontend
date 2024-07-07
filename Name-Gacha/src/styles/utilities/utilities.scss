@@ -55,3 +55,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.ul{
+    padding: 0;
+}
+.li{
+    list-style: none;
+    &:not(:last-child){
+        margin-bottom:.3rem;
+    }
+}
