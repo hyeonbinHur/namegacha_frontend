@@ -67,17 +67,14 @@ export default function VariableContainer({ variables, pageId }) {
 
     return (
         <div className="detail-idf--main">
-            <header className="detail-idf--header">
-                <span className="detail-idf--header__name">Variables</span>
-                <DetailForm
-                    componentTarget={componentTarget}
-                    type={'Add'}
-                    apiAction={addNewVariable}
-                    startAction={startAdd}
-                    from="idf"
-                    isLoading={isLoading}
-                />
-            </header>
+            <DetailForm
+                componentTarget={componentTarget}
+                type={'Add'}
+                apiAction={addNewVariable}
+                startAction={startAdd}
+                from="idf"
+                isLoading={isLoading}
+            />
             <ul className="item-ul detail-idf--content">
                 {variables.map((v) => (
                     <li key={v.variableId} className="item-li">

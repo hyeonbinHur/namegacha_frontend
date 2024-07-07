@@ -14,6 +14,8 @@ export default function DetailPage() {
     const [pageId, setPageId] = useState(null);
     const navigate = useNavigate();
 
+    const [selectedIdf, setSelectedIdf] = useState('variable');
+
     useEffect(() => {
         if (params.pageId) {
             setPageId(params.pageId);
@@ -30,6 +32,11 @@ export default function DetailPage() {
         enabled: !!pageId,
     });
 
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setSelectedIdf(value);
+    };
+
     if (isLoading)
         return (
             <img src={loading} alt="loading image" className="loading-sub" />
@@ -45,18 +52,61 @@ export default function DetailPage() {
                         <DetailHeader page={page} />
                     </header>
                     <hr className="divider" />
-                    <section className="detail--variable">
-                        <VariableContainer
-                            variables={page.variables}
-                            pageId={page.pageId}
-                        />
-                    </section>
-                    <hr className="divider" />
-                    <section className="detail--functions">
-                        <FunctionContainer
-                            functions={page.functions}
-                            pageId={page.pageId}
-                        />
+                    <section className="detail--main">
+                        <ul className="detail--tab ul">
+                            <li className="detail--tab__li">
+                                <input
+                                    type="radio"
+                                    id="variable"
+                                    name="detail-tab"
+                                    value="variable"
+                                    checked={selectedIdf === 'variable'}
+                                    onChange={handleChange}
+                                    className="detail--tab__radio"
+                                />
+                                <label
+                                    htmlFor="variable"
+                                    className="detail--tab__label"
+                                >
+                                    Variable
+                                </label>
+                            </li>
+                            <li className="detail--tab__li">
+                                <input
+                                    type="radio"
+                                    id="function"
+                                    name="detail-tab"
+                                    value="function"
+                                    checked={selectedIdf === 'function'}
+                                    onChange={handleChange}
+                                    className="detail--tab__radio"
+                                />
+                                <label
+                                    htmlFor="function"
+                                    className="detail--tab__label"
+                                >
+                                    Function
+                                </label>
+                            </li>
+                        </ul>
+                        <div className="detail--content">
+                            {selectedIdf === 'variable' && (
+                                <section className="detail--content__idf-container">
+                                    <VariableContainer
+                                        variables={page.variables}
+                                        pageId={page.pageId}
+                                    />
+                                </section>
+                            )}
+                            {selectedIdf === 'function' && (
+                                <section className="detail--content__idf-container">
+                                    <FunctionContainer
+                                        functions={page.functions}
+                                        pageId={page.pageId}
+                                    />
+                                </section>
+                            )}
+                        </div>
                     </section>
                     <BsChatSquareDotsFill
                         onClick={() => navigate('/')}

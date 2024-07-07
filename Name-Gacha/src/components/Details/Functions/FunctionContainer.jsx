@@ -66,7 +66,6 @@ export default function FunctionContainer({ functions, pageId }) {
     return (
         <div className="detail-idf--main">
             <header className="detail-idf--header">
-                <span className="detail-idf--header__name">Functions</span>
                 <DetailForm
                     componentTarget={componentTarget}
                     type={'Add'}
