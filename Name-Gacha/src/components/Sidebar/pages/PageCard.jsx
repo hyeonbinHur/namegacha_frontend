@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-// import { BsCaretUp } from 'react-icons/bs';
+import { BsCaretUp } from 'react-icons/bs';
 import { BsCaretDown } from 'react-icons/bs';
 import { AiFillFolder } from 'react-icons/ai';
 // import { SlOptions } from 'react-icons/sl';
