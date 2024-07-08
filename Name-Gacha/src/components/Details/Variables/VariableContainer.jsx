@@ -77,9 +77,8 @@ export default function VariableContainer({ variables, pageId }) {
             />
             <ul className="item-ul detail-idf--content">
                 {variables.map((v) => (
-                    <li key={v.variableId} className="item-li">
+                    <li key={v.variableId} className="item-li detail-idf--li">
                         <VariableCard variable={v} />
-                        <hr className="divider" />
                     </li>
                 ))}
             </ul>

@@ -1,58 +1,59 @@
 .detail-page {
     height: 100%;
+
     &--basic {
         height: 100%;
         margin: auto;
         padding-top: .5rem;
-
         &__container {
             line-height: 1.4;
             position: relative;
         }
-
         &__name {
             width: 70%;
             font-size: 2.7rem;
             font-weight: 600;
             word-wrap: break-word;
         }
-
         &__exp {
             width: 70%;
             font-size: 2.3rem;
             font-weight: 400;
             word-wrap: break-word;
         }
-
         &__features {
             height: 90%;
             width: 15%;
             position: absolute;
-            bottom: 0;
+            bottom: 3%;
             right: 2%;
             display: flex;
             align-items: end;
+            &__edit{
+                position: absolute;
+                right: 6rem;
+                bottom: 1rem;
+                width: 20rem;
+                display: flex;
+            }
         }
-
         &__del,
         &__edit {
             position: relative;
             display: flex;
             align-items: center;
-            /* 중앙 정렬을 위해 추가 */
             justify-content: center;
-            /* 아이콘과 텍스트 중앙 정렬 */
             font-size: 2rem;
             color: $color-grey;
             border-radius: 2px;
             transition: all .2s ease;
             padding: .5rem 1rem;
-            /* 버튼 패딩 조정 */
             padding-right: 2.5rem;
 
             &:hover {
                 transform: translateY(-2px) scale(1.02);
                 box-shadow: 0rem 1rem 1rem rgba($color-black, .1);
+
             }
 
             &:active {
@@ -64,18 +65,15 @@
             margin-right: 5%;
             color: $color-grey;
             border-bottom: 3px solid $color-blue-primary ;
-
             &:hover {
                 background-color: $color-blue-secondary;
                 color: $color-white;
                 border: none;
             }
         }
-
         &__del {
             color: $color-grey;
             border-bottom: 3px solid $color-red-light ;
-
             &:hover {
                 background-color: $color-red-light;
                 color: $color-white;
@@ -87,7 +85,6 @@
         &__icon {
             font-size: 2.7rem;
             margin-right: .5rem;
-            /* 아이콘과 텍스트 사이 간격 조정 */
             padding-bottom: .3rem;
         }
     }
@@ -111,11 +108,13 @@
             padding: .5rem .5rem;
             border: 1px solid black;
             font-size: 2.3rem;
-
+            overflow-y: scroll;
+            &::-webkit-scrollbar {
+                display: none;
+            }
             &:focus {
                 border: 2px solid $color-blue-secondary;
             }
-
             margin-bottom: 1rem;
         }
     }
@@ -127,94 +126,124 @@
         height: 100%;
         border: 1px solid $color-grey-dark-2;
         background-color: $color-white;
-    }
-
-    &--header {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 500;
-        color: $color-white;
-        height: 3.5rem;
-        background-image: linear-gradient(to right bottom, $color-blue-primary, $color-blue-secondary, $color-blue-tertiary);
-        &__name {
-            font-size: 1.6rem;
-        }
-    }
-
-    &--content {
-        
         overflow-y: scroll;
+
         &::-webkit-scrollbar {
             display: none;
         }
+
     }
 
-    &--btn {
-        &__action {
-            position: absolute;
-            top: 50%;
-            right: 2.5%;
-            border: 1px solid black;
-            transform: translate(0%, -50%);
-            font-size: 2.5rem;
-            color: $color-black;
-            padding: 0rem 1rem;
-            height: 3rem;
-            border: 1px solid transparent;
-            border-radius: 5px;
-            transition: all .3s;
+    &--li {
+        min-height: 11rem;
+    }
 
-            &:hover {
-                background-color: $color-grey-dark-2;
-                transform: translate(0%, -50%) translateY(-3px);
-            }
+    // &--header {
+    //     position: relative;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     font-weight: 500;
+    //     color: $color-white;
+    //     height: 3.5rem;
+    //     background-image: linear-gradient(to right bottom, $color-blue-primary, $color-blue-secondary, $color-blue-tertiary);
+    //     &__name {
+    //         font-size: 1.6rem;
+    //     }
+    // }
 
-            &:active {
-                transform: translate(0%, -50%) translateY(3px);
-            }
+    // &--content {
+    //     overflow-y: scroll;
+    //     &::-webkit-scrollbar {
+    //         display: none;
+    //     }
+    // }
+
+    // &--btn {
+    //     &__action {
+    //         position: absolute;
+    //         top: 50%;
+    //         right: 2.5%;
+    //         border: 1px solid black;
+    //         transform: translate(0%, -50%);
+    //         font-size: 2.5rem;
+    //         color: $color-black;
+    //         padding: 0rem 1rem;
+    //         height: 3rem;
+    //         border: 1px solid transparent;
+    //         border-radius: 5px;
+    //         transition: all .3s;
+    //         &:hover {
+    //             background-color: $color-grey-dark-2;
+    //             transform: translate(0%, -50%) translateY(-3px);
+    //         }
+    //         &:active {
+    //             transform: translate(0%, -50%) translateY(3px);
+    //         }
+    //     }
+    //     &__del {
+    //         position: absolute;
+    //         top: 0;
+    //         right: 3%;
+    //         padding: 0rem .3rem;
+    //         height: 2.8rem;
+    //         font-size: 2.5rem;
+    //         border-radius: 5px;
+    //         transition: all .2s;
+
+    //         &:hover {
+    //             transform: translateY(-3px);
+    //             background-color: $color-red-light;
+    //         }
+
+    //         &:active {
+    //             transform: translateY(3px);
+    //         }
+    //     }
+
+    //     &__edit {
+    //         position: absolute;
+    //         top: 50%;
+    //         right: 3%;
+    //         height: 2.8rem;
+    //         padding: 0rem .3rem;
+    //         font-size: 2.5rem;
+    //         border-radius: 5px;
+    //         transition: all .2s;
+    //         &:hover {
+    //             transform: translateY(-3px);
+    //             background-color: $color-grey-dark-2;
+    //         }
+
+    //         &:active {
+    //             transform: translateY(3px);
+    //         }
+    //     }
+
+    // }
+
+    &--insert {
+        position: absolute;
+        top: 2rem;
+        right: 3rem;
+        font-size: 1.8rem;
+        padding: .7rem 1.3rem;
+        border-bottom: 3px solid $color-blue-secondary;
+        color: $color-grey;
+        transition: all .2s;
+        border-radius: 2px;
+
+        &:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0rem 1rem 1rem rgba($color-black, .1);
+            background-color: $color-blue-secondary;
+            color: $color-white;
+            border: none;
         }
 
-        &__del {
-            position: absolute;
-            top: 0;
-            right: 3%;
-            padding: 0rem .3rem;
-            height: 2.8rem;
-            font-size: 2.5rem;
-            border-radius: 5px;
-            transition: all .2s;
-
-            &:hover {
-                transform: translateY(-3px);
-                background-color: $color-red-light;
-            }
-
-            &:active {
-                transform: translateY(3px);
-            }
+        &__icon {
+            padding-top: .2rem;
         }
-
-        &__edit {
-            position: absolute;
-            top: 50%;
-            right: 3%;
-            height: 2.8rem;
-            padding: 0rem .3rem;
-            font-size: 2.5rem;
-            border-radius: 5px;
-            transition: all .2s;
-            &:hover {
-                transform: translateY(-3px);
-                background-color: $color-grey-dark-2;
-            }
-
-            &:active {
-                transform: translateY(3px);
-            }
-        }
-
     }
 
     &--basic {
@@ -230,22 +259,117 @@
             font-size: 1.6rem;
             font-weight: 500;
             background-color: $color-grey-dark-1;
-            padding: .5rem 2rem;
-            border-radius: 5px;
+            padding: .5rem 1rem;
+            border-left: 2px solid $color-blue-primary;
         }
 
         &__name {
             display: inline-block;
             max-width: 40%;
-            min-width: 30%
+            min-width: 30%;
+            height: 4rem;
+            margin-bottom: .5rem;
         }
 
         &__exp {
             display: inline-block;
             max-width: 70%;
             min-width: 60%;
-
+            min-height: 4rem;
         }
 
+        &__features {
+            position: absolute;
+            right: 2rem;
+            bottom: 0;
+            width: 20rem;
+            display: flex;
+            &__edit{
+                position: absolute;
+                right: 3.3rem;
+                bottom: 1rem;
+                width: 20rem;
+                display: flex;
+            }
+           
+        }
+
+        &__edit {
+            height: 4rem;
+            margin-right: 2rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid $color-blue-secondary;
+            padding: 0rem 1rem;
+            padding-right: 1.7rem;
+            display: flex;
+            align-items: center;
+            transition: all .2s;
+
+            &:hover {
+                transform: translateY(-2px) scale(1.02);
+                box-shadow: 0rem 1rem 1rem rgba($color-black, .1);
+                background-color: $color-blue-secondary;
+                color: $color-white;
+                border: none;
+            }
+        }
+
+        &__del {
+            height: 4rem;
+            padding: 0rem 1rem;
+            font-size: 1.8rem;
+            border-bottom: 2px solid $color-red-light;
+            display: flex;
+            align-items: center;
+            transition: all .2s;
+
+            &:hover {
+                transform: translateY(-2px) scale(1.02);
+                box-shadow: 0rem 1rem 1rem rgba($color-black, .1);
+                background-color: $color-red-light;
+                color: $color-white;
+                border: none;
+            }
+        }
+
+        &__icon {
+            font-size: 2.3rem;
+            margin-right: .1rem;
+            padding-bottom: .4rem;
+        }
+    }
+
+    &--edit {
+        padding: 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        &__name {
+            display: inline-block;
+            max-width: 40%;
+            min-width: 30%;
+            height: 4rem;
+            margin-bottom: .5rem;
+            padding: .5rem 1rem;
+            font-size: 1.8rem;
+        }
+
+        &__exp {
+            display: inline-block;
+            max-width: 70%;
+            min-width: 60%;
+            height: auto;
+            padding: .5rem 1rem;
+            border: 1px solid black;
+            font-size: 1.8rem;
+            overflow: auto;
+            resize: vertical;
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+        }
     }
 }

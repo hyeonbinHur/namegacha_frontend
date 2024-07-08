@@ -6,28 +6,35 @@
     height: 97vh;
     position: relative;
     padding: 1rem 3rem;
+
     &--header {
         min-height: 10%;
         max-height: 20%;
         overflow: hidden;
     }
+
     &--main {
         margin-top: 3rem;
-        flex: 1; 
+        flex: 1;
         min-height: fit-content;
         border: 1px solid $color-grey-dark-2;
         border-radius: 3px;
         padding: 1rem 0rem;
         background-color: $color-grey-light-2;
+        overflow: hidden;
+        position: relative;
     }
+
     &--tab {
         height: 10%;
         display: flex;
         padding: 0rem 1rem;
         border-bottom: 1px solid $color-grey-dark-2;
+
         &__li {
             list-style: none;
         }
+
         &__radio {
             display: none;
 
@@ -48,7 +55,6 @@
     &--content {
         height: 90%;
         padding: 2rem 2rem;
-
         &__idf-container {
             height: 100%;
         }

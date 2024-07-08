@@ -80,7 +80,6 @@ export default function FunctionContainer({ functions, pageId }) {
                 {functions.map((f) => (
                     <li key={f.functionId} className="item-li">
                         <FunctionCard fn={f} />
-                        <hr className="divider" />
                     </li>
                 ))}
             </ul>

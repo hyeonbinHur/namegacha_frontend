@@ -1,3 +1,4 @@
+import { GrAdd } from 'react-icons/gr';
 import { BiX } from 'react-icons/bi';
 import { BiCheck } from 'react-icons/bi';
 import { MdModeEditOutline } from 'react-icons/md';
@@ -30,7 +31,12 @@ export default function DetailForm({
             setNewExp(componentTarget.exp);
         }
     }, [componentTarget, type]);
-
+    useEffect(() => {
+        if (expInputRef.current) {
+            expInputRef.current.style.height = 'auto';
+            expInputRef.current.style.height = `${expInputRef.current.scrollHeight}px`;
+        }
+    }, [newExp]);
     /**redux variable */
     const sliceTarget = useSelector((state) => state.detailPageSlice.target);
     const sliceFlag = useSelector(
@@ -109,7 +115,7 @@ export default function DetailForm({
                         onKeyDown={(e) => handleKeyDown(e)}
                     />
 
-                    <div className={`detail-${from}--basic__features`}>
+                    <div className={`detail-${from}--basic__features__edit`}>
                         <button
                             onClick={() => startButtonAction()}
                             className={`detail-${from}--basic__edit`}
@@ -178,10 +184,13 @@ export default function DetailForm({
                             <img src={Spinner} alt="loading spinner" />
                         </div>
                     ) : (
-                        <i
+                        <button
                             onClick={() => startAction()}
-                            className={`icon-basic-elaboration-calendar-pencil detail-${from}--btn__action`}
-                        />
+                            className={`detail-${from}--insert`}
+                        >
+                            <GrAdd className={`detail-${from}--insert__icon`} />{' '}
+                            Insert
+                        </button>
                     )}
                 </div>
             )}
