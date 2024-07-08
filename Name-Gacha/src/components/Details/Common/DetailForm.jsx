@@ -149,7 +149,11 @@ export default function DetailForm({
                                 <div
                                     className={`detail-${from}--basic__features`}
                                 >
-                                    <img src={Spinner} alt="loading spinner" />
+                                    <img
+                                        src={Spinner}
+                                        alt="loading spinner"
+                                        className={`loading-sub detail-${from}--loading`}
+                                    />
                                 </div>
                             ) : (
                                 <div
@@ -179,9 +183,11 @@ export default function DetailForm({
                             )}
                         </div>
                     ) : isLoading ? (
-                        <div>
-                            <img src={Spinner} alt="loading spinner" />
-                        </div>
+                        <img
+                            src={Spinner}
+                            alt="loading spinner"
+                            className={`detail-idf--container__loading`}
+                        />
                     ) : (
                         <button
                             onClick={() => startAction()}

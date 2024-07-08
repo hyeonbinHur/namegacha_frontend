@@ -49,6 +49,7 @@
             flex: 1;
             border-bottom: 2px solid $color-grey-dark-1;
             overflow: hidden;
+            position: relative;
         }
 
         &__new {
@@ -88,7 +89,7 @@
             border-bottom: 2px solid $color-blue-secondary;
             margin-right: 2rem;
             transition: all .2s;
-            border-radius: 3px;
+            border-radius: 2px;
             &:hover {
                 background-color: $color-blue-secondary;
                 color: $color-white;
@@ -101,7 +102,7 @@
             font-size: 2rem;
             border-bottom: 2px solid $color-red-light;
             transition: all .2s;
-            border-radius: 3px;
+            border-radius: 2px;
             &:hover {
                 background-color: $color-red-light;
                 color: $color-white;

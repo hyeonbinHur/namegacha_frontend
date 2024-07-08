@@ -8,6 +8,8 @@ import { createPortal } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeIedntifierModal } from '../../store/identifiyerModal';
 import { CgClose } from 'react-icons/cg';
+import { checkPendingStatus } from '../../utils/util/util';
+import Spinner from '../../assets/svgs/loading.svg';
 
 const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     const type = useSelector((state) => state.currentThread.globalThreadType);
@@ -26,24 +28,26 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     });
     const queryClient = useQueryClient();
 
-    const { mutate: mutateAddVariable } = useMutation({
-        mutationFn: ({ pageId, variableName, variableExp }) => {
-            return createVariable(pageId, variableName, variableExp);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-            ref.current.close();
-        },
-    });
-    const { mutate: mutateAddFunction } = useMutation({
-        mutationFn: ({ pageId, functionName, functionExp }) => {
-            return createFunction(pageId, functionName, functionExp);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-            ref.current.close();
-        },
-    });
+    const { mutate: mutateAddVariable, status: isAddVariablePending } =
+        useMutation({
+            mutationFn: ({ pageId, variableName, variableExp }) => {
+                return createVariable(pageId, variableName, variableExp);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+                ref.current.close();
+            },
+        });
+    const { mutate: mutateAddFunction, status: isAddFunctionPending } =
+        useMutation({
+            mutationFn: ({ pageId, functionName, functionExp }) => {
+                return createFunction(pageId, functionName, functionExp);
+            },
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+                ref.current.close();
+            },
+        });
     const startAddIdentifier = () => {
         if (type === 'variable') {
             mutateAddVariable({
@@ -98,6 +102,11 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
         const value = e.target.value;
         findItem('page', value);
     };
+
+    const isLoading = checkPendingStatus([
+        isAddVariablePending,
+        isAddFunctionPending,
+    ]);
     return createPortal(
         <div>
             <dialog ref={modal} className="modal idf-modal">
@@ -196,25 +205,33 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             <div className="idf-modal--idf__header">
                                                 Variables
                                             </div>
-                                            <ul className="idf-modal--ul__idf">
-                                                {selectedPage.variables.map(
-                                                    (variable) => (
-                                                        <li
-                                                            className="idf--idf-card"
-                                                            key={`variable-${variable.variableId}`}
-                                                        >
-                                                            <ModalCard
-                                                                name={
-                                                                    variable.variableName
-                                                                }
-                                                                id={
-                                                                    variable.variableId
-                                                                }
-                                                            />
-                                                        </li>
-                                                    )
-                                                )}
-                                            </ul>
+                                            {isLoading ? (
+                                                <img
+                                                    src={Spinner}
+                                                    className="loading-sub"
+                                                    alt="identifier modal loading spinner"
+                                                />
+                                            ) : (
+                                                <ul className="idf-modal--ul__idf">
+                                                    {selectedPage.variables.map(
+                                                        (variable) => (
+                                                            <li
+                                                                className="idf--idf-card"
+                                                                key={`variable-${variable.variableId}`}
+                                                            >
+                                                                <ModalCard
+                                                                    name={
+                                                                        variable.variableName
+                                                                    }
+                                                                    id={
+                                                                        variable.variableId
+                                                                    }
+                                                                />
+                                                            </li>
+                                                        )
+                                                    )}
+                                                </ul>
+                                            )}
                                         </div>
                                     ) : (
                                         <ul className="idf-modal--ul idf-modal--idf__old">
@@ -222,18 +239,27 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             <div className="idf-modal--idf__header">
                                                 Functions
                                             </div>
-                                            {selectedPage.functions.map(
-                                                (fn) => (
-                                                    <li
-                                                        key={`function-${fn.functionId}`}
-                                                    >
-                                                        <ModalCard
-                                                            name={
-                                                                fn.functionName
-                                                            }
-                                                            id={fn.functionId}
-                                                        />
-                                                    </li>
+                                            {isLoading ? (
+                                                <img
+                                                    src={Spinner}
+                                                    className="loading-sub"
+                                                />
+                                            ) : (
+                                                selectedPage.functions.map(
+                                                    (fn) => (
+                                                        <li
+                                                            key={`function-${fn.functionId}`}
+                                                        >
+                                                            <ModalCard
+                                                                name={
+                                                                    fn.functionName
+                                                                }
+                                                                id={
+                                                                    fn.functionId
+                                                                }
+                                                            />
+                                                        </li>
+                                                    )
                                                 )
                                             )}
                                         </ul>

@@ -118,6 +118,9 @@
             margin-bottom: 1rem;
         }
     }
+    &--loading{
+        width: 10rem;
+    }
 }
 
 .detail-idf {
@@ -133,11 +136,19 @@
         }
 
     }
-
+    &--loading{
+        width: 10rem;
+        top: -3rem;
+    }
     &--li {
         min-height: 11rem;
     }
-
+    &--container__loading{
+        position: absolute;
+        top: -2rem;
+        right: 3rem;
+        width: 12rem;
+    }
     // &--header {
     //     position: relative;
     //     display: flex;
