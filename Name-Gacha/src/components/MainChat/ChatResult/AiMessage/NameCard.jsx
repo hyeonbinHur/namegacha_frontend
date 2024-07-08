@@ -1,4 +1,8 @@
 /* eslint-disable react/prop-types */
+import { GrAdd } from 'react-icons/gr';
+import { MdModeEditOutline } from 'react-icons/md';
+import { BiCheck } from 'react-icons/bi';
+import { BiX } from 'react-icons/bi';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -84,17 +88,18 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
             {componentIsEdit ? (
                 <div className="ai-name">
                     <div className="ai-name--header">
-                        <i
+                        <BiCheck
                             onClick={() => startEditNameInSlice()}
-                            className="icon-basic-elaboration-bookmark-checck ai--icon"
+                            className="ai-name--icon__check"
                         />
-                        <i
+                        <BiX
                             onClick={() => cancelEditName()}
-                            className="icon-basic-elaboration-bookmark-remove ai--icon__cancel"
+                            className="ai-name--icon__x"
                         />
                     </div>
                     <div className="ai-name--content">
                         <input
+                            className="ai-name--content__input input-basic"
                             value={newName}
                             onChange={(e) => setNewName(e.target.value)}
                         />
@@ -103,16 +108,20 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
             ) : (
                 <div className="ai-name">
                     <div className="ai-name--header">
-                        <i
-                            className="icon-basic-elaboration-bookmark-plus ai--icon"
+                        <GrAdd
                             onClick={() => selectNewItem(newName)}
+                            className="ai-name--icon__add"
                         />
-                        <i
-                            className="icon-basic-elaboration-bookmark-minus ai--icon"
+                        <MdModeEditOutline
                             onClick={() => startEditInComponent()}
+                            className="ai-name--icon__edit"
                         />
                     </div>
-                    <div className="ai-name--content">{newName}</div>
+                    <div className="ai-name--content">
+                        <span className="ai-name--content__basic">
+                            {newName}
+                        </span>
+                    </div>
                 </div>
             )}
         </div>

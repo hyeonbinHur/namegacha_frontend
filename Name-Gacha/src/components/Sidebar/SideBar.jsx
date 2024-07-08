@@ -146,7 +146,7 @@ export default function Header() {
                                 className="sidebar--sign-in btn-round"
                                 onClick={() => moveToSignInPage()}
                             >
-                                Sign-In
+                                Sign In
                             </button>
                         )}
                     </section>

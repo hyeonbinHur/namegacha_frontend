@@ -7,6 +7,7 @@ import {
     pushUserMessages,
 } from '../../../store/threadSlice';
 import { useEffect, useState } from 'react';
+import Spinner from '../../../assets/svgs/loading.svg';
 
 export default function ChatBox() {
     const currentVariableThread = useSelector(
@@ -153,7 +154,6 @@ export default function ChatBox() {
 
     return (
         <div className="chat--box--container">
-            {isLoading && <div className="loading-main"> </div>}
             <textarea
                 className="chat--box__input"
                 type="text"
@@ -167,7 +167,6 @@ export default function ChatBox() {
                     }));
                 }}
             />
-
             <div className="chat--box__buttons">
                 <div className="chat--box__buttons__type">
                     <input
@@ -207,6 +206,9 @@ export default function ChatBox() {
                         Snake
                     </label>
                 </div>
+                {isLoading && (
+                    <img src={Spinner} className="chat--box__loading" />
+                )}
                 {userMessage.length > 0 ? (
                     <button
                         className="chat--box__button--send__active"

@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { MdModeEditOutline } from 'react-icons/md';
+import { BiCheck } from 'react-icons/bi';
+import { BiX } from 'react-icons/bi';
+
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { editAiMessageExp } from '../../../../store/threadSlice';
 import { clearIsEdit, setIsEdit } from '../../../../store/aiMessageEditSlice';
@@ -9,7 +13,14 @@ import { toast } from 'react-toastify';
 /* eslint-disable react/prop-types */
 export default function ExpCard({ exp, arrayIndex }) {
     const [newExp, setNewExp] = useState(exp);
+    const expInputRef = useRef(null);
 
+    useEffect(() => {
+        if (expInputRef.current) {
+            expInputRef.current.style.height = 'auto';
+            expInputRef.current.style.height = `${expInputRef.current.scrollHeight}px`;
+        }
+    }, [newExp]);
     /**slice variables */
     const sliceTarget = useSelector((state) => state.aiMessageEditSlice.target);
     const sliceIsEdit = useSelector((state) => state.aiMessageEditSlice.isEdit);
@@ -28,7 +39,6 @@ export default function ExpCard({ exp, arrayIndex }) {
         sliceIsEdit
     );
     /**redux dispathes */
-
     const dispatch = useDispatch();
     const startEditExpInSlice = () => {
         const empty = isNotEmpty(newExp);
@@ -57,27 +67,30 @@ export default function ExpCard({ exp, arrayIndex }) {
         <div>
             {componentIsEdit ? (
                 <div className="message--ai__exp-content">
-                    <input
+                    <textarea
                         value={newExp}
+                        className="ai-exp--content__input input-basic"
                         onChange={(e) => setNewExp(e.target.value)}
+                        ref={expInputRef}
                     />
                     <div>
-                        <i
-                            className="icon-basic-elaboration-bookmark-plus ai--icon"
+                        <BiCheck
                             onClick={() => startEditExpInSlice()}
+                            className="ai-exp--icon__check"
                         />
-                        <i
-                            className="icon-basic-elaboration-bookmark-remove ai--icon__cancel"
+                        <BiX
                             onClick={() => cancelEditExp()}
+                            className="ai-exp--icon__x"
                         />
                     </div>
                 </div>
             ) : (
                 <div className="message--ai__exp-content">
-                    <div>{newExp}</div>
-                    <i
-                        className="icon-basic-elaboration-bookmark-minus ai--icon"
+                    <span className="ai-exp--exp">{newExp}</span>
+
+                    <MdModeEditOutline
                         onClick={() => startEditExpInComponent()}
+                        className="ai-exp--icon__edit"
                     />
                 </div>
             )}

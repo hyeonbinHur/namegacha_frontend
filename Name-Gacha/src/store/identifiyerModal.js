@@ -17,8 +17,8 @@ const identifierModalSlice = createSlice({
             state.item.name = action.payload.name;
             state.item.exp = action.payload.exp;
         },
-
         closeIedntifierModal(state) {
+            console.log('close 2');
             state.isOpen = false;
             (state.item.name = null), (state.item.exp = null);
         },

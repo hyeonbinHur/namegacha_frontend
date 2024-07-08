@@ -1,3 +1,9 @@
+.auth{
+    &-heading-container{
+        margin-bottom: 3rem;
+    }
+}
+
 .auth-modal{
     width: 80rem;
     height: 48rem;
@@ -6,36 +12,35 @@
     $color-white 70%, 
     rgba($color-blue-primary, .96) 70%), 
     url('../assets/logo/black-logo.png');
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 .auth-section{
     width: 70%;
-    height: 80%;
+    height: 100%;
     padding: 2rem;
     position: absolute;
     top: 0;
     left: 0;
+
 }
 .auth-section-sub{
     background-image: none;
-    width: 25%;
-    height: 75%;
+    width: 30%;
+    height: 70%;
     padding: 2rem;
     position: absolute;
+    top: 10%;
     right: 0;
-    display: block;
+
 
     &--content{
         width: 100%;
+        position: relative;
+        top:20%;
 
         &__heading{
             display: block;
             color: $color-white;
         }
-
         &__content{
             display: inline-block;
             text-align: center;
@@ -47,12 +52,16 @@
             margin-top: 3rem;
             width: 100%;
             border: 1px solid $color-white;
-            color: $color-white;
+            color: $color-blue-primary;
             padding: .8rem .4rem;
-
             &::after{
                 background-image: none;
                 background-color: $color-white;
+            }
+            &:hover{
+                color: $color-white;
+                border: 1px solid $color-white;
+                background-color:$color-blue-primary;
             }
         }
     }
@@ -61,6 +70,13 @@
 
 .sign-in-form{
     margin-top: 3rem;
+
+    &--loading{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
     &--input{
         display: inline-block;
         padding:.5rem .8rem;

@@ -114,7 +114,6 @@ export default function DetailForm({
                         onChange={(e) => setNewExp(e.target.value)}
                         onKeyDown={(e) => handleKeyDown(e)}
                     />
-
                     <div className={`detail-${from}--basic__features__edit`}>
                         <button
                             onClick={() => startButtonAction()}

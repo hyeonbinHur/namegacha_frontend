@@ -40,11 +40,9 @@ export default function MainPage() {
             },
         },
     });
-
     const handleContextMenuClose = () => {
         dispatch(closeContextMenu());
     };
-
     // UseEffect to open/close modal based on error state
     useEffect(() => {
         if (sliceIsError) {
@@ -53,7 +51,6 @@ export default function MainPage() {
             errorModal.current.close();
         }
     }, [sliceIsError]);
-
     return (
         <QueryClientProvider client={queryClient}>
             <main className="main" onClick={(e) => handleContextMenuClose(e)}>
@@ -75,7 +72,6 @@ export default function MainPage() {
         </QueryClientProvider>
     );
 }
-
 function WrappedMainChat() {
     return (
         <div className="mainChat">

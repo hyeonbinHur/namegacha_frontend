@@ -1,0 +1,15 @@
+.error-page {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    &--text-container {
+        margin-top: 15rem;
+        width: 50%;
+        text-align: center;
+    }
+
+    &--img-container {
+        width: 50%;
+    }
+
+}

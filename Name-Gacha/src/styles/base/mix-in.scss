@@ -29,3 +29,23 @@
     left: $left;
     transform: translate(-$left, -$top);
 }
+@mixin rotate{
+    @keyframes rotate {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        25% {
+            transform: translate(30px, -30px) rotate(15deg);
+        }
+        50% {
+            transform: translate(0, -50px) rotate(0deg);
+        }
+        75% {
+            transform: translate(-30px, -30px) rotate(-15deg);
+        }
+        100% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+    }
+    animation: rotate 10s infinite ;
+}

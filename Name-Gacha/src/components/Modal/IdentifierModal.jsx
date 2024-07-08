@@ -63,6 +63,7 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
         return {
             open: () => {
                 modal.current.showModal();
+                console.log('open');
             },
             close: () => {
                 dispatch(closeIedntifierModal());
@@ -70,7 +71,6 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
             },
         };
     });
-
     const findItem = (type, id) => {
         if (type === 'project') {
             const project = projects.data.find(
@@ -100,10 +100,10 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     };
     return createPortal(
         <div>
-            <dialog ref={modal} className="modal">
+            <dialog ref={modal} className="modal idf-modal">
                 <div className="idf-modal--header">
-                    <div className="close-box item-between">
-                        <div>New Variable: userDataStore</div>
+                    <div className="close-box">
+                        <div>{newIdentifier.name}</div>
                         <CgClose
                             className="close-box--close"
                             onClick={() => ref.current.close()}
@@ -112,14 +112,14 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                 </div>
 
                 {user && projects && projects.data.length > 0 && (
-                    <div className="idf-modal">
+                    <div className="idf-modal--content">
                         <section className="idf-modal--project">
                             <ul className="idf-modal--ul">
                                 {/* project card */}
                                 {projects.data.map((project) => (
                                     <li
                                         key={`project-${project.projectId}`}
-                                        className={`idf-modal--li idf--project-card ${
+                                        className={`idf--project-card ${
                                             selectedProject?.projectId ===
                                             project.projectId
                                                 ? 'selected'
@@ -158,7 +158,7 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                     {selectedProject.pages.map((page) => (
                                         <li
                                             key={`page-${page.pageId}`}
-                                            className={`idf-modal--li idf--page-card ${
+                                            className={`idf--page-card ${
                                                 selectedPage?.pageId ===
                                                 page.pageId
                                                     ? `selected`
@@ -190,33 +190,34 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                         </section>
                         <section className="idf-modal--idf">
                             {selectedPage && (
-                                <div>
+                                <div className="idf-modal--idf__content">
                                     {type === 'variable' ? (
-                                        <ul className="idf-modal--ul__idf">
+                                        <div className="idf-modal--idf__old">
                                             <div className="idf-modal--idf__header">
                                                 Variables
                                             </div>
-                                            {/* variable card */}
-                                            {selectedPage.variables.map(
-                                                (variable) => (
-                                                    <li
-                                                        className="idf-modal--li"
-                                                        key={`variable-${variable.variableId}`}
-                                                    >
-                                                        <ModalCard
-                                                            name={
-                                                                variable.variableName
-                                                            }
-                                                            id={
-                                                                variable.variableId
-                                                            }
-                                                        />
-                                                    </li>
-                                                )
-                                            )}
-                                        </ul>
+                                            <ul className="idf-modal--ul__idf">
+                                                {selectedPage.variables.map(
+                                                    (variable) => (
+                                                        <li
+                                                            className="idf--idf-card"
+                                                            key={`variable-${variable.variableId}`}
+                                                        >
+                                                            <ModalCard
+                                                                name={
+                                                                    variable.variableName
+                                                                }
+                                                                id={
+                                                                    variable.variableId
+                                                                }
+                                                            />
+                                                        </li>
+                                                    )
+                                                )}
+                                            </ul>
+                                        </div>
                                     ) : (
-                                        <ul className="idf-modal--ul">
+                                        <ul className="idf-modal--ul idf-modal--idf__old">
                                             {/* function card */}
                                             <div className="idf-modal--idf__header">
                                                 Functions
@@ -224,7 +225,6 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             {selectedPage.functions.map(
                                                 (fn) => (
                                                     <li
-                                                        className="idf-modal--li"
                                                         key={`function-${fn.functionId}`}
                                                     >
                                                         <ModalCard
@@ -238,30 +238,12 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                             )}
                                         </ul>
                                     )}
-                                    <div className="idf-modal--new">
-                                        <div className="idf-modal--new__name">
+                                    <div className="idf-modal--idf__new">
+                                        <div className="idf-modal--idf__new__name">
                                             {newIdentifier.name}
                                         </div>
-                                        <div className="idf-modal--new__exp">
+                                        <div className="idf-modal--idf__new__exp">
                                             {newIdentifier.exp}
-                                        </div>
-                                        <div className="idf-modal--new__btns">
-                                            <button
-                                                className="idf-modal--new__btns__save"
-                                                onClick={() =>
-                                                    startAddIdentifier()
-                                                }
-                                            >
-                                                save
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    ref.current.close()
-                                                }
-                                                className="idf-modal--new__btns__cancel"
-                                            >
-                                                cancel
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -269,6 +251,21 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                         </section>
                     </div>
                 )}
+
+                <div className="idf-modal__btns">
+                    <button
+                        className="idf-modal__btns__save"
+                        onClick={() => startAddIdentifier()}
+                    >
+                        save
+                    </button>
+                    <button
+                        onClick={() => ref.current.close()}
+                        className="idf-modal__btns__cancel"
+                    >
+                        cancel
+                    </button>
+                </div>
             </dialog>
         </div>,
         document.getElementById('modal')

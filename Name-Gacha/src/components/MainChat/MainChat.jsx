@@ -27,7 +27,6 @@ export default function MainChat() {
     const handleChange = (event) => {
         const value = event.target.value;
         setSelectedOption(value);
-
         if (value === 'variable') {
             dispatch(chageGlobalThreadType({ globaltype: 'variable' }));
         } else if (value === 'function') {

@@ -62,20 +62,18 @@
 
     &--btns {
         position: absolute;
-        bottom: 3%;
-        right: 3%;
+        bottom: 1%;
+        right: 1%;
         box-shadow: 0 1rem 1rem rgba($color-black, .3);
-        font-size: 9rem;
+        font-size: 12rem;
         color: $color-blue-primary;
         padding: 2rem;
         border-radius: 2rem;
         background-color: $color-grey-light-2;
         transition: transform .3s;
-
         &:hover {
             transform: translateY(-5px);
         }
-
         &:active {
             transform: translateY(3px);
         }

@@ -12,13 +12,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
         <Provider store={store}>
             <AuthContextProvider>
-                <ErrorBoundary
-                    FallbackComponent={ErrorPage}
-                    onError={(error, errorInfo) => {
-                        console.log('Error caught by ErrorBoundary: ', error);
-                        console.log('Error details: ', errorInfo);
-                    }}
-                >
+                <ErrorBoundary FallbackComponent={ErrorPage}>
                     <App />
                 </ErrorBoundary>
             </AuthContextProvider>
