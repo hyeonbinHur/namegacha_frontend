@@ -124,3 +124,39 @@ useQuery에러 확인 -- ㄱㅈ? --> 일단보류
 마지막 -->
 
 퍼포먼스
+
+# testing tools
+
+Vitest
+Testing library react
+
+리액트나 js를 테스팅할때 가장 대중적으로 이용되는 테스트 러너는 jest라고 한다. 그럼에도 불구하고 vitest를 설치한 이유 Vite와 Jest에는 호환성 문제가 있을 수 있다
+
+이를테면 Jest는 CommonJS형식으로 컴파일 하지만, Vite는 ESM형식이다 즉 vite는 module화를 하지 않는다. 프로젝트가 CRA로 이루어져있다면 추가적인 작업 없이 Jest와 호환이 잘 되지만 ESM 형식으로 컴파일 하는 Vite를 Jest를 이용하여 테스트할 경우 babel, swc같이 ESM형식을 CJS로 변형시켜주는 추가적인 라이브러리를 사용서 셋업 해야한다
+
+Jest와 Vitest는 각 장단점이 명확하다
+
+Vitest : 기능이 Jest에 비해 제한적이다, 커뮤니티가 작다
+: 속도가 아주 빠르고 vite와 호환이 좋고, 셋업이 쉽다
+
+Jest : 기능이 아주 많다, 커뮤니티가 크다
+: vite와 호환이 좋지 않고, 셋업이 어렵고, 속도가 비교적 느리다
+
+이러한 장단점을 비교해보았을때, 필자는 테스팅 툴을 이제 막접한 비기너이고, 셋업에대한 편의성을 높이사기때문에 vitest를 사용해도 큰 문제가 없을것이라 판한했다.
+
+npm install --save-dev vitest @testing-library/jest-dom @testing-library/react @testing-library/user-event msw
+
+testing setup
+
+1. 라이브러리 다운
+   npm install --save-dev vitest @testing-library/jest-dom @testing-library/react @testing-library/user-event msw
+
+2. 루트 폴더에 vitest.config.js, vitest.setup.js 만들고 셋업
+
+3. "test":"vitest" 를 스크립트에 생성
+
+4. src폴더안에 **test** 폴더 생성
+
+5. **test** 폴더 안에 원하는 test suits를 생성 후 테스트 케이스 작성
+
+6. npm test 하면 끝
