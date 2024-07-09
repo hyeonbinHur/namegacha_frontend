@@ -2,14 +2,21 @@
     display: flex;
     width: 100vw;
     height: 100vh;
+
     &--text-container {
-        margin-top: 15rem;
-        width: 50%;
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         text-align: center;
     }
 
     &--img-container {
-        width: 50%;
+        width: 120rem;
+        position: absolute;
+        top: 30%;
+        right: -20%;
+        transform: translate(10%, -50%);
     }
 
 }

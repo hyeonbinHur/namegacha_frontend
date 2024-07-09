@@ -21,29 +21,26 @@ export default function DetailPage() {
             setPageId(params.pageId);
         }
     }, [params]);
-
     const {
         data: page,
-        error,
         isLoading,
+        error,
     } = useQuery({
         queryKey: ['getPageInfo', pageId],
         queryFn: () => pageAPI.getPage(pageId),
         enabled: !!pageId,
     });
-
     const handleChange = (e) => {
         const value = e.target.value;
         setSelectedIdf(value);
     };
-
     if (isLoading)
         return (
             <img src={loading} alt="loading image" className="loading-sub" />
         );
-
-    if (error) return <div>An error occurred: {error.message}</div>;
-
+    if (error) {
+        navigate('/error');
+    }
     return (
         <>
             {page && (
