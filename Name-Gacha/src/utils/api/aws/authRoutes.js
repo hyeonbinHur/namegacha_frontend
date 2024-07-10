@@ -37,6 +37,7 @@ async function signInUser(userId, userPassword) {
         const response = await axios.post(authEndpoint, body, {
             withCredentials: true,
         });
+
         try {
             const uuid = response.data.uuid;
             const userResponse = await getUserData(uuid);

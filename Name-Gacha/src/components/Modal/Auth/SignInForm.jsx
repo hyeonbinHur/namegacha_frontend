@@ -71,7 +71,7 @@ export default function SignInForm({ close }) {
     return (
         <div>
             {isLoading ? (
-                <img src={Spinner} className="sign-in-form--loading" />
+                <img src={Spinner} className="sign-in-loading" />
             ) : (
                 <form className="sign-in-form">
                     <div className="item-horizontal-center">
@@ -122,7 +122,10 @@ export default function SignInForm({ close }) {
                                 Password must be longer than 7 letters
                             </label>
                         ) : (
-                            <label className="sign-in-form--label label__valid">
+                            <label
+                                htmlFor="password"
+                                className="sign-in-form--label label__valid"
+                            >
                                 Password
                             </label>
                         )}
@@ -130,8 +133,9 @@ export default function SignInForm({ close }) {
                             className="sign-in-form--btn__submit btn-round"
                             type="button"
                             onClick={() => componentSignIn()}
+                            name="Submit"
                         >
-                            submit
+                            Submit
                         </button>
                     </div>
                 </form>

@@ -160,3 +160,7 @@ testing setup
 5. **test** 폴더 안에 원하는 test suits를 생성 후 테스트 케이스 작성
 
 6. npm test 하면 끝
+
+npm install dialog-polyfill
+
+npm install axios-mock-adapter

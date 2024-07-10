@@ -1,8 +1,10 @@
-// src/mocks/handlers.js
 import { http } from 'msw';
 
 export const handlers = [
-    http.get('*', (req, res, ctx) => {
-        return res(ctx.status(200), ctx.json({ message: 'Hello, world!' }));
+    http.post('*', (req, res, ctx) => {
+        return res(
+            ctx.status(401),
+            ctx.json({ message: 'Invalid username or password' })
+        );
     }),
 ];
