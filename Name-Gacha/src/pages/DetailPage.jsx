@@ -13,9 +13,7 @@ export default function DetailPage() {
     const params = useParams();
     const [pageId, setPageId] = useState(null);
     const navigate = useNavigate();
-
     const [selectedIdf, setSelectedIdf] = useState('variable');
-
     useEffect(() => {
         if (params.pageId) {
             setPageId(params.pageId);

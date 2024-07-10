@@ -12,6 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import ErrorPage from './ErrorPage';
 import { ErrorBoundary } from 'react-error-boundary';
+import Logo from '../assets/sLogo/logo-blue.png';
 
 export default function MainPage() {
     const errorModal = useRef(null);
@@ -57,6 +58,16 @@ export default function MainPage() {
     return (
         <QueryClientProvider client={queryClient}>
             <main className="main" onClick={(e) => handleContextMenuClose(e)}>
+                <input
+                    type="checkbox"
+                    id="main--checkbox"
+                    className="main__checkbox"
+                />
+
+                <label htmlFor="main--checkbox">
+                    <img src={Logo} className="main__logo" />
+                </label>
+
                 <aside className="main--sidebar">
                     <SideBar />
                 </aside>

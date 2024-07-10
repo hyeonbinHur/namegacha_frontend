@@ -78,7 +78,7 @@ export default function Header() {
             <header className="sidebar--header">
                 <img src={logo} className="sidebar--header__logo" />
             </header>
-            <hr className="divider" />
+            <hr className="divider sidebar--divider" />
             {user && (
                 <div className="sidebar--header__sub">
                     <i
@@ -103,7 +103,7 @@ export default function Header() {
                         />
                     </div>
                 ) : (
-                    <section className="sidebar-project">
+                    <section>
                         {user && isAdd && (
                             <div className="sidebar--create">
                                 <AiFillFolder className="sidebar--create__icon" />
@@ -123,7 +123,7 @@ export default function Header() {
                         {user ? (
                             projects && projects.data.length > 0 ? (
                                 <div>
-                                    <ul className="sidebar-project--container ul">
+                                    <ul className="ul">
                                         {projects.data.map((project) => (
                                             <li
                                                 key={project.projectId}

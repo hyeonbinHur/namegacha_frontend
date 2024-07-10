@@ -1,29 +1,82 @@
-.main{
+.main {
     display: flex;
     position: relative;
     height: 100vh;
     background-color: $color-grey-dark-2;
+    &__logo,
+    &__checkbox{
+        opacity: 0;
+    }
+  
+    @include respond (tab-port) {
     
-    &--sidebar{
+        &__checkbox {
+            &:checked~.main--sidebar {
+                z-index: 2;
+                height: 97vh;
+            }
+            &:checked+label {
+                z-index: 3;
+                .main__logo {
+                    background-color: $color-white;
+                    transform: translate(100%);
+                }
+            }
+        }
+        &__logo {
+            opacity: 1;
+            position: fixed;
+            top: 3%;
+            left: 5%;
+            width: 7rem;
+            z-index: 3;
+            transition: all .3s;
+
+            &:hover {
+                transform: translateY(-3px);
+            }
+
+            &:active {
+                transform: translateY(3px);
+            }
+        }
+    }
+  
+    
+
+    &--sidebar {
         width: 15%;
         height: 97vh;
         position: absolute;
         top: 1.5%;
-        left:1%;
+        left: 1%;
         background-color: $color-white;
         box-shadow: 0 1.5rem 1rem rgba($color-black, .1);
         border-radius: 3px;
+        transition: all .2s;
+
+        @include respond (tab-port) {
+            width: 30%;
+            height: 0vh;
+            z-index: 0;
+
+        }
     }
-    &--main{
+
+    &--main {
         width: 82%;
         position: absolute;
         top: 1.5%;
-        right:1%;
+        right: 1%;
         height: 97vh;
         border-radius: 8px;
         background-color: $color-white;
         box-shadow: 0 1.5rem 1rem rgba($color-black, .1);
         border-radius: 3px;
         overflow: hidden;
+
+        @include respond (tab-port) {
+            width: 98%;
+        }
     }
 }

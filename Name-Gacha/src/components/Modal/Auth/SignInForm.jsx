@@ -69,7 +69,7 @@ export default function SignInForm({ close }) {
     return (
         <div>
             {isLoading ? (
-                <img src={Spinner} className="sign-in-loading" />
+                <img src={Spinner} className="sign-in-loading loading-sub" />
             ) : (
                 <form className="sign-in-form">
                     <div className="item-horizontal-center">
