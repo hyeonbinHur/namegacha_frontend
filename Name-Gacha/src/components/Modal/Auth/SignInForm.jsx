@@ -29,11 +29,9 @@ export default function SignInForm({ close }) {
                 setIsPasswordWrong(false);
                 close();
             } else if (responseData.status === 404) {
-                // 아이디 틀림
                 setIsIdWrong(true);
                 setIsPasswordWrong(false);
             } else if (responseData.status === 401) {
-                // 비번 틀림
                 setIsIdWrong(false);
                 setIsPasswordWrong(true);
             } else {

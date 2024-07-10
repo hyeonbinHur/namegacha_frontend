@@ -42,6 +42,9 @@ export default function FunctionCard({ fn }) {
                 queryClient.invalidateQueries('getCertainProjects');
             },
         });
+
+    /**Reducer & Basic function */
+    const dispatch = useDispatch();
     const editFunction = (newName, newExp) => {
         const emptyName = isNotEmpty(newName);
         const maxName = checkLength(newName, 50);
@@ -72,7 +75,6 @@ export default function FunctionCard({ fn }) {
         mutateDeleteFunction({ functionId: itemId });
     };
 
-    const dispatch = useDispatch();
     const startEdit = () => {
         dispatch(detailReducers.setClear());
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));

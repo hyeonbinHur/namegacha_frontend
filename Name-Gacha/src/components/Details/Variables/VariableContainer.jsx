@@ -30,7 +30,12 @@ export default function VariableContainer({ variables, pageId }) {
                 queryClient.invalidateQueries('getCertainProjects');
             },
         });
-
+    /**Reducer & Basic functions */
+    const dispatch = useDispatch();
+    const startAdd = () => {
+        dispatch(detailReducers.setClear());
+        dispatch(detailReducers.setIsAdd({ target: componentTarget }));
+    };
     const addNewVariable = (newName, newExp) => {
         const emptyName = isNotEmpty(newName);
         const maxName = checkLength(newName, 50);
@@ -57,12 +62,6 @@ export default function VariableContainer({ variables, pageId }) {
         }
     };
 
-    /**Functions */
-    const dispatch = useDispatch();
-    const startAdd = () => {
-        dispatch(detailReducers.setClear());
-        dispatch(detailReducers.setIsAdd({ target: componentTarget }));
-    };
     const isLoading = checkPendingStatus([isAddVariableStatus]);
 
     return (

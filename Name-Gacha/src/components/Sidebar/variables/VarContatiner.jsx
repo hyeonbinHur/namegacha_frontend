@@ -27,7 +27,7 @@ export default function VarContainer({
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-    /** reducer functions */
+    /** Reducer and Basic functions*/
     const dispatch = useDispatch();
     const handleAddVariableKeyDown = (e) => {
         if (e.key === 'Enter') {

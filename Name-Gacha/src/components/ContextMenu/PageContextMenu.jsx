@@ -6,10 +6,8 @@ import * as functionAPI from '../../utils/api/aws/functionRoutes';
 import * as variableAPI from '../../utils/api/aws/variableRoutes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 export default function PageContextMenu({ item }) {
-    const dispatch = useDispatch();
-
+    /**Http Request */
     const queryClient = useQueryClient();
-
     const { mutate: deletePage } = useMutation({
         mutationFn: ({ pageId }) => {
             return pageAPI.deletePage(pageId);
@@ -30,6 +28,9 @@ export default function PageContextMenu({ item }) {
             return functionAPI.deleteFunctionsInPage(pageId);
         },
     });
+
+    /**Reducer & Basic Functions */
+    const dispatch = useDispatch();
 
     const startRename = (e) => {
         e.preventDefault();

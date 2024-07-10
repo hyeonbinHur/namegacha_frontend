@@ -52,16 +52,6 @@ export default function DetailTest({ page }) {
         mutationFn: ({ pageId }) => deleteFunctionsInPage(pageId),
     });
 
-    const handleDeletePage = async () => {
-        if (page.variables.length > 0) {
-            await mutateDeleteVariable({ pageId: page.pageId });
-        }
-        if (page.functions.length > 0) {
-            await mutateDeleteFunction({ pageId: page.pageId });
-        }
-        mutateDeletePage({ pageId: page.pageId });
-    };
-
     /**Dispatches &  functions */
     const dispatch = useDispatch();
     const handleSaveEdit = (newName, newExp) => {
@@ -91,6 +81,17 @@ export default function DetailTest({ page }) {
             dispatch(detailReducers.setClear());
         }
     };
+
+    const handleDeletePage = async () => {
+        if (page.variables.length > 0) {
+            await mutateDeleteVariable({ pageId: page.pageId });
+        }
+        if (page.functions.length > 0) {
+            await mutateDeleteFunction({ pageId: page.pageId });
+        }
+        mutateDeletePage({ pageId: page.pageId });
+    };
+
     const startEdit = () => {
         dispatch(detailReducers.setIsEdit({ target: componentTarget }));
     };

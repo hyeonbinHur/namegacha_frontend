@@ -5,8 +5,18 @@ import * as projectAPI from '../../utils/api/aws/projectRoutes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function ProjectContextMenu({ item }) {
+    /**Http Request */
+    const queryClient = useQueryClient();
+    const { mutate: deleteProject } = useMutation({
+        mutationFn: ({ projectId }) => {
+            return projectAPI.deleteProject(projectId);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
+    /**Reducer & Basic functions */
     const dispatch = useDispatch();
-
     const startRename = (e) => {
         dispatch(editItSelf({ name: item.projectName, id: item.projectId }));
         e.stopPropagation();
@@ -21,16 +31,6 @@ export default function ProjectContextMenu({ item }) {
         );
         e.stopPropagation();
     };
-    const queryClient = useQueryClient();
-
-    const { mutate: deleteProject } = useMutation({
-        mutationFn: ({ projectId }) => {
-            return projectAPI.deleteProject(projectId);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
 
     return (
         <>

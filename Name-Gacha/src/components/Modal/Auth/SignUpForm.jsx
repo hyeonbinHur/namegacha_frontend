@@ -13,7 +13,6 @@ export default function SignUpForm({ toSignIn }) {
     const [isConflict, setIsConflict] = useState(false);
 
     /**http request */
-
     const { mutate: mutateSignUp } = useMutation({
         mutationFn: ({ userId, userPassword }) => {
             return signUpUser(userId, userPassword);
@@ -32,7 +31,6 @@ export default function SignUpForm({ toSignIn }) {
         },
     });
     /**basic functions */
-
     const componentSignUp = () => {
         if (
             authUtil.isNotEmpty(username) &&

@@ -21,7 +21,6 @@ import { isNotEmpty } from '../../../utils/util/authUtil.js';
 import { toast } from 'react-toastify';
 
 export default function ProjectCard({ project }) {
-    /** States */
     const [isOpen, setIsOpen] = useState(false);
     const [projectName, setProjectName] = useState(project.projectName || '');
     const [newPageName, setNewPageName] = useState('');
@@ -71,7 +70,7 @@ export default function ProjectCard({ project }) {
         },
     });
 
-    /**Reducer Functions */
+    /**Reducer & Basic Functions */
     const dispatch = useDispatch();
     const handleContextMenu = (e) => {
         e.preventDefault();
@@ -85,7 +84,6 @@ export default function ProjectCard({ project }) {
             })
         );
     };
-    /**Basic functions */
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             dispatch(clearContextMenu());

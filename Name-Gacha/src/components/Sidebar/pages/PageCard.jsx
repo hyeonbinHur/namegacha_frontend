@@ -67,7 +67,7 @@ export default function PageCard({ page }) {
         sliceIsEdit
     );
 
-    /** Reducer functions */
+    /**Reducer & Basic functions */
     const dispatch = useDispatch();
     const handleContextMenu = (e) => {
         e.preventDefault();
@@ -81,7 +81,6 @@ export default function PageCard({ page }) {
             })
         );
     };
-    /**Basic functions */
     const handleEditNameKeyDown = (e) => {
         if (e.key === 'Enter') {
             const empty = isNotEmpty(newPageName);

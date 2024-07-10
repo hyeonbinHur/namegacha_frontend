@@ -55,7 +55,7 @@ const NameCardUnit = ({ name, selectNewItem, arrayIndex, nameIndex }) => {
         componentIsTargetMatch,
         sliceIsEdit
     );
-
+    /**Reducer & Basic functions */
     const startEditNameInSlice = () => {
         const empty = isNotEmpty(newName);
         const max = checkLength(newName, 50);

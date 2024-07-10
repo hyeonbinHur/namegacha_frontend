@@ -16,18 +16,17 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
     const newIdentifier = useSelector(
         (state) => state.identifierModalSlice.item
     );
-    const dispatch = useDispatch();
     const modal = useRef(null);
     const [selectedProject, setSelectedProject] = useState(null);
     const [selectedPage, setSelectedPage] = useState(null);
 
+    /**Http request */
+    const queryClient = useQueryClient();
     const { data: projects } = useQuery({
         queryKey: ['getCertainProjects', user?.uuid],
         queryFn: () => getCertainProjects(user.uuid),
         enabled: !!user,
     });
-    const queryClient = useQueryClient();
-
     const { mutate: mutateAddVariable, status: isAddVariablePending } =
         useMutation({
             mutationFn: ({ pageId, variableName, variableExp }) => {
@@ -48,6 +47,9 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                 ref.current.close();
             },
         });
+
+    /**Reducer & Basic functions */
+    const dispatch = useDispatch();
     const startAddIdentifier = () => {
         if (type === 'variable') {
             mutateAddVariable({
@@ -92,7 +94,6 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
             }
         }
     };
-
     const onChangeProject = (e) => {
         const value = e.target.value;
         findItem('project', value);

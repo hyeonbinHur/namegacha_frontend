@@ -38,7 +38,19 @@ export default function VarCard({ variable, page }) {
         componentIsThis,
         sliceIsEdit
     );
-    /* reducer functions */
+
+    /**Http request */
+    const queryClient = useQueryClient();
+    const { mutate: mutateUpdateVariable } = useMutation({
+        mutationFn: ({ variableName, variableExp, variableId }) => {
+            return varAPI.updateVariable(variableId, variableName, variableExp);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
+
+    /* Reducer & Basic functions */
     const dispatch = useDispatch();
     const handleContextMenuOpen = (e) => {
         e.preventDefault();
@@ -52,18 +64,6 @@ export default function VarCard({ variable, page }) {
             })
         );
     };
-    /**Http request */
-    const queryClient = useQueryClient();
-    const { mutate: mutateUpdateVariable } = useMutation({
-        mutationFn: ({ variableName, variableExp, variableId }) => {
-            return varAPI.updateVariable(variableId, variableName, variableExp);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
-
-    /**basic functions */
     const handleKeyDownEditVariable = (e) => {
         if (e.key === 'Enter') {
             const empty = isNotEmpty(newVariableName);

@@ -40,7 +40,23 @@ export default function FunctionCard({ fnction, page }) {
         componentIsThis,
         sliceIsEdit
     );
-    /* Reducer functions*/
+
+    /** HTTP request */
+    const queryClient = useQueryClient();
+    const { mutate: mutateUpdateFunction } = useMutation({
+        mutationFn: ({ functionName, functionId, functionExp }) => {
+            return functionAPI.updateFunction(
+                functionId,
+                functionName,
+                functionExp
+            );
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries('getCertainProjects');
+        },
+    });
+
+    /* Reducer & Basic functions*/
     const dispatch = useDispatch();
     const handleOpenContextMenu = (e) => {
         dispatch(
@@ -77,20 +93,6 @@ export default function FunctionCard({ fnction, page }) {
             setNewFunctionName(fnction.functionName);
         }
     };
-    /** HTTP request */
-    const queryClient = useQueryClient();
-    const { mutate: mutateUpdateFunction } = useMutation({
-        mutationFn: ({ functionName, functionId, functionExp }) => {
-            return functionAPI.updateFunction(
-                functionId,
-                functionName,
-                functionExp
-            );
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries('getCertainProjects');
-        },
-    });
 
     return (
         <div>

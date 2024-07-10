@@ -9,13 +9,11 @@ import { CgClose } from 'react-icons/cg';
 
 const ErrorModal = forwardRef(function ErrorModal(props, ref) {
     const modal = useRef(null);
-
     const sliceErrorCode = useSelector((state) => state.errorSlice.errorCode);
     const sliceErrorMessage = useSelector(
         (state) => state.errorSlice.errorMessage
     );
     const dispatch = useDispatch();
-
     useImperativeHandle(ref, () => {
         return {
             open: () => {

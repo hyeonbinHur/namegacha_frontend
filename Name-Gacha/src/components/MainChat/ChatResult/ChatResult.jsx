@@ -6,6 +6,9 @@ import { useEffect, useState, useRef } from 'react';
 import NoMsg from '../../../assets/svgs/no-messages.svg';
 
 export default function ChatResult() {
+    const [messages, setMessages] = useState([]);
+    const endOfMessagesRef = useRef(null);
+
     const globalThreadType = useSelector(
         (state) => state.currentThread.globalThreadType
     );
@@ -15,7 +18,6 @@ export default function ChatResult() {
     const variableMessages = useSelector(
         (state) => state.currentThread.variableMessages
     );
-    const [messages, setMessages] = useState([]);
     useEffect(() => {
         if (globalThreadType === 'variable') {
             setMessages(variableMessages);
@@ -23,7 +25,6 @@ export default function ChatResult() {
             setMessages(functionMessages);
         }
     }, [globalThreadType, functionMessages, variableMessages]);
-    const endOfMessagesRef = useRef(null);
     useEffect(() => {
         if (endOfMessagesRef.current) {
             endOfMessagesRef.current.scrollIntoView({ behavior: 'smooth' });

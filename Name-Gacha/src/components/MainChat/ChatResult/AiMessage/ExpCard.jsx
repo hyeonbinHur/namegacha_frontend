@@ -38,7 +38,7 @@ export default function ExpCard({ exp, arrayIndex }) {
         componentIsTargetMatch,
         sliceIsEdit
     );
-    /**redux dispathes */
+    /**Reducer & Basic functions */
     const dispatch = useDispatch();
     const startEditExpInSlice = () => {
         const empty = isNotEmpty(newExp);

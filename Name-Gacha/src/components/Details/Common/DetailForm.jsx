@@ -53,7 +53,7 @@ export default function DetailForm({
         sliceFlag
     );
 
-    /**dispatches */
+    /**Reducers */
     const dispatch = useDispatch();
     const cancelActions = () => {
         if (type === 'Edit') {
@@ -87,7 +87,7 @@ export default function DetailForm({
             }
         }
     };
-    /**basic functions */
+
     const startButtonAction = () => {
         apiAction(newName, newExp);
         cancelActions();

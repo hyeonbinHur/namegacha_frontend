@@ -43,7 +43,7 @@ export default function VariableCard({ variable }) {
             },
         });
 
-    /**basic functions */
+    /**Reducer & Basic functions */
     const editVariable = (newName, newExp) => {
         const emptyName = isNotEmpty(newName);
         const maxName = checkLength(newName, 50);

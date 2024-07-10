@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function VariableContextMenu({ item }) {
     const queryClient = useQueryClient();
-
+    /**Http Request */
     const { mutate: mutateDeleteVariable } = useMutation({
         mutationFn: ({ variableId }) => {
             return variableAPI.deleteVariable(variableId);
@@ -15,9 +15,8 @@ export default function VariableContextMenu({ item }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
+    /**Reducer & Basic functions */
     const dispatch = useDispatch();
-
     const startRename = (e) => {
         e.preventDefault();
         e.stopPropagation();

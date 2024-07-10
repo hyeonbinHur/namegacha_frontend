@@ -5,6 +5,7 @@ import * as functionAPI from '../../utils/api/aws/functionRoutes';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function FunctionContextMenu({ item }) {
+    /**Http Request */
     const queryClient = useQueryClient();
     const { mutate: mutateDeleteFunction } = useMutation({
         mutationFn: ({ functionId }) => {
@@ -14,7 +15,7 @@ export default function FunctionContextMenu({ item }) {
             queryClient.invalidateQueries('getCertainProjects');
         },
     });
-
+    /**Reucer & Basic functions */
     const dispatch = useDispatch();
 
     const startRename = (e) => {

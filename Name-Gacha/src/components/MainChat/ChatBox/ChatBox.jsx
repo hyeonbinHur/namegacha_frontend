@@ -53,7 +53,7 @@ export default function ChatBox() {
             }));
         }
     }, [globalThreadType]);
-
+    /**Reducer & Basic functions */
     const dispatch = useDispatch();
     const createSetThread = async () => {
         console.log('create thread start');

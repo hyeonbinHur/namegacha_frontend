@@ -8,12 +8,14 @@ import { chageGlobalThreadType } from '../../store/threadSlice';
 
 export default function MainChat() {
     const [selectedOption, setSelectedOption] = useState('variable');
+    const identifierModal = useRef(null);
 
     const { user } = useAuthContext();
     const dispatch = useDispatch();
     const sliceIdentifierIsOpen = useSelector(
         (state) => state.identifierModalSlice.isOpen
     );
+
     useEffect(() => {
         if (sliceIdentifierIsOpen) {
             identifierModal.current.open();
@@ -21,8 +23,6 @@ export default function MainChat() {
             identifierModal.current.close();
         }
     }, [sliceIdentifierIsOpen]);
-
-    const identifierModal = useRef(null);
 
     const handleChange = (event) => {
         const value = event.target.value;

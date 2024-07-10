@@ -18,7 +18,6 @@ describe('signInUser', () => {
             userId: 'test7',
             createdAt: '2023-07-10',
         });
-        // Call the function being tested
         const response = await signInUser('test7', 'test123');
         expect(response.status).toBe(200);
         expect(response.userObject).toEqual({
@@ -26,5 +25,23 @@ describe('signInUser', () => {
             userId: 'test7',
             createdAt: '2023-07-10',
         });
+    });
+    it('should handle incorrect username', async () => {
+        const mock = new MockAdapter(axios);
+        mock.onPost(
+            'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/auth'
+        ).reply(404);
+        const response = await signInUser('wrongUser', 'test123');
+        expect(response.status).toBe(404);
+        expect(response.userObject).toBeNull();
+    });
+    it('should handle incorrect password', async () => {
+        const mock = new MockAdapter(axios);
+        mock.onPost(
+            'https://gh9sfgcnf7.execute-api.us-east-1.amazonaws.com/ng-apit-stage/namegacha/auth'
+        ).reply(401);
+        const response = await signInUser('test7', 'wrongPassword');
+        expect(response.status).toBe(401);
+        expect(response.userObject).toBeNull();
     });
 });
