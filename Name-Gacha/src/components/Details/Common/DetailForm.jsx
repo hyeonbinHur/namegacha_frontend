@@ -45,6 +45,7 @@ export default function DetailForm({
         if (expInputRef.current) {
             const scrollHeight = expInputRef.current.scrollHeight;
             expInputRef.current.style.height = 'auto';
+            expInputRef.current.style.minHeight = '6rem';
             expInputRef.current.style.height = `${scrollHeight}px`;
         }
     }, [newExp, componentTarget.exp, componentFlag]);

@@ -10,6 +10,7 @@ import { checkPendingStatus } from '../../../utils/util/util';
 import { checkLength } from '../../../utils/util/util';
 import { isNotEmpty } from '../../../utils/util/authUtil';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 export default function DetailTest({ page }) {
     /**component variable */
@@ -21,6 +22,7 @@ export default function DetailTest({ page }) {
     };
     /** http request */
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
     const { mutate: mutateUpdatePage, status: isUpdatePageStatus } =
         useMutation({
             mutationFn: ({ pageName, pageExp, pageId }) => {
@@ -35,8 +37,10 @@ export default function DetailTest({ page }) {
     const { mutate: mutateDeletePage, status: isDeletePageStatus } =
         useMutation({
             mutationFn: ({ pageId }) => pageAPI.deletePage(pageId),
-            onSuccess: () =>
-                queryClient.invalidateQueries('getCertainProjects'),
+            onSuccess: () => {
+                queryClient.invalidateQueries('getCertainProjects');
+                navigate('/');
+            },
         });
 
     const {

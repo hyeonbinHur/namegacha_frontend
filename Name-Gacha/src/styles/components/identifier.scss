@@ -2,7 +2,19 @@
     width: 120rem;
     height: 60rem;
     box-sizing: border-box;
-
+    @include respond (tab-land){
+        width: 100rem;
+    }
+    @include respond (tab-port){
+        width: 90rem;
+    }
+    &--no-project{
+        text-align: center;
+        font-size: 3rem;
+        color: $color-grey-dark-2;
+        display: block;
+        margin-top: 20rem;
+    }
     &--header {
         border: 1px solid transparent;
         font-size: 1.8rem;

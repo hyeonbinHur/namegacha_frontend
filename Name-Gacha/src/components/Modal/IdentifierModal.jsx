@@ -162,7 +162,8 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                             </ul>
                         </section>
                         <section className="idf-modal--page">
-                            {selectedProject && (
+                            {selectedProject &&
+                            selectedProject.pages.length > 0 ? (
                                 <ul className="idf-modal--ul">
                                     {/* page card */}
                                     {selectedProject.pages.map((page) => (
@@ -196,6 +197,10 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                                         </li>
                                     ))}
                                 </ul>
+                            ) : (
+                                <div className="idf-modal--no-project">
+                                    No pages
+                                </div>
                             )}
                         </section>
                         <section className="idf-modal--idf">
@@ -278,21 +283,27 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
                         </section>
                     </div>
                 )}
-
-                <div className="idf-modal__btns">
-                    <button
-                        className="idf-modal__btns__save"
-                        onClick={() => startAddIdentifier()}
-                    >
-                        save
-                    </button>
-                    <button
-                        onClick={() => ref.current.close()}
-                        className="idf-modal__btns__cancel"
-                    >
-                        cancel
-                    </button>
-                </div>
+                {user &&
+                projects &&
+                projects.data.length > 0 &&
+                selectedPage ? (
+                    <div className="idf-modal__btns">
+                        <button
+                            className="idf-modal__btns__save"
+                            onClick={() => startAddIdentifier()}
+                        >
+                            save
+                        </button>
+                        <button
+                            onClick={() => ref.current.close()}
+                            className="idf-modal__btns__cancel"
+                        >
+                            cancel
+                        </button>
+                    </div>
+                ) : (
+                    <div className="idf-modal--no-project"> No Projects </div>
+                )}
             </dialog>
         </div>,
         document.getElementById('modal')

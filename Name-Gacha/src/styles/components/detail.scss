@@ -449,7 +449,7 @@
             height: 4rem;
             margin-bottom: .5rem;
             padding: .5rem 1rem;
-            font-size: 1.8rem;
+            font-size: 2rem;
         }
 
         &__exp {
@@ -459,10 +459,11 @@
             height: auto;
             padding: .5rem 1rem;
             border: 1px solid black;
-            font-size: 1.8rem;
+            font-size: 2rem;
             overflow: auto;
             resize: vertical;
             overflow-y: scroll;
+            
 
             &::-webkit-scrollbar {
                 display: none;

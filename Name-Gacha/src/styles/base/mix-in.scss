@@ -58,8 +58,8 @@
 
 @mixin respond($breakpoint) {
     @if $breakpoint ==tab-port {
-        @media (max-width: 56.25em) {
-            //900px
+        @media (max-width: 65.625em) {
+            //1000px
             @content;
         }
     }
@@ -84,7 +84,7 @@
             @content;
         }
     }
-    
+
 
     @if $breakpoint ==lg-desktop {
         @media (min-width: 112em) {

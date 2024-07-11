@@ -5,10 +5,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { chageGlobalThreadType } from '../../store/threadSlice';
+import AuthModal from '../Modal/Auth/AuthModal.jsx';
 
 export default function MainChat() {
     const [selectedOption, setSelectedOption] = useState('variable');
     const identifierModal = useRef(null);
+    const authModal = useRef(null);
 
     const { user } = useAuthContext();
     const dispatch = useDispatch();
@@ -18,11 +20,16 @@ export default function MainChat() {
 
     useEffect(() => {
         if (sliceIdentifierIsOpen) {
-            identifierModal.current.open();
+            if (user) {
+                identifierModal.current.open();
+            } else {
+                authModal.current.open();
+                identifierModal.current.close();
+            }
         } else {
             identifierModal.current.close();
         }
-    }, [sliceIdentifierIsOpen]);
+    }, [sliceIdentifierIsOpen, user]);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -77,6 +84,7 @@ export default function MainChat() {
                 <ChatBox />
             </div>
             <IdentifierModal ref={identifierModal} user={user} />
+            <AuthModal ref={authModal} />
         </div>
     );
 }
