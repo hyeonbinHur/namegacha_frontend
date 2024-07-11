@@ -2,10 +2,11 @@ import { useState } from 'react';
 import astro from '../assets/png/error.png';
 import LogoBlack from '../assets/sLogo/logo-black.png';
 import LogoWhite from '../assets/sLogo/name-favicon-white.png';
+import { useNavigate } from 'react-router-dom';
 
 export default function ErrorPage() {
     const [isHovered, setIsHovered] = useState(false);
-
+    const navigate = useNavigate();
     return (
         <div className="error-page">
             <section className="error-page--text-container">
@@ -20,6 +21,7 @@ export default function ErrorPage() {
                     className="error--button"
                     onMouseEnter={() => setIsHovered(true)}
                     onMouseLeave={() => setIsHovered(false)}
+                    onClick={() => navigate('/')}
                 >
                     <img
                         src={isHovered ? LogoWhite : LogoBlack}

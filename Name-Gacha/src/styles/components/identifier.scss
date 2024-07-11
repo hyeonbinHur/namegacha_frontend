@@ -49,12 +49,13 @@
             flex: 1;
             border-bottom: 2px solid $color-grey-dark-1;
             overflow: hidden;
+            font-size: 1.8rem;
             position: relative;
         }
 
         &__new {
             flex: 1;
-
+            font-size: 1.7rem;
             &__name {
                 border-bottom: 1px solid $color-grey-dark-2;
                 text-align: center;

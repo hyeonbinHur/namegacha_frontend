@@ -7,9 +7,7 @@
     &__checkbox{
         opacity: 0;
     }
-  
     @include respond (tab-port) {
-    
         &__checkbox {
             &:checked~.main--sidebar {
                 z-index: 2;
@@ -19,7 +17,9 @@
                 z-index: 3;
                 .main__logo {
                     background-color: $color-white;
-                    transform: translate(100%);
+                    transform: scale(1.3);
+                    top: 4%;
+                    left: 14%;
                 }
             }
         }
@@ -27,8 +27,8 @@
             opacity: 1;
             position: fixed;
             top: 3%;
-            left: 5%;
-            width: 7rem;
+            left: 3.5%;
+            width: 5rem;
             z-index: 3;
             transition: all .3s;
 

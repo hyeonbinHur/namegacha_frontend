@@ -25,18 +25,6 @@ export default function DetailForm({
     const nameInputRef = useRef(null);
     const expInputRef = useRef(null);
 
-    useEffect(() => {
-        if (type === 'Edit') {
-            setNewName(componentTarget.name);
-            setNewExp(componentTarget.exp);
-        }
-    }, [componentTarget, type]);
-    useEffect(() => {
-        if (expInputRef.current) {
-            expInputRef.current.style.height = 'auto';
-            expInputRef.current.style.height = `${expInputRef.current.scrollHeight}px`;
-        }
-    }, [newExp]);
     /**redux variable */
     const sliceTarget = useSelector((state) => state.detailPageSlice.target);
     const sliceFlag = useSelector(
@@ -52,6 +40,21 @@ export default function DetailForm({
         componentIsTargetMatch,
         sliceFlag
     );
+
+    useEffect(() => {
+        if (expInputRef.current) {
+            const scrollHeight = expInputRef.current.scrollHeight;
+            expInputRef.current.style.height = 'auto';
+            expInputRef.current.style.height = `${scrollHeight}px`;
+        }
+    }, [newExp, componentTarget.exp, componentFlag]);
+
+    useEffect(() => {
+        if (type === 'Edit') {
+            setNewName(componentTarget.name);
+            setNewExp(componentTarget.exp);
+        }
+    }, [componentTarget, type]);
 
     /**Reducers */
     const dispatch = useDispatch();
@@ -128,7 +131,7 @@ export default function DetailForm({
                             onClick={() => cancelActions()}
                             className={`detail-${from}--basic__del`}
                         >
-                            <BiX className={`detail-${from}--basic__icon`} />
+                            <BiX className={`detail-${from}--basic__icon__x`} />
                             Cancel
                         </button>
                     </div>
@@ -144,7 +147,6 @@ export default function DetailForm({
                             <div className={`detail-${from}--basic__exp`}>
                                 {componentTarget.exp}
                             </div>
-
                             {isLoading ? (
                                 <div
                                     className={`detail-${from}--basic__features`}
@@ -152,7 +154,7 @@ export default function DetailForm({
                                     <img
                                         src={Spinner}
                                         alt="loading spinner"
-                                        className={`loading-sub detail-${from}--loading`}
+                                        className={`detail-${from}--loading`}
                                     />
                                 </div>
                             ) : (

@@ -13,7 +13,7 @@ html {
     margin: 0, 0;
     padding: 0, 0;
     font-size: 62.5%;
-    @include respond (sm-desktop) { // width < 1300px
+    @include respond (md-desktop) { // width < 1300px
         font-size: 50%; // 1rem = 8px => 8/16 = 50%
     }
     @include respond (lg-desktop) { // width > 1800px

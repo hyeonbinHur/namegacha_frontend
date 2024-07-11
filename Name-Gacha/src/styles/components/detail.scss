@@ -1,42 +1,77 @@
 .detail-page {
     height: 100%;
 
+    @include respond (tab-port) {
+        padding-top: 6rem;
+    }
+
     &--basic {
+        @include respond (tab-port) {
+            border-top: 2px solid $color-grey-dark-2;
+
+        }
+
         height: 100%;
         margin: auto;
         padding-top: .5rem;
+
         &__container {
-            line-height: 1.4;
+            line-height: 1.5;
             position: relative;
         }
+
         &__name {
             width: 70%;
             font-size: 2.7rem;
             font-weight: 600;
             word-wrap: break-word;
         }
+
         &__exp {
             width: 70%;
             font-size: 2.3rem;
             font-weight: 400;
             word-wrap: break-word;
         }
+
         &__features {
+
             height: 90%;
             width: 15%;
-            position: absolute;
-            bottom: 3%;
-            right: 2%;
+            float: right;
             display: flex;
             align-items: end;
-            &__edit{
+            padding-bottom: 1rem;
+
+            &__edit {
                 position: absolute;
                 right: 6rem;
                 bottom: 1rem;
                 width: 20rem;
                 display: flex;
             }
+
+            @media (max-width: 1800px) {
+                margin-right: 3rem;
+            }
+
+            @media (max-width: 1700px) {
+                margin-right: 5rem;
+            }
+
+            @media (max-width: 1600px) {
+                margin-right: 6rem;
+            }
+
+            @media (max-width: 1200px) {
+                margin-right: 8rem;
+            }
+
+            @media (max-width: 1000px) {
+                margin-right: 10rem;
+            }
         }
+
         &__del,
         &__edit {
             position: relative;
@@ -65,15 +100,18 @@
             margin-right: 5%;
             color: $color-grey;
             border-bottom: 3px solid $color-blue-primary ;
+
             &:hover {
                 background-color: $color-blue-secondary;
                 color: $color-white;
                 border: none;
             }
         }
+
         &__del {
             color: $color-grey;
             border-bottom: 3px solid $color-red-light ;
+
             &:hover {
                 background-color: $color-red-light;
                 color: $color-white;
@@ -86,6 +124,11 @@
             font-size: 2.7rem;
             margin-right: .5rem;
             padding-bottom: .3rem;
+            &__x{
+                font-size: 2.7rem;
+                margin-right: .5rem;
+                padding-bottom: .3rem;
+            }
         }
     }
 
@@ -109,16 +152,23 @@
             border: 1px solid black;
             font-size: 2.3rem;
             overflow-y: scroll;
+
             &::-webkit-scrollbar {
                 display: none;
             }
+
             &:focus {
                 border: 2px solid $color-blue-secondary;
             }
+
             margin-bottom: 1rem;
         }
     }
-    &--loading{
+
+    &--loading {
+        position: absolute;
+        top: 0%;
+        right: 5%;
         width: 10rem;
     }
 }
@@ -136,19 +186,23 @@
         }
 
     }
-    &--loading{
+
+    &--loading {
         width: 10rem;
         top: -3rem;
     }
+
     &--li {
         min-height: 11rem;
     }
-    &--container__loading{
+
+    &--container__loading {
         position: absolute;
         top: -2rem;
         right: 3rem;
         width: 12rem;
     }
+
     // &--header {
     //     position: relative;
     //     display: flex;
@@ -287,6 +341,12 @@
             max-width: 70%;
             min-width: 60%;
             min-height: 4rem;
+
+            @include respond(tab-port){
+                display: block;
+                min-width: 100%;
+                margin-bottom:.5rem ;
+            }
         }
 
         &__features {
@@ -295,14 +355,37 @@
             bottom: 0;
             width: 20rem;
             display: flex;
-            &__edit{
+
+            &__edit {
                 position: absolute;
                 right: 3.3rem;
                 bottom: 1rem;
                 width: 20rem;
                 display: flex;
+                @include respond(tab-port){
+                    position: relative;
+                    width: 100%;
+                    bottom: 0;
+                    right: 0;
+                    display: flex;
+                    justify-content: end;
+                    padding-bottom: 1.3rem;        
+                    border-bottom: 1px solid $color-grey-dark-2;
+
+                }
             }
-           
+
+            @include respond (tab-port) {
+                position: relative;
+                width: 100%;
+                right: 0rem;
+                display: flex;
+                justify-content: end;
+                padding-bottom: 1.3rem;
+                border-bottom: 1px solid $color-grey-dark-2;
+
+            }
+
         }
 
         &__edit {
@@ -347,6 +430,9 @@
             font-size: 2.3rem;
             margin-right: .1rem;
             padding-bottom: .4rem;
+            &__x{
+                font-size: 2.6rem;
+            }
         }
     }
 
@@ -355,7 +441,7 @@
         display: flex;
         flex-direction: column;
         position: relative;
-
+        
         &__name {
             display: inline-block;
             max-width: 40%;
@@ -380,6 +466,12 @@
 
             &::-webkit-scrollbar {
                 display: none;
+            }
+
+            @include respond(tab-port){
+                display: block;
+                min-width: 100%;
+                margin-bottom: 1rem;
             }
         }
     }

@@ -7,9 +7,10 @@
         font-size: 5rem;
     }
     &--paragraph{
-        text-align: center;
+        font-size: $xs-rem;
         width: 70%;
         margin: 0rem auto;
+        text-align: left;
     }
     &--button{
         padding: 1rem 2rem;

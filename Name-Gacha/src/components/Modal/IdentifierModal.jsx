@@ -55,13 +55,13 @@ const IdentifierModal = forwardRef(function IdentifierModal({ user }, ref) {
             mutateAddVariable({
                 pageId: selectedPage.pageId,
                 variableName: newIdentifier.name,
-                variableExp: newIdentifier.exp,
+                variableExp: newIdentifier.exp[0],
             });
         } else {
             mutateAddFunction({
                 pageId: selectedPage.pageId,
                 functionName: newIdentifier.name,
-                functionExp: newIdentifier.exp,
+                functionExp: newIdentifier.exp[0],
             });
         }
     };
