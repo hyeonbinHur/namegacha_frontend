@@ -11,7 +11,10 @@
 <img src="https://img.shields.io/badge/Error Boundary-000000?style=for-the-badge&logoColor=white">
 </p>
 
-
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/4c42d3da-e9c5-463e-aa6a-fb6439f30767">
+  
+</div>
 
 
 ## Project Overview
