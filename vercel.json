@@ -1,17 +1,9 @@
 {
-  "redirects": [
+  "routes": [
+    { "handle": "filesystem" },
     {
-      "source": "/:path*",
-      "destination": "/error",
-      "permanent": false
+      "src": "/.*",
+      "dest": "/index.html"
     }
-  ],
-  "rewrites": [
-    {
-      "source": "/:path*",
-      "destination": "/index.html"
-    }
-  ],
-  "cleanUrls": true,
-  "trailingSlash": false
+  ]
 }
