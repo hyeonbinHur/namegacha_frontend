@@ -70,12 +70,4 @@ Two main types of errors are handled:
 
 Additionally, if a user navigates to an incorrect URL, an error page is displayed to handle the issue.
 
----
 
-## ✅ **공통 고려사항**
-
-- **CSRF 오류 (403 Forbidden)**: CSRF 토큰 누락
-- **Validation Error (400 Bad Request)**: 입력값 검증 실패
-- **Session Expired (401 Unauthorized)**: 세션 만료
-
-더 추가하거나 구체적인 설명이 필요한 부분이 있다면 말씀해주세요! 😊
