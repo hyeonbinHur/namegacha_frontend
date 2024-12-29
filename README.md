@@ -74,11 +74,12 @@ Six global state slices are used to manage most global states such as the curren
 ## Error Handling
 
 - Predictable Errors: These include HTTP request-related errors such as authentication errors, bad requests, and validation errors. These errors are managed using Axios and React Query by displaying error modals.
-- 
+
 - 예측 가능한 오류: 인증 오류, 잘못된 요청, 유효성 검사 오류와 같은 HTTP 요청 관련 오류입니다. 이 오류들은 Axios와 React Query를 사용하여 오류 모달로 표시됩니다.
 
-
 - Unpredictable Errors: These include rendering errors and network failures. These errors are handled using the React Error Boundary library, displaying modals with error codes and messages.
+
+- 예측 불가능한 오류: 예측 불가능한 에러에는 렌더링 오류나 네트워크 장애가 포함됩니다. 이러한 오류는 React Error Boundary 라이브러리를 사용하여 처리되며, 오류 코드와 메시지를 포함한 모달을 통해 사용자에게 표시됩니다.
 
 ## Feature
 
