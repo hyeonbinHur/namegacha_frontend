@@ -75,7 +75,7 @@ export default function MainPage() {
               <Route path="/" element={<WrappedMainChat />} />
               <Route path="/detail/:pageId" element={<WrappedDetailPage />} />
               <Route path="/error" element={<ErrorPage />} />
-              <Route path="*" element={<Navigate to="/error" />} />
+              <Route path="/*" element={<Navigate to="/error" />} />
             </Routes>
           </ErrorBoundary>
         </section>
