@@ -1,6 +1,9 @@
 # Name Gacha Front-End
 
 <div align="center">
+
+아랫부분에 회고가 있습니다
+  
 <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
 <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white">
@@ -20,6 +23,8 @@
 ## Project Overview
 
 This project is an AI-powered chatting application built with AWS and React. The main feature is to provide identifier names and explanations for developers. When a developer gives a simple explanation to the AI, it returns 9 sample names with explanations. The developer can choose one of these names and save the name and explanation to their database. The database and REST API are built [here](https://github.com/hyeonbinHur/Name_Gacha_aws_lambda), and the front-end code is contained in this repository.
+
+이 프로젝트는 AWS와 React로 구축된 AI 기반 채팅 애플리케이션입니다. 주요 기능은 개발자에게 식별자 이름과 설명을 제공하는 것입니다. 개발자가 AI에게 간단한 설명을 입력하면, AI는 9개의 샘플 이름과 설명을 반환합니다. 개발자는 이 중 하나의 이름을 선택하여 이름과 설명을 데이터베이스에 저장할 수 있습니다. 데이터베이스와 REST API는 여기에서 확인할 수 있으며, 프론트엔드 코드는 이 저장소에 포함되어 있습니다.
 
 ### Project Design
 
@@ -52,22 +57,40 @@ npm install
 
 The REST APIs used in the front-end are encapsulated using Axios. This ensures consistent, predictable, and reliable HTTP requests. Predictable errors are handled by separating the error codes and messages.
 
+프론트엔드에서 사용되는 REST API들은 Axios를 사용하여 캡슐화됩니다. 이를 통해 일관적이고 예측 가능하며 신뢰할 수 있는 HTTP 요청을 보장합니다. 예측 가능한 오류는 오류 코드와 메시지를 분리하여 처리합니다.
+
 ### React Query
 
 All HTTP requests created with Axios are managed through React Query, allowing consistent handling of server states such as loading, success, and error. By actively utilizing caching with React Query, the frequency of HTTP requests is drastically reduced, significantly improving the application's performance.
+
+Axios로 생성된 모든 HTTP 요청은 React Query를 통해 관리되어, 로딩, 성공, 오류와 같은 서버 상태를 일관되게 처리합니다. React Query의 캐싱 기능을 적극 활용하여 HTTP 요청의 빈도를 대폭 줄여 애플리케이션의 성능을 크게 향상시킵니다.
 
 ### Redux
 
 Six global state slices are used to manage most global states such as the current chatting thread, modals, context menus, and selected pages through Redux.
 
+현재 채팅 스레드, 모달, 컨텍스트 메뉴, 선택된 페이지 등 대부분의 글로벌 상태는 Redux를 통해 관리됩니다. Redux에서는 총 6개의 글로벌 상태 슬라이스가 사용됩니다.
+
 ## Error Handling
 
-Two main types of errors are handled:
-
 - Predictable Errors: These include HTTP request-related errors such as authentication errors, bad requests, and validation errors. These errors are managed using Axios and React Query by displaying error modals.
+- 
+- 예측 가능한 오류: 인증 오류, 잘못된 요청, 유효성 검사 오류와 같은 HTTP 요청 관련 오류입니다. 이 오류들은 Axios와 React Query를 사용하여 오류 모달로 표시됩니다.
+
 
 - Unpredictable Errors: These include rendering errors and network failures. These errors are handled using the React Error Boundary library, displaying modals with error codes and messages.
 
-Additionally, if a user navigates to an incorrect URL, an error page is displayed to handle the issue.
+## Feature
+
+### Chatting 
+![chat_1](https://github.com/user-attachments/assets/a460be6a-e74f-42fb-9c46-9ceab543a5e0)
+![chat_4](https://github.com/user-attachments/assets/1759705e-82a7-4c06-a842-f4fabb2a6c57)
+
+### Sidebar
+![sidebar_2](https://github.com/user-attachments/assets/5957d2af-edf2-442a-bf35-eca442b6b217)
+
+### Detail Page
+![detail_2](https://github.com/user-attachments/assets/5bf5ea8b-824e-4676-9384-b63d56f977c1)
+
 
 
