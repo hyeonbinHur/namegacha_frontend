@@ -1,4 +1,5 @@
 # Name Gacha Front-End
+
 <div align="center">
 <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=Vite&logoColor=white">
 <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white">
@@ -16,7 +17,6 @@
   
 </div>
 
-
 ## Project Overview
 
 This project is an AI-powered chatting application built with AWS and React. The main feature is to provide identifier names and explanations for developers. When a developer gives a simple explanation to the AI, it returns 9 sample names with explanations. The developer can choose one of these names and save the name and explanation to their database. The database and REST API are built [here](https://github.com/hyeonbinHur/Name_Gacha_aws_lambda), and the front-end code is contained in this repository.
@@ -27,16 +27,16 @@ For more details, see the [Project Design Document](https://uncle-hyeonb.tistory
 
 ## Libraries Used
 
--   **React Vite**
--   **React Router**
--   **React Query**
--   **React Icons**
--   **React Redux**
--   **Axios**
--   **Sass**
--   **React Toastify**
--   **React Error Boundary**
--   **React Query Devtools**
+- **React Vite**
+- **React Router**
+- **React Query**
+- **React Icons**
+- **React Redux**
+- **Axios**
+- **Sass**
+- **React Toastify**
+- **React Error Boundary**
+- **React Query Devtools**
 
 ## Setup
 
@@ -64,8 +64,18 @@ Six global state slices are used to manage most global states such as the curren
 
 Two main types of errors are handled:
 
--   Predictable Errors: These include HTTP request-related errors such as authentication errors, bad requests, and validation errors. These errors are managed using Axios and React Query by displaying error modals.
+- Predictable Errors: These include HTTP request-related errors such as authentication errors, bad requests, and validation errors. These errors are managed using Axios and React Query by displaying error modals.
 
--   Unpredictable Errors: These include rendering errors and network failures. These errors are handled using the React Error Boundary library, displaying modals with error codes and messages.
+- Unpredictable Errors: These include rendering errors and network failures. These errors are handled using the React Error Boundary library, displaying modals with error codes and messages.
 
 Additionally, if a user navigates to an incorrect URL, an error page is displayed to handle the issue.
+
+---
+
+## ✅ **공통 고려사항**
+
+- **CSRF 오류 (403 Forbidden)**: CSRF 토큰 누락
+- **Validation Error (400 Bad Request)**: 입력값 검증 실패
+- **Session Expired (401 Unauthorized)**: 세션 만료
+
+더 추가하거나 구체적인 설명이 필요한 부분이 있다면 말씀해주세요! 😊
